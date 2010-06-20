@@ -1,0 +1,226 @@
+#
+# This is the configuration file for ExternalBoxESP+bot by Sph4ck
+#
+# you should find here many parameters to customize your hack without changing code
+#
+
+# this file is interpreted as Python code, so beware: you can easily break the program
+
+# ----------------------------------------------------------------------
+# Offsets for COD6 - build 1.1.195
+#
+REFDEF = 0x860030
+ENTITY = 0x8F8AF8
+CLIENTINFO = 0x8EC2C8
+CG_T = 0x7F59BC
+CGS_T = 0x7F1CF8
+
+ISINGAME = 0x7F58C8
+VIEWANGLEY = 0xB36A40
+ADDR_KILLS = 0x01B2C918
+ADDR_DEATHS = 0x01B2C920
+
+COD_WINDOW_NAME = "Modern Warfare 2"
+
+# ----------------------------------------------------------------------
+# MOCK is set to True to debug purposes only
+#
+MOCK = False              # only used to test hack without the game running
+PROFILING = False        # only used for debug profiling
+
+# ----------------------------------------------------------------------
+# You can customize below to avoid easily bannable hack
+
+APP_NAME = 'Launcher'			# name of the hack window
+
+# this specifies the pause (sleep) between two iterations
+# the number is in seconds, 0.010 meaning 10ms
+# normally 0 should be OK but it might eat up too much CPU. 0.010 is also fine and less aggressive
+MAIN_LOOP_SLEEP = 0.010
+if PROFILING: MAIN_LOOP_SLEEP = 0.000
+
+# ----------------------------------------------------------------------
+# Graphical preferences
+#
+# All colors are in 0xAARRGGBB format
+#	AA = (alpha) transparency, from 00 (transparent) to FF (opaque)
+#	RR = red
+#	GG = green
+#	BB = blue
+
+# position of the Radar on the screen
+RADAR_SIZE = 160            # size of the radar in pixels
+RADAR_OFFSET = 20           # margin from top and right of the screen, in pixels
+
+# colors for the BOX Esp
+COLOR_FRIEND = 0x7F0000FF                  # blue
+COLOR_ENEMY = 0x7FC00000                   # dark red
+COLOR_ENEMY_COLDBLOODED = 0x80FFBF00       # orange
+COLOR_DEAD = 0x7F444444                    # dead body, the player is watching killcam
+COLOR_SENTRY = 0x7F00B050                  # green
+COLOR_EXPLOSIVE = 0x3F7F7F7F               # yellow
+
+# 
+COLOR_BOX_LINE_WIDTH = 3					# width of the arrow from lower screen to box
+COLOR_BOX_OUTER_WIDTH = 3					# width of the Box ESP
+COLOR_PLAYER_NAME = 0x7FFFFFFF				# color of the player name
+PLAYER_NAME_FONT = "Arial"
+PLAYER_NAME_SIZE = 14
+PLAYER_NAME_WEIGHT = 400
+
+# colors for mini-map
+MAP_COLOR_BACK = 0x44000000					# radar back color
+MAP_COLOR_BORDER = 0x7F0000FF				# radar border color
+MAP_COLOR_ME = 0xFF00FF00					# color of my player
+MAP_COLOR_FRIEND = 0xFF4444FF				# color of team-mates
+MAP_COLOR_ENEMY = 0XFFFF4444				# color of enemies
+MAP_COLOR_ENEMY_COLDBLOODED = 0XFFFFBF44	# color of enemies with coldblood perk
+
+# color of the claymore ESP
+COLOR_CLAYMORE = 0x3FFF6666					# color of claymores
+COLOR_PLANE = 0x7F880088                    # color for planes & helicopters
+
+# distance ESP (in meters or ft)
+DISTANCE_ESP_UNIT =  0.03048                # use  0.03048 for meters, or 0.1 for ft
+DISTANCE_ESP_UNIT_NAME = "m"                # either "m" or "ft"
+
+# fading esp
+FADE_ENABLED = True                         # set to False to disable fading
+FADE_MIN_DIST = 600                         # in 1/10th of ft, so 600 is ~20m
+FADE_MIN_ALPHA = 0x7F                       # level of transparency
+FADE_MAX_DIST = 2500                        # in 1/10th of ft, 2500 is ~80m
+FADE_MAX_ALPHA = 0x3F                       # level of transparency
+# ----------------------------------------------------------------------
+# rage module - special coloring for the player you want to rage
+
+KEY_RAGE_PREV = "VK_PRIOR"                    # page up
+KEY_RAGE_NEXT = "VK_NEXT"                   # page down
+
+RAGE_COLOR_ESP = 0XFFFF0066                 # purple
+RAGE_COLOR_MAP = 0XFFFF0066                 # purple
+
+# ----------------------------------------------------------------------
+# Cross hair
+CROSSHAIR_COLOR = 0xCCFF1111				# crosshair color
+CROSSHAIR_WIDTH = 2							# crosshair width
+CROSSHAIR_SIZE = 10							# crosshair length
+
+# ----------------------------------------------------------------------
+# Status line
+STATUS_COLOR_ACTIVE = 0xFFFFCC00
+STATUS_COLOR_INACTIVE = 0xFF777777
+
+# ----------------------------------------------------------------------
+# killstreak display
+
+KILLSTREAK_FONT = "Arial"
+KILLSTREAK_SIZE = 120
+KILLSTREAK_WEIGHT = 700
+# ----------------------------------------------------------------------
+# bot constants
+
+GRAV = 322.0                        # in 1/10th of feet/s2
+TUBE_VEL = 1550.0                   # which is 155 ft/s, or 47m/s
+KNIFE_VEL = 940.0                   # which is 90 ft/s, or 27m/s
+
+# below are the hieght of aiming for regular weapon, depending on pose
+# feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
+# beware that having too much headshots can unbalance your stats, use EAM to reset them
+BOT_STAND_Z = 48            # or 55 for more headshots
+BOT_CROUCHED_Z = 38
+BOT_PRONE_Z = 10
+
+BOT_TUBE_Z = 0
+BOT_KNIFE_Z = 40
+
+BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
+BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
+
+BOT_SPEED_1 = 5
+BOT_SPEED_TICK_1 = 15
+BOT_SPEED_2 = 3
+BOT_SPEED_TICK_2 = 30
+BOT_SPEED_3 = 2
+# ----------------------------------------------------------------------
+# Fx keys default values, select if Fx is enabled or disabled by default
+F1 = False
+F2 = False
+F3 = True
+F4 = True
+F5 = True
+F6 = True
+F7 = False
+F8 = True
+F9 = False
+F10 = True
+F11 = True
+F12 = True
+
+# labels
+F1_LABEL = ""
+F2_LABEL = ""
+F3_LABEL = "crosshair"
+F4_LABEL = "explosives"
+F5_LABEL = "aimbot"
+F6_LABEL = "tubebot"
+F7_LABEL = "knifebot"
+F8_LABEL = "autostab"
+F9_LABEL = "triggerbot"
+F10_LABEL = "radar"
+F11_LABEL = "boxesp"
+F12_LABEL = "snapline"
+
+# virtual keys ON and OFF are also accepted if always on or off
+# all globs starting with IS_ are parsed and mapped to an F key or ON/OFF
+KEY_CROSSHAIR =     "F3"
+KEY_EXPLOSIVES =    "F4"
+KEY_AIMBOT_ACTIVE =        "F5"
+KEY_TUBEBOT_ACTIVE =       "F6"
+KEY_KNIFEBOT_ACTIVE =      "F7"
+KEY_AUTOSTAB =      "F8"
+KEY_TRIGGERBOT =    "F9"
+KEY_RADAR =         "F10"
+KEY_BOXESP =        "F11"
+KEY_BOX_SNAPLINE =   "F12"
+
+# all globals beginning with KEY_ are parsed and corresponding keys are being scannec
+# key codes can be Windows VK_* key codes or single characters
+# seperate multiple keys with spaces
+KEY_BOT = "VK_RBUTTON"
+KEY_TUBEBOT = "VK_HOME VK_MBUTTON"
+KEY_KNIFEBOT = "G VK_MBUTTON"
+KEY_INDIRECT_BOT = "VK_CAPITAL"         # CAPS LOCK
+
+TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
+# ----------------------------------------------------------------------
+# autostab parameters
+AUTOSTAB_DIST = 150             # distance in 1/10th of ft
+AUTOSTAB_DIST_Z = 50            # max vertical distance (otherwise you try to stab people above/under you)
+
+# ----------------------------------------------------------------------
+# killstreak counter
+KEY_KILLSTREAK = "ON"           # always on
+KILLSTREAK_FONT_NAME = "Arial"
+KILLSTREAK_FONT_SIZE = 120
+KILLSTREAK_FONT_WEIGHT = 700    # bold
+KILLSTREAK_FONT_COLOR = 0x5FFFFFFF  # grey
+
+# ----------------------------------------------------------------------
+# inspector class for debug
+KEY_INSPECTOR = "VK_NUMPAD0"
+
+# ======================================================================
+# == CUT HERE to recreate the config file                             ==
+# ======================================================================
+#
+# this is just a wrapper to load globals from the config file, and put them into the Config module symbol table
+#
+glob_context = {}
+local_context = {}
+try:
+    execfile("config", glob_context, local_context)
+    globals().update(local_context)
+except Exception as err:
+    print "Warning: Could not load 'config' file, reverting to defaults: %s" % err
+
+

@@ -1,0 +1,50 @@
+External BoxESP v5.0 by Sph4ck
+----------------------------------------
+Build instructions
+
+- STAND ALONE VERSION
+=====================
+
+The rar contains a full stand-alone version in the "dist" folder. You can move the folder anywhere on your disk, even on a USB memory. Just keep all files together (launcher.exe, config, library.zip, python26.dll).
+
+Note: "library.zip" may be reported as a corrupt ZIP file by WinRAR and others, but it's not. It is actually a "z" file and not a "zip" file. Do not rename it or change its extension.
+
+- HOWTO (NOT) COMPILE
+=====================
+This program is written in Python (http://python.org/) which is a interpreted scripting language. It does not require any compilation process compared to the previous C++ version.
+
+All files are automatically compiled into byte-code files (*.pyc) at runtime.
+
+You may wonder: why Python, and isn't an scripting language too slow?
+Python makes customizing and updating the app far easier and more fun than C++. I hate C++.
+Concerning performance, it is true that Python is by far slower than C++. But the CPU usage of this hack is very low and the major part is being consumed in native DirectX calls. There is negligible impact on CPU.
+
+Note: I am using Psyco, a Just-In-Time bytecode compiler which gives a x2 performance boost. (http://psyco.sourceforge.net/)
+
+To use the source-file version you need to install ActivePython v2.6.xxx (freeware)
+This page: http://www.activestate.com/activepython/downloads
+Download link: http://downloads.activestate.com/ActivePython/releases/2.6.5.12/ActivePython-2.6.5.12-win32-x86.msi
+
+To run the app:
+  - double-click on "launcher.py"
+  - or type "python lancher.py" in command-line, and make sure the current folder is the "src" folder
+
+I recommend to use an IDE. I use Eclipse + PyDev extension. It is heavy-weight (+250MB) but very powerful.
+Eclipse: http://www.eclipse.org/downloads/
+Download link: http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/galileo/SR2/eclipse-java-galileo-SR2-win32.zip
+
+PyDev: http://pydev.org/
+Intall from within Eclipse
+
+You might consider PyScripter as  a light-weight alternative.
+http://code.google.com/p/pyscripter/
+
+- HOWTO BUILD THE STAND-ALONE VERSION
+=====================================
+
+- Open command-line
+- clear the "dist" folder
+- change the working dir to "src"
+- launch "python setup.py py2exe"
+- it will create the "dist" folder containing all required files
+- you can safely remove the "build" folder

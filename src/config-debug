@@ -1,0 +1,18 @@
+# ----------------------------------------------------------------------
+# MOCK is set to True to debug purposes only
+#
+MOCK = True              # only used to test hack without the game running
+PROFILING = False        # only used for debug profiling
+if MOCK:
+    REFDEF = 0x10000
+    ENTITY = 0x10000
+    CLIENTINFO = 0x10000
+    CG_T = 0x10000
+    CGS_T = 0x10000
+    
+    ISINGAME = 0x10000
+    VIEWANGLEY = 0x10000
+    ADDR_KILLS = 0x10000
+    ADDR_DEATHS = 0x10000
+    
+    COD_WINDOW_NAME = "Microsoft Office Communicator"
