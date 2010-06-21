@@ -209,6 +209,10 @@ KILLSTREAK_FONT_WEIGHT = 700    # bold
 KILLSTREAK_FONT_COLOR = 0x5FFFFFFF  # grey
 
 # ----------------------------------------------------------------------
+# Mouse inversion option: Mouse settings inverted = True; Mouse settings normal = False;
+MOUSE_INVERSION = False
+
+# ----------------------------------------------------------------------
 # inspector class for debug
 KEY_INSPECTOR = "VK_NUMPAD0"
 

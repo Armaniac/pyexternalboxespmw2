@@ -1,3 +1,4 @@
+from Config import MOUSE_INVERSION
 from ctypes import *
 import win32con, win32api
 from ctypes.wintypes import DWORD, LONG, ULONG, WORD
@@ -114,7 +115,12 @@ def mouse_move(delta_x, delta_y, center_x, center_y):
     fy = (center_y + delta_y) * dy
     input = INPUT()
     input.type = INPUT_MOUSE
-    input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE
-    input.mi.dx = int(fx)
-    input.mi.dy = int(fy)
-    windll.User32.SendInput(1, byref(input), sizeof(input))
+    input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE    
+    if MOUSE_INVERSION == False:
+        input.mi.dx = int(fx)
+        input.mi.dy = int(fy)
+        windll.User32.SendInput(1, byref(input), sizeof(input))
+    elif MOUSE_INVERSION == True:
+        input.mi.dx = - int(fx)
+        input.mi.dy = - int(fy)
+        windll.User32.SendInput(1, byref(input), sizeof(input))
