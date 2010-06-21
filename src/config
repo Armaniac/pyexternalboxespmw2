@@ -147,10 +147,10 @@ F1 = True
 F2 = False
 F3 = True
 F4 = True
-F5 = True
-F6 = True
+F5 = False
+F6 = False
 F7 = False
-F8 = True
+F8 = False
 F9 = False
 F10 = True
 F11 = True
@@ -158,7 +158,7 @@ F12 = True
 
 # labels
 F1_LABEL = "display"
-F2_LABEL = ""
+F2_LABEL = "move disp"
 F3_LABEL = "crosshair"
 F4_LABEL = "explosives"
 F5_LABEL = "aimbot"
@@ -183,7 +183,7 @@ KEY_RADAR =         "F10"
 KEY_BOXESP =        "F11"
 KEY_BOX_SNAPLINE =   "F12"
 
-# all globals beginning with KEY_ are parsed and corresponding keys are being scannec
+# all globals beginning with KEY_ are parsed and corresponding keys are being scanned
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
 KEY_BOT = "VK_RBUTTON"
