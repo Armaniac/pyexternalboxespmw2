@@ -86,10 +86,10 @@ DISTANCE_ESP_UNIT_NAME = "m"                # either "m" or "ft"
 
 # fading esp
 FADE_ENABLED = True                         # set to False to disable fading
-FADE_MIN_DIST = 600                         # in 1/10th of ft, so 600 is ~20m
-FADE_MIN_ALPHA = 0x7F                       # level of transparency
+FADE_MIN_DIST = 300                         # in 1/10th of ft, so 600 is ~20m
+FADE_MIN_ALPHA = 0xFF                       # level of transparency
 FADE_MAX_DIST = 2500                        # in 1/10th of ft, 2500 is ~80m
-FADE_MAX_ALPHA = 0x3F                       # level of transparency
+FADE_MAX_ALPHA = 0x19                       # level of transparency
 # ----------------------------------------------------------------------
 # rage module - special coloring for the player you want to rage
 
@@ -134,7 +134,7 @@ BOT_CROUCHED_Z = 38
 BOT_PRONE_Z = 10
 
 BOT_TUBE_Z = 0
-BOT_KNIFE_Z = 40
+BOT_KNIFE_Z = 30
 
 BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
 BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot

@@ -102,6 +102,6 @@ class Esp(object):
                     if size_y < 10:  size_y = 10
                     size_x = size_y
                     draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, COLOR_PLANE)
-                    if KEY_BOX_SNAPLINE:
+                    if keys["KEY_BOX_SNAPLINE"]:
                         draw_line_abs(frame.line, read_game.screen_center_x, read_game.resolution_y,
                               feet.x, feet.y, COLOR_BOX_LINE_WIDTH, COLOR_PLANE)

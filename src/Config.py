@@ -31,7 +31,7 @@ PROFILING = False        # only used for debug profiling
 # ----------------------------------------------------------------------
 # You can customize below to avoid easily bannable hack
 
-APP_NAME = 'Launcher'			# name of the hack window
+APP_NAME = 'Launcher'            # name of the hack window
 
 # this specifies the pause (sleep) between two iterations
 # the number is in seconds, 0.010 meaning 10ms
@@ -43,10 +43,10 @@ if PROFILING: MAIN_LOOP_SLEEP = 0.000
 # Graphical preferences
 #
 # All colors are in 0xAARRGGBB format
-#	AA = (alpha) transparency, from 00 (transparent) to FF (opaque)
-#	RR = red
-#	GG = green
-#	BB = blue
+#    AA = (alpha) transparency, from 00 (transparent) to FF (opaque)
+#    RR = red
+#    GG = green
+#    BB = blue
 
 # position of the Radar on the screen
 RADAR_SIZE = 160            # size of the radar in pixels
@@ -61,23 +61,23 @@ COLOR_SENTRY = 0x7F00B050                  # green
 COLOR_EXPLOSIVE = 0x3F7F7F7F               # yellow
 
 # 
-COLOR_BOX_LINE_WIDTH = 3					# width of the arrow from lower screen to box
-COLOR_BOX_OUTER_WIDTH = 3					# width of the Box ESP
-COLOR_PLAYER_NAME = 0x7FFFFFFF				# color of the player name
+COLOR_BOX_LINE_WIDTH = 3                    # width of the arrow from lower screen to box
+COLOR_BOX_OUTER_WIDTH = 3                    # width of the Box ESP
+COLOR_PLAYER_NAME = 0x7FFFFFFF                # color of the player name
 PLAYER_NAME_FONT = "Arial"
 PLAYER_NAME_SIZE = 14
 PLAYER_NAME_WEIGHT = 400
 
 # colors for mini-map
-MAP_COLOR_BACK = 0x44000000					# radar back color
-MAP_COLOR_BORDER = 0x7F0000FF				# radar border color
-MAP_COLOR_ME = 0xFF00FF00					# color of my player
-MAP_COLOR_FRIEND = 0xFF4444FF				# color of team-mates
-MAP_COLOR_ENEMY = 0XFFFF4444				# color of enemies
-MAP_COLOR_ENEMY_COLDBLOODED = 0XFFFFBF44	# color of enemies with coldblood perk
+MAP_COLOR_BACK = 0x44000000                    # radar back color
+MAP_COLOR_BORDER = 0x7F0000FF                # radar border color
+MAP_COLOR_ME = 0xFF00FF00                    # color of my player
+MAP_COLOR_FRIEND = 0xFF4444FF                # color of team-mates
+MAP_COLOR_ENEMY = 0XFFFF4444                # color of enemies
+MAP_COLOR_ENEMY_COLDBLOODED = 0XFFFFBF44    # color of enemies with coldblood perk
 
 # color of the claymore ESP
-COLOR_CLAYMORE = 0x3FFF6666					# color of claymores
+COLOR_CLAYMORE = 0x3FFF6666                    # color of claymores
 COLOR_PLANE = 0x7F880088                    # color for planes & helicopters
 
 # distance ESP (in meters or ft)
@@ -86,10 +86,10 @@ DISTANCE_ESP_UNIT_NAME = "m"                # either "m" or "ft"
 
 # fading esp
 FADE_ENABLED = True                         # set to False to disable fading
-FADE_MIN_DIST = 600                         # in 1/10th of ft, so 600 is ~20m
-FADE_MIN_ALPHA = 0x7F                       # level of transparency
+FADE_MIN_DIST = 300                         # in 1/10th of ft, so 600 is ~20m
+FADE_MIN_ALPHA = 0xFF                       # level of transparency
 FADE_MAX_DIST = 2500                        # in 1/10th of ft, 2500 is ~80m
-FADE_MAX_ALPHA = 0x3F                       # level of transparency
+FADE_MAX_ALPHA = 0x19                       # level of transparency
 # ----------------------------------------------------------------------
 # rage module - special coloring for the player you want to rage
 
@@ -101,9 +101,9 @@ RAGE_COLOR_MAP = 0XFFFF0066                 # purple
 
 # ----------------------------------------------------------------------
 # Cross hair
-CROSSHAIR_COLOR = 0xCCFF1111				# crosshair color
-CROSSHAIR_WIDTH = 2							# crosshair width
-CROSSHAIR_SIZE = 10							# crosshair length
+CROSSHAIR_COLOR = 0xCCFF1111                # crosshair color
+CROSSHAIR_WIDTH = 2                            # crosshair width
+CROSSHAIR_SIZE = 10                            # crosshair length
 
 # ----------------------------------------------------------------------
 # Status line
@@ -134,7 +134,7 @@ BOT_CROUCHED_Z = 38
 BOT_PRONE_Z = 10
 
 BOT_TUBE_Z = 0
-BOT_KNIFE_Z = 40
+BOT_KNIFE_Z = 30
 
 BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
 BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
@@ -186,7 +186,7 @@ KEY_RADAR =         "F10"
 KEY_BOXESP =        "F11"
 KEY_BOX_SNAPLINE =   "F12"
 
-# all globals beginning with KEY_ are parsed and corresponding keys are being scannec
+# all globals beginning with KEY_ are parsed and corresponding keys are being scanned
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
 KEY_BOT = "VK_RBUTTON"
