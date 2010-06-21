@@ -134,7 +134,7 @@ BOT_CROUCHED_Z = 38
 BOT_PRONE_Z = 10
 
 BOT_TUBE_Z = 0
-BOT_KNIFE_Z = 30
+BOT_KNIFE_Z = 40
 
 BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
 BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
