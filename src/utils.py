@@ -116,11 +116,10 @@ def mouse_move(delta_x, delta_y, center_x, center_y):
     input = INPUT()
     input.type = INPUT_MOUSE
     input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE    
-    if MOUSE_INVERSION == False:
+    if not MOUSE_INVERSION:
         input.mi.dx = int(fx)
         input.mi.dy = int(fy)
-        windll.User32.SendInput(1, byref(input), sizeof(input))
-    elif MOUSE_INVERSION == True:
+    else:
         input.mi.dx = - int(fx)
         input.mi.dy = - int(fy)
-        windll.User32.SendInput(1, byref(input), sizeof(input))
+    windll.User32.SendInput(1, byref(input), sizeof(input))
