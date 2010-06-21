@@ -109,6 +109,9 @@ CROSSHAIR_SIZE = 10							# crosshair length
 # Status line
 STATUS_COLOR_ACTIVE = 0xFFFFCC00
 STATUS_COLOR_INACTIVE = 0xFF777777
+STATUS_COLOR_LINE = 0xAF000000              # color of status line
+KEY_STATUS = "F1"                           # is status display enabled
+KEY_STATUS_UP = "F2"                        # to select if you want the status up on the screen 
 
 # ----------------------------------------------------------------------
 # killstreak display
@@ -143,22 +146,22 @@ BOT_SPEED_TICK_2 = 30
 BOT_SPEED_3 = 2
 # ----------------------------------------------------------------------
 # Fx keys default values, select if Fx is enabled or disabled by default
-F1 = False
+F1 = True
 F2 = False
 F3 = True
 F4 = True
-F5 = True
-F6 = True
+F5 = False
+F6 = False
 F7 = False
-F8 = True
+F8 = False
 F9 = False
 F10 = True
 F11 = True
 F12 = True
 
 # labels
-F1_LABEL = ""
-F2_LABEL = ""
+F1_LABEL = "display"
+F2_LABEL = "move disp"
 F3_LABEL = "crosshair"
 F4_LABEL = "explosives"
 F5_LABEL = "aimbot"

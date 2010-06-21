@@ -109,6 +109,9 @@ CROSSHAIR_SIZE = 10							# crosshair length
 # Status line
 STATUS_COLOR_ACTIVE = 0xFFFFCC00
 STATUS_COLOR_INACTIVE = 0xFF777777
+STATUS_COLOR_LINE = 0xAF000000              # color of status line
+KEY_STATUS = "F1"                           # is status display enabled
+KEY_STATUS_UP = "F2"                        # to select if you want the status up on the screen 
 
 # ----------------------------------------------------------------------
 # killstreak display
