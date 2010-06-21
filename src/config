@@ -143,7 +143,7 @@ BOT_SPEED_TICK_2 = 30
 BOT_SPEED_3 = 2
 # ----------------------------------------------------------------------
 # Fx keys default values, select if Fx is enabled or disabled by default
-F1 = False
+F1 = True
 F2 = False
 F3 = True
 F4 = True
@@ -157,7 +157,7 @@ F11 = True
 F12 = True
 
 # labels
-F1_LABEL = ""
+F1_LABEL = "display"
 F2_LABEL = ""
 F3_LABEL = "crosshair"
 F4_LABEL = "explosives"
