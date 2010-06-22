@@ -100,12 +100,15 @@ class ReadGame(object):
             self.wnd_bounding_x = x
             self.wnd_bounding_y = y
             return True
+        elif self.mw2_hwnd == 0:
+            return False
         return False
         
     
     def _RPM(self, address, buffer):
         if not windll.kernel32.ReadProcessMemory(self.mw2_process.handle, address, byref(buffer), sizeof(buffer), None):
-            raise Exception("Could not ReadProcessMemory: ", win32api.GetLastError())
+               print "Did you close the Modern Warfare 2 window?"
+               raise Exception("Could not ReadProcessMemory: ", win32api.GetLastError())
 
     def _RPM_int(self, address):
         buf_int = c_int()

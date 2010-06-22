@@ -19,7 +19,7 @@ class Esp(object):
         frame = self.env.frame
         if not read_game.is_in_game: return
         
-        if KEY_BOXESP:
+        if keys["KEY_BOXESP"]:
             for p in read_game.player:
                 if (p.type == ET_PLAYER) and p.valid and p.alive and p != read_game.my_player:
                     # colors already calculated
