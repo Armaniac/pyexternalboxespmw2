@@ -81,8 +81,8 @@ COLOR_CLAYMORE = 0x3FFF6666					# color of claymores
 COLOR_PLANE = 0x7F880088                    # color for planes & helicopters
 
 # distance ESP (in meters or ft)
-DISTANCE_ESP_UNIT =  0.03048                # use  0.03048 for meters, or 0.1 for ft
-DISTANCE_ESP_UNIT_NAME = "m"                # either "m" or "ft"
+DISTANCE_ESP_UNIT =  0.1                # use  0.03048 for meters, or 0.1 for ft
+DISTANCE_ESP_UNIT_NAME = "ft"                # either "m" or "ft"
 
 # fading esp
 FADE_ENABLED = True                         # set to False to disable fading
@@ -95,6 +95,7 @@ FADE_MAX_ALPHA = 0x19                       # level of transparency
 
 KEY_RAGE_PREV = "VK_PRIOR"                    # page up
 KEY_RAGE_NEXT = "VK_NEXT"                   # page down
+KEY_RAGE_RESET = "VK_DELETE"				# delete key
 
 RAGE_COLOR_ESP = 0XFFFF0066                 # purple
 RAGE_COLOR_MAP = 0XFFFF0066                 # purple
@@ -136,10 +137,10 @@ BOT_PRONE_Z = 10
 BOT_TUBE_Z = 0
 BOT_KNIFE_Z = 40
 
-BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
+BOT_MIN_PIX_TO_CENTER = 50         # aim only if not more than 300 pixels from center of screen
 BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
 
-BOT_SPEED_1 = 5
+BOT_SPEED_1 = 7
 BOT_SPEED_TICK_1 = 15
 BOT_SPEED_2 = 3
 BOT_SPEED_TICK_2 = 30
@@ -197,7 +198,7 @@ KEY_INDIRECT_BOT = "VK_CAPITAL"         # CAPS LOCK
 TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
 # ----------------------------------------------------------------------
 # autostab parameters
-AUTOSTAB_DIST = 150             # distance in 1/10th of ft
+AUTOSTAB_DIST = 75             # distance in 1/10th of ft
 AUTOSTAB_DIST_Z = 50            # max vertical distance (otherwise you try to stab people above/under you)
 
 # ----------------------------------------------------------------------

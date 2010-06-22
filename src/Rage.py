@@ -6,7 +6,6 @@ from Keys import keys
 # you can then easily spot it both on radar and ESP
 # It only changes the color, no impact on aimbot
 
-
 class Rage(object):
     
     def __init__(self, env):
@@ -14,6 +13,7 @@ class Rage(object):
         self.rage_player_index = -1
         self._key_prev = False
         self._key_next = False
+        self._key_reset = False
     
     def render(self):
         read_game = self.env.read_game
@@ -22,17 +22,20 @@ class Rage(object):
             self.rage_player_index = -1
             self._key_prev = False
             self._key_next = False
+            self._key_reset = False
             return
         
         do_next = keys["KEY_RAGE_NEXT"] and not self._key_next       # do the key was just pressed?
         do_prev = keys["KEY_RAGE_PREV"] and not self._key_prev       # do the key was just pressed?
+        do_reset = keys["KEY_RAGE_RESET"] and not self._key_reset
         self._key_next = keys["KEY_RAGE_NEXT"]
         self._key_prev = keys["KEY_RAGE_PREV"]
+        self._key_reset = keys["KEY_RAGE_RESET"]
         
         if do_next or do_prev:
             idx = self.rage_player_index          # player index or 0 if negative
             if do_next: incr = 1
-            else:       incr = -1
+            else:       incr = -1 
             for i in range(PLAYERMAX):
                 idx += incr
                 if idx >= PLAYERMAX:    idx = 0
@@ -43,7 +46,7 @@ class Rage(object):
                     break
             else:
                 self.rage_player_index = -1             # none found
-              
+        elif do_reset: self.rage_player_index = -1   
         # now display player
         if self.rage_player_index >= 0:
             p = read_game.player[self.rage_player_index]

@@ -95,6 +95,7 @@ FADE_MAX_ALPHA = 0x19                       # level of transparency
 
 KEY_RAGE_PREV = "VK_PRIOR"                    # page up
 KEY_RAGE_NEXT = "VK_NEXT"                   # page down
+KEY_RAGE_RESET = "VK_DELETE"                # delete key
 
 RAGE_COLOR_ESP = 0XFFFF0066                 # purple
 RAGE_COLOR_MAP = 0XFFFF0066                 # purple
