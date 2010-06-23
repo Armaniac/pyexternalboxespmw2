@@ -83,7 +83,7 @@ class Bot(object):
                     aim.z = read_game.my_pos.z + slope * (aim - read_game.my_pos).length()
                     spot_coord = read_game.world_to_screen(aim)
                     if spot_coord:
-                        angle[0] = spot_coord.x - read_game.screen_center_x - 1      # -1 ?
+                        angle[0] = spot_coord.x - read_game.screen_center_x
                         angle[1] = spot_coord.y - read_game.screen_center_y
                         mouse_move(angle[0] / 3, angle[1] / 3, read_game.mouse_center_x, read_game.mouse_center_y)
                 else:
@@ -115,12 +115,12 @@ class Bot(object):
                     velocity = KNIFE_VEL
                 slope = self.find_slope(origin, read_game.my_pos, velocity)
                 if not slope is None:
-                    aim.z = read_game.my_pos.z + slope * (aim - read_game.my_pos).length()
-                    spot_coord = read_game.world_to_screen(aim)
+                    origin.z = read_game.my_pos.z + slope * (origin - read_game.my_pos).length()
+                    spot_coord = read_game.world_to_screen(origin)
                     if spot_coord:
-                        angle[0] = spot_coord.x - read_game.screen_center_x - 1      # -1 ?
+                        angle[0] = spot_coord.x - read_game.screen_center_x
                         angle[1] = spot_coord.y - read_game.screen_center_y
-                        print "slope = %.3f, angle = %.3f, %.3f" % (slope, angle[0], angle[1])
+                        #print "slope = %.3f, angle = %.3f, %.3f" % (slope, angle[0], angle[1])
                         mouse_move(angle[0] / 3, angle[1] / 3, read_game.mouse_center_x, read_game.mouse_center_y)
                 
 

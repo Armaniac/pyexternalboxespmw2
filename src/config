@@ -31,7 +31,7 @@ PROFILING = False        # only used for debug profiling
 # ----------------------------------------------------------------------
 # You can customize below to avoid easily bannable hack
 
-APP_NAME = 'Launcher'			# name of the hack window
+APP_NAME = 'Launcher'            # name of the hack window
 
 # this specifies the pause (sleep) between two iterations
 # the number is in seconds, 0.010 meaning 10ms
@@ -43,10 +43,10 @@ if PROFILING: MAIN_LOOP_SLEEP = 0.000
 # Graphical preferences
 #
 # All colors are in 0xAARRGGBB format
-#	AA = (alpha) transparency, from 00 (transparent) to FF (opaque)
-#	RR = red
-#	GG = green
-#	BB = blue
+#    AA = (alpha) transparency, from 00 (transparent) to FF (opaque)
+#    RR = red
+#    GG = green
+#    BB = blue
 
 # position of the Radar on the screen
 RADAR_SIZE = 160            # size of the radar in pixels
@@ -62,50 +62,50 @@ COLOR_SENTRY = 0x7F00B050                  # green
 COLOR_EXPLOSIVE = 0x3F7F7F7F               # yellow
 
 # 
-COLOR_BOX_LINE_WIDTH = 3					# width of the arrow from lower screen to box
-COLOR_BOX_OUTER_WIDTH = 3					# width of the Box ESP
-COLOR_PLAYER_NAME = 0x7FFFFFFF				# color of the player name
+COLOR_BOX_LINE_WIDTH = 3                    # width of the arrow from lower screen to box
+COLOR_BOX_OUTER_WIDTH = 3                    # width of the Box ESP
+COLOR_PLAYER_NAME = 0x7FFFFFFF                # color of the player name
 PLAYER_NAME_FONT = "Arial"
 PLAYER_NAME_SIZE = 14
 PLAYER_NAME_WEIGHT = 400
 
 # colors for mini-map
-MAP_COLOR_BACK = 0x44000000					# radar back color
-MAP_COLOR_BORDER = 0x7F0000FF				# radar border color
-MAP_COLOR_ME = 0xFF00FF00					# color of my player
-MAP_COLOR_FRIEND = 0xFF4444FF				# color of team-mates
-MAP_COLOR_ENEMY = 0XFFFF4444				# color of enemies
-MAP_COLOR_ENEMY_COLDBLOODED = 0XFFFFBF44	# color of enemies with coldblood perk
+MAP_COLOR_BACK = 0x44000000                    # radar back color
+MAP_COLOR_BORDER = 0x7F0000FF                # radar border color
+MAP_COLOR_ME = 0xFF00FF00                    # color of my player
+MAP_COLOR_FRIEND = 0xFF4444FF                # color of team-mates
+MAP_COLOR_ENEMY = 0XFFFF4444                # color of enemies
+MAP_COLOR_ENEMY_COLDBLOODED = 0XFFFFBF44    # color of enemies with coldblood perk
 
 # color of the claymore ESP
-COLOR_CLAYMORE = 0x3FFF6666					# color of claymores
+COLOR_CLAYMORE = 0x3FFF6666                    # color of claymores
 COLOR_PLANE = 0x7F880088                    # color for planes & helicopters
 
 # distance ESP (in meters or ft)
-DISTANCE_ESP_UNIT =  0.1                # use  0.03048 for meters, or 0.1 for ft
-DISTANCE_ESP_UNIT_NAME = "ft"                # either "m" or "ft"
+DISTANCE_ESP_UNIT =  0.03048                # use  0.03048 for meters, or 0.1 for ft
+DISTANCE_ESP_UNIT_NAME = "m"                # either "m" or "ft"
 
 # fading esp
 FADE_ENABLED = True                         # set to False to disable fading
 FADE_MIN_DIST = 300                         # in 1/10th of ft, so 600 is ~20m
 FADE_MIN_ALPHA = 0xFF                       # level of transparency
 FADE_MAX_DIST = 2500                        # in 1/10th of ft, 2500 is ~80m
-FADE_MAX_ALPHA = 0x32                       # level of transparency
+FADE_MAX_ALPHA = 0x19                       # level of transparency
 # ----------------------------------------------------------------------
 # rage module - special coloring for the player you want to rage
 
 KEY_RAGE_PREV = "VK_PRIOR"                    # page up
 KEY_RAGE_NEXT = "VK_NEXT"                   # page down
-KEY_RAGE_RESET = "VK_DELETE"				# delete key
+KEY_RAGE_RESET = "VK_DELETE"                # delete key
 
 RAGE_COLOR_ESP = 0XFFFF0066                 # purple
 RAGE_COLOR_MAP = 0XFFFF0066                 # purple
 
 # ----------------------------------------------------------------------
 # Cross hair
-CROSSHAIR_COLOR = 0xCCFF1111				# crosshair color
-CROSSHAIR_WIDTH = 2							# crosshair width
-CROSSHAIR_SIZE = 10							# crosshair length
+CROSSHAIR_COLOR = 0xCCFF1111                # crosshair color
+CROSSHAIR_WIDTH = 2                            # crosshair width
+CROSSHAIR_SIZE = 10                            # crosshair length
 
 # ----------------------------------------------------------------------
 # Status line
@@ -126,7 +126,7 @@ KILLSTREAK_WEIGHT = 700
 
 GRAV = 322.0                        # in 1/10th of feet/s2
 TUBE_VEL = 1550.0                   # which is 155 ft/s, or 47m/s
-KNIFE_VEL = 940.0                   # which is 90 ft/s, or 27m/s
+KNIFE_VEL = 910.0                   # which is 90 ft/s, or 27m/s
 
 # below are the hieght of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
@@ -138,10 +138,10 @@ BOT_PRONE_Z = 10
 BOT_TUBE_Z = 0
 BOT_KNIFE_Z = 40
 
-BOT_MIN_PIX_TO_CENTER = 50         # aim only if not more than 300 pixels from center of screen
+BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
 BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
 
-BOT_SPEED_1 = 7
+BOT_SPEED_1 = 5
 BOT_SPEED_TICK_1 = 15
 BOT_SPEED_2 = 3
 BOT_SPEED_TICK_2 = 30
@@ -199,7 +199,7 @@ KEY_INDIRECT_BOT = "VK_CAPITAL"         # CAPS LOCK
 TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
 # ----------------------------------------------------------------------
 # autostab parameters
-AUTOSTAB_DIST = 75             # distance in 1/10th of ft
+AUTOSTAB_DIST = 150             # distance in 1/10th of ft
 AUTOSTAB_DIST_Z = 50            # max vertical distance (otherwise you try to stab people above/under you)
 
 # ----------------------------------------------------------------------

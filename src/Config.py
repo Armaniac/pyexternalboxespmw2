@@ -126,7 +126,7 @@ KILLSTREAK_WEIGHT = 700
 
 GRAV = 322.0                        # in 1/10th of feet/s2
 TUBE_VEL = 1550.0                   # which is 155 ft/s, or 47m/s
-KNIFE_VEL = 940.0                   # which is 90 ft/s, or 27m/s
+KNIFE_VEL = 910.0                   # which is 90 ft/s, or 27m/s
 
 # below are the hieght of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
