@@ -1,7 +1,7 @@
 from Config import *
 from utils import draw_spot, mouse_move
 from Keys import keys
-from structs import ET_PLAYER, FLAGS_CROUCHED, FLAGS_PRONE
+from structs import ET_PLAYER, FLAGS_CROUCHED, FLAGS_PRONE, VECTOR
 
 
 
@@ -102,6 +102,27 @@ class Bot(object):
                 mouse_move(angle[0] / aim_speed, angle[1] / aim_speed, read_game.mouse_center_x, read_game.mouse_center_y)
             else:
                 self.player_locked = None
+        
+        # debug mode calibration - aiming at (0,0,0) point
+        if CALIBRATING:
+            origin = VECTOR(0, 0, 0)
+            spot_coord = read_game.world_to_screen(origin)
+            if spot_coord:
+                draw_spot(frame.line, spot_coord.x, spot_coord.y, 0x7FFFFFFF)
+            if key_tubebot or key_knifebot:
+                velocity = TUBE_VEL
+                if key_knifebot:
+                    velocity = KNIFE_VEL
+                slope = self.find_slope(origin, read_game.my_pos, velocity)
+                if not slope is None:
+                    aim.z = read_game.my_pos.z + slope * (aim - read_game.my_pos).length()
+                    spot_coord = read_game.world_to_screen(aim)
+                    if spot_coord:
+                        angle[0] = spot_coord.x - read_game.screen_center_x - 1      # -1 ?
+                        angle[1] = spot_coord.y - read_game.screen_center_y
+                        print "slope = %.3f, angle = %.3f, %.3f" % (slope, angle[0], angle[1])
+                        mouse_move(angle[0] / 3, angle[1] / 3, read_game.mouse_center_x, read_game.mouse_center_y)
+                
 
     @staticmethod
     def find_slope(target, player, vel):

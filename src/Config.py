@@ -217,6 +217,11 @@ MOUSE_INVERSION = False
 # inspector class for debug
 KEY_INSPECTOR = "VK_NUMPAD0"
 
+# ----------------------------------------------------------------------
+# calibration mode, only used for debugging of tubebot and knifebot
+# *** DON'T ACTIVATE UNLESS YOU KNOW WHAT YOU ARE DOING
+CALIBRATING = False
+
 # ======================================================================
 # == CUT HERE to recreate the config file                             ==
 # ======================================================================

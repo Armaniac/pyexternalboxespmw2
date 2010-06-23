@@ -1,8 +1,8 @@
-from structs import ET_PLAYER
+from structs import ET_PLAYER, VECTOR
 from ctypes import byref
 from Config import *
 from directx.types import D3DRECT, D3DCLEAR
-from utils import draw_arrow, draw4
+from utils import draw_arrow, draw4, draw_spot
 from Keys import keys
 from math import radians, cos, sin
 
@@ -38,6 +38,12 @@ class Radar(object):
             if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001:
                 cx, cy = self.calcPoint(p.pos, 50)
                 draw_arrow(frame.line, cx, cy, -p.yaw + read_game.view_angles.y, p.color_map);
+        
+        # clibrating is a debug mode
+        if CALIBRATING:
+            origin = VECTOR(0, 0, 0)
+            cx, cy = self.calcPoint(origin, 50)
+            draw_spot(frame.line, cx, cy, 0x7FFFFFFF)
         
     def calcPoint(self, vec, range):
         read_game = self.env.read_game
