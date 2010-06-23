@@ -51,6 +51,7 @@ if PROFILING: MAIN_LOOP_SLEEP = 0.000
 # position of the Radar on the screen
 RADAR_SIZE = 160            # size of the radar in pixels
 RADAR_OFFSET = 20           # margin from top and right of the screen, in pixels
+RADAR_RANGE = 50            # this is the scale divider for the radar: the higher value, the higher range (players are closer)
 
 # colors for the BOX Esp
 COLOR_FRIEND = 0x7F0000FF                  # blue

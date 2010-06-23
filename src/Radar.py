@@ -36,13 +36,13 @@ class Radar(object):
         
         for p in read_game.player:
             if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001:
-                cx, cy = self.calcPoint(p.pos, 50)
+                cx, cy = self.calcPoint(p.pos, RADAR_RANGE)
                 draw_arrow(frame.line, cx, cy, -p.yaw + read_game.view_angles.y, p.color_map);
         
         # clibrating is a debug mode
         if CALIBRATING:
             origin = VECTOR(0, 0, 0)
-            cx, cy = self.calcPoint(origin, 50)
+            cx, cy = self.calcPoint(origin, RADAR_RANGE)
             draw_spot(frame.line, cx, cy, 0x7FFFFFFF)
         
     def calcPoint(self, vec, range):
