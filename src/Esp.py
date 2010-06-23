@@ -49,7 +49,7 @@ class Esp(object):
                         if keys["KEY_BOXESP"]:
                             draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, p.color_esp)
                             draw_string_center(frame.font, feet.x, feet.y - size_y, COLOR_PLAYER_NAME, p.name)
-                        if keys["KEY_BOX_SNAPLINE"] and p.enemy:
+                        if keys["KEY_BOX_SNAPLINE"] and p.enemy and p.alive & 0x0001:
                             draw_line_abs(frame.line, read_game.screen_center_x, read_game.resolution_y,
                                   feet.x, feet.y, COLOR_BOX_LINE_WIDTH, p.color_esp)      # w/h ratio
                         if keys["KEY_BOXESP"]:
@@ -57,14 +57,15 @@ class Esp(object):
                             distance_str = "%i %s" % (converted_distance, DISTANCE_ESP_UNIT_NAME)
                             draw_string_center(frame.font, feet.x, feet.y + size_y + 12, COLOR_PLAYER_NAME, distance_str)
                         if keys["KEY_TRIGGERBOT"] and keys["KEY_BOT"]:
-                            if (read_game.screen_center_x > feet.x - size_x/2) and (read_game.screen_center_x < feet.x + size_x/2):
-                                if (read_game.screen_center_y > feet.y - size_y) and (read_game.screen_center_y < feet.y):
-                                    print "try trigger bot"
-                                    if self.env.ticks - self.last_trigger_tick > 5:
-                                        print "triggerbot fire"
-                                        self.last_trigger_tick = self.env.ticks
-                                        windll.User32.keybd_event(TRIGGER_BOT_FIRE_KEY, 0x12, 0, 0)
-                                        windll.User32.keybd_event(TRIGGER_BOT_FIRE_KEY, 0x12, KEYEVENTF_KEYUP, 0)
+                            if p.alive & 0x0001 and p.enemy and p.pose != 0:
+                                if (read_game.screen_center_x > feet.x - size_x/2) and (read_game.screen_center_x < feet.x + size_x/2):
+                                    if (read_game.screen_center_y > feet.y - size_y) and (read_game.screen_center_y < feet.y ):
+                                        #print "try trigger bot"
+                                        if self.env.ticks - self.last_trigger_tick > 5:
+                                            #print "triggerbot fire"
+                                            self.last_trigger_tick = self.env.ticks
+                                            windll.User32.keybd_event(TRIGGER_BOT_FIRE_KEY, 0x12, 0, 0)
+                                            windll.User32.keybd_event(TRIGGER_BOT_FIRE_KEY, 0x12, KEYEVENTF_KEYUP, 0)
                             
                             
         
