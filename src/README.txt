@@ -77,6 +77,7 @@ Look inside the 'dist' folder and you have 'launcher.exe', this is the hack you 
 Note: there is a 'library.zip' containing the actual code in pre-compiled Python bytecode. This zip file may be marked as corrupt by winrar but it's not! (It's actually a .z file).
 
 *** DO NOT RENAME OR UNZIP THE 'library.zip' FILE ! ***
+*** DO NOT INJECT ANY DLL ***
 
  INSTRUCTIONS: Using the source.
 
