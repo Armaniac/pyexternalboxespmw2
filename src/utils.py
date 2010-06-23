@@ -112,14 +112,13 @@ def mouse_move(delta_x, delta_y, center_x, center_y):
     dx = 65535.0 / fScreenWidth
     dy = 65535.0 / fScreenHeight
     fx = (center_x + delta_x) * dx
-    fy = (center_y + delta_y) * dy
+    if not MOUSE_INVERSION:
+        fy = (center_y + delta_y) * dy
+    else:
+        fy = (center_y - delta_y) * dy
     input = INPUT()
     input.type = INPUT_MOUSE
-    input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE    
-    if not MOUSE_INVERSION:
-        input.mi.dx = int(fx)
-        input.mi.dy = int(fy)
-    else:
-        input.mi.dx = - int(fx)
-        input.mi.dy = - int(fy)
+    input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE
+    input.mi.dx = int(fx)
+    input.mi.dy = int(fy)
     windll.User32.SendInput(1, byref(input), sizeof(input))
