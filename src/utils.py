@@ -96,12 +96,31 @@ class MOUSEINPUT(Structure):
                  ("dwExtraInfo", POINTER(ULONG))
                 ]
 
-class INPUT(Structure):
-    _fields_ = [ ("type", DWORD),
-                 ("mi", MOUSEINPUT),
-                 #("ki", KEYBDINPUT)
+class KEYBDINPUT(Structure):
+    _fields_ = [ ("wVk", WORD),
+                 ("wScan", WORD),
+                 ("dwFlags", DWORD),
+                 ("time", DWORD),
+                 ("dwExtraInfo", POINTER(ULONG))
                 ]
-   
+    
+class HARDWAREINPUT(Structure):
+    _fields_ = [ ("uMsg", DWORD),
+                 ("wParamL", WORD),
+                 ("wParamH", WORD),
+                ]
+
+class _INPUT_UNION(Union):
+    _fields_ = [("mi", MOUSEINPUT),
+                ("ki", KEYBDINPUT),
+                ("hi", HARDWAREINPUT),
+                ]
+
+class INPUT(Structure):
+    _anonymous_ = ("iu",)
+    _fields_ = [ ("type", DWORD),
+                 ("iu", _INPUT_UNION)]
+
 def mouse_move(delta_x, delta_y, center_x, center_y):
     mouse_move_x = int(delta_x)
     mouve_move_y = int(delta_y)

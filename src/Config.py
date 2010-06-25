@@ -63,22 +63,22 @@ COLOR_EXPLOSIVE = 0x3F7F7F7F               # yellow
 
 # 
 COLOR_BOX_LINE_WIDTH = 3                    # width of the arrow from lower screen to box
-COLOR_BOX_OUTER_WIDTH = 3                    # width of the Box ESP
-COLOR_PLAYER_NAME = 0x7FFFFFFF                # color of the player name
+COLOR_BOX_OUTER_WIDTH = 3                   # width of the Box ESP
+COLOR_PLAYER_NAME = 0x7FFFFFFF              # color of the player name
 PLAYER_NAME_FONT = "Arial"
 PLAYER_NAME_SIZE = 14
 PLAYER_NAME_WEIGHT = 400
 
 # colors for mini-map
-MAP_COLOR_BACK = 0x44000000                    # radar back color
-MAP_COLOR_BORDER = 0x7F0000FF                # radar border color
-MAP_COLOR_ME = 0xFF00FF00                    # color of my player
-MAP_COLOR_FRIEND = 0xFF4444FF                # color of team-mates
+MAP_COLOR_BACK = 0x44000000                 # radar back color
+MAP_COLOR_BORDER = 0x7F0000FF               # radar border color
+MAP_COLOR_ME = 0xFF00FF00                   # color of my player
+MAP_COLOR_FRIEND = 0xFF4444FF               # color of team-mates
 MAP_COLOR_ENEMY = 0XFFFF4444                # color of enemies
 MAP_COLOR_ENEMY_COLDBLOODED = 0XFFFFBF44    # color of enemies with coldblood perk
 
 # color of the claymore ESP
-COLOR_CLAYMORE = 0x3FFF6666                    # color of claymores
+COLOR_CLAYMORE = 0x3FFF6666                 # color of claymores
 COLOR_PLANE = 0x7F880088                    # color for planes & helicopters
 
 # distance ESP (in meters or ft)
@@ -90,13 +90,13 @@ FADE_ENABLED = True                         # set to False to disable fading
 FADE_MIN_DIST = 300                         # in 1/10th of ft, so 600 is ~20m
 FADE_MIN_ALPHA = 0xFF                       # level of transparency
 FADE_MAX_DIST = 2500                        # in 1/10th of ft, 2500 is ~80m
-FADE_MAX_ALPHA = 0x19                       # level of transparency
+FADE_MAX_ALPHA = 0x32                       # level of transparency
 # ----------------------------------------------------------------------
 # rage module - special coloring for the player you want to rage
 
-KEY_RAGE_PREV = "VK_PRIOR"                    # page up
-KEY_RAGE_NEXT = "VK_NEXT"                   # page down
-KEY_RAGE_RESET = "VK_DELETE"                # delete key
+KEY_RAGE_PREV = "!VK_PRIOR"                    # page up
+KEY_RAGE_NEXT = "!VK_NEXT"                   # page down
+KEY_RAGE_RESET = "!VK_DELETE"                # delete key
 
 RAGE_COLOR_ESP = 0XFFFF0066                 # purple
 RAGE_COLOR_MAP = 0XFFFF0066                 # purple
@@ -104,16 +104,16 @@ RAGE_COLOR_MAP = 0XFFFF0066                 # purple
 # ----------------------------------------------------------------------
 # Cross hair
 CROSSHAIR_COLOR = 0xCCFF1111                # crosshair color
-CROSSHAIR_WIDTH = 2                            # crosshair width
-CROSSHAIR_SIZE = 10                            # crosshair length
+CROSSHAIR_WIDTH = 2                         # crosshair width
+CROSSHAIR_SIZE = 10                         # crosshair length
 
 # ----------------------------------------------------------------------
 # Status line
 STATUS_COLOR_ACTIVE = 0xFFFFCC00
 STATUS_COLOR_INACTIVE = 0xFF777777
 STATUS_COLOR_LINE = 0xAF000000              # color of status line
-KEY_STATUS = "F1"                           # is status display enabled
-KEY_STATUS_UP = "F2"                        # to select if you want the status up on the screen 
+KEY_STATUS = "+VK_F1"                           # is status display enabled
+KEY_STATUS_UP = "+VK_F2"                        # to select if you want the status up on the screen 
 
 # ----------------------------------------------------------------------
 # killstreak display
@@ -128,7 +128,7 @@ GRAV = 322.0                        # in 1/10th of feet/s2
 TUBE_VEL = 1550.0                   # which is 155 ft/s, or 47m/s
 KNIFE_VEL = 910.0                   # which is 90 ft/s, or 27m/s
 
-# below are the hieght of aiming for regular weapon, depending on pose
+# below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
 # beware that having too much headshots can unbalance your stats, use EAM to reset them
 BOT_STAND_Z = 48            # or 55 for more headshots
@@ -147,20 +147,6 @@ BOT_SPEED_2 = 3
 BOT_SPEED_TICK_2 = 30
 BOT_SPEED_3 = 2
 # ----------------------------------------------------------------------
-# Fx keys default values, select if Fx is enabled or disabled by default
-F1 = True
-F2 = False
-F3 = True
-F4 = True
-F5 = False
-F6 = False
-F7 = False
-F8 = False
-F9 = False
-F10 = True
-F11 = True
-F12 = True
-
 # labels
 F1_LABEL = "display"
 F2_LABEL = "move disp"
@@ -177,16 +163,16 @@ F12_LABEL = "snapline"
 
 # virtual keys ON and OFF are also accepted if always on or off
 # all globs starting with IS_ are parsed and mapped to an F key or ON/OFF
-KEY_CROSSHAIR =     "F3"
-KEY_EXPLOSIVES =    "F4"
-KEY_AIMBOT_ACTIVE =        "F5"
-KEY_TUBEBOT_ACTIVE =       "F6"
-KEY_KNIFEBOT_ACTIVE =      "F7"
-KEY_AUTOSTAB =      "F8"
-KEY_TRIGGERBOT =    "F9"
-KEY_RADAR =         "F10"
-KEY_BOXESP =        "F11"
-KEY_BOX_SNAPLINE =   "F12"
+KEY_CROSSHAIR =             "+VK_F3"
+KEY_EXPLOSIVES =            "+VK_F4"
+KEY_AIMBOT_ACTIVE =            "-VK_F5"
+KEY_TUBEBOT_ACTIVE =           "-VK_F6"
+KEY_KNIFEBOT_ACTIVE =          "-VK_F7"
+KEY_AUTOSTAB =              "-VK_F8"
+KEY_TRIGGERBOT =            "-VK_F9"
+KEY_RADAR =                 "+VK_F10"
+KEY_BOXESP =                "+VK_F11"
+KEY_BOX_SNAPLINE =           "+VK_F12"
 
 # all globals beginning with KEY_ are parsed and corresponding keys are being scanned
 # key codes can be Windows VK_* key codes or single characters
@@ -194,12 +180,12 @@ KEY_BOX_SNAPLINE =   "F12"
 KEY_BOT = "VK_RBUTTON"
 KEY_TUBEBOT = "VK_HOME VK_MBUTTON"
 KEY_KNIFEBOT = "G VK_MBUTTON"
-KEY_INDIRECT_BOT = "VK_CAPITAL"         # CAPS LOCK
+KEY_INDIRECT_BOT = "~VK_CAPITAL"         # CAPS LOCK
 
 TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
 # ----------------------------------------------------------------------
 # autostab parameters
-AUTOSTAB_DIST = 150             # distance in 1/10th of ft
+AUTOSTAB_DIST = 75             # distance in 1/10th of ft
 AUTOSTAB_DIST_Z = 50            # max vertical distance (otherwise you try to stab people above/under you)
 
 # ----------------------------------------------------------------------
