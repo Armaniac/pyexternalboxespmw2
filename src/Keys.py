@@ -119,6 +119,8 @@ for (vk,l) in _key_globs.items():
     _key_mapping[vk] = [keyname_to_mask(n) for n in l]
     for k in l:
         (code, mask) = keyname_to_mask(k)
+        if mask & KEY_NEWLY_PRESSED:
+            mask |= KEY_PRESSED                 # we need also to read KEY_PRESSED
         _keys_to_read[code] |= mask
 
 read_keys_raw()         # first read to see what are the values of toggles
@@ -131,5 +133,6 @@ for k in list(_flatten(_key_globs.values())):
         else:
             _toggle_inverters[code] = keys_raw[code] & KEY_TOGGLE
 _toggle_inverters[-1] = 0           # avoid side effects
+del _key_globs
 
 render()
