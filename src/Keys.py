@@ -27,7 +27,7 @@ keys = {}                               # state of toggles
 keys_raw = create_keys_array()          # raw state of each key for the current iteration
 _prev_keyb = create_keys_array()        # raw state of each key in the last tick (to calculate changes)
 _keys_to_read = create_keys_array()     # keys and masks to read (to avoid reading all keys)
-_toggle_inverters = create_keys_array() # contains the XOR values needed to satisfy default values of toggles
+_toggle_state = create_keys_array() # contains the XOR values needed to satisfy default values of toggles
 _key_globs = {}                         # hash from logical key (ex: aimbot) to virtual key (ex: VK_RBUTTON)
 _key_mapping = {}                       # from game virtal key to tuple (code, mask)
 
@@ -104,13 +104,13 @@ def keyname_to_mask(key_name):
 def read_keys_raw():
     for i in range(256):
         keys_raw[i] = 0
-        if _keys_to_read[i] & KEY_PRESSED:
-            keys_raw[i] |= GetAsyncKeyState(i) and KEY_PRESSED
-        if _keys_to_read[i] & KEY_TOGGLE:
-            keys_raw[i] |= (GetKeyStateToggle(i) and KEY_TOGGLE) ^ _toggle_inverters[i]
-        if (keys_raw[i] & KEY_PRESSED) and not (_prev_keyb[i] & KEY_PRESSED):
-            keys_raw[i] |= KEY_NEWLY_PRESSED
-
+        if _keys_to_read[i]:
+            keys_raw[i] |= _prev_keyb[i] & KEY_TOGGLE           # copy state of toggle
+            keys_raw[i] |= GetAsyncKeyState(i) and KEY_PRESSED  # add key_press bit
+            if (keys_raw[i] & KEY_PRESSED) and not (_prev_keyb[i] & KEY_PRESSED):
+                keys_raw[i] |= KEY_NEWLY_PRESSED                # set the newly pressed bit
+                keys_raw[i] ^= KEY_TOGGLE                       # and invert the toggle bit
+    keys_raw[-1] = KEY_TOGGLE | KEY_PRESSED                     # "ON" key
 
 # parse all globals starting with "KEY_" to see what keys we need to read
 _key_globs = dict([(k,getattr(Config, k).rsplit()) for k in dir(Config) if k.startswith('KEY_')])
@@ -119,20 +119,18 @@ for (vk,l) in _key_globs.items():
     _key_mapping[vk] = [keyname_to_mask(n) for n in l]
     for k in l:
         (code, mask) = keyname_to_mask(k)
-        if mask & KEY_NEWLY_PRESSED:
-            mask |= KEY_PRESSED                 # we need also to read KEY_PRESSED
         _keys_to_read[code] |= mask
 
 read_keys_raw()         # first read to see what are the values of toggles
 
 for k in list(_flatten(_key_globs.values())):
-    if k[0] in ("+", "-"):
+    if k[0] in ("+", "-", "~"):
         (code, mask) = keyname_to_mask(k)
         if k[0] == "+":
-            _toggle_inverters[code] = (keys_raw[code] & KEY_TOGGLE) ^ KEY_TOGGLE
-        else:
-            _toggle_inverters[code] = keys_raw[code] & KEY_TOGGLE
-_toggle_inverters[-1] = 0           # avoid side effects
+            keys_raw[code] |= KEY_TOGGLE
+        elif k[0] == "~":
+            _toggle_state[code] |= GetKeyStateToggle(code) and KEY_TOGGLE
+
 del _key_globs
 
 render()
