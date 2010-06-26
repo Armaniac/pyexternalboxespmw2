@@ -180,7 +180,7 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
 KEY_BOT = "VK_RBUTTON"
-KEY_TUBEBOT = "VK_HOME VK_MBUTTON"
+KEY_TUBEBOT = "VK_HOME VK_LMENU"
 KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"         # CAPS LOCK
 
