@@ -18,7 +18,7 @@ class Status(object):
         frame = self.env.frame
         read_game = self.env.read_game
         
-        if not keys["KEY_STATUS_UP"]:
+        if keys["KEY_STATUS_UP"]:
             draw_line(frame.line, 0, 9, 845, 0, 20, STATUS_COLOR_LINE)
             text_y = 3
         else:

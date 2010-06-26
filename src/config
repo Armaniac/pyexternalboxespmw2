@@ -163,6 +163,8 @@ F12_LABEL = "snapline"
 
 # virtual keys ON and OFF are also accepted if always on or off
 # all globs starting with IS_ are parsed and mapped to an F key or ON/OFF
+KEY_STATUS =				"+VK_F1"
+KEY_STATUS_UP = 			"+VK_F2"
 KEY_CROSSHAIR =     		"+VK_F3"
 KEY_EXPLOSIVES =    		"+VK_F4"
 KEY_AIMBOT_ACTIVE =        	"-VK_F5"
