@@ -186,7 +186,7 @@ KEY_BOX_SNAPLINE =           "+VK_F12"
 # all globals beginning with KEY_ are parsed and corresponding keys are being scanned
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
-KEY_BOT = "VK_RBUTTON"
+KEY_BOT = "VK_RBUTTON KV_END"
 KEY_TUBEBOT = "VK_HOME VK_MBUTTON"
 KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"         # CAPS LOCK
