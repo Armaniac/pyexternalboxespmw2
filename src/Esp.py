@@ -55,7 +55,7 @@ class Esp(object):
                         if keys["KEY_BOXESP"]:
                             converted_distance = distance * DISTANCE_ESP_UNIT
                             distance_str = "%i %s" % (converted_distance, DISTANCE_ESP_UNIT_NAME)
-                            draw_string_center(frame.font, feet.x, feet.y + size_y + 12, COLOR_PLAYER_NAME, distance_str)
+                            draw_string_center(frame.font, feet.x, feet.y + 12, COLOR_PLAYER_NAME, distance_str)
                         if keys["KEY_TRIGGERBOT"] and keys["KEY_BOT"]:
                             if p.alive & 0x0001 and p.enemy and p.pose != 0:
                                 if (read_game.screen_center_x > feet.x - size_x/2) and (read_game.screen_center_x < feet.x + size_x/2):
