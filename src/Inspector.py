@@ -2,8 +2,11 @@ from utils import draw_string_center
 from Config import KEY_INSPECTOR
 from Keys import keys
 from utils import dump_obj
+from ctypes import Structure, c_char
 # this module allows to inspect entities near the center crosshair
 
+class dumped(Structure):
+    _fields_ = [("val", c_char * 1024)]
 
 class Inspector(object):
     
@@ -31,10 +34,21 @@ class Inspector(object):
             print "angles= (%.2f, %.2f, %.2f)" % (ang.x, ang.y, ang.z)
         
         if keys["KEY_INSPECT_DUMP"]:                # dump some memory structures
-            print "refdef"
-            print dump_obj(read_game.mw2_refdef)
-            print "viewy"
-            print dump_obj(read_game.mw2_viewy)
+            mem = dumped()
+            #read_game._RPM(0x6727F13, mem)
+            #read_game._RPM(0x6727F10, mem)
+            #print dump_obj(mem)
+            read_game._RPM(0x64DA350, mem)
+            print dump_obj(mem)
+            del mem
+            #===================================================================
+            # print "refdef"
+            # print dump_obj(read_game.mw2_refdef)
+            # print "viewy"
+            # print dump_obj(read_game.mw2_viewy)
+            #===================================================================
+        
+        
 
     @staticmethod
     def sq(x, y):
