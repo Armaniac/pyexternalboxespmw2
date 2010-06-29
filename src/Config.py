@@ -101,6 +101,13 @@ KEY_RAGE_RESET = "!VK_DELETE"                # delete key
 RAGE_COLOR_ESP = 0XFFFF0066                 # purple
 RAGE_COLOR_MAP = 0XFFFF0066                 # purple
 
+# below is the display of raged player
+KEY_RAGE_DISPLAY_NAME = "VK_PRIOR VK_NEXT"
+RAGE_FONT_NAME = "Arial"
+RAGE_FONT_SIZE = 24
+RAGE_FONT_WEIGHT = 700
+RAGE_FONT_COLOR = 0x7FFF0066                # yellow
+
 # ----------------------------------------------------------------------
 # Cross hair
 CROSSHAIR_COLOR = 0xCCFF1111                # crosshair color

@@ -1,6 +1,7 @@
 from structs import ET_PLAYER, PLAYERMAX
 from Config import *
 from Keys import keys
+from utils import draw_string_center
 
 # this module affects a special color to an enemy you want to rage
 # you can then easily spot it both on radar and ESP
@@ -13,6 +14,7 @@ class Rage(object):
         self.rage_player_index = -1
     
     def render(self):
+        frame = self.env.frame
         read_game = self.env.read_game
         
         if not read_game.is_in_game:
@@ -39,6 +41,10 @@ class Rage(object):
                 self.rage_player_index = -1             # none found
         elif do_reset:
             self.rage_player_index = -1   
+        
+        # display player name in HUD display?
+        if keys["KEY_RAGE_DISPLAY_NAME"]  and self.rage_player_index >= 0:
+            draw_string_center(frame.rage_font, read_game.screen_center_x, read_game.screen_center_y + 40, RAGE_FONT_COLOR, read_game.player[self.rage_player_index].name)
         
         # now display player
         if self.rage_player_index >= 0:

@@ -112,6 +112,8 @@ class Frame(object):
         d3dxdll.D3DXCreateFontW(self.device, 14, 0, 400, 1, 0, 0, 0, 0, 0, LPCWSTR(u"Arial"), byref(self.status_font))
         self.killstreak_font = POINTER(ID3DXFont)()
         d3dxdll.D3DXCreateFontW(self.device, KILLSTREAK_FONT_SIZE, 0, KILLSTREAK_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(KILLSTREAK_FONT_NAME)), byref(self.killstreak_font))
+        self.rage_font = POINTER(ID3DXFont)()
+        d3dxdll.D3DXCreateFontW(self.device, RAGE_FONT_SIZE, 0, RAGE_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(RAGE_FONT_NAME)), byref(self.rage_font))
         
         
         self.line = POINTER(ID3DXLine)()
@@ -127,6 +129,7 @@ class Frame(object):
         if not self.line is None:           self.line.Release()
         if not self.status_font is None:    self.status_font.Release()
         if not self.killstreak_font is None:    self.killstreak_font.Release()
+        if not self.rage_font is None:    self.rage_font.Release()
         if not self.font is None:           self.font.Release()
         if not self.device is None:         self.device.Release()
         if not self.d3d is None:            self.d3d.Release()
