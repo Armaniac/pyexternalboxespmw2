@@ -1,7 +1,6 @@
 from Config import MOUSE_INVERSION
-from ctypes import *
 import win32con, win32api
-from ctypes.wintypes import DWORD, LONG, ULONG, WORD
+from ctypes.wintypes import DWORD, LONG, ULONG, WORD, string_at, byref, Structure, Union, POINTER, sizeof, windll
 from directx.types import D3DXVECTOR2
 from directx.d3dx import RECT
 from math import radians, cos, sin
@@ -141,3 +140,24 @@ def mouse_move(delta_x, delta_y, center_x, center_y):
     input.mi.dx = int(fx)
     input.mi.dy = int(fy)
     windll.User32.SendInput(1, byref(input), sizeof(input))
+
+
+# ======================================================================
+# hex dumper
+# http://code.activestate.com/recipes/142812-hex-dumper/
+                        
+FILTER=''.join([(len(repr(chr(x)))==3) and chr(x) or '.' for x in range(256)])
+
+def dump(src, length=8):
+    N=0; result=''
+    while src:
+        s,src = src[:length],src[length:]
+        hexa = ' '.join(["%02X"%ord(x) for x in s])
+        s = s.translate(FILTER)
+        result += "%04X   %-*s   %s\n" % (N, length*3, hexa, s)
+        N+=length
+    return result
+
+def dump_obj(o):
+    s = string_at(byref(o), sizeof(o))
+    return dump(s)
