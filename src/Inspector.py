@@ -1,7 +1,7 @@
 from utils import draw_string_center
 from Config import KEY_INSPECTOR
 from Keys import keys
-from utils import dump
+from utils import dump_obj
 # this module allows to inspect entities near the center crosshair
 
 
@@ -32,9 +32,9 @@ class Inspector(object):
         
         if keys["KEY_INSPECT_DUMP"]:                # dump some memory structures
             print "refdef"
-            dump(read_game.mw2_refdef)
+            print dump_obj(read_game.mw2_refdef)
             print "viewy"
-            dump(read_game.mw2_viewy)
+            print dump_obj(read_game.mw2_viewy)
 
     @staticmethod
     def sq(x, y):
