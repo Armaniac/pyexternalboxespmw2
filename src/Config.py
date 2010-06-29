@@ -107,6 +107,7 @@ RAGE_FONT_NAME = "Arial"
 RAGE_FONT_SIZE = 24
 RAGE_FONT_WEIGHT = 700
 RAGE_FONT_COLOR = 0x7FFF0066                # yellow
+RAGE_RESET_STRING = "Rage Target Reset!"
 
 # ----------------------------------------------------------------------
 # Cross hair

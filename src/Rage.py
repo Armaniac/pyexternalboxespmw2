@@ -40,11 +40,15 @@ class Rage(object):
             else:
                 self.rage_player_index = -1             # none found
         elif do_reset:
-            self.rage_player_index = -1   
-        
+            if self.rage_player_index >= 0:
+                self.rage_player_index = -1
+                draw_string_center(frame.rage_font, read_game.screen_center_x, read_game.screen_center_y + 40, RAGE_FONT_COLOR, RAGE_RESET_STRING)
         # display player name in HUD display?
-        if keys["KEY_RAGE_DISPLAY_NAME"]  and self.rage_player_index >= 0:
+        
+        if keys["KEY_RAGE_DISPLAY_NAME"] and self.rage_player_index >= 0:
             draw_string_center(frame.rage_font, read_game.screen_center_x, read_game.screen_center_y + 40, RAGE_FONT_COLOR, read_game.player[self.rage_player_index].name)
+            
+
         
         # now display player
         if self.rage_player_index >= 0:

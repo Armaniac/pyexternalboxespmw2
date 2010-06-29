@@ -101,6 +101,15 @@ KEY_RAGE_RESET = "!VK_DELETE"               # delete key
 RAGE_COLOR_ESP = 0XFFFF0066                 # purple
 RAGE_COLOR_MAP = 0XFFFF0066                 # purple
 
+
+# below is the display of raged player
+KEY_RAGE_DISPLAY_NAME = "VK_PRIOR VK_NEXT"
+RAGE_FONT_NAME = "Arial"
+RAGE_FONT_SIZE = 24
+RAGE_FONT_WEIGHT = 700
+RAGE_FONT_COLOR = 0x7FFF0066                # yellow
+RAGE_RESET_STRING = "-------------"
+
 # ----------------------------------------------------------------------
 # Cross hair
 CROSSHAIR_COLOR = 0xCCFF1111                # crosshair color
@@ -131,7 +140,7 @@ KNIFE_VEL = 910.0                   # which is 90 ft/s, or 27m/s
 # below are the hieght of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
 # beware that having too much headshots can unbalance your stats, use EAM to reset them
-BOT_STAND_Z = 48            # or 55 for more headshots
+BOT_STAND_Z = 45            # or 55 for more headshots
 BOT_CROUCHED_Z = 38
 BOT_PRONE_Z = 10
 
