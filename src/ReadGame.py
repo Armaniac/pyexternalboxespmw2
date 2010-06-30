@@ -134,7 +134,7 @@ class ReadGame(object):
                 map_name_temp = STR64()
                 self._RPM(ADDR_MAP, map_name_temp)
                 map_name_temp_str = cast(pointer(map_name_temp), c_char_p)
-                self.map_name = map_name_temp_str.value.partition(" ")[0]
+                self.map_name = "mp" + map_name_temp_str.value.lstrip('mp/maps').rstrip('.d3dbsp')
             
             self.fov_x = self.mw2_refdef.fov_x
             self.fov_y = self.mw2_refdef.fov_y
