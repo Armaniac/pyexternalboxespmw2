@@ -78,7 +78,7 @@ class Esp(object):
         #=======================================================================
         for e in read_game.mw2_entity.arr:
             #e = read_game.mw2_entity.arr[i]
-            if e.type == ET_TURRET and e.alive & 0x0001:
+            if e.type == ET_TURRET and e.alive & 0x0001 and keys["KEY_BOXESP"]:
                 head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 20)       # eyepos of standing player
                 feet = read_game.world_to_screen(e.pos)
                 head = read_game.world_to_screen(head_pos)
@@ -94,7 +94,7 @@ class Esp(object):
                     r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
                     frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
                     
-            elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & 0x0001:
+            elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & 0x0001 and keys["KEY_BOXESP"]:
                 head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 100)       # eyepos of standing player
                 feet = read_game.world_to_screen(e.pos)
                 head = read_game.world_to_screen(head_pos)
