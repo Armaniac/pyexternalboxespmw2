@@ -1,7 +1,7 @@
 import stealth      # scramble memory a little - anti-VAC feature
 import time
 import win32gui, win32con
-import ReadGame, Frame, Textures, Radar, Radar2, Esp, Status, Keys, Autostab, Inspector, Rage, Killstreak, BigRadar
+import ReadGame, Frame, Textures, Radar, Esp, Status, Keys, Autostab, Inspector, Rage, Killstreak, BigRadar
 import Crosshair, Bot
 import cProfile
 from Config import MAIN_LOOP_SLEEP, PROFILING
@@ -27,7 +27,6 @@ class Main(object):
         self.status = Status.Status(self)
         self.esp = Esp.Esp(self)
         self.radar = Radar.Radar(self)
-        self.radar2 = Radar2.Radar2(self)
         self.bigradar = BigRadar.BigRadar(self)
         self.crosshair = Crosshair.Crosshair(self)
         self.bot = Bot.Bot(self)
