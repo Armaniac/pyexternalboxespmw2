@@ -18,4 +18,7 @@ class Killstreak(object):
         if not read_game.is_in_game or not keys["KEY_KILLSTREAK"]: return
         
         text = "%i" % read_game.killstreak
-        draw_string_center(frame.killstreak_font, read_game.resolution_x - 100, 70, KILLSTREAK_FONT_COLOR, text)
+        if keys["KEY_BIG_RADAR"]:
+            draw_string_center(frame.killstreak_font, read_game.resolution_x - 565, 70, KILLSTREAK_FONT_COLOR, text)       
+        else:
+            draw_string_center(frame.killstreak_font, read_game.resolution_x - 100, 70, KILLSTREAK_FONT_COLOR, text)         

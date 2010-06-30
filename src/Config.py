@@ -55,7 +55,7 @@ RADAR_SIZE = 160            # size of the radar in pixels
 RADAR_OFFSET = 20           # margin from top and right of the screen, in pixels
 RADAR_RANGE = 50            # this is the scale divider for the radar: the higher value, the higher range (players are closer)
 
-KEY_BIG_RADAR = "VK_ADD "   # display a global map with players, good for air-strikes
+KEY_BIG_RADAR = "~VK_ADD "   # display a global map with players, good for air-strikes
 
 # colors for the BOX Esp
 COLOR_FRIEND = 0x7F0000FF                  # blue
