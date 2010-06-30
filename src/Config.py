@@ -13,12 +13,13 @@ REFDEF = 0x860030
 ENTITY = 0x8F8AF8
 CLIENTINFO = 0x8EC2C8
 CG_T = 0x7F59BC
-CGS_T = 0x7F1CF8
 
 ISINGAME = 0x7F58C8
 VIEWANGLEY = 0xB36A40
 ADDR_KILLS = 0x01B2C918
 ADDR_DEATHS = 0x01B2C920
+
+ADDR_MAP = 0x64DA350
 
 COD_WINDOW_NAME = "Modern Warfare 2"
 
@@ -52,6 +53,8 @@ if PROFILING: MAIN_LOOP_SLEEP = 0.000
 RADAR_SIZE = 160            # size of the radar in pixels
 RADAR_OFFSET = 20           # margin from top and right of the screen, in pixels
 RADAR_RANGE = 50            # this is the scale divider for the radar: the higher value, the higher range (players are closer)
+
+KEY_BIG_RADAR = "VK_ADD "   # display a global map with players, good for air-strikes
 
 # colors for the BOX Esp
 COLOR_FRIEND = 0x7F0000FF                  # blue
@@ -187,7 +190,7 @@ KEY_BOX_SNAPLINE =           "+VK_F12"
 # all globals beginning with KEY_ are parsed and corresponding keys are being scanned
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
-KEY_BOT = "VK_RBUTTON KV_END"
+KEY_BOT = "VK_RBUTTON VK_END"
 KEY_TUBEBOT = "VK_HOME VK_MBUTTON"
 KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"         # CAPS LOCK

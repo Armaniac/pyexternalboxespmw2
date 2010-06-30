@@ -1,7 +1,7 @@
 import stealth      # scramble memory a little - anti-VAC feature
 import time
 import win32gui, win32con
-import ReadGame, Frame, Radar, Esp, Status, Keys, Autostab, Inspector, Rage, Killstreak
+import ReadGame, Frame, Textures, Radar, Radar2, Esp, Status, Keys, Autostab, Inspector, Rage, Killstreak, BigRadar
 import Crosshair, Bot
 import cProfile
 from Config import MAIN_LOOP_SLEEP, PROFILING
@@ -21,11 +21,14 @@ class Main(object):
         # read_game and frame are 2 special modules
         self.read_game = ReadGame.ReadGame(self)
         self.frame = Frame.Frame(self)
+        self.textures = Textures.Textures(self)
         # other are simple modules
         self.rage = Rage.Rage(self)
         self.status = Status.Status(self)
         self.esp = Esp.Esp(self)
         self.radar = Radar.Radar(self)
+        self.radar2 = Radar2.Radar2(self)
+        self.bigradar = BigRadar.BigRadar(self)
         self.crosshair = Crosshair.Crosshair(self)
         self.bot = Bot.Bot(self)
         self.autostab = Autostab.Autostab(self)
@@ -39,6 +42,7 @@ class Main(object):
         # then prepare frame environment
         self.frame.init()
         self.frame.init_d3d()
+        self.textures.init()
                 
     def run(self):
         if PROFILING:
@@ -62,6 +66,7 @@ class Main(object):
             self.status.render()
             self.esp.render()
             self.radar.render()
+            self.bigradar.render()
             self.crosshair.render()
             self.bot.render()
             self.autostab.render()

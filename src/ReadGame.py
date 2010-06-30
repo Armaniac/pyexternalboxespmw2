@@ -34,6 +34,7 @@ class ReadGame(object):
         self.mw2_viewy = MW2_View_Y()
         self.mw2_clientinfo = MW2_ClientInfo()
         self.mw2_entity = MW2_Entity()
+        self.map_name = None
 
         # pre-mashed info
         self.fov_x = 0.0                # field of view
@@ -129,6 +130,11 @@ class ReadGame(object):
                 self._RPM(VIEWANGLEY-0x40, self.mw2_viewy)
                 self._RPM(ENTITY, self.mw2_entity)
                 self._RPM(CLIENTINFO, self.mw2_clientinfo)
+                # read map_name
+                map_name_temp = STR64()
+                self._RPM(ADDR_MAP, map_name_temp)
+                map_name_temp_str = cast(pointer(map_name_temp), c_char_p)
+                self.map_name = map_name_temp_str.value.partition(" ")[0]
             
             self.fov_x = self.mw2_refdef.fov_x
             self.fov_y = self.mw2_refdef.fov_y

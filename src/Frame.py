@@ -3,7 +3,7 @@ import win32api, win32con, win32gui
 from Config import *
 from directx.d3d import IDirect3D9, IDirect3DDevice9
 from directx.types import *
-from directx.d3dx import d3dxdll, TestHR, ID3DXFont, ID3DXLine
+from directx.d3dx import d3dxdll, TestHR, ID3DXFont, ID3DXLine, ID3DXSprite
 
 D3DRS_ZENABLE                      = 7
 D3DRS_LIGHTING                     = 137
@@ -27,14 +27,6 @@ class Rect(object):
 class Frame(object):
     def __init__(self, env):
         self.env = env
-        self._hdc = None            # saving the hdc from BeginPaint
-        self._paint_struct = None    # saving the paintstruct from BeginPaint
-        # off-screen
-        self.hdcMem = None          # dc of off screen bitmap
-        self.hbmMem = None          # off-screen bitmap
-        self.hbmOld = None          # saving old hmb object
-        self.hdc = None             # dc of the window
-        self.screen_dc = None       # dc of screen
     
     def init(self):
         """main function"""
@@ -124,6 +116,9 @@ class Frame(object):
         self.line.SetPattern(0xFFFFFFFF)
         self.line.SetAntialias(True)
         
+        self.sprite = POINTER(ID3DXSprite)()
+        d3dxdll.D3DXCreateSprite(self.device, byref(self.sprite))
+        
     def release_d3d(self):
         print "Cleaning D3D"
         if not self.line is None:           self.line.Release()
@@ -133,6 +128,7 @@ class Frame(object):
         if not self.font is None:           self.font.Release()
         if not self.device is None:         self.device.Release()
         if not self.d3d is None:            self.d3d.Release()
+        if not self.sprite is None:         self.sprite.Release()
         
     def BeginPaint(self):
         read_game = self.env.read_game
