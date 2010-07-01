@@ -1,4 +1,4 @@
-from structs import VECTOR
+from structs import VECTOR, ET_PLAYER
 from Config import *
 from utils import draw_arrow
 from Keys import keys
@@ -50,4 +50,12 @@ class BigRadar(object):
         
         draw_arrow(frame.line, read_game.resolution_x - RADAR_OFFSET - 512 + map_pos.x, RADAR_OFFSET + map_pos.y,
                    -read_game.view_angles.y, MAP_COLOR_ME);        # myself
+        
+        for p in read_game.player:
+            if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001:
+                pos = p.pos
+                map_pos.x = scaling * (transl[0] + matrix[0]*pos.x + matrix[1]*pos.y)
+                map_pos.y = scaling * (transl[1] + matrix[2]*pos.x + matrix[3]*pos.y)
+                draw_arrow(frame.line, read_game.resolution_x - RADAR_OFFSET - 512 + map_pos.x, RADAR_OFFSET + map_pos.y,
+                           -p.yaw, p.color_map);        # myself
         
