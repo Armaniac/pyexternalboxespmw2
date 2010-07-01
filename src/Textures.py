@@ -17,7 +17,7 @@ MAP_NAMES = { "mp_afghan": ((4388,940), (296,32), (-715,1196), (276,412)),
               "mp_complex": ((-2865,-2665), (260,495), (2814,-3596), (363,30)),
               "mp_crash": ((-753,2277), (26,380), (753,-2129), (508,216)),
               "mp_derail": ((407,4439), (65,266), (-1105,-3697), (444,337)),
-              #"mp_estate": ((1991,443), (301,463), (-5077,3781), (219,27)),
+              "mp_estate": ((1991,443), (301,463), (-5077,3781), (219,27)),
               "mp_favela": ((-1593,-246), (363,401), (953,2899), (68,163)),
               "mp_highrise": ((1649,7271), (183,34), (-3905,5529), (328,488)),
               "mp_invasion": ((-3039,-2969), (332,452), (1042,-395), (124,120)),
@@ -38,6 +38,7 @@ class Textures(object):
         self.textures = {}
         self.matrix = {}
         self.translations = {}
+        self.angle = {}        # need to invert arrow in estate
 
     def init(self):
         frame = self.env.frame
@@ -53,8 +54,13 @@ class Textures(object):
             k = len_pict / len_game
             # matrix in form ((a,b) (c,d)) -> (a,b,c,d)
             matr = (0, -k, -k, 0)
+            self.angle[m] = 0
             if m in ("mp_estate"):
-                matr = (0, k, k, 0)
+                alpha = math.radians(35.9)
+                sa = k * math.sin(alpha)
+                ca = k * math.cos(alpha)
+                matr = (sa, ca, ca, -sa)
+                self.angle[m] = 180-35.9
             self.matrix[m] = matr
             # now calculate translation
             new_x = matr[0]*l[0][0] + matr[1]*l[0][1]
