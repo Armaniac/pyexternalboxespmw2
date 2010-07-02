@@ -37,7 +37,7 @@ class BigRadar(object):
         
         frame.sprite.Begin(0)
         frame.sprite.SetTransform(matrix)
-        frame.sprite.Draw(textures.textures[map_name], None, None, None, 0xBFFFFFFF)
+        frame.sprite.Draw(textures.textures[map_name], None, None, None, 0xAF7F7F7F)
         frame.sprite.End()
         
         pos = read_game.mw2_mypos
