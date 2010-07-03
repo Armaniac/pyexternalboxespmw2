@@ -21,7 +21,7 @@ class Radar(object):
         frame = self.env.frame
         if not read_game.is_in_game or not keys["KEY_RADAR"]: return
         
-        rx = self.rx = int(read_game.resolution_x/2 - RADAR_SIZE/2)
+        rx = self.rx = int(read_game.resolution_x/2 - RADAR_SIZE/2 + RADAR_CENTER_X)
         ry = self.ry = RADAR_OFFSET
         rh = rw = self.rh = self.rw = RADAR_SIZE
         
