@@ -25,7 +25,7 @@ class BigRadar(object):
         
         scaling = BIG_RADAR_SCALE
         sprite_center = D3DXVECTOR2(0, 0)
-        trans = D3DXVECTOR2(read_game.resolution_x - RADAR_OFFSET - 512, RADAR_OFFSET)
+        trans = D3DXVECTOR2(read_game.resolution_x - RADAR_OFFSET - 512*scaling, RADAR_OFFSET)
 
         matrix = D3DMATRIX()
         d3dxdll.D3DXMatrixAffineTransformation2D(byref(matrix),
@@ -49,7 +49,7 @@ class BigRadar(object):
         map_pos.y = scaling * (transl[1] + matrix[2]*pos.x + matrix[3]*pos.y)
         arrow_angle = textures.angle[map_name]
         
-        draw_arrow(frame.line, read_game.resolution_x - RADAR_OFFSET - 512 + map_pos.x, RADAR_OFFSET + map_pos.y,
+        draw_arrow(frame.line, read_game.resolution_x - RADAR_OFFSET - 512*scaling + map_pos.x, RADAR_OFFSET + map_pos.y,
                    -read_game.view_angles.y + arrow_angle, MAP_COLOR_ME);        # myself
         
         for p in read_game.player:
@@ -57,6 +57,6 @@ class BigRadar(object):
                 pos = p.pos
                 map_pos.x = scaling * (transl[0] + matrix[0]*pos.x + matrix[1]*pos.y)
                 map_pos.y = scaling * (transl[1] + matrix[2]*pos.x + matrix[3]*pos.y)
-                draw_arrow(frame.line, read_game.resolution_x - RADAR_OFFSET - 512 + map_pos.x, RADAR_OFFSET + map_pos.y,
+                draw_arrow(frame.line, read_game.resolution_x - RADAR_OFFSET - 512*scaling + map_pos.x, RADAR_OFFSET + map_pos.y,
                            -p.yaw + arrow_angle, p.color_map);        # myself
         
