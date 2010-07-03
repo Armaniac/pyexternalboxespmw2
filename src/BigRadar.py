@@ -23,7 +23,7 @@ class BigRadar(object):
             print "map: %s not found" % map_name
             return
         
-        scaling = 1
+        scaling = BIG_RADAR_SCALE
         sprite_center = D3DXVECTOR2(0, 0)
         trans = D3DXVECTOR2(read_game.resolution_x - RADAR_OFFSET - 512, RADAR_OFFSET)
 
