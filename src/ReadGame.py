@@ -140,7 +140,7 @@ class ReadGame(object):
                     self.map_name = "mp_afghan"
                 elif self.map_name == "maps/mp/mp_boneyard.d3dbsp":
                     self.map_name = "mp_boneyard"
-                elif self.map_name == "maps/mp/mp_boneyard.d3dbsp":
+                elif self.map_name == "maps/mp/mp_brecourt.d3dbsp":
                     self.map_name = "mp_brecourt"
                 elif self.map_name == "maps/mp/mp_checkpoint.d3dbsp":
                     self.map_name = "mp_checkpoint"
