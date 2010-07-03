@@ -54,7 +54,7 @@ if PROFILING: MAIN_LOOP_SLEEP = 0.000
 # position of the Radar on the screen
 RADAR_SIZE = 160            # size of the radar in pixels
 RADAR_OFFSET = 20           # margin from top and right of the screen, in pixels
-RADAR_CENTER_X = -200          # X offset from center: 0 means center of the screen
+RADAR_CENTER_X = 0          # X offset from center: 0 means center of the screen
 RADAR_RANGE = 50            # this is the scale divider for the radar: the higher value, the higher range (players are closer)
 
 KEY_BIG_RADAR = "~VK_ADD "   # display a global map with players, good for air-strikes
@@ -108,11 +108,11 @@ RAGE_COLOR_ESP = 0XFFFF0066                 # purple
 RAGE_COLOR_MAP = 0XFFFF0066                 # purple
 
 # below is the display of raged player
-KEY_RAGE_DISPLAY_NAME = "VK_PRIOR VK_NEXT"
+KEY_RAGE_DISPLAY_NAME = "VK_PRIOR VK_NEXT VK_DELETE"
 RAGE_FONT_NAME = "Arial"
 RAGE_FONT_SIZE = 24
 RAGE_FONT_WEIGHT = 700
-RAGE_FONT_COLOR = 0x7FFF0066                # yellow
+RAGE_FONT_COLOR = 0xBFFFFFFF                # white
 RAGE_RESET_STRING = "Rage Target Reset!"
 
 # ----------------------------------------------------------------------
