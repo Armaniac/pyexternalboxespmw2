@@ -111,7 +111,7 @@ class ReadGame(object):
     def _RPM(self, address, buffer):
         if not windll.kernel32.ReadProcessMemory(self.mw2_process.handle, address, byref(buffer), sizeof(buffer), None):
             print "Did you close the Modern Warfare 2 window?"
-            raise Exception("Could not ReadProcessMemory: ", win32api.GetLastError())
+            #raise Exception("Could not ReadProcessMemory: ", win32api.GetLastError())
 
     def _RPM_int(self, address):
         buf_int = c_int()
@@ -132,11 +132,11 @@ class ReadGame(object):
                 self._RPM(VIEWANGLEY-0x40, self.mw2_viewy)
                 self._RPM(ENTITY, self.mw2_entity)
                 self._RPM(CLIENTINFO, self.mw2_clientinfo)
+                self.calc_killstreak()
                 # read map_name
                 map_name_temp = STR64()
                 self._RPM(ADDR_MAP, map_name_temp)
                 map_name_temp_str = cast(pointer(map_name_temp), c_char_p)
-                #self.map_name = "mp" + map_name_temp_str.value.lstrip('mp/maps').rstrip('.d3dbsp')
                 self.map_name = map_name_temp_str.value
                 match = self.map_name_re.search(self.map_name)
                 if match:
@@ -148,8 +148,6 @@ class ReadGame(object):
             self.my_pos = self.mw2_mypos
             self.view_angles = self.mw2_viewy.viewAngles
             self.view_axis = self.mw2_refdef.viewAxis
-            
-            self.calc_killstreak()
             
             # views
             self.fov_x = self.mw2_refdef.fov_x
@@ -198,18 +196,18 @@ class ReadGame(object):
             self.my_player.color_map = MAP_COLOR_ME
             
     def start_game(self):
-        self._last_deaths = 0
-        self._last_kills = 0
-        self.killstreak = 0
+        if self._last_kills == 0 and self._last_deaths == 0:
+            self.killstreak = 0
         
     def calc_killstreak(self):
+        self.start_game()
         if self.deaths != self._last_deaths:
             self._last_deaths = self.deaths
             self._last_kills = self.kills
         if self.kills < self._last_kills:
             self._last_kills = self.kills
         self.killstreak = self.kills - self._last_kills
-
+        
     def world_to_screen(self, location):
         # return (x,y) or None if non visible
         pos = location - self.my_pos

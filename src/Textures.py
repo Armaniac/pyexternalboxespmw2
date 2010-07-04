@@ -4,7 +4,7 @@ from directx.d3dx import d3dxdll
 from ctypes import POINTER, byref
 import math
 from structs import COORD
-
+import os
 
 MAP_FOLDER = "maps\\"
 MAP_EXT = ".jpg"
@@ -42,31 +42,35 @@ class Textures(object):
 
     def init(self):
         frame = self.env.frame
-        for (m, l) in MAP_NAMES.items():
-            texture = POINTER(IDirect3DTexture9)()
-            d3dxdll.D3DXCreateTextureFromFileA(frame.device,
-                                              MAP_FOLDER + m + MAP_EXT,
-                                              byref(texture))
-            self.textures[m] = texture
-            # now calculate transformations
-            len_game = math.hypot(l[0][0] - l[2][0], l[0][1] - l[2][1])
-            len_pict = math.hypot(l[1][0] - l[3][0], l[1][1] - l[3][1])
-            k = len_pict / len_game
-            # matrix in form ((a,b) (c,d)) -> (a,b,c,d)
-            matr = (0, -k, -k, 0)
-            self.angle[m] = 0
-            if m in ("mp_estate"):
-                alpha = math.radians(35.9)
-                sa = k * math.sin(alpha)
-                ca = k * math.cos(alpha)
-                matr = (sa, ca, ca, -sa)
-                self.angle[m] = 180-35.9
-            self.matrix[m] = matr
-            # now calculate translation
-            new_x = matr[0]*l[0][0] + matr[1]*l[0][1]
-            new_y = matr[2]*l[0][0] + matr[3]*l[0][1]
-            transl = (l[1][0] - new_x, l[1][1] - new_y)
-            self.translations[m] = transl
+        
+        if os.path.isdir(MAP_FOLDER):
+            for (m, l) in MAP_NAMES.items():
+                texture = POINTER(IDirect3DTexture9)()
+                d3dxdll.D3DXCreateTextureFromFileA(frame.device,
+                                                  MAP_FOLDER + m + MAP_EXT,
+                                                  byref(texture))
+                self.textures[m] = texture
+                # now calculate transformations
+                len_game = math.hypot(l[0][0] - l[2][0], l[0][1] - l[2][1])
+                len_pict = math.hypot(l[1][0] - l[3][0], l[1][1] - l[3][1])
+                k = len_pict / len_game
+                # matrix in form ((a,b) (c,d)) -> (a,b,c,d)
+                matr = (0, -k, -k, 0)
+                self.angle[m] = 0
+                if m in ("mp_estate"):
+                    alpha = math.radians(35.9)
+                    sa = k * math.sin(alpha)
+                    ca = k * math.cos(alpha)
+                    matr = (sa, ca, ca, -sa)
+                    self.angle[m] = 180-35.9
+                self.matrix[m] = matr
+                # now calculate translation
+                new_x = matr[0]*l[0][0] + matr[1]*l[0][1]
+                new_y = matr[2]*l[0][0] + matr[3]*l[0][1]
+                transl = (l[1][0] - new_x, l[1][1] - new_y)
+                self.translations[m] = transl
+        else:
+            print "'maps' folder is not present!\nThis folder and the maps it contains are needed to display map radar."
     
     def render(self):
         pass
