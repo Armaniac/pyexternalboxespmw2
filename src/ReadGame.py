@@ -1,4 +1,5 @@
 import win32api, win32con, win32gui, win32process
+import re
 from time import sleep
 from structs import *
 from Config import *
@@ -35,6 +36,7 @@ class ReadGame(object):
         self.mw2_clientinfo = MW2_ClientInfo()
         self.mw2_entity = MW2_Entity()
         self.map_name = None
+        self.map_name_re = re.compile("/(mp_\w+)\.d3dbsp")
 
         # pre-mashed info
         self.fov_x = 0.0                # field of view
@@ -136,50 +138,9 @@ class ReadGame(object):
                 map_name_temp_str = cast(pointer(map_name_temp), c_char_p)
                 #self.map_name = "mp" + map_name_temp_str.value.lstrip('mp/maps').rstrip('.d3dbsp')
                 self.map_name = map_name_temp_str.value
-                if self.map_name == "maps/mp/mp_afghan.d3dbsp":
-                    self.map_name = "mp_afghan"
-                elif self.map_name == "maps/mp/mp_boneyard.d3dbsp":
-                    self.map_name = "mp_boneyard"
-                elif self.map_name == "maps/mp/mp_brecourt.d3dbsp":
-                    self.map_name = "mp_brecourt"
-                elif self.map_name == "maps/mp/mp_checkpoint.d3dbsp":
-                    self.map_name = "mp_checkpoint"
-                elif self.map_name == "maps/mp/mp_compact.d3dbsp":
-                    self.map_name = "mp_compact"
-                elif self.map_name == "maps/mp/mp_complex.d3dbsp":
-                    self.map_name = "mp_complex"
-                elif self.map_name == "maps/mp/mp_crash.d3dbsp":
-                    self.map_name = "mp_crash"
-                elif self.map_name == "maps/mp/mp_derail.d3dbsp":
-                    self.map_name = "mp_derail"
-                elif self.map_name == "maps/mp/mp_estate.d3dbsp":
-                    self.map_name = "mp_estate"
-                elif self.map_name == "maps/mp/mp_favela.d3dbsp":
-                    self.map_name = "mp_favela"
-                elif self.map_name == "maps/mp/mp_highrise.d3dbsp":
-                    self.map_name = "mp_highrise"
-                elif self.map_name == "maps/mp/mp_invasion.d3dbsp":
-                    self.map_name = "mp_invasion"
-                elif self.map_name == "maps/mp/mp_nightshift.d3dbsp":
-                    self.map_name = "mp_nightshift"
-                elif self.map_name == "maps/mp/mp_overgrown.d3dbsp":
-                    self.map_name = "mp_overgrown"
-                elif self.map_name == "maps/mp/mp_quarry.d3dbsp":
-                    self.map_name = "mp_quarry"
-                elif self.map_name == "maps/mp/mp_rundown.d3dbsp":
-                    self.map_name = "mp_rundown"
-                elif self.map_name == "maps/mp/mp_rust.d3dbsp":
-                    self.map_name = "mp_rust"
-                elif self.map_name == "maps/mp/mp_storm.d3dbsp":
-                    self.map_name = "mp_storm"
-                elif self.map_name == "maps/mp/mp_subbase.d3dbsp":
-                    self.map_name = "mp_subbase"
-                elif self.map_name == "maps/mp/mp_terminal.d3dbsp":
-                    self.map_name = "mp_terminal"
-                elif self.map_name == "maps/mp/mp_underpass.d3dbsp":
-                    self.map_name = "mp_underpass"
-                else:
-                    self.map_name = "UNKNOWN MAP!"
+                match = self.map_name_re.search(self.map_name)
+                if match:
+                    self.map_name = match.group(1)
             
             self.fov_x = self.mw2_refdef.fov_x
             self.fov_y = self.mw2_refdef.fov_y
