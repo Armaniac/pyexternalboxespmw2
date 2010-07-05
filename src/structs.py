@@ -95,24 +95,24 @@ class STR64(Structure):
     _fields_ = [ ("str", c_char * 64)]
 
 class MW2_ClientInfo_T(Structure):
-    _fields_= [ ("_p00", c_char * 12),
-                ("name", STR16),
-                ("team", c_uint),
-                ("team2", c_uint),
-                ("_p01", c_char * 8),
-                ("perk", c_uint),
-                ("_p02", c_char * 16),
-                ("BodyModel", STR64),
-                ("HeadModel", STR64),
-                ("WeaponModel", STR64),
-                ("WeaponModel2", STR64),
-                ("WeaponExplosive", STR64),
-                ("_p03", c_char * 552),
-                ("pose", c_uint),
-                ("_p04", c_char * 96),
-                ("pose2", c_uint),
-                ("_p05", c_char * 284),
-               ]
+    _fields_= [ ("_p00", c_char * 12),  # 0x00
+                ("name", STR16),        # 0x0C
+                ("team", c_uint),       # 0x1C
+                ("team2", c_uint),      # 0x20
+                ("_p01", c_char * 8),   # 0x24
+                ("perk", c_uint),       # 0x2C
+                ("_p02", c_char * 16),  # 0x30
+                ("BodyModel", STR64),   # 0x40
+                ("HeadModel", STR64),   # 0x80
+                ("WeaponModel", STR64), # 0xC0
+                ("WeaponModel2", STR64),# 0x100
+                ("WeaponExplosive", STR64),# 0x140
+                ("_p03", c_char * 552), # 0x180
+                ("pose", c_uint),       # 0x3A8
+                ("_p04", c_char * 96),  # 0x3AC
+                ("pose2", c_uint),      # 0x40C
+                ("_p05", c_char * 284), # 0x410
+               ]                        # 0x528
 
 class MW2_Entity_T(Structure):
     _fields_= [ ("_p00", c_ushort),     # 0x00
