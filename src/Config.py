@@ -101,9 +101,9 @@ FADE_MAX_ALPHA = 0x32                       # level of transparency
 # ----------------------------------------------------------------------
 # rage module - special coloring for the player you want to rage
 
-KEY_RAGE_PREV = "!VK_PRIOR"                    # page up
-KEY_RAGE_NEXT = "!VK_NEXT"                   # page down
-KEY_RAGE_RESET = "!VK_DELETE"                # delete key
+KEY_RAGE_PREV = "!VK_PRIOR"                 # page up
+KEY_RAGE_NEXT = "!VK_NEXT"                  # page down
+KEY_RAGE_RESET = "!VK_DELETE"               # delete key
 
 RAGE_COLOR_ESP = 0XFFFF0066                 # purple
 RAGE_COLOR_MAP = 0XFFFF0066                 # purple
@@ -113,8 +113,8 @@ KEY_RAGE_DISPLAY_NAME = "VK_PRIOR VK_NEXT VK_DELETE"
 RAGE_FONT_NAME = "Arial"
 RAGE_FONT_SIZE = 24
 RAGE_FONT_WEIGHT = 700
-RAGE_FONT_COLOR = 0xBFFFFFFF                # white
-RAGE_RESET_STRING = "Rage Target Reset!"
+RAGE_FONT_COLOR = 0x7FFF0066                # yellow
+RAGE_RESET_STRING = "-------------"
 
 # ----------------------------------------------------------------------
 # Cross hair
@@ -178,24 +178,25 @@ F12_LABEL = "snapline"
 
 # virtual keys ON and OFF are also accepted if always on or off
 # all globs starting with IS_ are parsed and mapped to an F key or ON/OFF
-KEY_STATUS =                "+VK_F1"
-KEY_STATUS_UP =             "+VK_F2"
-KEY_CROSSHAIR =             "+VK_F3"
-KEY_EXPLOSIVES =            "+VK_F4"
-KEY_AIMBOT_ACTIVE =            "-VK_F5"
-KEY_TUBEBOT_ACTIVE =           "-VK_F6"
-KEY_KNIFEBOT_ACTIVE =          "-VK_F7"
-KEY_AUTOSTAB =              "-VK_F8"
-KEY_TRIGGERBOT =            "-VK_F9"
-KEY_RADAR =                 "+VK_F10"
-KEY_BOXESP =                "+VK_F11"
-KEY_BOX_SNAPLINE =           "+VK_F12"
+KEY_STATUS =				"+VK_F1"
+KEY_STATUS_UP = 			"+VK_F2"
+KEY_CROSSHAIR =     		"+VK_F3"
+KEY_EXPLOSIVES =    		"+VK_F4"
+KEY_AIMBOT_ACTIVE =        	"-VK_F5"
+KEY_TUBEBOT_ACTIVE =       	"-VK_F6"
+KEY_KNIFEBOT_ACTIVE =      	"-VK_F7"
+KEY_AUTOSTAB =      		"-VK_F8"
+KEY_TRIGGERBOT =    		"-VK_F9"
+KEY_RADAR =         		"+VK_F10"
+KEY_BOXESP =        		"+VK_F11"
+KEY_BOX_SNAPLINE =   		"+VK_F12"
 
 # all globals beginning with KEY_ are parsed and corresponding keys are being scanned
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
-KEY_BOT = "VK_RBUTTON VK_END"
-KEY_TUBEBOT = "VK_HOME VK_MBUTTON"
+KEY_BOT = "VK_LBUTTON VK_END"
+KEY_TRIGGERBOT = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
+KEY_TUBEBOT = "VK_HOME VK_LMENU"
 KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"         # CAPS LOCK
 
