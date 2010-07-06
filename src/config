@@ -195,7 +195,7 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
 KEY_BOT = "VK_LBUTTON VK_END"
-KEY_TRIGGERBOT = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
+KEY_TRIGGER_BOT_KEY = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
 KEY_TUBEBOT = "VK_HOME VK_LMENU"
 KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"         # CAPS LOCK
