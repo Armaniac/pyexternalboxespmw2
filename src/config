@@ -20,9 +20,6 @@ VIEWANGLEY = 0xB36A40
 ADDR_KILLS = 0x01B2C918
 ADDR_DEATHS = 0x01B2C920
 
-#ADDR_MAP = 0x64DA350
-ADDR_MAP = 0x07F1E44
-
 COD_WINDOW_NAME = "Modern Warfare 2"
 
 # ----------------------------------------------------------------------
@@ -161,6 +158,9 @@ BOT_SPEED_TICK_1 = 15
 BOT_SPEED_2 = 3
 BOT_SPEED_TICK_2 = 30
 BOT_SPEED_3 = 2
+# TK Bot Config Info
+TK_BOT_COLOR = 0xFFFF0000
+KEY_TK_BOT = "~VK_RMENU" #Key to bind toggle for Aimbot to aim at same team.
 # ----------------------------------------------------------------------
 # labels
 F1_LABEL = "display"

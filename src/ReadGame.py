@@ -135,7 +135,8 @@ class ReadGame(object):
                 self.calc_killstreak()
                 # read map_name
                 map_name_temp = STR64()
-                self._RPM(ADDR_MAP, map_name_temp)
+                self._RPM(CGS_T + 0x14C, map_name_temp)
+                #self._RPM(ADDR_MAP, map_name_temp) removed to keep maintainability
                 map_name_temp_str = cast(pointer(map_name_temp), c_char_p)
                 self.map_name = map_name_temp_str.value
                 match = self.map_name_re.search(self.map_name)
