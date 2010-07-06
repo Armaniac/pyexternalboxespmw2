@@ -96,8 +96,6 @@ def launch():
             m.run()
     finally:
         print "Application ending, cleaning up D3D"
-        print "Press 'Enter' Key to close."
-        raw_input()
         m.release()
 
 

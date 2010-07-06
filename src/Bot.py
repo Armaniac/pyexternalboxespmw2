@@ -1,5 +1,5 @@
 from Config import *
-from utils import draw_spot, mouse_move
+from utils import draw_spot, mouse_move, draw_string_center
 from Keys import keys
 from structs import ET_PLAYER, FLAGS_CROUCHED, FLAGS_PRONE, VECTOR
 
@@ -33,31 +33,64 @@ class Bot(object):
         angle_dist = -1                         # current distance to the center
         aimed_player = None                     # currently aimed player
         angle = [0, 0]
+        #Aimbot
         for p in bot_range:
-            if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001 and p.enemy:
-                aim_target = p.pos
-                if key_tubebot:
-                    aim_target.z += BOT_TUBE_Z
-                elif key_knifebot:
-                    aim_target.z += BOT_KNIFE_Z
-                else:
-                    if p.pose & FLAGS_CROUCHED:
-                        aim_target.z += BOT_CROUCHED_Z
-                    elif p.pose & FLAGS_PRONE:
-                        aim_target.z += BOT_PRONE_Z
+            #same team aimbot
+            if keys["KEY_TK_BOT"]:
+                draw_string_center(frame.rage_font, read_game.screen_center_x, read_game.screen_center_y + 90, TK_BOT_COLOR, "TK BOT ACTIVE!")
+                if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001 and p.team == read_game.my_team:
+                    aim_target = p.pos
+                    if key_tubebot:
+                        aim_target.z += BOT_TUBE_Z
+                    elif key_knifebot:
+                        aim_target.z += BOT_KNIFE_Z
                     else:
-                        aim_target.z += BOT_STAND_Z
-                
-                spot = read_game.world_to_screen(aim_target)
-                if spot:
-                    cur_angle_dist = self.sq(spot.x - read_game.screen_center_x, spot.y - read_game.screen_center_y)
-                    # square of the distance of the spot to the center of the screen
-                    if cur_angle_dist < BOT_MIN_PIX_TO_CENTER * BOT_MIN_PIX_TO_CENTER:      # not too far from center
-                        if angle_dist < 0 or cur_angle_dist < angle_dist:
-                            # select this player
-                            angle_dist = cur_angle_dist
-                            angle = [spot.x - read_game.screen_center_x, spot.y - read_game.screen_center_y]
-                            aimed_player = p
+                        if p.pose & FLAGS_CROUCHED:
+                            aim_target.z += BOT_CROUCHED_Z
+                        elif p.pose & FLAGS_PRONE:
+                            aim_target.z += BOT_PRONE_Z
+                        else:
+                            aim_target.z += BOT_STAND_Z
+                    
+                    spot = read_game.world_to_screen(aim_target)
+                    if spot:
+                        cur_angle_dist = self.sq(spot.x - read_game.screen_center_x, spot.y - read_game.screen_center_y)
+                        # square of the distance of the spot to the center of the screen
+                        if cur_angle_dist < BOT_MIN_PIX_TO_CENTER * BOT_MIN_PIX_TO_CENTER:      # not too far from center
+                            if angle_dist < 0 or cur_angle_dist < angle_dist:
+                                # select this player
+                                angle_dist = cur_angle_dist
+                                angle = [spot.x - read_game.screen_center_x, spot.y - read_game.screen_center_y]
+                                aimed_player = p
+            #end of TK bot                    
+            else:#enemy team aimbot.                
+                if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001 and p.enemy:
+                    aim_target = p.pos
+                    if key_tubebot:
+                        aim_target.z += BOT_TUBE_Z
+                    elif key_knifebot:
+                        aim_target.z += BOT_KNIFE_Z
+                    else:
+                        if p.pose & FLAGS_CROUCHED:
+                            aim_target.z += BOT_CROUCHED_Z
+                        elif p.pose & FLAGS_PRONE:
+                            aim_target.z += BOT_PRONE_Z
+                        else:
+                            aim_target.z += BOT_STAND_Z
+                    
+                    spot = read_game.world_to_screen(aim_target)
+                    if spot:
+                        cur_angle_dist = self.sq(spot.x - read_game.screen_center_x, spot.y - read_game.screen_center_y)
+                        # square of the distance of the spot to the center of the screen
+                        if cur_angle_dist < BOT_MIN_PIX_TO_CENTER * BOT_MIN_PIX_TO_CENTER:      # not too far from center
+                            if angle_dist < 0 or cur_angle_dist < angle_dist:
+                                # select this player
+                                angle_dist = cur_angle_dist
+                                angle = [spot.x - read_game.screen_center_x, spot.y - read_game.screen_center_y]
+                                aimed_player = p
+            #end of enemy bot
+            
+            
         # end for
         if self.player_locked and not key_tubebot and not key_knifebot and aimed_player is None:
             self.player_locked = None           # if player locked is off range, and not tube/knife, we release lock

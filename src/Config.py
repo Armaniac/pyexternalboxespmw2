@@ -161,6 +161,9 @@ BOT_SPEED_TICK_1 = 15
 BOT_SPEED_2 = 3
 BOT_SPEED_TICK_2 = 30
 BOT_SPEED_3 = 2
+# TK Bot Config Info
+TK_BOT_COLOR = 0xFFFF0000
+KEY_TK_BOT = "~VK_RMENU" #Key to bind toggle for Aimbot to aim at same team.
 # ----------------------------------------------------------------------
 # labels
 F1_LABEL = "display"
@@ -195,7 +198,7 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
 KEY_BOT = "VK_LBUTTON VK_END"
-KEY_TRIGGERBOT = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
+KEY_TRIGGER_BOT_KEY = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
 KEY_TUBEBOT = "VK_HOME VK_LMENU"
 KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"         # CAPS LOCK
