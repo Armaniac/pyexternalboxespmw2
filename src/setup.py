@@ -7,7 +7,7 @@ py2exe_options = dict(
                        excludes=['_ssl',  # Exclude _ssl
                                  'pyreadline', 'difflib', 'doctest', 'locale',
                                  'optparse', 'pickle', 'calendar', 'pbd', 'unittest', 'inspect'],  # Exclude standard library
-                       dll_excludes=['msvcr71.dll', 'w9xpopen.exe'
+                       dll_excludes=['msvcr71.dll', 'w9xpopen.exe',
                                      'API-MS-Win-Core-LocalRegistry-L1-1-0.dll',
                                      'API-MS-Win-Core-ProcessThreads-L1-1-0.dll',
                                      'API-MS-Win-Security-Base-L1-1-0.dll',
