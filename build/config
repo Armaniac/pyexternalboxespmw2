@@ -20,6 +20,9 @@ VIEWANGLEY = 0xB36A40
 ADDR_KILLS = 0x01B2C918
 ADDR_DEATHS = 0x01B2C920
 
+#ADDR_MAP = 0x64DA350
+ADDR_MAP = 0x07F1E44
+
 COD_WINDOW_NAME = "Modern Warfare 2"
 
 # ----------------------------------------------------------------------
@@ -51,7 +54,11 @@ if PROFILING: MAIN_LOOP_SLEEP = 0.000
 # position of the Radar on the screen
 RADAR_SIZE = 160            # size of the radar in pixels
 RADAR_OFFSET = 20           # margin from top and right of the screen, in pixels
+RADAR_CENTER_X = 0          # X offset from center: 0 means center of the screen
 RADAR_RANGE = 50            # this is the scale divider for the radar: the higher value, the higher range (players are closer)
+
+KEY_BIG_RADAR = "~VK_ADD "  # display a global map with players, good for air-strikes
+BIG_RADAR_SCALE = 0.5       # scale factor for maps, 1.0 makes a 512x512 pix, 0.5 is reduced to 256x256
 
 # colors for the BOX Esp
 COLOR_FRIEND = 0x7F0000FF                  # blue
@@ -63,22 +70,22 @@ COLOR_EXPLOSIVE = 0x3F7F7F7F               # yellow
 
 # 
 COLOR_BOX_LINE_WIDTH = 3                    # width of the arrow from lower screen to box
-COLOR_BOX_OUTER_WIDTH = 3                    # width of the Box ESP
-COLOR_PLAYER_NAME = 0x7FFFFFFF                # color of the player name
+COLOR_BOX_OUTER_WIDTH = 3                   # width of the Box ESP
+COLOR_PLAYER_NAME = 0x7FFFFFFF              # color of the player name
 PLAYER_NAME_FONT = "Arial"
 PLAYER_NAME_SIZE = 14
 PLAYER_NAME_WEIGHT = 400
 
 # colors for mini-map
-MAP_COLOR_BACK = 0x44000000                    # radar back color
-MAP_COLOR_BORDER = 0x7F0000FF                # radar border color
-MAP_COLOR_ME = 0xFF00FF00                    # color of my player
-MAP_COLOR_FRIEND = 0xFF4444FF                # color of team-mates
+MAP_COLOR_BACK = 0x44000000                 # radar back color
+MAP_COLOR_BORDER = 0x7F0000FF               # radar border color
+MAP_COLOR_ME = 0xFF00FF00                   # color of my player
+MAP_COLOR_FRIEND = 0xFF4444FF               # color of team-mates
 MAP_COLOR_ENEMY = 0XFFFF4444                # color of enemies
 MAP_COLOR_ENEMY_COLDBLOODED = 0XFFFFBF44    # color of enemies with coldblood perk
 
 # color of the claymore ESP
-COLOR_CLAYMORE = 0x3FFF6666                    # color of claymores
+COLOR_CLAYMORE = 0x3FFF6666                 # color of claymores
 COLOR_PLANE = 0x7F880088                    # color for planes & helicopters
 
 # distance ESP (in meters or ft)
@@ -90,7 +97,7 @@ FADE_ENABLED = True                         # set to False to disable fading
 FADE_MIN_DIST = 300                         # in 1/10th of ft, so 600 is ~20m
 FADE_MIN_ALPHA = 0xFF                       # level of transparency
 FADE_MAX_DIST = 2500                        # in 1/10th of ft, 2500 is ~80m
-FADE_MAX_ALPHA = 0x19                       # level of transparency
+FADE_MAX_ALPHA = 0x32                       # level of transparency
 # ----------------------------------------------------------------------
 # rage module - special coloring for the player you want to rage
 
@@ -101,9 +108,8 @@ KEY_RAGE_RESET = "!VK_DELETE"               # delete key
 RAGE_COLOR_ESP = 0XFFFF0066                 # purple
 RAGE_COLOR_MAP = 0XFFFF0066                 # purple
 
-
 # below is the display of raged player
-KEY_RAGE_DISPLAY_NAME = "VK_PRIOR VK_NEXT"
+KEY_RAGE_DISPLAY_NAME = "VK_PRIOR VK_NEXT VK_DELETE"
 RAGE_FONT_NAME = "Arial"
 RAGE_FONT_SIZE = 24
 RAGE_FONT_WEIGHT = 700
@@ -113,8 +119,8 @@ RAGE_RESET_STRING = "-------------"
 # ----------------------------------------------------------------------
 # Cross hair
 CROSSHAIR_COLOR = 0xCCFF1111                # crosshair color
-CROSSHAIR_WIDTH = 2                            # crosshair width
-CROSSHAIR_SIZE = 10                            # crosshair length
+CROSSHAIR_WIDTH = 2                         # crosshair width
+CROSSHAIR_SIZE = 10                         # crosshair length
 
 # ----------------------------------------------------------------------
 # Status line
@@ -137,10 +143,10 @@ GRAV = 322.0                        # in 1/10th of feet/s2
 TUBE_VEL = 1550.0                   # which is 155 ft/s, or 47m/s
 KNIFE_VEL = 910.0                   # which is 90 ft/s, or 27m/s
 
-# below are the hieght of aiming for regular weapon, depending on pose
+# below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
 # beware that having too much headshots can unbalance your stats, use EAM to reset them
-BOT_STAND_Z = 45            # or 55 for more headshots
+BOT_STAND_Z = 48            # or 55 for more headshots
 BOT_CROUCHED_Z = 38
 BOT_PRONE_Z = 10
 
@@ -188,7 +194,8 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 # all globals beginning with KEY_ are parsed and corresponding keys are being scanned
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
-KEY_BOT = "VK_RBUTTON"
+KEY_BOT = "VK_LBUTTON VK_END"
+KEY_TRIGGERBOT = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
 KEY_TUBEBOT = "VK_HOME VK_LMENU"
 KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"         # CAPS LOCK
