@@ -1,5 +1,6 @@
 from distutils.core import setup
 import py2exe
+import os
 
 py2exe_options = dict(
                        ascii=True,  # Exclude encodings
@@ -10,6 +11,7 @@ py2exe_options = dict(
                        compressed=True,  # Compress library.zip
                        bundle_files = 2,
                        )
+map_files = ['maps/'+name for name in os.listdir('maps/') if name.endswith('.jpg')]
 
 setup(name='',
       version='5.0.0.0',
@@ -18,6 +20,7 @@ setup(name='',
       console=['launcher.py'],
       #console = [{ 'script': "launcher.py", 'uac_info': "requireAdministrator", },],
       options={'py2exe': py2exe_options},
-      data_files = [('', ['config', 'README.txt'])],
+      data_files = [('', ['config', 'README.txt']),
+                    ('maps', map_files)],
       #zipfile = None,
       )
