@@ -125,9 +125,7 @@ class MW2_Entity_T(Structure):
                 ("_p02", c_char * 60),  # 0x30
                 ("pose", c_uint),       # 0x6C
                 ("_p03", c_char * 12),  # 0x70
-                ("pX", c_float),        # 0x7C
-                ("pY", c_float),        # 0x80
-                ("pZ", c_float),        # 0x84
+                ("pos2", VECTOR),       # 0x7C
                 ("_p04", c_char * 84),  # 0x88
                 ("clientNum", c_int),   # 0xDC
                 ("type", c_int),        # 0xE0
@@ -135,12 +133,14 @@ class MW2_Entity_T(Structure):
                 ("Shooting", c_ubyte),  # 0xE5
                 ("Zoomed", c_ubyte),    # 0xE6
                 ("_p05", c_ubyte),      # 0xE7
-                ("_p06", c_char * 192), # 0xE8
+                ("_p06", c_char * 12),  # 0xE8
+                ("pos3", VECTOR),       # 0xF4
+                ("_p062", c_char * 168),# 0x100
                 ("WeaponNum", c_short), # 0x1A8
                 ("_p07", c_char * 50),  # 0x1AA
                 ("alive", c_int),       # 0x1DC
                 ("_p08", c_char * 36),  # 0x1E0
-                ]                       # 0x204
+                ]                       # 0x204 - 516 bytes
 
 class MW2_ClientInfo(Structure):
     _fields_ = [ ("arr", MW2_ClientInfo_T * PLAYERMAX) ]
