@@ -1,7 +1,7 @@
 from ctypes import byref, cast, POINTER, c_int, pointer
 from Config import *
-from utils import draw_box, draw_line_abs, draw_string_center
-from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, ENTITIESMAX
+from utils import draw_box, draw_line_abs, draw_string_center, draw_spot
+from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX
 from directx.d3dx import D3DRECT, D3DCLEAR
 from Keys import keys
 from ctypes import windll
@@ -20,7 +20,8 @@ class Esp(object):
         if not read_game.is_in_game: return
         
         if keys["KEY_BOXESP"]:
-            for p in read_game.player:
+            for idx in range(PLAYERMAX):
+                p = read_game.player[idx]
                 if (p.type == ET_PLAYER) and p.valid and p.alive and p != read_game.my_player:
                     # colors already calculated
                     head_pos = VECTOR(p.pos.x, p.pos.y, p.pos.z + 60)       # eyepos of standing player
@@ -47,6 +48,17 @@ class Esp(object):
                             size_y /= 3
                             size_x = size_y * 2         # w/h ratio
                         if keys["KEY_BOXESP"]:
+                            if keys["KEY_SPOT23_ESP"]:
+                                p3 = read_game.mw2_entity.arr[idx].pos3
+                                pos3 = VECTOR(p3.x, p3.y, p3.z + 55)
+                                head3 = read_game.world_to_screen(pos3)
+                                if head3:
+                                    draw_spot(frame.line, head3.x, head3.y, 0x7FC00000)
+                                p2 = read_game.mw2_entity.arr[idx].pos2
+                                pos2 = VECTOR(p2.x, p2.y, p2.z + 55)
+                                head2 = read_game.world_to_screen(pos2)
+                                if head2:
+                                    draw_spot(frame.line, head2.x, head2.y, 0x80FFBF00)
                             draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, p.color_esp)
                             draw_string_center(frame.font, feet.x, feet.y - size_y, COLOR_PLAYER_NAME, p.name)
                         if keys["KEY_BOX_SNAPLINE"] and p.enemy and p.alive & 0x0001:

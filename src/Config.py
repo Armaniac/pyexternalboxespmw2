@@ -230,6 +230,7 @@ KEY_INSPECT_DUMP = "!VK_NUMPAD9"
 # calibration mode, only used for debugging of tubebot and knifebot
 # *** DON'T ACTIVATE UNLESS YOU KNOW WHAT YOU ARE DOING
 CALIBRATING = False
+KEY_SPOT23_ESP = "OFF"
 
 # ======================================================================
 # == CUT HERE to recreate the config file                             ==
