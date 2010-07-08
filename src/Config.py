@@ -194,6 +194,8 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 # all globals beginning with KEY_ are parsed and corresponding keys are being scanned
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
+KEY_RAPID_KNIFE = "ON" # Used to turn knife glitch on for autostab
+KEY_KNIFE_GLITCH = "E"
 KEY_BOT = "VK_LBUTTON VK_END"
 KEY_TRIGGER_BOT_KEY = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
 KEY_TUBEBOT = "VK_HOME VK_LMENU"

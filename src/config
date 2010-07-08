@@ -15,7 +15,7 @@ CLIENTINFO = 0x8EC2C8
 CG_T = 0x7F59BC
 CGS_T = 0x7F1CF8
 
-ISINGAME = 0x7F58C8
+ISINGAME = 0x7F58B8
 VIEWANGLEY = 0xB36A40
 ADDR_KILLS = 0x01B2C918
 ADDR_DEATHS = 0x01B2C920
@@ -194,6 +194,8 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 # all globals beginning with KEY_ are parsed and corresponding keys are being scanned
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
+KEY_RAPID_KNIFE = "ON" # Used to turn knife glitch on for autostab
+KEY_KNIFE_GLITCH = "E"
 KEY_BOT = "VK_LBUTTON VK_END"
 KEY_TRIGGER_BOT_KEY = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
 KEY_TUBEBOT = "VK_HOME VK_LMENU"
@@ -203,7 +205,7 @@ KEY_INDIRECT_BOT = "~VK_CAPITAL"         # CAPS LOCK
 TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
 # ----------------------------------------------------------------------
 # autostab parameters
-AUTOSTAB_DIST = 75             # distance in 1/10th of ft
+AUTOSTAB_DIST = 150             # distance in 1/10th of ft
 AUTOSTAB_DIST_Z = 50            # max vertical distance (otherwise you try to stab people above/under you)
 
 # ----------------------------------------------------------------------
