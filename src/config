@@ -196,7 +196,7 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 # seperate multiple keys with spaces
 KEY_RAPID_KNIFE = "ON" # Used to turn knife glitch on for autostab
 KEY_KNIFE_GLITCH = "E"
-KEY_BOT = "VK_LBUTTON VK_END"
+KEY_BOT = "VK_RBUTTON VK_END"
 KEY_TRIGGER_BOT_KEY = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
 KEY_TUBEBOT = "VK_HOME VK_LMENU"
 KEY_KNIFEBOT = "G VK_MBUTTON"
