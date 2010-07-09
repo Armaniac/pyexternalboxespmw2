@@ -8,15 +8,15 @@ import thread
 KEYEVENTF_KEYUP = 0x0002
 
 def _stab_glitch():
-    windll.User32.keybd_event(0x45, 0x12, 0, 0)
-    windll.User32.keybd_event(0x45, 0x12, KEYEVENTF_KEYUP, 0)
+    windll.User32.keybd_event(ord("E"), 0x12, 0, 0)
+    windll.User32.keybd_event(ord("E"), 0x12, KEYEVENTF_KEYUP, 0)
     time.sleep(.16)
-    windll.User32.keybd_event(0x47, 0x22, 0, 0)
+    windll.User32.keybd_event(ord("G"), 0x22, 0, 0)
     time.sleep(.03)
-    windll.User32.keybd_event(0x31, 0x02, 0, 0)
-    windll.User32.keybd_event(0x31, 0x02, KEYEVENTF_KEYUP, 0)
+    windll.User32.keybd_event(ord("1"), 0x02, 0, 0)
+    windll.User32.keybd_event(ord("1"), 0x02, KEYEVENTF_KEYUP, 0)
     time.sleep(.05)
-    windll.User32.keybd_event(0x47, 0x22, KEYEVENTF_KEYUP, 0)
+    windll.User32.keybd_event(ord("G"), 0x22, KEYEVENTF_KEYUP, 0)
     time.sleep(.35)
 
 class Autostab(object):
