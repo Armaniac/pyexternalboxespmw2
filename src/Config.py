@@ -19,6 +19,7 @@ ISINGAME = 0x7F58C8
 VIEWANGLEY = 0xB36A40
 ADDR_KILLS = 0x01B2C918
 ADDR_DEATHS = 0x01B2C920
+WEAPON_DESC = 0x7E6D08
 
 COD_WINDOW_NAME = "Modern Warfare 2"
 
@@ -232,6 +233,7 @@ KEY_INSPECT_DUMP = "!VK_NUMPAD9"
 # *** DON'T ACTIVATE UNLESS YOU KNOW WHAT YOU ARE DOING
 CALIBRATING = False
 KEY_SPOT23_ESP = "OFF"
+DEBUG_PRINT_WEAPON_NAMES = False
 
 # ======================================================================
 # == CUT HERE to recreate the config file                             ==

@@ -148,6 +148,19 @@ class MW2_ClientInfo(Structure):
 class MW2_Entity(Structure):
     _fields_ = [ ("arr", MW2_Entity_T * ENTITIESMAX) ]
 
+class MW2_WeaponDesc_T(Structure):
+    _fields_ = [ ("_p10", c_char * 16),
+                 ("i1", c_int),
+                 ("name_addr", c_int),
+                 ("i2", c_int),
+                 ("i3", c_int),
+                 ]
+
+class MW2_WeaponDesc(Structure):
+    _fields_ = [ ("arr", MW2_WeaponDesc_T * 2048)]
+
+class STR256(Structure):
+    _fields_ = [ ("str", c_byte * 256)]
 # high level Player object
 
 class Player(object):
