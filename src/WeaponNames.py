@@ -47,3 +47,15 @@ class WeaponNames(object):
                 for l in dump:
                     print l
                 del dump
+    
+    def get_weapon_name(self, weaponnum):
+        if self.weapon_names is None:
+            return None
+        else:
+            return self.weapon_names[weaponnum]
+    
+    def get_weapon_model(self, weaponnum):
+        if self.weapon_names is None:
+            return None
+        else:
+            return self.weapon_models[weaponnum]
