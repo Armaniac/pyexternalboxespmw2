@@ -27,15 +27,25 @@ class Autostab(object):
     
     def stab_glitch(self):
         thread.start_new_thread(_stab_glitch, ())
+    
+    def get_map_name(self):
+        read_game = self.env.read_game
+        dlc_maps = ['mp_crash', 'mp_complex', 'mp_compact', 'mp_storm', 'mp_overgrown', 'mp_abandon', 'mp_fuel2', 'mp_strike', 'mp_trailerpark', 'mp_vacant']
+        map_name = read_game.map_name
+        if map_name in dlc_maps:
+            return True
         
     def is_my_player_tactical(self):
         p = self.env.read_game.my_player
-        return p.valid and p.alive & 0x0001 and p.weapon_num in KNIFE_TACTICAL_WEAPONS
+        if self.get_map_name():
+            return p.valid and p.alive & 0x0001 and p.weapon_num in KNIFE_TACTICAL_WEAPONS_DLC
+        else:
+            return p.valid and p.alive & 0x0001 and p.weapon_num in KNIFE_TACTICAL_WEAPONS
 
     def render(self):
         read_game = self.env.read_game
         
-        if keys["KEY_KNIFE_GLITCH"] and read_game.is_in_game and keys["KEY_RAPID_KNIFE"] and self.is_my_player_tactical():
+        if keys["KEY_KNIFE_GLITCH"] and read_game.is_in_game and keys["KEY_RAPID_KNIFE"]  and self.get_map_name() and self.is_my_player_tactical():
             if self.env.ticks - self.last_melee_tick > 31:
                 self.last_melee_tick = self.env.ticks
                 self.stab_glitch()
@@ -48,7 +58,7 @@ class Autostab(object):
                 dist = (p.pos - read_game.my_pos).length()
                 vert_dist = abs(p.pos.z - read_game.my_pos.z)
                 if dist < AUTOSTAB_DIST and vert_dist < AUTOSTAB_DIST_Z:
-                    if keys["KEY_RAPID_KNIFE"] and self.is_my_player_tactical():
+                    if keys["KEY_RAPID_KNIFE"] and self.get_map_name() and self.is_my_player_tactical():
                         self.env.ticks - self.last_melee_tick > 27
                         self.last_melee_tick = self.env.ticks
                         self.stab_glitch()
