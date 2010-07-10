@@ -56,8 +56,8 @@ class ReadGame(object):
         self._last_kills = 0
     
     def init(self):
-        print "External BoxESP+bot version 5.0 by Sph4ck"
-        print "for COD6 MW2 - build 1.1.195"
+        print "External BoxESP+bot version 5.1 by sph4ck & dheir"
+        print "for COD6 MW2 - build 1.2.208 & 1.1.195."
         print "- works on Vista/Win7 with Aero theme activated"
         print
         print "Waiting for COD6 game..."

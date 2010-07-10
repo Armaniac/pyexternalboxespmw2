@@ -1,5 +1,5 @@
 #
-# This is the configuration file for ExternalBoxESP+bot by Sph4ck
+# This is the configuration file for ExternalBoxESP+bot by sph4ck & dheir
 #
 # you should find here many parameters to customize your hack without changing code
 #
@@ -7,7 +7,7 @@
 # this file is interpreted as Python code, so beware: you can easily break the program
 
 # ----------------------------------------------------------------------
-# Offsets for COD6 - build 1.1.195
+# Offsets for COD6 - build 1.2.208
 #
 REFDEF = 0x860030
 ENTITY = 0x8F8AF8

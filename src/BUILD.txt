@@ -1,4 +1,4 @@
-External BoxESP v5.0 by Sph4ck
+External BoxESP v5.1 by sph4ck & dheir
 ----------------------------------------
 Build instructions
 
