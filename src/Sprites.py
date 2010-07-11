@@ -8,6 +8,14 @@ SPRITES_FOLDER = "sprites\\"
 SPRITES = { "WEAPON_CLAYMORE": "claymore.jpg",
             "WEAPON_C4": "c4.jpg",
             "WEAPON_FLASH_GRENADE": "flash.jpg",
+            "WEAPON_M2FRAGGRENADE": "grenade.jpg",
+            "WEAPON_SEMTEX": "semtex.jpg",
+            "WEAPON_SMOKE_GRENADE": "smoke.jpg",
+            "WEAPON_CONCUSSION_GRENADE": "stun.jpg",
+            "WEAPON_THROWING_KNIFE": "knife.jpg",
+            "WEAPON_M203": "nade.jpg",
+            "WEAPON_M79": "nade.jpg",
+            "WEAPON_AIRDROP_MARKER": "airdrop.jpg",
             }
 
 class Sprites(object):

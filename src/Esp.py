@@ -1,12 +1,14 @@
-from ctypes import byref, cast, POINTER, c_int, pointer
+from ctypes import byref, cast, POINTER, c_int, pointer, c_float
 from Config import *
 from utils import draw_box, draw_line_abs, draw_string_center, draw_spot
 from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX
-from directx.d3dx import D3DRECT, D3DCLEAR, D3DXVECTOR2, D3DXVECTOR3
+from directx.d3d import D3DMATRIX
+from directx.d3dx import D3DRECT, D3DCLEAR, D3DXVECTOR3, d3dxdll, D3DXVECTOR2
 from Keys import keys
 from ctypes import windll
 
 KEYEVENTF_KEYUP = 0x0002
+_EXPLO_SPRITE_SIZE = 32
 
 class Esp(object):
     
@@ -29,16 +31,7 @@ class Esp(object):
                     feet = read_game.world_to_screen(p.pos)
                     head = read_game.world_to_screen(head_pos)
                     if feet and head:
-                        distance = (p.pos - read_game.my_player.pos).length()
-                        if FADE_ENABLED:
-                            # now adapt alpha level to distance
-                            if distance > FADE_MAX_DIST:
-                                alpha = FADE_MAX_ALPHA
-                            elif distance < FADE_MIN_DIST:
-                                alpha = FADE_MIN_ALPHA
-                            else:
-                                alpha = ((distance-FADE_MIN_DIST)*FADE_MAX_ALPHA + (FADE_MAX_DIST-distance)*FADE_MIN_ALPHA) / (FADE_MAX_DIST-FADE_MIN_DIST)
-                            p.color_esp = (p.color_esp & 0x00FFFFFF) | (int(alpha) << 24)
+                        p.color_esp = self.get_faded_color(p.pos, p.color_esp)
                         size_y = feet.y - head.y
                         size_x = size_y / 2.75          # standing up
                         if size_y < 10:     size_y = 10
@@ -66,9 +59,7 @@ class Esp(object):
                             draw_line_abs(frame.line, read_game.screen_center_x, read_game.resolution_y,
                                   feet.x, feet.y, COLOR_BOX_LINE_WIDTH, p.color_esp)      # w/h ratio
                         if keys["KEY_BOXESP"]:
-                            converted_distance = distance * DISTANCE_ESP_UNIT
-                            distance_str = "%i %s" % (converted_distance, DISTANCE_ESP_UNIT_NAME)
-                            draw_string_center(frame.font, feet.x, feet.y + 12, COLOR_PLAYER_NAME, distance_str)
+                            self.draw_distance_ESP(p.pos, feet.x, feet.y, COLOR_PLAYER_NAME)
                         if keys["KEY_TRIGGERBOT"] and keys["KEY_TRIGGER_BOT_KEY"]:
                             if p.alive & 0x0001 and p.enemy and p.pose != 0:
                                 if (read_game.screen_center_x > feet.x - size_x/2) and (read_game.screen_center_x < feet.x + size_x/2):
@@ -102,28 +93,7 @@ class Esp(object):
                     draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, COLOR_SENTRY)
                     
             elif keys["KEY_EXPLOSIVES"] and e.type == ET_EXPLOSIVE and e.alive & 0x0001:
-                head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 10)       # eyepos of standing player
-                feet = read_game.world_to_screen(e.pos)
-                head = read_game.world_to_screen(head_pos)
-                if feet and head:
-                    size_y = feet.y - head.y
-                    if size_y < 8:  size_y = 8
-                    model_name = weapon_names.get_weapon_model(e.WeaponNum)
-                    sprite = self.env.sprites.get_sprite(model_name)
-                    if sprite:
-                        frame.sprite.Begin(0)
-                        #frame.sprite.SetTransform(matrix)
-                        sprite_center = D3DXVECTOR3(8, 8, 0)
-                        where = D3DXVECTOR3(feet.x-8, feet.y-8, 0)
-                        frame.sprite.Draw(sprite, None, byref(sprite_center), byref(where), 0xAF7F7F7F)
-                        frame.sprite.End()
-                        distance = (e.pos - read_game.my_player.pos).length()
-                        converted_distance = distance * DISTANCE_ESP_UNIT
-                        distance_str = "%i %s" % (converted_distance, DISTANCE_ESP_UNIT_NAME)
-                        draw_string_center(frame.font, feet.x, feet.y + 20, COLOR_CLAYMORE, distance_str)
-                    else:
-                        r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
-                        frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
+                self.draw_explosive(e)
                     
             elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & 0x0001 and keys["KEY_BOXESP"]:
                 head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 100)       # eyepos of standing player
@@ -137,3 +107,58 @@ class Esp(object):
                     if keys["KEY_BOX_SNAPLINE"]:
                         draw_line_abs(frame.line, read_game.screen_center_x, read_game.resolution_y,
                               feet.x, feet.y, COLOR_BOX_LINE_WIDTH, COLOR_PLANE)
+    
+    def draw_explosive(self, e):
+        read_game = self.env.read_game
+        frame = self.env.frame
+        weapon_names = self.env.weapon_names
+        head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 10)
+        feet = read_game.world_to_screen(e.pos)
+        head = read_game.world_to_screen(head_pos)
+        if feet and head:
+            size_y = feet.y - head.y
+            if size_y < 12:  size_y = 12.0
+            model_name = weapon_names.get_weapon_model(e.WeaponNum)
+            sprite = self.env.sprites.get_sprite(model_name)
+            if sprite:
+                frame.sprite.Begin(0)
+                
+                scaling = size_y / float(_EXPLO_SPRITE_SIZE)
+                sprite_center = D3DXVECTOR2(0, 0)
+                trans = D3DXVECTOR2(feet.x - _EXPLO_SPRITE_SIZE*scaling/2, feet.y - _EXPLO_SPRITE_SIZE*scaling)
+                matrix = D3DMATRIX()
+                d3dxdll.D3DXMatrixAffineTransformation2D(byref(matrix),
+                                                         c_float(scaling),          # scaling
+                                                         byref(sprite_center),      # rotation center
+                                                         c_float(0),                # angle
+                                                         byref(trans)               # translation
+                                                         )
+                frame.sprite.SetTransform(matrix)
+                frame.sprite.Draw(sprite, None, None, None, COLOR_CLAYMORE_SPRITE)
+                frame.sprite.End()
+                self.draw_distance_ESP(e.pos, feet.x, feet.y, COLOR_CLAYMORE_DISTANCE)
+            else:
+                #print "unknown explosive model:" + model_name
+                r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
+                frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
+                
+    def get_faded_color(self, pos, color):
+        if FADE_ENABLED:
+            distance = (pos - self.env.read_game.my_player.pos).length()
+            # now adapt alpha level to distance
+            if distance > FADE_MAX_DIST:
+                alpha = FADE_MAX_ALPHA
+            elif distance < FADE_MIN_DIST:
+                alpha = FADE_MIN_ALPHA
+            else:
+                alpha = ((distance-FADE_MIN_DIST)*FADE_MAX_ALPHA + (FADE_MAX_DIST-distance)*FADE_MIN_ALPHA) / (FADE_MAX_DIST-FADE_MIN_DIST)
+            return (color & 0x00FFFFFF) | (int(alpha) << 24)
+        else:
+            return color
+        
+    
+    def draw_distance_ESP(self, pos, x, y, color):
+        distance = (pos - self.env.read_game.my_player.pos).length()
+        converted_distance = distance * DISTANCE_ESP_UNIT
+        distance_str = "%i %s" % (converted_distance, DISTANCE_ESP_UNIT_NAME)
+        draw_string_center(self.env.frame.font, x, y + 12, color, distance_str)

@@ -83,6 +83,8 @@ MAP_COLOR_ENEMY_COLDBLOODED = 0XFFFFBF44    # color of enemies with coldblood pe
 
 # color of the claymore ESP
 COLOR_CLAYMORE = 0x3FFF6666                 # color of claymores
+COLOR_CLAYMORE_DISTANCE = 0x7FFF6666		# color of distance indicator for claymore
+COLOR_CLAYMORE_SPRITE = 0xAF7F7F7F          # blending color for sprites
 COLOR_PLANE = 0x7F880088                    # color for planes & helicopters
 
 # distance ESP (in meters or ft)
