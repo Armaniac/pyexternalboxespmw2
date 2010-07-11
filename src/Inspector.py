@@ -28,6 +28,7 @@ class Inspector(object):
                         s = "[idx=%i, typ=%i, weap=%i]" % (idx, e.type, e.WeaponNum) 
                         draw_string_center(frame.font, spot.x, spot.y, 0xFFFFFFFF, s)
                         print s
+                        print dump_obj(e)
                         #=======================================================
                         # if e.type == ET_EXPLOSIVE:
                         #    print "dump explo"
