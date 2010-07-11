@@ -7,26 +7,33 @@ import thread
 
 KEYEVENTF_KEYUP = 0x0002
 
-def _stab_glitch():
-    windll.User32.keybd_event(ord("E"), 0x12, 0, 0)
-    windll.User32.keybd_event(ord("E"), 0x12, KEYEVENTF_KEYUP, 0)
-    time.sleep(.16)
-    windll.User32.keybd_event(ord("G"), 0x22, 0, 0)
-    time.sleep(.03)
-    windll.User32.keybd_event(ord("1"), 0x02, 0, 0)
-    windll.User32.keybd_event(ord("1"), 0x02, KEYEVENTF_KEYUP, 0)
-    time.sleep(.05)
-    windll.User32.keybd_event(ord("G"), 0x22, KEYEVENTF_KEYUP, 0)
-    time.sleep(.35)
-
 class Autostab(object):
     
     def __init__(self, env):
         self.env = env
         self.last_melee_tick = 0
+        self.stab_coroutine = None
+    
+    def _stab_glitch(self):                 # coroutine
+        read_game = self.env.read_game
+        start_time = read_game.game_time
+        windll.User32.keybd_event(ord("E"), 0x12, 0, 0)
+        windll.User32.keybd_event(ord("E"), 0x12, KEYEVENTF_KEYUP, 0)
+        while read_game.game_time < start_time + 160:
+            yield
+        windll.User32.keybd_event(ord("G"), 0x22, 0, 0)
+        while read_game.game_time < start_time + 160 + 30:
+            yield
+        windll.User32.keybd_event(ord("1"), 0x02, 0, 0)
+        windll.User32.keybd_event(ord("1"), 0x02, KEYEVENTF_KEYUP, 0)
+        while read_game.game_time < start_time + 160 + 30 + 50:
+            yield
+        windll.User32.keybd_event(ord("G"), 0x22, KEYEVENTF_KEYUP, 0)
     
     def stab_glitch(self):
-        thread.start_new_thread(_stab_glitch, ())
+        self.stab_coroutine = self._stab_glitch()
+        self.stab_coroutine.next()
+        #thread.start_new_thread(_stab_glitch, ())
     
     def is_my_player_tactical(self):
         p = self.env.read_game.my_player
@@ -36,6 +43,12 @@ class Autostab(object):
 
     def render(self):
         read_game = self.env.read_game
+        
+        if self.stab_coroutine is not None:
+            try:
+                self.stab_coroutine.send(None)
+            except StopIteration:
+                self.stab_coroutine = None
         
         if keys["KEY_KNIFE_GLITCH"] and read_game.is_in_game and keys["KEY_RAPID_KNIFE"] and self.is_my_player_tactical():
             if self.env.ticks - self.last_melee_tick > 31:
