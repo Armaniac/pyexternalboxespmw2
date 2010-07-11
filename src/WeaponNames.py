@@ -37,8 +37,8 @@ class WeaponNames(object):
                     weapon_name = string_at(addressof(str256))
                     model_name = string_at(addressof(str256) + len(weapon_name) + 1)
                     
-                    self.weapon_names[idx+1] = weapon_name
-                    self.weapon_models[idx+1] = model_name
+                    self.weapon_names[idx] = weapon_name
+                    self.weapon_models[idx] = model_name
                     
                     if DEBUG_PRINT_WEAPON_NAMES:
                         dump.append("%04i: %s / %s" % (idx, weapon_name, model_name))
@@ -59,3 +59,9 @@ class WeaponNames(object):
             return None
         else:
             return self.weapon_models[weaponnum]
+    
+    def get_riot_shield_num(self):
+        for idx in range(10):
+            if self.weapon_models[idx].find("RIOTSHIELD") >= 0:
+                return idx
+        return None

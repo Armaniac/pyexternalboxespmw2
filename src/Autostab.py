@@ -28,32 +28,14 @@ class Autostab(object):
     def stab_glitch(self):
         thread.start_new_thread(_stab_glitch, ())
     
-    def get_map_name(self):
-        read_game = self.env.read_game
-        map_name = read_game.map_name
-        if map_name in OFFSET_WEAPON_NUMBERS_MAPS: return True
-        else: return False
-        
     def is_my_player_tactical(self):
         p = self.env.read_game.my_player
-        if self.get_map_name():
-            return p.valid and p.alive & 0x0001 and p.weapon_num in KNIFE_TACTICAL_WEAPONS_OFFSET
-        else:
-            return p.valid and p.alive & 0x0001 and p.weapon_num in KNIFE_TACTICAL_WEAPONS
+        offset = self.env.weapon_names.get_riot_shield_num() - KNIFE_RIOT_OFFSET
+        tactical = [ x+offset for x in KNIFE_TACTICAL_WEAPONS]
+        return p.valid and p.alive & 0x0001 and p.weapon_num in tactical
 
     def render(self):
         read_game = self.env.read_game
-        # Test code for checking my_player weapon number, Is the map we are on an offset map, and the map name.
-        # Used for debugging.
-        #if keys["KEY_KNIFE_GLITCH"]:
-        #    read_game = self.env.read_game
-        #    map_name = read_game.map_name
-        #    if read_game.is_in_game:
-        #        for p in read_game.player:
-        #            if p == read_game.my_player:
-        #                print p.weapon_num
-        #        print self.get_map_name()
-        #        print map_name        
         
         if keys["KEY_KNIFE_GLITCH"] and read_game.is_in_game and keys["KEY_RAPID_KNIFE"] and self.is_my_player_tactical():
             if self.env.ticks - self.last_melee_tick > 31:

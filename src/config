@@ -203,11 +203,8 @@ KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"         # CAPS LOCK
 
 TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
-KNIFE_TACTICAL_WEAPONS = (23, 37, 43)   # pistols with tactical knife enabled
-KNIFE_TACTICAL_WEAPONS_OFFSET = (22, 36, 42)   # pistols with tactical knife enabled on offset maps
-# ----------------------------------------------------------------------
-OFFSET_WEAPON_NUMBERS_MAPS = ['mp_derail', 'mp_favela', 'mp_estate', 'mp_invasion', 'mp_rust', 'mp_boneyard', 'mp_subbase', 'mp_underpass',
- 'mp_complex', 'mp_crash', 'mp_compact', 'mp_storm', 'mp_abandon', 'mp_fuel2', 'mp_strike', 'mp_trailerpark', 'mp_vacant']
+KNIFE_RIOT_OFFSET = 2                    # all offsets are considered if RIOT SHIELD is at offset 3
+KNIFE_TACTICAL_WEAPONS = (22, 36, 42)   # pistols with tactical knife enabled
 # ----------------------------------------------------------------------
 # autostab parameters
 AUTOSTAB_DIST = 150             # distance in 1/10th of ft
@@ -234,3 +231,4 @@ KEY_INSPECTOR = "VK_NUMPAD0"
 # *** DON'T ACTIVATE UNLESS YOU KNOW WHAT YOU ARE DOING
 CALIBRATING = False
 KEY_SPOT23_ESP = "OFF"
+DEBUG_PRINT_WEAPON_NAMES = False

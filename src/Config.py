@@ -204,7 +204,8 @@ KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"         # CAPS LOCK
 
 TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
-KNIFE_TACTICAL_WEAPONS = (23, 37, 43)   # pistols with tactical knife enabled
+KNIFE_RIOT_OFFSET = 2                    # all offsets are considered if RIOT SHIELD is at offset 3
+KNIFE_TACTICAL_WEAPONS = (22, 36, 42)   # pistols with tactical knife enabled
 # ----------------------------------------------------------------------
 # autostab parameters
 AUTOSTAB_DIST = 75             # distance in 1/10th of ft
