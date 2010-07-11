@@ -16,6 +16,8 @@ SPRITES = { "WEAPON_CLAYMORE": "claymore.jpg",
             "WEAPON_M203": "nade.jpg",
             "WEAPON_M79": "nade.jpg",
             "WEAPON_AIRDROP_MARKER": "airdrop.jpg",
+            "WEAPON_AIRDROP_SENTRY_MARKER": "sentry.jpg",
+            "WEAPON_AIRDROP_MEGA_MARKER": "emergency.jpg",
             }
 
 class Sprites(object):
