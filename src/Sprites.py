@@ -20,6 +20,8 @@ SPRITES = { "WEAPON_CLAYMORE": "claymore.jpg",
             "WEAPON_AIRDROP_MEGA_MARKER": "emergency.jpg",
             }
 
+# 1176, 1175, 1174: AC-130 from big to small
+# 1177 = predator
 class Sprites(object):
     
     def __init__(self, env):
