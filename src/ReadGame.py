@@ -205,9 +205,10 @@ class ReadGame(object):
         if self.deaths != self._last_deaths:
             self._last_deaths = self.deaths
             self._last_kills = self.kills
-        if self.kills < self._last_kills:
+        if self.kills > 0 and self.kills < self._last_kills:
             self._last_kills = self.kills
-        self.killstreak = self.kills - self._last_kills
+        if self.kills > 0:
+            self.killstreak = self.kills - self._last_kills
         
     def world_to_screen(self, location):
         # return (x,y) or None if non visible
