@@ -18,6 +18,7 @@ py2exe_options = dict(
                        bundle_files = 2,
                        )
 map_files = ['maps/'+name for name in os.listdir('maps/') if name.endswith('.jpg')]
+sprite_files = ['sprites/'+name for name in os.listdir('sprites/') if name.endswith('.jpg')]
 
 setup(name='',
       version='5.0.0.0',
@@ -27,6 +28,7 @@ setup(name='',
       #console = [{ 'script': "launcher.py", 'uac_info': "requireAdministrator", },],
       options={'py2exe': py2exe_options},
       data_files = [('', ['config', 'README.txt']),
-                    ('maps', map_files)],
+                    ('maps', map_files),
+                    ('sprites', sprite_files)],
       #zipfile = None,
       )
