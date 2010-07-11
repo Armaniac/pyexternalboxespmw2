@@ -37,6 +37,7 @@ class ReadGame(object):
         self.mw2_entity = MW2_Entity()
         self.map_name = None
         self.map_name_re = re.compile("/(mp_\w+)\.d3dbsp")
+        self.game_time = 0
 
         # pre-mashed info
         self.fov_x = 0.0                # field of view
@@ -120,12 +121,14 @@ class ReadGame(object):
         
     def render(self):
         self.is_in_game = ( self._RPM_int(ISINGAME) != 0 )
+        self.game_time = 0
 
         if self.is_in_game:
             if not MOCK:
                 self.kills = self._RPM_int(ADDR_KILLS)
                 self.deaths = self._RPM_int(ADDR_DEATHS)
                 self.local_client_num = self._RPM_int(CG_T)
+                self.game_time = self._RPM_int(CG_TIME)
             
                 self._RPM(REFDEF, self.mw2_refdef)
                 self._RPM(REFDEF + 0x9904, self.mw2_mypos)
