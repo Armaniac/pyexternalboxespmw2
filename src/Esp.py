@@ -2,7 +2,7 @@ from ctypes import byref, cast, POINTER, c_int, pointer
 from Config import *
 from utils import draw_box, draw_line_abs, draw_string_center, draw_spot
 from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX
-from directx.d3dx import D3DRECT, D3DCLEAR
+from directx.d3dx import D3DRECT, D3DCLEAR, D3DXVECTOR2, D3DXVECTOR3
 from Keys import keys
 from ctypes import windll
 
@@ -17,6 +17,7 @@ class Esp(object):
     def render(self):
         read_game = self.env.read_game
         frame = self.env.frame
+        weapon_names = self.env.weapon_names
         if not read_game.is_in_game: return
         
         if keys["KEY_BOXESP"]:
@@ -101,10 +102,28 @@ class Esp(object):
                     draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, COLOR_SENTRY)
                     
             elif keys["KEY_EXPLOSIVES"] and e.type == ET_EXPLOSIVE and e.alive & 0x0001:
+                head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 10)       # eyepos of standing player
                 feet = read_game.world_to_screen(e.pos)
-                if feet:
-                    r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
-                    frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
+                head = read_game.world_to_screen(head_pos)
+                if feet and head:
+                    size_y = feet.y - head.y
+                    if size_y < 8:  size_y = 8
+                    model_name = weapon_names.get_weapon_model(e.WeaponNum)
+                    sprite = self.env.sprites.get_sprite(model_name)
+                    if sprite:
+                        frame.sprite.Begin(0)
+                        #frame.sprite.SetTransform(matrix)
+                        sprite_center = D3DXVECTOR3(8, 8, 0)
+                        where = D3DXVECTOR3(feet.x-8, feet.y-8, 0)
+                        frame.sprite.Draw(sprite, None, byref(sprite_center), byref(where), 0xAF7F7F7F)
+                        frame.sprite.End()
+                        distance = (e.pos - read_game.my_player.pos).length()
+                        converted_distance = distance * DISTANCE_ESP_UNIT
+                        distance_str = "%i %s" % (converted_distance, DISTANCE_ESP_UNIT_NAME)
+                        draw_string_center(frame.font, feet.x, feet.y + 20, COLOR_CLAYMORE, distance_str)
+                    else:
+                        r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
+                        frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
                     
             elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & 0x0001 and keys["KEY_BOXESP"]:
                 head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 100)       # eyepos of standing player
