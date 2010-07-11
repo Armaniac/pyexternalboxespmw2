@@ -30,22 +30,21 @@ class Autostab(object):
     
     def get_map_name(self):
         read_game = self.env.read_game
-        dlc_maps = ['mp_crash', 'mp_complex', 'mp_compact', 'mp_storm', 'mp_overgrown', 'mp_abandon', 'mp_fuel2', 'mp_strike', 'mp_trailerpark', 'mp_vacant']
         map_name = read_game.map_name
-        if map_name in dlc_maps: return True
+        if map_name in OFFSET_WEAPON_NUMBERS_MAPS: return True
         else: return False
         
     def is_my_player_tactical(self):
         p = self.env.read_game.my_player
         if self.get_map_name():
-            return p.valid and p.alive & 0x0001 and p.weapon_num in KNIFE_TACTICAL_WEAPONS_DLC
+            return p.valid and p.alive & 0x0001 and p.weapon_num in KNIFE_TACTICAL_WEAPONS_OFFSET
         else:
             return p.valid and p.alive & 0x0001 and p.weapon_num in KNIFE_TACTICAL_WEAPONS
 
     def render(self):
         read_game = self.env.read_game
-        # Test code for checking my)player weapon number, Is the map we are on a DLC map, and the map name.
-        
+        # Test code for checking my_player weapon number, Is the map we are on an offset map, and the map name.
+        # Used for debugging.
         #if keys["KEY_KNIFE_GLITCH"]:
         #    read_game = self.env.read_game
         #    map_name = read_game.map_name
