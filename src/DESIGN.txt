@@ -61,6 +61,12 @@ Note: on some antivirus software like Kaspersky, the key scanning is alerted as 
 
 * Frame.py: this holds the DirectX overlay frame. This class is used by all modules that need to draw something on the screen.
 
+* Textures.py: loads all maps as tectures and calculate the transformation matrix between games coordinates and map pixels
+
+* Sprites.py: loads all sprites displayed in ESP (claymore, grenades...)
+
+* WeaponNames.py: loads all weapon names and weapon models
+
 - GAME HACK MODULES
 ===================
 All other module provide basic hack features and follow the same pattern.
@@ -76,6 +82,7 @@ List of feature-modules:
 * Esp.py: draws the Box ESP on the screen
 * Inspector.py: for debug only
 * Radar.py: draws the mini-radar
+* BigRadar.py: draws a non-rotating big radar with players
 * Rage.py: selects an enemy player with a specific color, so you can rage him again and again (another hacker?)
 * Status.py: draw the status bar at the bottom of the window
 
