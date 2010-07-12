@@ -38,6 +38,10 @@ class ReadGame(object):
         self.map_name = None
         self.map_name_re = re.compile("/(mp_\w+)\.d3dbsp")
         self.game_time = 0
+        #These are internal variables to determine if we are new in round, leaving round, or mapname
+        self.maps_temp = None
+        self.round_start = False
+        self.round_end = False
 
         # pre-mashed info
         self.fov_x = 0.0                # field of view
@@ -120,6 +124,15 @@ class ReadGame(object):
         return buf_int.value
         
     def render(self):
+        
+        # read map_name
+        maps_temp_array = STR64()
+        self._RPM(ADDR_MAPS, maps_temp_array) # Gives us map name in mp_mapname format, and also tells us if we are new to a round or ending a round.
+        maps_temp_array_str = cast(pointer(maps_temp_array), c_char_p)
+        self.maps_temp = maps_temp_array_str.value
+        #Check status of maps, intro, outro
+        self.get_map_text()
+        
         self.is_in_game = ( self._RPM_int(ISINGAME) != 0 )
         self.game_time = self.is_in_game
 
@@ -135,7 +148,7 @@ class ReadGame(object):
                 self._RPM(ENTITY, self.mw2_entity)
                 self._RPM(CLIENTINFO, self.mw2_clientinfo)
                 self.calc_killstreak()
-                # read map_name
+                # map name location currently in use, needs formating with regexp to be proper match for our needs.
                 map_name_temp = STR64()
                 self._RPM(CGS_T + 0x14C, map_name_temp)
                 #self._RPM(ADDR_MAP, map_name_temp) removed to keep maintainability
@@ -198,8 +211,24 @@ class ReadGame(object):
             self.my_player.color_esp = 0
             self.my_player.color_map = MAP_COLOR_ME
             
+    def get_map_text(self):
+        if self.maps_temp == "mpIntro": # triggers on 5 seconds to game match start. also after new host is merged in, countdown from 5
+            self.round_start = True
+            #print "mpIntro : True"
+        else:
+            self.round_start = False
+            
+        if self.maps_temp == "mpOutro": # triggers every round end.
+            self.round_end = True   
+            #print "mpOutro : True"   
+        else:
+            self.round_end = False
+            
+        #if self.maps_temp != "mp_Into" or "mp_Outro":
+        #    print self.maps_temp
+            
     def start_game(self):
-        if self._last_kills == 0 and self._last_deaths == 0:
+        if self.round_start == True:
             self.killstreak = 0
         
     def calc_killstreak(self):

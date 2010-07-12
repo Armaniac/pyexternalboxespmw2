@@ -20,6 +20,7 @@ VIEWANGLEY = 0xB36A40
 ADDR_KILLS = 0x01B2C918
 ADDR_DEATHS = 0x01B2C920
 WEAPON_DESC = 0x7E6D08
+ADDR_MAPS = 0x008F278 #mpIntro triggers when map start countdown from "5" mpOutro triggers on map end.
 
 COD_WINDOW_NAME = "Modern Warfare 2"
 
