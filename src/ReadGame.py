@@ -3,6 +3,7 @@ import re
 from time import sleep
 from structs import *
 from Config import *
+from utils import dump_obj
 
 class ReadGame(object):
     
@@ -133,8 +134,8 @@ class ReadGame(object):
         #Check status of maps, intro, outro
         self.get_map_text()
         
-        self.is_in_game = ( self._RPM_int(ISINGAME) != 0 )
-        self.game_time = self.is_in_game
+        self.game_time = self._RPM_int(ISINGAME)
+        self.is_in_game = (self.game_time != 0 )
 
         if self.is_in_game:
             if not MOCK:
@@ -240,6 +241,13 @@ class ReadGame(object):
             self._last_kills = self.kills
         if self.kills > 0:
             self.killstreak = self.kills - self._last_kills
+        
+    def get_owner_team(self, clientnum):
+        owner = self.mw2_entity.arr[clientnum].owner
+        if owner >= 0 and owner < PLAYERMAX:
+            #print "clientnum=%i, owner=%i, team=%i" % (clientnum, owner, self.mw2_clientinfo.arr[owner].team)
+            #print dump_obj(self.mw2_entity.arr[clientnum])
+            return self.mw2_clientinfo.arr[owner].team
         
     def world_to_screen(self, location):
         # return (x,y) or None if non visible

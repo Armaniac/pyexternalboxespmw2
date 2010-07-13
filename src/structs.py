@@ -135,7 +135,11 @@ class MW2_Entity_T(Structure):
                 ("_p05", c_ubyte),      # 0xE7
                 ("_p06", c_char * 12),  # 0xE8
                 ("pos3", VECTOR),       # 0xF4
-                ("_p062", c_char * 168),# 0x100
+                ("_p100", c_char * 88), # 0x100
+                ("owner", c_int),       # 0x158
+                ("_p15c", c_char * 12), # 0x15C
+                ("modelIndex", c_int),  # 0x168
+                ("_p16c", c_char * 60), # 0x16C
                 ("WeaponNum", c_short), # 0x1A8
                 ("_p07", c_char * 50),  # 0x1AA
                 ("alive", c_int),       # 0x1DC
@@ -164,12 +168,13 @@ class STR256(Structure):
 # high level Player object
 
 class Player(object):
-    __slots__ = ( 'valid', 'pos', 'pitch', 'yaw', 'roll', 'client_num', 'type', 'pose', 'shooting', 'zoomed',
+    __slots__ = ( 'valid', 'pos', 'pos3', 'pitch', 'yaw', 'roll', 'client_num', 'type', 'pose', 'shooting', 'zoomed',
                   'weapon_num', 'alive', 'enemy', 'name', 'team', 'perk', 'color_esp', 'color_map')
    
     def __init__(self):
         self.valid = 0
         self.pos = None
+        self.pos3 = None
         self.pitch = 0
         self.yaw = 0
         self.roll = 0
@@ -192,6 +197,7 @@ class Player(object):
     def set_values(self, mw2_entity, mw2_clientinfo):
         self.valid = mw2_entity.valid
         self.pos = mw2_entity.pos
+        self.pos3 = mw2_entity.pos3
         self.pitch = mw2_entity.fPitch
         self.yaw = mw2_entity.fYaw
         self.roll = mw2_entity.fRoll
