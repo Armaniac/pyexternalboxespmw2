@@ -169,7 +169,7 @@ class STR256(Structure):
 
 class Player(object):
     __slots__ = ( 'valid', 'pos', 'pos2', 'pos3', 'pitch', 'yaw', 'roll', 'client_num', 'type', 'pose', 'shooting', 'zoomed',
-                  'weapon_num', 'alive', 'enemy', 'name', 'team', 'perk', 'color_esp', 'color_map')
+                  'weapon_num', 'alive', 'enemy', 'name', 'team', 'perk', 'color_esp', 'color_map', 'motion')
    
     def __init__(self):
         self.valid = 0
@@ -194,6 +194,7 @@ class Player(object):
         
         self.color_esp = 0
         self.color_map = 0
+        self.motion = VECTOR(0, 0, 0)               # motion vector of the player, in game units per second
 
     def set_values(self, mw2_entity, mw2_clientinfo):
         self.valid = mw2_entity.valid

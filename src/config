@@ -140,9 +140,9 @@ KILLSTREAK_WEIGHT = 700
 # ----------------------------------------------------------------------
 # bot constants
 
-GRAV = 322.0                        # in 1/10th of feet/s2
-TUBE_VEL = 1550.0                   # which is 155 ft/s, or 47m/s
-KNIFE_VEL = 910.0                   # which is 90 ft/s, or 27m/s
+GRAV = 800.0
+TUBE_VEL = 2400.0
+KNIFE_VEL = 1420.0
 
 # below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
@@ -152,7 +152,7 @@ BOT_CROUCHED_Z = 38
 BOT_PRONE_Z = 10
 
 BOT_TUBE_Z = 0
-BOT_KNIFE_Z = 40
+BOT_KNIFE_Z = 0
 
 BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
 BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
@@ -198,16 +198,15 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 # all globals beginning with KEY_ are parsed and corresponding keys are being scanned
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
-KEY_RAPID_KNIFE = "ON" # Used to turn knife glitch on
-KEY_KNIFE_GLITCH = "E"
+KEY_RAPID_KNIFE = "!E"                  # Used to turn knife glitch on for autostab
 KEY_BOT = "VK_RBUTTON VK_END"
 KEY_TRIGGER_BOT_KEY = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
 KEY_TUBEBOT = "VK_HOME VK_LMENU"
 KEY_KNIFEBOT = "G VK_MBUTTON"
-KEY_INDIRECT_BOT = "~VK_CAPITAL"         # CAPS LOCK
+KEY_INDIRECT_BOT = "~VK_CAPITAL"        # CAPS LOCK
 
 TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
-KNIFE_RIOT_OFFSET = 2                    # all offsets are considered if RIOT SHIELD is at offset 3
+KNIFE_RIOT_OFFSET = 2                   # all offsets are considered if RIOT SHIELD is at offset 3
 KNIFE_TACTICAL_WEAPONS = (22, 36, 42)   # pistols with tactical knife enabled
 # ----------------------------------------------------------------------
 # autostab parameters

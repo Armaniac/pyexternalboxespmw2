@@ -60,6 +60,10 @@ class ReadGame(object):
         # internal private
         self._last_deaths = 0 
         self._last_kills = 0
+        
+        # used for motion vector calculation
+        self._last_game_time = 0
+        self._last_pos3 = [ VECTOR(0,0,0) for x in range(PLAYERMAX) ]
     
     def init(self):
         print "External BoxESP+bot version 5.1 by sph4ck & dheir"
@@ -211,6 +215,24 @@ class ReadGame(object):
                     
             self.my_player.color_esp = 0
             self.my_player.color_map = MAP_COLOR_ME
+            # calculate motion vector
+            if self.game_time > self._last_game_time:
+                k = 1000.0 / (self.game_time - self._last_game_time)
+                for idx in range(PLAYERMAX):
+                    pos3 = self.player[idx].pos3
+                    last_pos3 = self._last_pos3[idx]
+                    if self._last_game_time > 0:
+                        self.player[idx].motion = VECTOR((pos3.x - last_pos3.x) * k,
+                                                         (pos3.y - last_pos3.y) * k,
+                                                         (pos3.z - last_pos3.z) * k)
+                    last_pos3.x = pos3.x
+                    last_pos3.y = pos3.y
+                    last_pos3.z = pos3.z
+            self._last_game_time = self.game_time
+        else:           # not is_in_game
+            self._last_game_time = 0
+            for p in self._last_pos3:
+                p.x = p.y = p.z = 0.0
             
     def get_map_text(self):
         if self.maps_temp == "mpIntro": # triggers on 5 seconds to game match start. also after new host is merged in, countdown from 5
