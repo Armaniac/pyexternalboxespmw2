@@ -168,12 +168,13 @@ class STR256(Structure):
 # high level Player object
 
 class Player(object):
-    __slots__ = ( 'valid', 'pos', 'pos3', 'pitch', 'yaw', 'roll', 'client_num', 'type', 'pose', 'shooting', 'zoomed',
+    __slots__ = ( 'valid', 'pos', 'pos2', 'pos3', 'pitch', 'yaw', 'roll', 'client_num', 'type', 'pose', 'shooting', 'zoomed',
                   'weapon_num', 'alive', 'enemy', 'name', 'team', 'perk', 'color_esp', 'color_map')
    
     def __init__(self):
         self.valid = 0
         self.pos = None
+        self.pos2 = None
         self.pos3 = None
         self.pitch = 0
         self.yaw = 0
@@ -197,6 +198,7 @@ class Player(object):
     def set_values(self, mw2_entity, mw2_clientinfo):
         self.valid = mw2_entity.valid
         self.pos = mw2_entity.pos
+        self.pos2 = mw2_entity.pos2
         self.pos3 = mw2_entity.pos3
         self.pitch = mw2_entity.fPitch
         self.yaw = mw2_entity.fYaw

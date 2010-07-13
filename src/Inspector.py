@@ -47,7 +47,7 @@ class Inspector(object):
             #read_game._RPM(0x6727F10, mem)
             #print dump_obj(mem)
             #read_game._RPM(0x64DA350, mem)
-            for i in range(4):
+            for i in range(8):
                 print "player #%i" % i
                 print dump_obj(read_game.mw2_entity.arr[i])
                 print "client info"
@@ -60,6 +60,15 @@ class Inspector(object):
             # print dump_obj(read_game.mw2_viewy)
             #===================================================================
         
+        if False and read_game.is_in_game:
+            print "time=%8i, pos2=%.1f %.1f %.1f, pos3=%.1f %.1f %.1f" % (read_game.game_time,
+                                                                         read_game.my_player.pos2.x,
+                                                                         read_game.my_player.pos2.y,
+                                                                         read_game.my_player.pos2.z,
+                                                                         read_game.my_player.pos3.x,
+                                                                         read_game.my_player.pos3.y,
+                                                                         read_game.my_player.pos3.z,
+                                                                         )
         
 
     @staticmethod

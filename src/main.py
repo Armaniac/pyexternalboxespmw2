@@ -1,4 +1,5 @@
 import stealth      # scramble memory a little - anti-VAC feature
+import Scheduler
 import time
 import win32gui, win32con
 import ReadGame, Frame, Textures, Radar, Esp, Status, Keys, Autostab, Inspector, Rage, Killstreak, BigRadar, WeaponNames, Sprites
@@ -17,6 +18,8 @@ class Main(object):
         self.ticks = 0
         self.time = time.clock()
         self.quit = False
+        
+        self.sched = Scheduler.Scheduler()
                 
         # read_game and frame are 2 special modules
         self.read_game = ReadGame.ReadGame(self)
@@ -76,6 +79,8 @@ class Main(object):
             self.killstreak.render()
             #
             self.inspector.render()
+            # now run scheduled coroutines
+            self.sched.mainloop_1()
             #
             self.frame.EndPaint()
 
@@ -101,7 +106,3 @@ def launch():
     finally:
         print "Application ending, cleaning up D3D"
         m.release()
-
-
-if __name__ == '__main__':
-    launch()

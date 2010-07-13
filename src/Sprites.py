@@ -6,6 +6,7 @@ import os
 SPRITES_FOLDER = "sprites\\"
 
 SPRITES = { "WEAPON_CLAYMORE": "claymore.jpg",
+            "WEAPON_CLAYMORE-friend": "claymore_friend.jpg",
             "WEAPON_C4": "c4.jpg",
             "WEAPON_FLASH_GRENADE": "flash.jpg",
             "WEAPON_M2FRAGGRENADE": "grenade.jpg",
@@ -20,8 +21,15 @@ SPRITES = { "WEAPON_CLAYMORE": "claymore.jpg",
             "WEAPON_AIRDROP_MEGA_MARKER": "emergency.jpg",
             }
 
+# if riot == 2
 # 1176, 1175, 1174: AC-130 from big to small
 # 1177 = predator
+
+# 766 WEAPON_JAVELIN
+# 763 WEAPON_RPG
+# WEAPON_AT4_LOCKAIR
+# WEAPON_STINGER
+
 class Sprites(object):
     
     def __init__(self, env):
