@@ -185,9 +185,10 @@ class Esp(object):
                 frame.sprite.End()
                 self.draw_distance_ESP(te.pos, feet.x, feet.y, COLOR_CLAYMORE_DISTANCE)
             else:
+                pass
                 #print "unknown explosive model:%s (%i)" % (model_name, e.WeaponNum)
-                r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
-                frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
+                #r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
+                #frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
                 
     def get_faded_color(self, pos, color):
         if FADE_ENABLED:
