@@ -87,6 +87,10 @@ class Inspector(object):
                                                                                  )
         if False and read_game.is_in_game:
             print "kills=%i, deaths=%i" % (read_game.kills, read_game.deaths)
+                                          
+        if False and read_game.is_in_game:
+            print "weapon=%i" % read_game.my_player.weapon_num
+            
         
 
     @staticmethod

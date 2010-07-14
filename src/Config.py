@@ -142,6 +142,8 @@ GRAV = 800.0
 TUBE_VEL = 2400.0
 KNIFE_VEL = 1420.0
 
+TUBE_WEAPONS = ("WEAPON_M203", "WEAPON_M79")
+
 # below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
 # beware that having too much headshots can unbalance your stats, use EAM to reset them
@@ -170,7 +172,7 @@ F2_LABEL = "move disp"
 F3_LABEL = "crosshair"
 F4_LABEL = "explosives"
 F5_LABEL = "aimbot"
-F6_LABEL = "tubebot"
+F6_LABEL = ""
 F7_LABEL = "knifebot"
 F8_LABEL = "autostab"
 F9_LABEL = "triggerbot"
@@ -185,7 +187,7 @@ KEY_STATUS_UP =             "+VK_F2"                        # to select if you w
 KEY_CROSSHAIR =     		"+VK_F3"
 KEY_EXPLOSIVES =    		"+VK_F4"
 KEY_AIMBOT_ACTIVE =        	"-VK_F5"
-KEY_TUBEBOT_ACTIVE =       	"-VK_F6"
+KEY_TUBEBOT_ACTIVE =       	"-VK_F5"                        # same as AIMBOT
 KEY_KNIFEBOT_ACTIVE =      	"-VK_F7"
 KEY_AUTOSTAB =      		"-VK_F8"
 KEY_TRIGGERBOT =    		"-VK_F9"
@@ -197,7 +199,7 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
 KEY_RAPID_KNIFE = "!E"                  # Used to turn knife glitch on for autostab
-KEY_BOT = "VK_RBUTTON VK_END"
+KEY_BOT = "VK_RBUTTON VK_HOME"
 KEY_TRIGGER_BOT_KEY = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
 KEY_TUBEBOT = "VK_HOME VK_LMENU"
 KEY_KNIFEBOT = "G VK_MBUTTON"
