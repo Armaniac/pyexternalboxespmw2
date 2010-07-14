@@ -5,6 +5,16 @@ from structs import *
 from Config import *
 from utils import dump_obj
 
+# game_modes
+# dm= Free for all
+# sab= Sabotage
+# war= Team Death Match
+# dom= Domination
+# dd= Demolition
+# koth= HQ
+# sd= Search & Destroy
+# ctf= Catch the flag
+
 class ReadGame(object):
     
     def __init__(self, env):
@@ -39,6 +49,7 @@ class ReadGame(object):
         self.map_name = None
         self.map_name_re = re.compile("/(mp_\w+)\.d3dbsp")
         self.game_time = 0
+        self.game_mode = ""
         #These are internal variables to determine if we are new in round, leaving round, or mapname
         self.maps_temp = None
         self.round_start = False
@@ -162,6 +173,11 @@ class ReadGame(object):
                 match = self.map_name_re.search(self.map_name)
                 if match:
                     self.map_name = match.group(1)
+                # read game_mode
+                game_mode_temp = STR4()
+                self._RPM(CGS_T + 0x20, game_mode_temp)
+                game_mode_temp_str = cast(pointer(game_mode_temp), c_char_p)
+                self.game_mode = game_mode_temp_str.value
             
             self.fov_x = self.mw2_refdef.fov_x
             self.fov_y = self.mw2_refdef.fov_y

@@ -63,6 +63,9 @@ class MW2_RefDef(Structure):
                  ("_P01", c_char * 12),
                  ("viewAxis", VECTOR * 3) ]
 
+class STR4(Structure):
+    _fields_ = [ ("str", c_char * 16)]
+    
 class MW2_CGS_T(Structure):
     _fields_ = [ ("_p00", c_char * 8),          # 0x00
                  ("screenXScale", c_int),       # 0x08
@@ -71,7 +74,7 @@ class MW2_CGS_T(Structure):
                  ("serverCommandSequence", c_int),# 0x14
                  ("processedSnapshotNum", c_int),# 0x18
                  ("localServer", c_int),        # 0x1C
-                 ("GameMode", c_char * 4),      # 0x20
+                 ("GameMode", STR4),            # 0x20
                  ("_p24", c_char * 28),         # 0x24
                  ("ServerName", c_char * 16),   # 0x40
                  ("_p50", c_char * 244),        # 0x50
@@ -88,6 +91,7 @@ class MW2_View_Y(Structure):
                  ("AngleY", c_float),
                  ("AngleX", c_float) ]
 
+    
 class STR16(Structure):
     _fields_ = [ ("str", c_char * 16)]
     

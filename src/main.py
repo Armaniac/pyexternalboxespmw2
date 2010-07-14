@@ -3,7 +3,7 @@ import Scheduler
 import time
 import win32gui, win32con
 import ReadGame, Frame, Textures, Radar, Esp, Status, Keys, Autostab, Inspector, Rage, Killstreak, BigRadar, WeaponNames, Sprites
-import Crosshair, Bot
+import Crosshair, Bot, WebStats
 import cProfile
 from Config import MAIN_LOOP_SLEEP, PROFILING
 
@@ -37,6 +37,7 @@ class Main(object):
         self.autostab = Autostab.Autostab(self)
         self.killstreak = Killstreak.Killstreak(self)
         self.weapon_names = WeaponNames.WeaponNames(self)
+        self.webstats = WebStats.WebStats(self)
         # inspector debug class
         self.inspector = Inspector.Inspector(self)
     
@@ -78,6 +79,7 @@ class Main(object):
             self.autostab.render()
             self.killstreak.render()
             #
+            self.webstats.render()
             self.inspector.render()
             # now run scheduled coroutines
             self.sched.mainloop_1()

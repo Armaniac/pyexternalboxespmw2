@@ -128,8 +128,6 @@ CROSSHAIR_SIZE = 10                         # crosshair length
 STATUS_COLOR_ACTIVE = 0xFFFFCC00
 STATUS_COLOR_INACTIVE = 0xFF777777
 STATUS_COLOR_LINE = 0xAF000000              # color of status line
-KEY_STATUS = "+VK_F1"                           # is status display enabled
-KEY_STATUS_UP = "+VK_F2"                        # to select if you want the status up on the screen 
 
 # ----------------------------------------------------------------------
 # killstreak display
@@ -182,8 +180,8 @@ F12_LABEL = "snapline"
 
 # virtual keys ON and OFF are also accepted if always on or off
 # all globs starting with IS_ are parsed and mapped to an F key or ON/OFF
-KEY_STATUS =				"+VK_F1"
-KEY_STATUS_UP = 			"+VK_F2"
+KEY_STATUS =                "+VK_F1"                        # is status display enabled
+KEY_STATUS_UP =             "+VK_F2"                        # to select if you want the status up on the screen 
 KEY_CROSSHAIR =     		"+VK_F3"
 KEY_EXPLOSIVES =    		"+VK_F4"
 KEY_AIMBOT_ACTIVE =        	"-VK_F5"
