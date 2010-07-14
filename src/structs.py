@@ -221,3 +221,21 @@ class Player(object):
         self.name = p_str.value
         self.team = mw2_clientinfo.team
         self.perk = mw2_clientinfo.perk
+
+class EntityTracker(object):
+    __slots__ = ( 'idx', 'endoflife', 'pos', 'type', 'alive', 'weapon_num', 'model_name', 'planter')
+    
+    def __init__(self, idx):
+        self.idx = idx                      # index of entity object
+        self.endoflife = -1                 # time_code when the object will not exist anymore
+        self.pos = VECTOR()                 # position
+        self.type = 0                       # type of object (as in entity)
+        self.alive = 0                      # alive attribute (as in entity)
+        self.weapon_num = 0                 # weaponnul (as in entity)
+        self.model_name = ""                # model name
+        self.planter = None                 # player who planted the explosive
+    
+    def set_values(self, mw2_entity):
+        self.pos = mw2_entity.pos
+        self.type = mw2_entity.type
+        self.alive = mw2_entity.alive

@@ -66,6 +66,7 @@ class ReadGame(object):
         self.view_axis = [ VECTOR(), VECTOR(), VECTOR() ]
         
         self.player = [Player() for i in range(PLAYERMAX)]
+        self.tracked_ent = {}
         self.my_player = self.player[0]
         
         # internal private
@@ -246,6 +247,7 @@ class ReadGame(object):
                     last_pos3.z = pos3.z
             self._last_game_time = self.game_time
         else:           # not is_in_game
+            self.tracked_ent.clear()            # clear all tracked entities
             self._last_game_time = 0
             for p in self._last_pos3:
                 p.x = p.y = p.z = 0.0

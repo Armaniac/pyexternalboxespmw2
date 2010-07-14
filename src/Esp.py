@@ -1,7 +1,7 @@
 from ctypes import byref, cast, POINTER, c_int, pointer, c_float
 from Config import *
 from utils import draw_box, draw_line_abs, draw_string_center, draw_spot
-from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX
+from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX, ENTITIESMAX, EntityTracker
 from directx.d3d import D3DMATRIX
 from directx.d3dx import D3DRECT, D3DCLEAR, D3DXVECTOR3, d3dxdll, D3DXVECTOR2
 from Keys import keys
@@ -80,8 +80,8 @@ class Esp(object):
         #    type = pp[0x38 + 0x81*i]
         #    if type == ET_TURRET or type == ET_EXPLOSIVE or type==ET_HELICOPTER or type==ET_PLANE:
         #=======================================================================
-        for e in read_game.mw2_entity.arr:
-            #e = read_game.mw2_entity.arr[i]
+        for idx in range(ENTITIESMAX):
+            e = read_game.mw2_entity.arr[idx]
             if e.type == ET_TURRET and e.alive & 0x0001 and keys["KEY_BOXESP"]:
                 head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 20)       # eyepos of standing player
                 feet = read_game.world_to_screen(e.pos)
@@ -92,8 +92,9 @@ class Esp(object):
                     size_x = size_y / 2.75
                     draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, COLOR_SENTRY)
                     
-            elif keys["KEY_EXPLOSIVES"] and e.type == ET_EXPLOSIVE and e.alive & 0x0001:
-                self.draw_explosive(e)
+            elif e.type == ET_EXPLOSIVE and e.alive & 0x0001:
+                #self.draw_explosive(e)
+                self.track_explosive(idx, e)
                     
             elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & 0x0001 and keys["KEY_BOXESP"]:
                 head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 100)       # eyepos of standing player
@@ -107,22 +108,68 @@ class Esp(object):
                     if keys["KEY_BOX_SNAPLINE"]:
                         draw_line_abs(frame.line, read_game.screen_center_x, read_game.resolution_y,
                               feet.x, feet.y, COLOR_BOX_LINE_WIDTH, COLOR_PLANE)
+                        
+        self.loop_tracked_explo()
     
-    def draw_explosive(self, e):
+    def track_explosive(self, idx, e):
+        read_game = self.env.read_game
+        if not idx in read_game.tracked_ent:
+            te = EntityTracker(idx)
+            te.set_values(e)
+            te.weapon_num = e.WeaponNum
+            te.model_name = self.env.weapon_names.get_weapon_model(e.WeaponNum)
+            te.planter = self.find_nearest_player(te.pos)
+            # if airdrop
+            if te.model_name.find("_AIRDROP_") > 0:
+                te.endoflife = read_game.game_time + int(AIRDROP_PERSISTENCE*1000)
+            read_game.tracked_ent[idx] = te
+
+    def loop_tracked_explo(self):
+        read_game = self.env.read_game
+        te_indices = read_game.tracked_ent.keys()
+        for idx in te_indices:
+            te = read_game.tracked_ent[idx]
+            if te.alive & 0x01:                 # do not update if zombie object
+                te.set_values(read_game.mw2_entity.arr[idx])
+            if te.alive & 0x01 or (te.endoflife > 0 and te.endoflife > read_game.game_time):
+                # active
+                if keys["KEY_EXPLOSIVES"]: 
+                    self.draw_tracked_explo(te)
+            else:
+                del read_game.tracked_ent[idx]               # remove from list
+
+    def find_nearest_player(self, pos):
+        read_game = self.env.read_game
+        dist = -1
+        cur_p = read_game.my_player
+        for p in read_game.player:
+            if (p.type == ET_PLAYER) and p.valid and p.alive & 0x01: 
+                len = (pos-p.pos).length()
+                if dist < 0:
+                    dist = len
+                    cur_p = p
+                elif len < dist:
+                    dist = len
+                    cur_p = p
+        return cur_p
+
+    def draw_tracked_explo(self, te):
         read_game = self.env.read_game
         frame = self.env.frame
-        weapon_names = self.env.weapon_names
-        head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 10)
-        feet = read_game.world_to_screen(e.pos)
+
+        head_pos = VECTOR(te.pos.x, te.pos.y, te.pos.z + 10)
+        feet = read_game.world_to_screen(te.pos)
         head = read_game.world_to_screen(head_pos)
         if feet and head:
+            # claymore friend tracking
+            if te.model_name == "WEAPON_CLAYMORE":
+                if not te.planter.enemy:
+                    te.model_name = "WEAPON_CLAYMORE-friend"
             size_y = feet.y - head.y
             if size_y < 12:  size_y = 12.0
-            model_name = weapon_names.get_weapon_model(e.WeaponNum)
-            sprite = self.env.sprites.get_sprite(model_name)
+            sprite = self.env.sprites.get_sprite(te.model_name)
             if sprite:
                 frame.sprite.Begin(0)
-                
                 scaling = size_y / float(_EXPLO_SPRITE_SIZE)
                 sprite_center = D3DXVECTOR2(0, 0)
                 trans = D3DXVECTOR2(feet.x - _EXPLO_SPRITE_SIZE*scaling/2, feet.y - _EXPLO_SPRITE_SIZE*scaling)
@@ -136,7 +183,7 @@ class Esp(object):
                 frame.sprite.SetTransform(matrix)
                 frame.sprite.Draw(sprite, None, None, None, COLOR_CLAYMORE_SPRITE)
                 frame.sprite.End()
-                self.draw_distance_ESP(e.pos, feet.x, feet.y, COLOR_CLAYMORE_DISTANCE)
+                self.draw_distance_ESP(te.pos, feet.x, feet.y, COLOR_CLAYMORE_DISTANCE)
             else:
                 #print "unknown explosive model:%s (%i)" % (model_name, e.WeaponNum)
                 r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))

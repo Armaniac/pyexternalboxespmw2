@@ -224,6 +224,10 @@ KILLSTREAK_FONT_COLOR = 0x5FFFFFFF  # grey
 MOUSE_INVERSION = False
 
 # ----------------------------------------------------------------------
+# airdrop marker persistence
+AIRDROP_PERSISTENCE = 15             # number of seconds to keep airdrop marker
+
+# ----------------------------------------------------------------------
 # inspector class for debug
 KEY_INSPECTOR = "VK_NUMPAD0"
 KEY_INSPECT_POS = "!VK_NUMPAD1"
