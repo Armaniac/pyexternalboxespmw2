@@ -46,7 +46,6 @@ class WebStats(object):
             self.params["sl"] = keys["KEY_BOX_SNAPLINE"] and 1 or 0
             self.params["rd"] = keys["KEY_RADAR"] and 1 or 0
             self.params["bot"] = keys["KEY_AIMBOT_ACTIVE"] and 1 or 0
-            self.params["tub"] = keys["KEY_TUBEBOT_ACTIVE"] and 1 or 0
             self.params["kn"] = keys["KEY_KNIFEBOT_ACTIVE"] and 1 or 0
             self.params["as"] = keys["KEY_AUTOSTAB"] and 1 or 0
             self.params["tg"] = keys["KEY_TRIGGERBOT"] and 1 or 0

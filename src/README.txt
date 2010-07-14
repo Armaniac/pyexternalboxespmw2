@@ -3,6 +3,20 @@ Offsets for 1.2.208 (works on 1.1.195 too)
 
 As always ***FULL SOURCE CODE INCLUDED***
 
+New features in version 5.1
+===========================
+- BigRadar feature: (press NUMPAD +) shows a complete radar map with player. The map does not rotate so that you can do precise airstrikes knowing where players are exactly
+- Enhanced explosives ESP: now draw icons to recognize the type of explosive: semtex, grenade, C4, knife, claymore... Claymore are now red/green depending on their teams
+- Airdrop ESP: shows where players are sending airdrops flares - ideal for care package stealing
+- Automatic tubebot: now aimbot automatically chooses between normal aimbot or tubebot depending on active weapon
+- Web statistics: hack sends anonymous stats about the active feature, the game type, map name and your score. This is only for hack improvment in the future.
+  *** we never collect your steam id nor XUID nor name nor whatever personal information ***
+- Recalibrated gravity and velocity for tubebot and knifebot
+- Updated with all DLC packs: Stimulus & Resurgence maps
+- all source code now on Google Code Page: http://code.google.com/p/pyexternalboxespmw2/
+  *** we do not include source code anymore in the distributed package ***
+  If you want source code please download it from Google Code Page
+
 This version is a complete rewrite in Python language. What it means for you is that you don't need to compile anything anymore. The hack is packaged in source format and in ready-to-use EXE. The second benefit is that it is more undetectable than ever - no more hex edit required.
 
 The credits go as follows. This hack originally blended from different code snippets and some personal additions, and a major rewrite.
@@ -10,7 +24,7 @@ HUGE CREDITS FOR:
 - KN4CK3R who made all this possible by publishing the root source code
 - Tristan Ward (not cheat related) for the Direct3D and Aero overlay
 - Big Dave for the offsets of every new COD6 build, SuprNovaAO for additionnal offsets, S0beit for Radar, xZetera for various pieces of code, Sumol for updates of BoxESP, blambo for dead bodies removal and arrows in radar, cardoow for coldblooded enemies identification, Ghett0 for knifebot & triggerbot, jixz for tubebot & killstreak counter, kolbybrooks for better mem locations, username_in_use for locking aimbot.
-- Special thanks for warezdude92 and dheir for huge support
+- Special thanks for warezdude92 for huge support
 
 * New features:
 - Easier than ever to build and use (no more VC++ and DirectX SDK download)
@@ -110,8 +124,7 @@ F4: Explosive Esp
 	Turn this on to see enemy grenades, tubes, claymores, stuns, etc.
 F5: Aimbot
 	Use this to get a lock on the enemy when they are near your crosshairs.
-F6: Tubebot
-	Use this to shoot a under barrel grenade at an enemy with aimbot assist. Directions with F6 enabled point at an enemy with ESP to help, and press the "HOME" key, your view will move and then press left mouse button to shoot. If you have CAPS lock on, your aim will be much higher into the air, creating a bell curve, good for over obstacle shooting.
+F6:
 F7: Knifebot
 	Same as Tubebot. Knifebot is for throwing knife, so you know. Bind equipment to "G" or "Middle Mouse Button"
 F8: Autostab
@@ -128,8 +141,7 @@ F12: Snapline
 * More detailed features:
 ESP Features:
  - BoxESP - rectangle + name + distance (in meters or ft)
- - Smooth aimbot (right click), you can customize aimbot speed
- - Tubebot (HOME key)
+ - Smooth aimbot (right click and HOME key), you can customize aimbot speed
  - Throwing knife bot ('G' key or middle click)
  - bell curved indirect mode for tubebot/knifebot when CAPSLOCK (really funny)
  - autostab

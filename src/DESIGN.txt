@@ -85,6 +85,7 @@ List of feature-modules:
 * BigRadar.py: draws a non-rotating big radar with players
 * Rage.py: selects an enemy player with a specific color, so you can rage him again and again (another hacker?)
 * Status.py: draw the status bar at the bottom of the window
+* WebStats.py: sends anonymous stats about enabled features, map name, game type and score
 
 - PLAYER HIGH-LEVEL STRUCTURE
 =============================
@@ -107,6 +108,7 @@ Data provided is:
   - name = clientInfo.name
   - team = clientInfo.name
   - perk = clientInfo.perk
+  - motion = the estimated motion vector (used for motion compensation - future feature)
 
   - color_esp = the default color in box esp (computed from config file)
   - color_map = the default color in mini-radar (computed from config file)
