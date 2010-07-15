@@ -1,7 +1,24 @@
-External BoxESP v5.0 for Call of Duty 6 - by sph4ck
-Offsets for 1.1.195
+External BoxESP v5.0 for Call of Duty 6 - by sph4ck & dheir
+Offsets for 1.2.208 (works on 1.1.195 too)
 
-As always ***FULL SOURCE CODE INCLUDED***
+*** If you like it, feel free to donate***: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7AD4BSF3H4KKS
+
+As always ***FULL SOURCE CODE AVAILABLE*** here: http://code.google.com/p/pyexternalboxespmw2/source/checkout
+
+New features in version 5.1
+===========================
+- BigRadar feature: (press NUMPAD +) shows a complete radar map with player. The map does not rotate so that you can do precise airstrikes knowing where players are exactly
+- Enhanced explosives ESP: now draw icons to recognize the type of explosive: semtex, grenade, C4, knife, claymore... Claymore are now red/green depending on their teams
+- Airdrop ESP: shows where players are sending airdrops flares - ideal for care package stealing
+- Automatic tubebot: now aimbot automatically chooses between normal aimbot or tubebot depending on active weapon
+- Web statistics: hack sends anonymous stats about the active feature, the game type, map name and your score. This is only for hack improvment in the future.
+  *** we never collect your steam id nor XUID nor name nor whatever personal information ***
+- Recalibrated gravity and velocity for tubebot and knifebot
+- Updated with all DLC packs: Stimulus & Resurgence maps
+- Weapon ESP (F6) shows you what weapons other players are using
+- all source code now on Google Code Page: http://code.google.com/p/pyexternalboxespmw2/
+  *** we do not include source code anymore in the distributed package ***
+  If you want source code please download it from Google Code Page
 
 This version is a complete rewrite in Python language. What it means for you is that you don't need to compile anything anymore. The hack is packaged in source format and in ready-to-use EXE. The second benefit is that it is more undetectable than ever - no more hex edit required.
 
@@ -10,7 +27,7 @@ HUGE CREDITS FOR:
 - KN4CK3R who made all this possible by publishing the root source code
 - Tristan Ward (not cheat related) for the Direct3D and Aero overlay
 - Big Dave for the offsets of every new COD6 build, SuprNovaAO for additionnal offsets, S0beit for Radar, xZetera for various pieces of code, Sumol for updates of BoxESP, blambo for dead bodies removal and arrows in radar, cardoow for coldblooded enemies identification, Ghett0 for knifebot & triggerbot, jixz for tubebot & killstreak counter, kolbybrooks for better mem locations, username_in_use for locking aimbot.
-- Special thanks for warezdude92 and dheir for huge support
+- Special thanks for warezdude92 for huge support
 
 * New features:
 - Easier than ever to build and use (no more VC++ and DirectX SDK download)
@@ -36,8 +53,8 @@ VAC2 is designed to scan for these changes and flag your account for hacking.
 This hack uses RPM (Read Process Memory), and does not insert it's own code into the hack. It simply takes information about enemies, their location, etc, and does some math to calculate the information presented on the screen in the form of the hack. The actual information that is show on the screen is not
 drawn on the game window itself, (as that would be easily detected), but rather drawn using functions of Windows Aero theme, on and invisible overlay that sits on top of your game. This is why the game needs to be in windowed mode, in order to allow the overlay to sit on top.
 
-4. This hack is designed for a Steam enabled, MW2 for version 1.1.195 and no other version.
-The reason that this hack will only work for a legit steam version 1.1.195 is that when the game gets updated, (from older versions), the location of different values in memory change, these are called offsets. The same applies for private server versions of the game. These different executable's will have different locations that the hacks uses to call upon to gather information for a useful hack.
+4. This hack is designed for a Steam enabled, MW2 for version 1.2.208 + 1.1.195 and no other version.
+The reason that this hack will only work for a legit steam version 1.2.208 + 1.1.195 is that when the game gets updated, (from older versions), the location of different values in memory change, these are called offsets. The same applies for private server versions of the game. These different executable's will have different locations that the hacks uses to call upon to gather information for a useful hack.
 
 5. Will you get banned? If you have used another hack in the last 2 weeks or so, it's hard to tell. Don't come here and complain that you got banned if you did.
 You take a risk every time you use a hack. It's your fault and no one else. This is free to you to use as you will, and no guarantee is promised. However the risk of being banned after using this hack and this hack alone, is very low, about 1%, the reason for that number is if you were not using it smartly.
@@ -66,7 +83,7 @@ If you don't have a (x86) folder that's ok, it's for people on 64 bit OS's.
  INSTRUCTIONS: Using stand-alone executable.
 
 1. Download the file as attachment on the first post of this page
-The file name is "External BoxESP V5.0(1.1.195 compatible).rar"
+The file name is "External BoxESP V5.1(1.2.208 compatible).rar"
 
 2. If you do not have winrar installed, download it at, [url=http://www.rarlab.com/]WinRAR archiver, a powerful tool to process RAR and ZIP files[/url],
 After you know you have winrar installed extract the .rar file to a location, say your desktop for example.
@@ -110,8 +127,7 @@ F4: Explosive Esp
 	Turn this on to see enemy grenades, tubes, claymores, stuns, etc.
 F5: Aimbot
 	Use this to get a lock on the enemy when they are near your crosshairs.
-F6: Tubebot
-	Use this to shoot a under barrel grenade at an enemy with aimbot assist. Directions with F6 enabled point at an enemy with ESP to help, and press the "HOME" key, your view will move and then press left mouse button to shoot. If you have CAPS lock on, your aim will be much higher into the air, creating a bell curve, good for over obstacle shooting.
+F6:
 F7: Knifebot
 	Same as Tubebot. Knifebot is for throwing knife, so you know. Bind equipment to "G" or "Middle Mouse Button"
 F8: Autostab
@@ -128,8 +144,7 @@ F12: Snapline
 * More detailed features:
 ESP Features:
  - BoxESP - rectangle + name + distance (in meters or ft)
- - Smooth aimbot (right click), you can customize aimbot speed
- - Tubebot (HOME key)
+ - Smooth aimbot (right click and HOME key), you can customize aimbot speed
  - Throwing knife bot ('G' key or middle click)
  - bell curved indirect mode for tubebot/knifebot when CAPSLOCK (really funny)
  - autostab

@@ -15,13 +15,14 @@ CLIENTINFO = 0x8EC2C8
 CG_T = 0x7F59BC
 CGS_T = 0x7F1CF8
 
-ISINGAME = 0x7F58C8
+ISINGAME = 0x7F58B8
 VIEWANGLEY = 0xB36A40
 ADDR_KILLS = 0x01B2C918
 ADDR_DEATHS = 0x01B2C920
+WEAPON_DESC = 0x7E6D08
+ADDR_MAPS = 0x008F2278
 
 COD_WINDOW_NAME = "Modern Warfare 2"
-
 # ----------------------------------------------------------------------
 # MOCK is set to True to debug purposes only
 #
@@ -83,6 +84,8 @@ MAP_COLOR_ENEMY_COLDBLOODED = 0XFFFFBF44    # color of enemies with coldblood pe
 
 # color of the claymore ESP
 COLOR_CLAYMORE = 0x3FFF6666                 # color of claymores
+COLOR_CLAYMORE_DISTANCE = 0x7FFF6666        # color of distance indicator for claymore
+COLOR_CLAYMORE_SPRITE = 0xAF7F7F7F          # blending color for sprites
 COLOR_PLANE = 0x7F880088                    # color for planes & helicopters
 
 # distance ESP (in meters or ft)
@@ -110,7 +113,7 @@ KEY_RAGE_DISPLAY_NAME = "VK_PRIOR VK_NEXT VK_DELETE"
 RAGE_FONT_NAME = "Arial"
 RAGE_FONT_SIZE = 24
 RAGE_FONT_WEIGHT = 700
-RAGE_FONT_COLOR = 0x7FFF0066                # yellow
+RAGE_FONT_COLOR = 0xBFFFFFFF                # white
 RAGE_RESET_STRING = "-------------"
 
 # ----------------------------------------------------------------------
@@ -124,8 +127,6 @@ CROSSHAIR_SIZE = 10                         # crosshair length
 STATUS_COLOR_ACTIVE = 0xFFFFCC00
 STATUS_COLOR_INACTIVE = 0xFF777777
 STATUS_COLOR_LINE = 0xAF000000              # color of status line
-KEY_STATUS = "+VK_F1"                           # is status display enabled
-KEY_STATUS_UP = "+VK_F2"                        # to select if you want the status up on the screen 
 
 # ----------------------------------------------------------------------
 # killstreak display
@@ -136,9 +137,11 @@ KILLSTREAK_WEIGHT = 700
 # ----------------------------------------------------------------------
 # bot constants
 
-GRAV = 322.0                        # in 1/10th of feet/s2
-TUBE_VEL = 1550.0                   # which is 155 ft/s, or 47m/s
-KNIFE_VEL = 910.0                   # which is 90 ft/s, or 27m/s
+GRAV = 800.0
+TUBE_VEL = 2400.0
+KNIFE_VEL = 1420.0
+
+TUBE_WEAPONS = ("WEAPON_M203", "WEAPON_M79")
 
 # below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
@@ -148,7 +151,7 @@ BOT_CROUCHED_Z = 38
 BOT_PRONE_Z = 10
 
 BOT_TUBE_Z = 0
-BOT_KNIFE_Z = 40
+BOT_KNIFE_Z = 0
 
 BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
 BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
@@ -168,7 +171,7 @@ F2_LABEL = "move disp"
 F3_LABEL = "crosshair"
 F4_LABEL = "explosives"
 F5_LABEL = "aimbot"
-F6_LABEL = "tubebot"
+F6_LABEL = "weapons"
 F7_LABEL = "knifebot"
 F8_LABEL = "autostab"
 F9_LABEL = "triggerbot"
@@ -178,12 +181,13 @@ F12_LABEL = "snapline"
 
 # virtual keys ON and OFF are also accepted if always on or off
 # all globs starting with IS_ are parsed and mapped to an F key or ON/OFF
-KEY_STATUS =				"+VK_F1"
-KEY_STATUS_UP = 			"+VK_F2"
+KEY_STATUS =                "+VK_F1"                        # is status display enabled
+KEY_STATUS_UP =             "+VK_F2"                        # to select if you want the status up on the screen 
 KEY_CROSSHAIR =     		"+VK_F3"
 KEY_EXPLOSIVES =    		"+VK_F4"
 KEY_AIMBOT_ACTIVE =        	"-VK_F5"
-KEY_TUBEBOT_ACTIVE =       	"-VK_F6"
+KEY_TUBEBOT_ACTIVE =       	"-VK_F5"                        # same as AIMBOT
+KEY_WEAPON_ESP =            "-VK_F6"
 KEY_KNIFEBOT_ACTIVE =      	"-VK_F7"
 KEY_AUTOSTAB =      		"-VK_F8"
 KEY_TRIGGERBOT =    		"-VK_F9"
@@ -194,13 +198,16 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 # all globals beginning with KEY_ are parsed and corresponding keys are being scanned
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
-KEY_BOT = "VK_LBUTTON VK_END"
+KEY_RAPID_KNIFE = "!E"                  # Used to turn knife glitch on for autostab
+KEY_BOT = "VK_RBUTTON VK_HOME"
 KEY_TRIGGER_BOT_KEY = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
 KEY_TUBEBOT = "VK_HOME VK_LMENU"
 KEY_KNIFEBOT = "G VK_MBUTTON"
-KEY_INDIRECT_BOT = "~VK_CAPITAL"         # CAPS LOCK
+KEY_INDIRECT_BOT = "~VK_CAPITAL"        # CAPS LOCK
 
 TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
+KNIFE_RIOT_OFFSET = 2                   # all offsets are considered if RIOT SHIELD is at offset 3
+KNIFE_TACTICAL_WEAPONS = (22, 36, 42)   # pistols with tactical knife enabled
 # ----------------------------------------------------------------------
 # autostab parameters
 AUTOSTAB_DIST = 75             # distance in 1/10th of ft
@@ -219,10 +226,18 @@ KILLSTREAK_FONT_COLOR = 0x5FFFFFFF  # grey
 MOUSE_INVERSION = False
 
 # ----------------------------------------------------------------------
+# airdrop marker persistence
+AIRDROP_PERSISTENCE = 15             # number of seconds to keep airdrop marker
+
+# ----------------------------------------------------------------------
 # inspector class for debug
 KEY_INSPECTOR = "VK_NUMPAD0"
+KEY_INSPECT_POS = "!VK_NUMPAD1"
+KEY_INSPECT_DUMP = "!VK_NUMPAD9"
 
 # ----------------------------------------------------------------------
 # calibration mode, only used for debugging of tubebot and knifebot
 # *** DON'T ACTIVATE UNLESS YOU KNOW WHAT YOU ARE DOING
 CALIBRATING = False
+KEY_SPOT23_ESP = "OFF"
+DEBUG_PRINT_WEAPON_NAMES = False
