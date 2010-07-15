@@ -1,7 +1,9 @@
 External BoxESP v5.0 for Call of Duty 6 - by sph4ck & dheir
 Offsets for 1.2.208 (works on 1.1.195 too)
 
-As always ***FULL SOURCE CODE INCLUDED***
+As always ***FULL SOURCE CODE AVAILABLE***
+
+[If you like it, feel free to donate: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7AD4BSF3H4KKS]
 
 New features in version 5.1
 ===========================
