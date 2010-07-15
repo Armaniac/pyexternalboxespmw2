@@ -13,6 +13,7 @@ New features in version 5.1
   *** we never collect your steam id nor XUID nor name nor whatever personal information ***
 - Recalibrated gravity and velocity for tubebot and knifebot
 - Updated with all DLC packs: Stimulus & Resurgence maps
+- Weapon ESP (F6) shows you what weapons other players are using
 - all source code now on Google Code Page: http://code.google.com/p/pyexternalboxespmw2/
   *** we do not include source code anymore in the distributed package ***
   If you want source code please download it from Google Code Page

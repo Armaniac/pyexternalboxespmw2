@@ -54,7 +54,11 @@ class Esp(object):
                                 if head2:
                                     draw_spot(frame.line, head2.x, head2.y, 0x80FFBF00)
                             draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, p.color_esp)
-                            draw_string_center(frame.font, feet.x, feet.y - size_y, COLOR_PLAYER_NAME, p.name)
+                            if keys["KEY_WEAPON_ESP"]:
+                                name_esp_str = "%s [%s]" % (p.name, weapon_names.get_weapon_name(p.weapon_num))
+                            else:
+                                name_esp_str = p.name
+                            draw_string_center(frame.font, feet.x, feet.y - size_y, COLOR_PLAYER_NAME, name_esp_str)
                         if keys["KEY_BOX_SNAPLINE"] and p.enemy and p.alive & 0x0001:
                             draw_line_abs(frame.line, read_game.screen_center_x, read_game.resolution_y,
                                   feet.x, feet.y, COLOR_BOX_LINE_WIDTH, p.color_esp)      # w/h ratio
