@@ -29,7 +29,9 @@ class Autostab(object):
         windll.User32.keybd_event(ord("G"), 0x22, KEYEVENTF_KEYUP, 0)
     
     def stab_glitch(self):
-        self.env.sched.new(self._stab_glitch())
+        p = self.env.read_game.my_player
+        if p == read_game.my_player and p.valid and p.alive & 0x0001:
+            self.env.sched.new(self._stab_glitch())
     
     def is_my_player_tactical(self):
         p = self.env.read_game.my_player
