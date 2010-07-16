@@ -58,7 +58,7 @@ class ReadGame(object):
         # pre-mashed info
         self.fov_x = 0.0                # field of view
         self.fov_y = 0.0
-        self.killstreak = 0             # current killstreak number
+        self.killstreak = -1            # current killstreak number
         self.local_client_num = 0
         self.my_team = 0                # my team number
         self.my_pos = VECTOR()          # my position vector
@@ -267,20 +267,20 @@ class ReadGame(object):
             
         #if self.maps_temp != "mp_Into" or "mp_Outro":
         #    print self.maps_temp
-            
-    def start_game(self):
-        if self.round_start == True:
-            self.killstreak = 0
-        
+
     def calc_killstreak(self):
-        self.start_game()
-        if self.deaths != self._last_deaths:
-            self._last_deaths = self.deaths
-            self._last_kills = self.kills
-        if self.kills > 0 and self.kills < self._last_kills:
-            self._last_kills = self.kills
-        if self.kills > 0:
+        if not self.is_in_game:                         # invalidate killstreak counter
+            self.killstreak = -1                        # negative means uninitialized killstreak counter
+            self._last_deaths = self._last_kills = 0
+            return
+        
+        if self.killstreak >= 0:                        # it's up and counting
+            if self.deaths != self._last_deaths:
+                self._last_deaths = self.deaths
+                self._last_kills = self.kills
             self.killstreak = self.kills - self._last_kills
+        elif self.kills == 0 and self.deaths == 0:      # game just begun with 0-0 score, start counting
+            self.killstreak = 0
         
     def get_owner_team(self, clientnum):
         owner = self.mw2_entity.arr[clientnum].owner

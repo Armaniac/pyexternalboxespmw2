@@ -15,7 +15,7 @@ class Killstreak(object):
     def render(self):
         read_game = self.env.read_game
         frame = self.env.frame
-        if not read_game.is_in_game or not keys["KEY_KILLSTREAK"]: return
+        if not read_game.is_in_game or not keys["KEY_KILLSTREAK"] or self.killstreak < 0: return
         
         text = "%i" % read_game.killstreak
         if keys["KEY_BIG_RADAR"]:
