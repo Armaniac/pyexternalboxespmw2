@@ -21,6 +21,7 @@ ADDR_KILLS = 0x01B2C918
 ADDR_DEATHS = 0x01B2C920
 WEAPON_DESC = 0x7E6D08
 ADDR_MAPS = 0x008F278 #mpIntro triggers when map start countdown from "5" mpOutro triggers on map end.
+GET_HOST_ADDR = 0x00A86758
 
 COD_WINDOW_NAME = "Modern Warfare 2"
 
@@ -128,6 +129,7 @@ CROSSHAIR_SIZE = 10                         # crosshair length
 STATUS_COLOR_ACTIVE = 0xFFFFCC00
 STATUS_COLOR_INACTIVE = 0xFF777777
 STATUS_COLOR_LINE = 0xAF000000              # color of status line
+KEY_HOST_DISPLAY = "ON"
 
 # ----------------------------------------------------------------------
 # killstreak display

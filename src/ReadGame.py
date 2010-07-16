@@ -267,6 +267,16 @@ class ReadGame(object):
             
         #if self.maps_temp != "mp_Into" or "mp_Outro":
         #    print self.maps_temp
+    def is_host_check(self):
+        self.is_host_text = None
+        host_text_temp = STR16()
+        self._RPM(GET_HOST_ADDR, host_text_temp)
+        host_text = cast(pointer(host_text_temp), c_char_p)
+        self.is_host_text = host_text.value
+        if self.is_host_text == "localhost":
+            return True
+        else:
+            return False
 
     def calc_killstreak(self):
         if not self.is_in_game:                         # invalidate killstreak counter

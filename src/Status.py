@@ -1,6 +1,6 @@
 import Config
-from Config import STATUS_COLOR_ACTIVE, STATUS_COLOR_INACTIVE, STATUS_COLOR_LINE
-from utils import draw_line, draw_string_left
+from Config import STATUS_COLOR_ACTIVE, STATUS_COLOR_INACTIVE, STATUS_COLOR_LINE, KEY_HOST_DISPLAY
+from utils import draw_line, draw_string_left, draw_string_center
 from Keys import keys, keys_raw, KEY_TOGGLE
 import win32con
 
@@ -32,3 +32,5 @@ class Status(object):
                 color = STATUS_COLOR_INACTIVE
             label = "F" + str(i) + ":" + getattr(Config, "F"+str(i)+"_LABEL")
             draw_string_left(frame.status_font, (i-1)*70 + 5, text_y, 65, 15, color, label)
+        if read_game.is_host_check() == True and keys["KEY_HOST_DISPLAY"]:
+            draw_string_center(frame.rage_font, read_game.resolution_x - 100, read_game.resolution_y - (read_game.resolution_y - 8), 0x9600FF00, "You are host!")   
