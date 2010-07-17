@@ -41,7 +41,7 @@ class Scheduler(object):
         del self.taskmap[task.tid]
         # Notify other tasks waiting for exit
         for task in self.exit_waiting.pop(task.tid,[]):
-            self.schedule(task)
+            self.schedule_out_of_band(task)
 
     def waitforexit(self, task, waittid):
         if waittid in self.taskmap:
@@ -50,6 +50,9 @@ class Scheduler(object):
         else:
             return False
 
+    def schedule_out_of_band(self,task):
+        self.ready.appendleft(task)
+        
     def schedule(self,task):
         self.ready.append(task)
 
