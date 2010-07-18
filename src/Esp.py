@@ -98,7 +98,7 @@ class Esp(object):
                     
             elif e.type == ET_EXPLOSIVE and e.alive & 0x0001:
                 #self.draw_explosive(e)
-                self.track_explosive(idx, e)
+                self.track_explosive(idx)
                     
             elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & 0x0001 and keys["KEY_BOXESP"]:
                 head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 100)       # eyepos of standing player
@@ -115,47 +115,15 @@ class Esp(object):
                         
         self.loop_tracked_explo()
     
-    def track_explosive(self, idx, e):
-        read_game = self.env.read_game
-        if not idx in read_game.tracked_ent:
-            te = EntityTracker(idx)
-            te.set_values(e)
-            te.weapon_num = e.WeaponNum
-            te.model_name = self.env.weapon_names.get_weapon_model(e.WeaponNum)
-            te.planter = self.find_nearest_player(te.pos)
-            # if airdrop
-            if te.model_name.find("_AIRDROP_") > 0:
-                te.endoflife = read_game.game_time + int(AIRDROP_PERSISTENCE*1000)
-            read_game.tracked_ent[idx] = te
+    def track_explosive(self, idx):
+        te = self.env.tracker.track_entity(idx)
+        if te and te.model_name.find("_AIRDROP_") > 0:
+            te.endoflife = self.env.read_game.game_time + int(AIRDROP_PERSISTENCE*1000)
 
     def loop_tracked_explo(self):
-        read_game = self.env.read_game
-        te_indices = read_game.tracked_ent.keys()
-        for idx in te_indices:
-            te = read_game.tracked_ent[idx]
-            if te.alive & 0x01:                 # do not update if zombie object
-                te.set_values(read_game.mw2_entity.arr[idx])
-            if te.alive & 0x01 or (te.endoflife > 0 and te.endoflife > read_game.game_time):
-                # active
-                if keys["KEY_EXPLOSIVES"]: 
-                    self.draw_tracked_explo(te)
-            else:
-                del read_game.tracked_ent[idx]               # remove from list
-
-    def find_nearest_player(self, pos):
-        read_game = self.env.read_game
-        dist = -1
-        cur_p = read_game.my_player
-        for p in read_game.player:
-            if (p.type == ET_PLAYER) and p.valid and p.alive & 0x01: 
-                len = (pos-p.pos).length()
-                if dist < 0:
-                    dist = len
-                    cur_p = p
-                elif len < dist:
-                    dist = len
-                    cur_p = p
-        return cur_p
+        for te in self.env.tracker.get_tracked_entity_list():
+            if te.type == ET_EXPLOSIVE:
+                self.draw_tracked_explo(te)
 
     def draw_tracked_explo(self, te):
         read_game = self.env.read_game

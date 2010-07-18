@@ -3,7 +3,7 @@ import Scheduler
 import time
 import win32gui, win32con
 import ReadGame, Frame, Textures, Radar, Esp, Status, Keys, Autostab, Inspector, Rage, Killstreak, BigRadar, WeaponNames, Sprites
-import Crosshair, Bot, WebStats
+import Crosshair, Bot, WebStats, Tracker
 import cProfile
 from Config import MAIN_LOOP_SLEEP, PROFILING
 
@@ -25,6 +25,7 @@ class Main(object):
         self.read_game = ReadGame.ReadGame(self)
         self.frame = Frame.Frame(self)
         self.textures = Textures.Textures(self)
+        self.tracker = Tracker.Tracker(self)
         # other are simple modules
         self.rage = Rage.Rage(self)
         self.status = Status.Status(self)
@@ -67,6 +68,7 @@ class Main(object):
             self.read_game.render()
             self.frame.BeginPaint()
             Keys.render()
+            self.tracker.render()
             
             self.weapon_names.render()
             self.rage.render()

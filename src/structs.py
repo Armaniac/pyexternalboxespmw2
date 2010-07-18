@@ -223,10 +223,11 @@ class Player(object):
         self.perk = mw2_clientinfo.perk
 
 class EntityTracker(object):
-    __slots__ = ( 'idx', 'endoflife', 'pos', 'type', 'alive', 'weapon_num', 'model_name', 'planter')
+    __slots__ = ( 'idx', 'startoflife', 'endoflife', 'pos', 'type', 'alive', 'weapon_num', 'model_name', 'planter')
     
     def __init__(self, idx):
         self.idx = idx                      # index of entity object
+        self.startoflife = -1               # time_code when the entity was first tracked
         self.endoflife = -1                 # time_code when the object will not exist anymore
         self.pos = VECTOR()                 # position
         self.type = 0                       # type of object (as in entity)
