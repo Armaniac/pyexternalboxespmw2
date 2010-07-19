@@ -1,4 +1,4 @@
-External BoxESP v5.0 for Call of Duty 6 - by sph4ck & dheir
+External BoxESP v5.1 for Call of Duty 6 - by sph4ck & dheir
 Offsets for 1.2.208 (works on 1.1.195 too)
 
 *** If you like it, feel free to donate***: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7AD4BSF3H4KKS
@@ -88,8 +88,7 @@ The file name is "External BoxESP V5.1(1.2.208 compatible).rar"
 2. If you do not have winrar installed, download it at, [url=http://www.rarlab.com/]WinRAR archiver, a powerful tool to process RAR and ZIP files[/url],
 After you know you have winrar installed extract the .rar file to a location, say your desktop for example.
 Inside the folder you have this directory structure.
-External BoxESP V5.0(1.0.195 compatible) -> External BoxESP V5.0(1.0.195 compatible) -> src/dist.
-Look inside the 'dist' folder and you have 'launcher.exe', this is the hack you will use. (Feel free to move this folder anywhere as long as you keep all the files together.)
+Look inside the folder and you have 'launcher.exe', this is the hack you will use. (Feel free to move this folder anywhere as long as you keep all the files together.)
 
 Note: there is a 'library.zip' containing the actual code in pre-compiled Python bytecode. This zip file may be marked as corrupt by winrar but it's not! (It's actually a .z file).
 
