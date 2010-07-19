@@ -58,7 +58,7 @@ RADAR_CENTER_X = 0          # X offset from center: 0 means center of the screen
 RADAR_RANGE = 50            # this is the scale divider for the radar: the higher value, the higher range (players are closer)
 
 KEY_BIG_RADAR = "~VK_ADD "  # display a global map with players, good for air-strikes
-RADAR_MAP_BACKGROUND = True # display map background?
+KEY_RADAR_MAP = "ON"        # display map background?
 BIG_RADAR_SCALE = 0.5       # scale factor for maps, 1.0 makes a 512x512 pix, 0.5 is reduced to 256x256
 BIG_RADAR_BLENDING = 0xAF7F7F7F     # blending color used in BigRadar
 
