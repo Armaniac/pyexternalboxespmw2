@@ -1,9 +1,8 @@
 import win32api, win32con, win32gui, win32process
 import re
 from time import sleep
-from structs import *
-from Config import *
-from utils import dump_obj
+from structs import *   #@UnusedWildImport
+from Config import *    #@UnusedWildImport
 
 # game_modes
 # dm= Free for all
@@ -66,7 +65,7 @@ class ReadGame(object):
         self.view_angles = VECTOR()
         self.view_axis = [ VECTOR(), VECTOR(), VECTOR() ]
         
-        self.player = [Player() for i in range(PLAYERMAX)]
+        self.player = [Player() for i in range(PLAYERMAX)] #@UnusedVariable
         self.tracked_ent = {}
         self.my_player = self.player[0]
         
@@ -76,7 +75,7 @@ class ReadGame(object):
         
         # used for motion vector calculation
         self._last_game_time = 0
-        self._last_pos3 = [ VECTOR(0,0,0) for x in range(PLAYERMAX) ]
+        self._last_pos3 = [ VECTOR(0,0,0) for x in range(PLAYERMAX) ] #@UnusedVariable
     
     def init(self):
         print "External BoxESP+bot version 5.1 by sph4ck & dheir"
@@ -89,7 +88,7 @@ class ReadGame(object):
             sleep(0.050)
         print "COD6 game found."
         while self.mw2_pid == 0:
-            tid, self.mw2_pid = win32process.GetWindowThreadProcessId(self.mw2_hwnd)
+            tid, self.mw2_pid = win32process.GetWindowThreadProcessId(self.mw2_hwnd) #@UnusedVariable
             sleep(0.050)
         print "Found process ID: ", self.mw2_pid
         self.mw2_process = win32api.OpenProcess(win32con.PROCESS_VM_READ, False, self.mw2_pid)
