@@ -1,10 +1,10 @@
-from structs import VECTOR, ET_PLAYER
-from Config import *
-from utils import draw_arrow
+from Config import * #@UnusedWildImport
 from Keys import keys
-from math import radians
-from directx.d3d import *
-from directx.d3dx import *
+from ctypes import c_float, byref
+from directx.types import D3DXVECTOR2, D3DMATRIX
+from directx.d3dx import d3dxdll
+from structs import VECTOR, ET_PLAYER
+from utils import draw_arrow
 
 
 class BigRadar(object):
@@ -28,7 +28,7 @@ class BigRadar(object):
         trans = D3DXVECTOR2(read_game.resolution_x - RADAR_OFFSET - 512*scaling, RADAR_OFFSET)
 
         matrix = D3DMATRIX()
-        d3dxdll.D3DXMatrixAffineTransformation2D(byref(matrix),
+        d3dxdll.D3DXMatrixAffineTransformation2D(byref(matrix), #@UndefinedVariable
                                                  c_float(scaling),          # scaling
                                                  byref(sprite_center),  # rotation center
                                                  c_float(0),        # angle
