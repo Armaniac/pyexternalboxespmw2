@@ -1,9 +1,7 @@
-import win32api, win32con, win32gui
 from directx.d3d import IDirect3DTexture9
 from directx.d3dx import d3dxdll
 from ctypes import POINTER, byref
 import math
-from structs import COORD
 import os
 
 MAP_FOLDER = "maps\\"
@@ -51,7 +49,7 @@ class Textures(object):
         if os.path.isdir(MAP_FOLDER):
             for (m, l) in MAP_NAMES.items():
                 texture = POINTER(IDirect3DTexture9)()
-                d3dxdll.D3DXCreateTextureFromFileA(frame.device,
+                d3dxdll.D3DXCreateTextureFromFileA(frame.device, #@UndefinedVariable
                                                   MAP_FOLDER + m + MAP_EXT,
                                                   byref(texture))
                 self.textures[m] = texture
