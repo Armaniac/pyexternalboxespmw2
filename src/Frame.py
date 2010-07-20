@@ -1,21 +1,22 @@
-import win32api, win32con, win32gui
-#from ctypes import *
-from Config import *
+from Config import * #@UnusedWildImport
+from ctypes import Structure, oledll, windll, c_int, byref, POINTER
 from directx.d3d import IDirect3D9, IDirect3DDevice9
-from directx.types import *
 from directx.d3dx import d3dxdll, TestHR, ID3DXFont, ID3DXLine, ID3DXSprite
+from directx.types import D3DFORMAT, UINT, D3D_SDK_VERSION, D3DPRESENT_PARAMETERS, D3DSWAPEFFECT, D3DDEVTYPE, D3DCREATE, D3DCULL, D3DCLEAR
+import win32api
+import win32con
+import win32gui
 
-D3DRS_ZENABLE                      = 7
-D3DRS_LIGHTING                     = 137
-D3DRS_CULLMODE                     = 22
+D3DRS_ZENABLE                       = 7
+D3DRS_LIGHTING                      = 137
+D3DRS_CULLMODE                      = 22
+D3DRS_SCISSORTESTENABLE             = 174
 
 class MARGINS(Structure):
     _fields_ = [ ("cxLeftWidth", c_int),
                  ("cxRightWidth", c_int),
                  ("cyTopHeight", c_int),
                  ("cyBottomHeight", c_int),]
-
-
 
 class Rect(object):
     def __init__(self, initlist=None):
@@ -99,25 +100,25 @@ class Frame(object):
         # common objects        
         d3dxdll.D3DXCreateFontW.restype = TestHR
         self.font = POINTER(ID3DXFont)()
-        d3dxdll.D3DXCreateFontW(self.device, PLAYER_NAME_SIZE, 0, PLAYER_NAME_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(PLAYER_NAME_FONT)), byref(self.font))
+        d3dxdll.D3DXCreateFontW(self.device, PLAYER_NAME_SIZE, 0, PLAYER_NAME_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(PLAYER_NAME_FONT)), byref(self.font)) #@UndefinedVariable
         self.status_font = POINTER(ID3DXFont)()
-        d3dxdll.D3DXCreateFontW(self.device, 14, 0, 400, 1, 0, 0, 0, 0, 0, LPCWSTR(u"Arial"), byref(self.status_font))
+        d3dxdll.D3DXCreateFontW(self.device, 14, 0, 400, 1, 0, 0, 0, 0, 0, LPCWSTR(u"Arial"), byref(self.status_font)) #@UndefinedVariable
         self.killstreak_font = POINTER(ID3DXFont)()
-        d3dxdll.D3DXCreateFontW(self.device, KILLSTREAK_FONT_SIZE, 0, KILLSTREAK_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(KILLSTREAK_FONT_NAME)), byref(self.killstreak_font))
+        d3dxdll.D3DXCreateFontW(self.device, KILLSTREAK_FONT_SIZE, 0, KILLSTREAK_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(KILLSTREAK_FONT_NAME)), byref(self.killstreak_font)) #@UndefinedVariable
         self.rage_font = POINTER(ID3DXFont)()
-        d3dxdll.D3DXCreateFontW(self.device, RAGE_FONT_SIZE, 0, RAGE_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(RAGE_FONT_NAME)), byref(self.rage_font))
+        d3dxdll.D3DXCreateFontW(self.device, RAGE_FONT_SIZE, 0, RAGE_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(RAGE_FONT_NAME)), byref(self.rage_font)) #@UndefinedVariable
         
         
         self.line = POINTER(ID3DXLine)()
         d3dxdll.D3DXCreateLine.restype = TestHR
-        d3dxdll.D3DXCreateLine(self.device, byref(self.line))
+        d3dxdll.D3DXCreateLine(self.device, byref(self.line)) #@UndefinedVariable
         
         self.line.SetWidth(5)
         self.line.SetPattern(0xFFFFFFFF)
         self.line.SetAntialias(True)
         
         self.sprite = POINTER(ID3DXSprite)()
-        d3dxdll.D3DXCreateSprite(self.device, byref(self.sprite))
+        d3dxdll.D3DXCreateSprite(self.device, byref(self.sprite)) #@UndefinedVariable
         
     def release_d3d(self):
         print "Cleaning D3D"
