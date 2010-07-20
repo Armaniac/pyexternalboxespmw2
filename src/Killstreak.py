@@ -1,10 +1,6 @@
-from structs import ET_PLAYER
-from ctypes import byref
-from Config import *
-from directx.types import D3DRECT, D3DCLEAR
+from Config import * #@UnusedWildImport
 from utils import draw_string_center
 from Keys import keys
-from math import radians, cos, sin
 
 
 class Killstreak(object):
