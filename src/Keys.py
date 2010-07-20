@@ -19,7 +19,7 @@ KEY_NEWLY_PRESSED = 0x02    # custom bit (not in Windows) saying we just pressed
 # global init
 # VARS
 def create_keys_array():
-    arr = array.array("B", [0 for i in range(256+2)])  # array of 256+2 unsigned char
+    arr = array.array("B", [0 for i in range(256+2)])  # array of 256+2 unsigned char @UnusedVariable
     arr[-1] = KEY_PRESSED | KEY_TOGGLE  # -1 or 257 is "ON" so activate flags
     return arr                          # -2 or 256 is "OFF" so leave it zero
 
