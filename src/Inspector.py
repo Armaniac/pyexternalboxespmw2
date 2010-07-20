@@ -1,9 +1,8 @@
 from utils import draw_string_center
-from Config import KEY_INSPECTOR
 from Keys import keys
 from utils import dump_obj
 from ctypes import Structure, c_char
-from structs import ET_EXPLOSIVE, ENTITIESMAX, PLAYERMAX
+from structs import ET_EXPLOSIVE, ENTITIESMAX
 # this module allows to inspect entities near the center crosshair
 
 class dumped(Structure):
