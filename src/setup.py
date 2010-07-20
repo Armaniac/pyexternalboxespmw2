@@ -1,5 +1,5 @@
 from distutils.core import setup
-import py2exe
+import py2exe #@UnusedImport
 import os
 
 py2exe_options = dict(
