@@ -1,10 +1,4 @@
-from structs import ET_PLAYER, VECTOR
-from ctypes import byref
-from Config import *
-from directx.types import D3DRECT, D3DCLEAR
-from utils import draw_arrow, draw4, draw_spot
 from Keys import keys
-from math import radians, cos, sin
 import thread
 import urllib
 
@@ -36,7 +30,6 @@ class WebStats(object):
     
     def render(self):
         read_game = self.env.read_game
-        frame = self.env.frame
         if read_game.is_in_game:
             self.params["map"] = read_game.map_name
             self.params["score"] = "%i-%i" % (read_game.kills, read_game.deaths)
