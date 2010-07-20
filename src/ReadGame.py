@@ -228,7 +228,7 @@ class ReadGame(object):
                         else:
                             p.color_esp = COLOR_DEAD
                 else:
-                    self.enemy = False
+                    #self.enemy = False        # do not change status and keep old one
                     p.color_esp = COLOR_DEAD
                     
             self.my_player.color_esp = 0
