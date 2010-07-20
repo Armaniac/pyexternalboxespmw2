@@ -1,8 +1,8 @@
-import stealth      # scramble memory a little - anti-VAC feature
+import stealth      # scramble memory a little - anti-VAC feature @UnusedImport
 import Scheduler
 import time
 import win32gui, win32con
-import ReadGame, Frame, Textures, Radar, Esp, Status, Keys, Autostab, Inspector, Rage, Killstreak, BigRadar, WeaponNames, Sprites
+import ReadGame, Frame, Textures, Radar2, Esp, Status, Keys, Autostab, Inspector, Rage, Killstreak, BigRadar, WeaponNames, Sprites
 import Crosshair, Bot, WebStats, Tracker
 import cProfile
 from Config import MAIN_LOOP_SLEEP, PROFILING
@@ -30,7 +30,7 @@ class Main(object):
         self.rage = Rage.Rage(self)
         self.status = Status.Status(self)
         self.esp = Esp.Esp(self)
-        self.radar = Radar.Radar(self)
+        self.radar = Radar2.Radar(self)
         self.bigradar = BigRadar.BigRadar(self)
         self.sprites = Sprites.Sprites(self)
         self.crosshair = Crosshair.Crosshair(self)
@@ -55,7 +55,7 @@ class Main(object):
         if PROFILING:
             iter = 0
         while not self.quit:            
-            pending, msg = win32gui.PeekMessage(0, 0, 0, win32con.PM_REMOVE)
+            pending, msg = win32gui.PeekMessage(0, 0, 0, win32con.PM_REMOVE) #@UnusedVariable
             #===================================================================
             # if (msg[2] & 0xFFFF) == WM_QUIT:
             #    break
@@ -91,8 +91,8 @@ class Main(object):
             win32gui.DispatchMessage(msg)
             time.sleep(MAIN_LOOP_SLEEP)                                   # avoid eating up all CPU
             if PROFILING:
-                 iter += 1
-                 if iter > 5000 :return      # 1 iteration only
+                iter += 1
+                if iter > 5000 :return      # 1 iteration only
 
     def release(self):
         self.frame.release_d3d()
