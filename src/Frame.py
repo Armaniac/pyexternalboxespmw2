@@ -1,22 +1,20 @@
+import win32api, win32con, win32gui
 from Config import * #@UnusedWildImport
-from ctypes import Structure, oledll, windll, c_int, byref, POINTER
 from directx.d3d import IDirect3D9, IDirect3DDevice9
+from directx.types import * #@UnusedWildImport
 from directx.d3dx import d3dxdll, TestHR, ID3DXFont, ID3DXLine, ID3DXSprite
-from directx.types import D3DFORMAT, UINT, D3D_SDK_VERSION, D3DPRESENT_PARAMETERS, D3DSWAPEFFECT, D3DDEVTYPE, D3DCREATE, D3DCULL, D3DCLEAR
-import win32api
-import win32con
-import win32gui
 
-D3DRS_ZENABLE                       = 7
-D3DRS_LIGHTING                      = 137
-D3DRS_CULLMODE                      = 22
-D3DRS_SCISSORTESTENABLE             = 174
+D3DRS_ZENABLE                      = 7
+D3DRS_LIGHTING                     = 137
+D3DRS_CULLMODE                     = 22
 
 class MARGINS(Structure):
     _fields_ = [ ("cxLeftWidth", c_int),
                  ("cxRightWidth", c_int),
                  ("cyTopHeight", c_int),
                  ("cyBottomHeight", c_int),]
+
+
 
 class Rect(object):
     def __init__(self, initlist=None):
