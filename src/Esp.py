@@ -1,9 +1,9 @@
-from ctypes import byref, cast, POINTER, c_int, pointer, c_float
-from Config import *
+from ctypes import byref, c_float
+from Config import * #@UnusedWildImport
 from utils import draw_box, draw_line_abs, draw_string_center, draw_spot
 from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX, ENTITIESMAX, EntityTracker
 from directx.d3d import D3DMATRIX
-from directx.d3dx import D3DRECT, D3DCLEAR, D3DXVECTOR3, d3dxdll, D3DXVECTOR2
+from directx.d3dx import d3dxdll, D3DXVECTOR2
 from Keys import keys
 from ctypes import windll
 
@@ -146,7 +146,7 @@ class Esp(object):
                 sprite_center = D3DXVECTOR2(0, 0)
                 trans = D3DXVECTOR2(feet.x - _EXPLO_SPRITE_SIZE*scaling/2, feet.y - _EXPLO_SPRITE_SIZE*scaling)
                 matrix = D3DMATRIX()
-                d3dxdll.D3DXMatrixAffineTransformation2D(byref(matrix),
+                d3dxdll.D3DXMatrixAffineTransformation2D(byref(matrix), #@UndefinedVariable
                                                          c_float(scaling),          # scaling
                                                          byref(sprite_center),      # rotation center
                                                          c_float(0),                # angle
