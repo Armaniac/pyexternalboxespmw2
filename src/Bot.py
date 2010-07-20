@@ -1,4 +1,4 @@
-from Config import *
+from Config import * #@UnusedWildImport
 from utils import draw_spot, mouse_move, draw_string_center
 from Keys import keys
 from structs import ET_PLAYER, FLAGS_CROUCHED, FLAGS_PRONE, VECTOR
