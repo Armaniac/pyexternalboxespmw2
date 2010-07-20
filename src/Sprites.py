@@ -42,7 +42,7 @@ class Sprites(object):
         if os.path.isdir(SPRITES_FOLDER):
             for (model, file) in SPRITES.items():
                 texture = POINTER(IDirect3DTexture9)()
-                d3dxdll.D3DXCreateTextureFromFileA(frame.device,
+                d3dxdll.D3DXCreateTextureFromFileA(frame.device, #@UndefinedVariable
                                                    SPRITES_FOLDER + file,
                                                    byref(texture))
                 self.model_sprites[model] = texture
