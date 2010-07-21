@@ -1,7 +1,7 @@
 from ctypes import byref, c_float
 from Config import * #@UnusedWildImport
 from utils import draw_box, draw_line_abs, draw_string_center, draw_spot
-from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX, ENTITIESMAX, EntityTracker
+from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX, ENTITIESMAX
 from directx.d3d import D3DMATRIX
 from directx.d3dx import d3dxdll, D3DXVECTOR2
 from Keys import keys
