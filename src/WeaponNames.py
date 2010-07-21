@@ -1,6 +1,5 @@
-from Config import *
-from Keys import keys
-from ctypes import *
+from Config import * #@UnusedWildImport
+from ctypes import * #@UnusedWildImport
 from structs import MW2_WeaponDesc, STR256
 
     
@@ -22,8 +21,8 @@ class WeaponNames(object):
         weapons = MW2_WeaponDesc()
         read_game._RPM(WEAPON_DESC, weapons)
         
-        self.weapon_names = ["" for x in xrange(1200)]
-        self.weapon_models = ["" for x in xrange(1200)]
+        self.weapon_names = ["" for x in xrange(1200)] #@UnusedVariable
+        self.weapon_models = ["" for x in xrange(1200)] #@UnusedVariable
         if DEBUG_PRINT_WEAPON_NAMES:
             dump = []
         

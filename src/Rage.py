@@ -1,5 +1,5 @@
 from structs import ET_PLAYER, PLAYERMAX
-from Config import *
+from Config import * #@UnusedWildImport
 from Keys import keys
 from utils import draw_string_center
 

@@ -1,6 +1,6 @@
 from structs import ET_PLAYER, VECTOR
 from ctypes import byref
-from Config import *
+from Config import * #@UnusedWildImport
 from directx.types import D3DRECT, D3DCLEAR
 from utils import draw_arrow, draw4, draw_spot
 from Keys import keys

@@ -1,4 +1,4 @@
-from Config import *
+from Config import * #@UnusedWildImport
 from utils import draw_line_abs
 from Keys import keys
 

@@ -1,5 +1,5 @@
 import Config
-from Config import STATUS_COLOR_ACTIVE, STATUS_COLOR_INACTIVE, STATUS_COLOR_LINE, KEY_HOST_DISPLAY
+from Config import STATUS_COLOR_ACTIVE, STATUS_COLOR_INACTIVE, STATUS_COLOR_LINE
 from utils import draw_line, draw_string_left, draw_string_center
 from Keys import keys, keys_raw, KEY_TOGGLE
 import win32con
