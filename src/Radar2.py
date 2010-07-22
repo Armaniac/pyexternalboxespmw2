@@ -29,7 +29,7 @@ class Radar(object):
         rh = rw = self.rh = self.rw = RADAR_SIZE
         
         
-        scaling = 1           # TODO
+        scaling = 0.5           # TODO
         
         pos = read_game.mw2_mypos
         
@@ -85,8 +85,8 @@ class Radar(object):
         p_pos = VECTOR()
         for p in read_game.player:
             if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001:
-                p_pos.x = scaling * (transl[0] + p_matrix[0]*p.pos.x + p_matrix[1]*p.pos.y)
-                p_pos.y = scaling * (transl[1] + p_matrix[2]*p.pos.x + p_matrix[3]*p.pos.y)
+                p_pos.x = transl[0] + p_matrix[0]*p.pos.x + p_matrix[1]*p.pos.y
+                p_pos.y = transl[1] + p_matrix[2]*p.pos.x + p_matrix[3]*p.pos.y
                 cx, cy = self.calcPoint(p_pos, matrix)
                 #print "pos=%.1f %.1f, p_pos=%.1f %.1f, cxy=%.1f %.1f" % (p.pos.x, p.pos.y, p_pos.x, p_pos.y, cx, cy)
                 draw_arrow(frame.line, cx, cy, -p.yaw + read_game.view_angles.y, p.color_map);
