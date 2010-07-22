@@ -29,7 +29,7 @@ class Rage(object):
             idx = self.rage_player_index          # player index or 0 if negative
             if do_next: incr = 1
             else:       incr = -1 
-            for i in range(PLAYERMAX):
+            for i in range(PLAYERMAX): #@UnusedVariable
                 idx += incr
                 if idx >= PLAYERMAX:    idx = 0
                 if idx < 0:             idx = PLAYERMAX - 1

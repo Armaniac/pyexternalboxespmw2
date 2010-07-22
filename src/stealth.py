@@ -6,7 +6,7 @@ import string
 # It avoids any anti-cheat program to be able to detect this hack by looking at fixed memory locations
 #
 def rand_letters(len):
-    return "".join([random.choice(string.letters) for x in xrange(len)])
+    return "".join([random.choice(string.letters) for x in xrange(len)]) #@UnusedVariable
 
 for i in range(random.randint(2,128)):
     name = "RAND_" + rand_letters(random.randint(8,24))
