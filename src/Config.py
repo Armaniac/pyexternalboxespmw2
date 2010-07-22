@@ -146,7 +146,7 @@ GRAV = 800.0
 TUBE_VEL = 2400.0
 KNIFE_VEL = 1420.0
 
-TUBE_WEAPONS = ("WEAPON_M203", "WEAPON_M79")
+TUBE_WEAPONS = ("WEAPON_M203", "WEAPON_M79", "WEAPON_GP25")
 
 # below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
