@@ -44,7 +44,7 @@ class Radar(object):
         sprite_center = D3DXVECTOR2(map_pos.x, map_pos.y)
         trans = D3DXVECTOR2(read_game.resolution_x/2 - map_pos.x, RADAR_OFFSET + RADAR_SIZE/2 - map_pos.y)   # global translation
         #print "x=%.2f y=%.2f" % (new_pos.x, new_pos.y   )
-        angle = radians(read_game.view_angles.y)
+        angle = radians(read_game.view_angles.y - arrow_angle)
         
         matrix = D3DMATRIX()
         d3dxdll.D3DXMatrixAffineTransformation2D(byref(matrix), #@UndefinedVariable
@@ -89,19 +89,13 @@ class Radar(object):
                 p_pos.y = transl[1] + p_matrix[2]*p.pos.x + p_matrix[3]*p.pos.y
                 cx, cy = self.calcPoint(p_pos, matrix)
                 #print "pos=%.1f %.1f, p_pos=%.1f %.1f, cxy=%.1f %.1f" % (p.pos.x, p.pos.y, p_pos.x, p_pos.y, cx, cy)
-                draw_arrow(frame.line, cx, cy, -p.yaw + read_game.view_angles.y, p.color_map);
+                draw_arrow(frame.line, cx, cy, -p.yaw + read_game.view_angles.y + arrow_angle, p.color_map);
         
     def calcPoint(self, vec, mat):
-        ir = self.vec2transform(vec, mat)
+        ir = D3DXVECTOR2()
+        d3dxdll.D3DXVec2TransformCoord(byref(ir), byref(vec), byref(mat)) #@UndefinedVariable
         if ir.x < self.rx:              ir.x = self.rx
         if ir.y < self.ry:              ir.y = self.ry
         if ir.x > self.rx + self.rw:    ir.x = self.rx + self.rw
         if ir.y > self.ry + self.rh:    ir.y = self.ry + self.rh
         return (ir.x, ir.y)
-    
-    def vec2transform(self, vec, mat):      # accepts D3DXVECTOR2 and D3DXMATRIX, returns D3DXVECTOR2
-        res = D3DXVECTOR2()
-        d3dxdll.D3DXVec2TransformCoord(byref(res), byref(vec), byref(mat))
-        return res 
-        return D3DXVECTOR2(vec.x * mat.m[0] + vec.y * mat.m[1] + mat.m[3],
-                           vec.x * mat.m[4] + vec.y * mat.m[5] + mat.m[7])
