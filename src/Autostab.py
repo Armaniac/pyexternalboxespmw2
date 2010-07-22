@@ -1,4 +1,4 @@
-from Config import *
+from Config import * #@UnusedWildImport
 from Keys import keys
 from ctypes import windll
 from structs import ET_PLAYER
@@ -56,11 +56,11 @@ class Autostab(object):
                     vert_dist = abs(p.pos.z - read_game.my_pos.z)
                     if dist < AUTOSTAB_DIST and vert_dist < AUTOSTAB_DIST_Z:
                         if keys["KEY_RAPID_KNIFE"] and self.is_my_player_tactical():
-                            self.env.ticks - self.last_melee_tick > 27
-                            self.last_melee_tick = self.env.ticks
-                            self.stab_glitch()
+                            if self.env.ticks - self.last_melee_tick > 27:
+                                self.last_melee_tick = self.env.ticks
+                                self.stab_glitch()
                         else:
-                            self.env.ticks - self.last_melee_tick > 10          # surge protector
-                            self.last_melee_tick = self.env.ticks
-                            windll.User32.keybd_event(0x45, 0x12, 0, 0)
-                            windll.User32.keybd_event(0x45, 0x12, KEYEVENTF_KEYUP, 0)
+                            if self.env.ticks - self.last_melee_tick > 10:          # surge protector
+                                self.last_melee_tick = self.env.ticks
+                                windll.User32.keybd_event(0x45, 0x12, 0, 0)
+                                windll.User32.keybd_event(0x45, 0x12, KEYEVENTF_KEYUP, 0)
