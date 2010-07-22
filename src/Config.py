@@ -147,6 +147,14 @@ TUBE_VEL = 2400.0
 KNIFE_VEL = 1420.0
 
 TUBE_WEAPONS = ("WEAPON_M203", "WEAPON_M79", "WEAPON_GP25")
+SNIPER_RIFLES = ("WEAPON_CHEYTAC", "WEAPON_CHEYTAC_ACOG", "WEAPON_CHEYTAC_FMJ", "WEAPON_CHEYTAC_HEARTBEAT",
+                  "WEAPON_CHEYTAC_SILENCER", "WEAPON_CHEYTAC_THERMAL", "WEAPON_CHEYTAC_XMAGS", "WEAPON_CHEYTAC_BLING",
+                  "WEAPON_M21", "WEAPON_M21_ACOG", "WEAPON_M21_FMJ", "WEAPON_M21_HEARTBEAT",
+                  "WEAPON_M21_SILENCER", "WEAPON_M21_THERMAL", "WEAPON_M21_XMAGS", "WEAPON_M21_BLING",
+                  "WEAPON_WA2000", "WEAPON_WA2000_ACOG", "WEAPON_WA2000_FMJ", "WEAPON_WA2000_HEARTBEAT",
+                  "WEAPON_WA2000_SILENCER", "WEAPON_WA2000_THERMAL", "WEAPON_WA2000_XMAGS", "WEAPON_WA2000_BLING",
+                  "WEAPON_BARRETT", "WEAPON_BARRETT_ACOG", "WEAPON_BARRETT_FMJ", "WEAPON_BARRETT_HEARTBEAT",
+                  "WEAPON_BARRETT_SILENCER", "WEAPON_BARRETT_THERMAL", "WEAPON_BARRETT_XMAGS", "WEAPON_BARRETT_BLING")
 
 # below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
@@ -206,9 +214,10 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 KEY_RAPID_KNIFE = "!E"                  # Used to turn knife glitch on for autostab
 KEY_BOT = "VK_RBUTTON VK_HOME"
 KEY_TRIGGER_BOT_KEY = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
-KEY_TUBEBOT = "VK_HOME VK_LMENU"
+KEY_TUBEBOT = "VK_RBUTTON"
 KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"        # CAPS LOCK
+KEY_SNIPER_BOT = "VK_LSHIFT"
 
 TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
 KNIFE_RIOT_OFFSET = 2                   # all offsets are considered if RIOT SHIELD is at offset 3

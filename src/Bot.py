@@ -16,12 +16,18 @@ class Bot(object):
         read_game = self.env.read_game
         frame = self.env.frame
         if not read_game.is_in_game: return
-        key_bot = keys["KEY_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
+        key_bot = None
         key_tubebot = False
         
-        if self.is_tube_active() and key_bot:
-            key_tubebot = keys["KEY_TUBEBOT_ACTIVE"]
+        if self.is_sniper():
+            if (self.env.read_game.my_player.zoomed):
+                key_bot = keys["KEY_SNIPER_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
+        else:
+            key_bot = keys["KEY_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
         
+        if self.is_tube_active() and key_bot:
+            key_tubebot = keys["KEY_TUBEBOT"]
+
         key_knifebot = keys["KEY_KNIFEBOT"] and keys["KEY_KNIFEBOT_ACTIVE"]
         
         if self.player_locked and not (self.player_locked.alive & 0x0001):
@@ -186,3 +192,6 @@ class Bot(object):
                         
     def is_tube_active(self):
         return self.env.weapon_names.get_weapon_model(self.env.read_game.my_player.weapon_num) in TUBE_WEAPONS
+    
+    def is_sniper(self):
+        return self.env.weapon_names.get_weapon_model(self.env.read_game.my_player.weapon_num) in SNIPER_RIFLES # and (self.read_game.my_player.zoomed):

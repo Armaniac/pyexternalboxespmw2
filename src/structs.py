@@ -36,7 +36,8 @@ FLAGS_CROUCHED      = 0x000004
 FLAGS_PRONE         = 0x000008
 FLASG_NOINPUT       = 0x000100
 FLAGS_FIRING        = 0x000200
-FLAGS_DEAD          = 0x020000,
+FLAGS_DEAD          = 0x020000
+FLAGS_AIMING        = 0x040000
 
 
 # memory structures
