@@ -61,7 +61,7 @@ class Textures(object):
                 angle2 = math.atan2(l[3][1] - l[1][1], l[3][0] - l[1][0])
                 delta = math.degrees(angle2 + angle1) + 90
                 if delta > 180.0:  delta -= 360.0
-                if delta > -4.0 and delta < 4.0:    delta = 0.0         # small angles are considered as zero
+                if delta > -1.0 and delta < 1.0:    delta = 0.0         # small angles are considered as zero
                 # matrix in form ((a,b) (c,d)) -> (a,b,c,d)
                 sa = k * math.sin(delta)
                 ca = k * math.cos(delta)
