@@ -57,15 +57,16 @@ class Textures(object):
                 len_game = math.hypot(l[0][0] - l[2][0], l[0][1] - l[2][1])
                 len_pict = math.hypot(l[1][0] - l[3][0], l[1][1] - l[3][1])
                 k = len_pict / len_game
+                angle1 = math.atan2(l[2][1] - l[0][1], l[2][0] - l[0][0])
+                angle2 = math.atan2(l[3][1] - l[1][1], l[3][0] - l[1][0])
+                delta = math.degrees(angle2 + angle1) + 90
+                if delta > 180.0:  delta -= 360.0
+                if delta > -4.0 and delta < 4.0:    delta = 0.0         # small angles are considered as zero
                 # matrix in form ((a,b) (c,d)) -> (a,b,c,d)
-                matr = (0, -k, -k, 0)
-                self.angle[m] = 0
-                if m in ("mp_estate"):
-                    alpha = math.radians(35.9)
-                    sa = k * math.sin(alpha)
-                    ca = k * math.cos(alpha)
-                    matr = (sa, ca, ca, -sa)
-                    self.angle[m] = 180-35.9
+                sa = k * math.sin(delta)
+                ca = k * math.cos(delta)
+                matr = (sa, -ca, -ca, -sa)
+                self.angle[m] = delta
                 self.matrix[m] = matr
                 # now calculate translation
                 new_x = matr[0]*l[0][0] + matr[1]*l[0][1]
@@ -77,3 +78,16 @@ class Textures(object):
     
     def render(self):
         pass
+
+if __name__ == "__main__":
+    for (map, coord) in MAP_NAMES.items():
+        angle1 = math.atan2(coord[2][1] - coord[0][1], coord[2][0] - coord[0][0])
+        angle2 = math.atan2(coord[3][1] - coord[1][1], coord[3][0] - coord[1][0])
+        delta = math.degrees(angle2 + angle1) + 90
+        if delta > 180.0:  delta -= 360.0
+        print "map=%s, delta angle=%.2f" % (map, delta)
+    
+#    textures = Textures(None)
+#    textures.init()
+#    for (map, matrix) in textures.matrix.items():
+#        print "map=%s, matrix=%s" % (map, matrix)
