@@ -2,7 +2,7 @@ from Config import * #@UnusedWildImport
 from utils import draw_spot, mouse_move, draw_string_center
 from Keys import keys
 from structs import ET_PLAYER, FLAGS_CROUCHED, FLAGS_PRONE, VECTOR
-
+import re
 
 
 class Bot(object):
@@ -11,19 +11,18 @@ class Bot(object):
         self.env = env
         self.player_locked = None               # -1 means unlocked
         self.player_locked_ticks = 0            # tick count when player lock started
+        self.re_sniper = re.compile(SNIPER_RIFLES_RE)
     
     def render(self):
         read_game = self.env.read_game
         frame = self.env.frame
         if not read_game.is_in_game: return
-        key_bot = None
         key_tubebot = False
         
+        key_bot = keys["KEY_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
         if self.is_sniper():
             if (self.env.read_game.my_player.zoomed):
-                key_bot = keys["KEY_SNIPER_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
-        else:
-            key_bot = keys["KEY_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
+                key_bot |= keys["KEY_SNIPER_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
         
         if self.is_tube_active() and key_bot:
             key_tubebot = keys["KEY_TUBEBOT"]
@@ -194,4 +193,4 @@ class Bot(object):
         return self.env.weapon_names.get_weapon_model(self.env.read_game.my_player.weapon_num) in TUBE_WEAPONS
     
     def is_sniper(self):
-        return self.env.weapon_names.get_weapon_model(self.env.read_game.my_player.weapon_num) in SNIPER_RIFLES # and (self.read_game.my_player.zoomed):
+        return self.re_sniper.match(self.env.weapon_names.get_weapon_model(self.env.read_game.my_player.weapon_num)) # and (self.read_game.my_player.zoomed):

@@ -57,7 +57,7 @@ RADAR_OFFSET = 20           # margin from top and right of the screen, in pixels
 RADAR_CENTER_X = 0          # X offset from center: 0 means center of the screen
 RADAR_RANGE = 50            # this is the scale divider for the radar: the higher value, the higher range (players are closer)
 
-KEY_BIG_RADAR = "~VK_ADD "  # display a global map with players, good for air-strikes
+KEY_BIG_RADAR = "+VK_ADD "  # display a global map with players, good for air-strikes
 KEY_RADAR_MAP = "ON"        # display map background?
 BIG_RADAR_SCALE = 0.5       # scale factor for maps, 1.0 makes a 512x512 pix, 0.5 is reduced to 256x256
 BIG_RADAR_BLENDING = 0xAF7F7F7F     # blending color used in BigRadar
@@ -147,14 +147,7 @@ TUBE_VEL = 2400.0
 KNIFE_VEL = 1420.0
 
 TUBE_WEAPONS = ("WEAPON_M203", "WEAPON_M79", "WEAPON_GP25")
-SNIPER_RIFLES = ("WEAPON_CHEYTAC", "WEAPON_CHEYTAC_ACOG", "WEAPON_CHEYTAC_FMJ", "WEAPON_CHEYTAC_HEARTBEAT",
-                  "WEAPON_CHEYTAC_SILENCER", "WEAPON_CHEYTAC_THERMAL", "WEAPON_CHEYTAC_XMAGS", "WEAPON_CHEYTAC_BLING",
-                  "WEAPON_M21", "WEAPON_M21_ACOG", "WEAPON_M21_FMJ", "WEAPON_M21_HEARTBEAT",
-                  "WEAPON_M21_SILENCER", "WEAPON_M21_THERMAL", "WEAPON_M21_XMAGS", "WEAPON_M21_BLING",
-                  "WEAPON_WA2000", "WEAPON_WA2000_ACOG", "WEAPON_WA2000_FMJ", "WEAPON_WA2000_HEARTBEAT",
-                  "WEAPON_WA2000_SILENCER", "WEAPON_WA2000_THERMAL", "WEAPON_WA2000_XMAGS", "WEAPON_WA2000_BLING",
-                  "WEAPON_BARRETT", "WEAPON_BARRETT_ACOG", "WEAPON_BARRETT_FMJ", "WEAPON_BARRETT_HEARTBEAT",
-                  "WEAPON_BARRETT_SILENCER", "WEAPON_BARRETT_THERMAL", "WEAPON_BARRETT_XMAGS", "WEAPON_BARRETT_BLING")
+SNIPER_RIFLES_RE = "^(WEAPON_CHEYTAC|WEAPON_M21|WEAPON_WA2000|WEAPON_BARRETT).*$"
 
 # below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
@@ -198,8 +191,8 @@ KEY_STATUS =                "+VK_F1"                        # is status display 
 KEY_STATUS_UP =             "+VK_F2"                        # to select if you want the status up on the screen 
 KEY_CROSSHAIR =     		"+VK_F3"
 KEY_EXPLOSIVES =    		"+VK_F4"
-KEY_AIMBOT_ACTIVE =        	"-VK_F5"
-KEY_TUBEBOT_ACTIVE =       	"-VK_F5"                        # same as AIMBOT
+KEY_AIMBOT_ACTIVE =        	"+VK_F5"
+KEY_TUBEBOT_ACTIVE =       	"+VK_F5"                        # same as AIMBOT
 KEY_WEAPON_ESP =            "-VK_F6"
 KEY_KNIFEBOT_ACTIVE =      	"-VK_F7"
 KEY_AUTOSTAB =      		"-VK_F8"
@@ -214,7 +207,7 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 KEY_RAPID_KNIFE = "!E"                  # Used to turn knife glitch on for autostab
 KEY_BOT = "VK_RBUTTON VK_HOME"
 KEY_TRIGGER_BOT_KEY = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
-KEY_TUBEBOT = "VK_RBUTTON"
+KEY_TUBEBOT = "VK_RBUTTON VK_HOME"
 KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"        # CAPS LOCK
 KEY_SNIPER_BOT = "VK_LSHIFT"
