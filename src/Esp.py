@@ -87,31 +87,33 @@ class Esp(object):
         for idx in range(ENTITIESMAX):
             e = read_game.mw2_entity.arr[idx]
             if e.type == ET_TURRET and e.alive & 0x0001 and keys["KEY_BOXESP"]:
-                head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 20)       # eyepos of standing player
-                feet = read_game.world_to_screen(e.pos)
-                head = read_game.world_to_screen(head_pos)
-                if feet and head:
-                    size_y = feet.y - head.y
-                    if size_y < 5:  size_y = 5
-                    size_x = size_y / 2.75
-                    draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, COLOR_SENTRY)
+                if e.owner_turret >= 0 and e.owner_turret < PLAYERMAX and read_game.player[e.owner_turret].enemy:
+                    head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 20)       # eyepos of standing player
+                    feet = read_game.world_to_screen(e.pos)
+                    head = read_game.world_to_screen(head_pos)
+                    if feet and head:
+                        size_y = feet.y - head.y
+                        if size_y < 5:  size_y = 5
+                        size_x = size_y / 2.75
+                        draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, COLOR_SENTRY)
                     
             elif e.type == ET_EXPLOSIVE and e.alive & 0x0001:
                 #self.draw_explosive(e)
                 self.track_explosive(idx)
                     
             elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & 0x0001 and keys["KEY_BOXESP"]:
-                head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 100)       # eyepos of standing player
-                feet = read_game.world_to_screen(e.pos)
-                head = read_game.world_to_screen(head_pos)
-                if feet and head:
-                    size_y = feet.y - head.y
-                    if size_y < 10:  size_y = 10
-                    size_x = size_y
-                    draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, COLOR_PLANE)
-                    if keys["KEY_BOX_SNAPLINE"]:
-                        draw_line_abs(frame.line, read_game.screen_center_x, read_game.resolution_y,
-                              feet.x, feet.y, COLOR_BOX_LINE_WIDTH, COLOR_PLANE)
+                if e.owner_air >= 0 and e.owner_air < PLAYERMAX and read_game.player[e.owner_air].enemy:
+                    head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 100)       # eyepos of standing player
+                    feet = read_game.world_to_screen(e.pos)
+                    head = read_game.world_to_screen(head_pos)
+                    if feet and head:
+                        size_y = feet.y - head.y
+                        if size_y < 10:  size_y = 10
+                        size_x = size_y
+                        draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, COLOR_PLANE)
+                        if keys["KEY_BOX_SNAPLINE"]:
+                            draw_line_abs(frame.line, read_game.screen_center_x, read_game.resolution_y,
+                                  feet.x, feet.y, COLOR_BOX_LINE_WIDTH, COLOR_PLANE)
                         
         self.loop_tracked_explo()
     
