@@ -63,8 +63,8 @@ class Textures(object):
                 if delta > 180.0:  delta -= 360.0
                 if delta > -1.0 and delta < 1.0:    delta = 0.0         # small angles are considered as zero
                 # matrix in form ((a,b) (c,d)) -> (a,b,c,d)
-                sa = k * math.sin(delta)
-                ca = k * math.cos(delta)
+                sa = k * math.sin(math.radians(delta))
+                ca = k * math.cos(math.radians(delta))
                 matr = (sa, -ca, -ca, -sa)
                 self.angle[m] = delta
                 self.matrix[m] = matr
