@@ -1,4 +1,4 @@
-from structs import VECTOR, ET_PLAYER
+from structs import VECTOR, ET_PLAYER, ET_TURRET
 from Config import * #@UnusedWildImport
 from utils import draw_arrow, draw4
 from Keys import keys
@@ -80,15 +80,22 @@ class Radar(object):
                 frame.device.SetScissorRect(byref(save_scissors))
                 
         draw4(frame.line, rx, ry, rx+rw, ry, rx+rw, ry+rh, rx, ry+rh, 2, MAP_COLOR_BORDER)
-        draw_arrow(frame.line, rx + rw/2, ry + rh/2, 0, MAP_COLOR_ME);        # myself
         
         p_pos = VECTOR()
+        for te in self.env.tracker.get_tracked_entity_list():
+            if te.type == ET_TURRET:
+                p_pos.x = transl[0] + p_matrix[0]*te.pos.x + p_matrix[1]*te.pos.y
+                p_pos.y = transl[1] + p_matrix[2]*te.pos.x + p_matrix[3]*te.pos.y
+                cx, cy = self.calcPoint(p_pos, matrix)
+                self.env.sprites.draw_sentry(cx, cy, te.planter.enemy)
+        
+        draw_arrow(frame.line, rx + rw/2, ry + rh/2, 0, MAP_COLOR_ME);        # myself
+        
         for p in read_game.player:
             if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001:
                 p_pos.x = transl[0] + p_matrix[0]*p.pos.x + p_matrix[1]*p.pos.y
                 p_pos.y = transl[1] + p_matrix[2]*p.pos.x + p_matrix[3]*p.pos.y
                 cx, cy = self.calcPoint(p_pos, matrix)
-                #print "pos=%.1f %.1f, p_pos=%.1f %.1f, cxy=%.1f %.1f" % (p.pos.x, p.pos.y, p_pos.x, p_pos.y, cx, cy)
                 draw_arrow(frame.line, cx, cy, -p.yaw + read_game.view_angles.y + arrow_angle, p.color_map);
         
     def calcPoint(self, vec, mat):

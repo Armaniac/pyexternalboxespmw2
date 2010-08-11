@@ -1,4 +1,4 @@
-from structs import EntityTracker, ET_PLAYER
+from structs import EntityTracker, ET_PLAYER, PLAYERMAX
 
 class Tracker(object):
     _next_zombie = -1                               # decrementing number for the next zombie index to use
@@ -27,7 +27,7 @@ class Tracker(object):
             elif te.endoflife <= read_game.game_time:
                 del self._tracked_ent[idx]
     
-    def track_entity(self, idx):
+    def track_entity(self, idx, owner=-1):
         read_game = self.env.read_game
         if not idx in self._tracked_ent:
             e = read_game.mw2_entity.arr[idx]
@@ -36,7 +36,10 @@ class Tracker(object):
             te.set_values(e)
             te.weapon_num = e.WeaponNum
             te.model_name = self.env.weapon_names.get_weapon_model(e.WeaponNum)
-            te.planter = self.find_nearest_player(te.pos)
+            if owner >= 0 and owner < PLAYERMAX:
+                te.planter = read_game.player[owner]
+            else:
+                te.planter = self.find_nearest_player(te.pos)
             # if airdrop
             self._tracked_ent[idx] = te
             return te

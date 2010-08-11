@@ -92,6 +92,9 @@ COLOR_CLAYMORE_DISTANCE = 0x7FFF6666        # color of distance indicator for cl
 COLOR_CLAYMORE_SPRITE = 0xAF7F7F7F          # blending color for sprites
 COLOR_PLANE = 0x7F880088                    # color for planes & helicopters
 
+COLOR_MAP_BLENDER_FRIEND = 0xFF7FFF7F       # adds green color to friend sprites
+COLOR_MAP_BLENDER_ENEMY = 0xFFFF7F7F        # adds red color to enemy sprites
+
 # distance ESP (in meters or ft)
 DISTANCE_ESP_UNIT =  0.03048                # use  0.03048 for meters, or 0.1 for ft
 DISTANCE_ESP_UNIT_NAME = "m"                # either "m" or "ft"

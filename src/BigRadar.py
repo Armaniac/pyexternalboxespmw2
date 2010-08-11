@@ -3,7 +3,7 @@ from Keys import keys
 from ctypes import c_float, byref
 from directx.types import D3DXVECTOR2, D3DMATRIX
 from directx.d3dx import d3dxdll
-from structs import VECTOR, ET_PLAYER
+from structs import VECTOR, ET_PLAYER, ET_TURRET
 from utils import draw_arrow
 
 
@@ -40,23 +40,27 @@ class BigRadar(object):
         frame.sprite.Draw(textures.textures[map_name], None, None, None, BIG_RADAR_BLENDING)
         frame.sprite.End()
         
-        pos = read_game.mw2_mypos
-        
         matrix = textures.matrix[map_name]
         transl = textures.translations[map_name]
         map_pos = VECTOR()
-        map_pos.x = scaling * (transl[0] + matrix[0]*pos.x + matrix[1]*pos.y)
-        map_pos.y = scaling * (transl[1] + matrix[2]*pos.x + matrix[3]*pos.y)
         arrow_angle = textures.angle[map_name]
         
+        for te in self.env.tracker.get_tracked_entity_list():
+            if te.type == ET_TURRET:
+                x = scaling * (transl[0] + matrix[0]*te.pos.x + matrix[1]*te.pos.y)
+                y = scaling * (transl[1] + matrix[2]*te.pos.x + matrix[3]*te.pos.y)
+                self.env.sprites.draw_sentry(read_game.resolution_x - RADAR_OFFSET - 512*scaling + x, RADAR_OFFSET + y, te.planter.enemy)
+        
+        pos = read_game.mw2_mypos
+        map_pos.x = scaling * (transl[0] + matrix[0]*pos.x + matrix[1]*pos.y)
+        map_pos.y = scaling * (transl[1] + matrix[2]*pos.x + matrix[3]*pos.y)
         draw_arrow(frame.line, read_game.resolution_x - RADAR_OFFSET - 512*scaling + map_pos.x, RADAR_OFFSET + map_pos.y,
                    -read_game.view_angles.y + arrow_angle, MAP_COLOR_ME);        # myself
         
         for p in read_game.player:
             if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001:
-                pos = p.pos
-                map_pos.x = scaling * (transl[0] + matrix[0]*pos.x + matrix[1]*pos.y)
-                map_pos.y = scaling * (transl[1] + matrix[2]*pos.x + matrix[3]*pos.y)
+                map_pos.x = scaling * (transl[0] + matrix[0]*p.pos.x + matrix[1]*p.pos.y)
+                map_pos.y = scaling * (transl[1] + matrix[2]*p.pos.x + matrix[3]*p.pos.y)
                 draw_arrow(frame.line, read_game.resolution_x - RADAR_OFFSET - 512*scaling + map_pos.x, RADAR_OFFSET + map_pos.y,
                            -p.yaw + arrow_angle, p.color_map);        # myself
         
