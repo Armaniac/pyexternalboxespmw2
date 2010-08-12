@@ -42,7 +42,7 @@ class Radar(object):
         arrow_angle = textures.angle[map_name]      # offset to apply to angles (only in estate)s
         
         sprite_center = D3DXVECTOR2(map_pos.x, map_pos.y)
-        trans = D3DXVECTOR2(read_game.resolution_x/2 - map_pos.x, RADAR_OFFSET + RADAR_SIZE/2 - map_pos.y)   # global translation
+        trans = D3DXVECTOR2(rx + rw/2 - map_pos.x, ry + rh/2 - map_pos.y)   # global translation
         #print "x=%.2f y=%.2f" % (new_pos.x, new_pos.y   )
         angle = radians(read_game.view_angles.y - arrow_angle)
         
