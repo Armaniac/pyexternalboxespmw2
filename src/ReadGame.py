@@ -50,6 +50,7 @@ class ReadGame(object):
         self.game_time = 0
         self.game_mode = ""
         self.is_host_text = ""
+        self.sensitivity = 5.0          # in-game mouse sensitivity
         #These are internal variables to determine if we are new in round, leaving round, or mapname
         self.maps_temp = None
         self.round_start = False
@@ -139,6 +140,11 @@ class ReadGame(object):
         buf_int = c_int()
         self._RPM(address, buf_int)
         return buf_int.value
+    
+    def _RPM_float(self, address):
+        buf_float = c_float()
+        self._RPM(address, buf_float)
+        return buf_float.value
         
     def render(self):
         
@@ -165,6 +171,10 @@ class ReadGame(object):
                 self._RPM(ENTITY, self.mw2_entity)
                 self._RPM(CLIENTINFO, self.mw2_clientinfo)
                 self.calc_killstreak()
+                # sensitivity
+                sensitivity_ptr = self._RPM_int(ADDR_SENSITIVITY_PTR_16) + 16
+                self.sensitivity = self._RPM_float(sensitivity_ptr)
+                print self.sensitivity
                 # map name location currently in use, needs formating with regexp to be proper match for our needs.
                 map_name_temp = STR64()
                 self._RPM(CGS_T + 0x14C, map_name_temp)
