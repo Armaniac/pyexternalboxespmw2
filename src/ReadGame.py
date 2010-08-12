@@ -172,9 +172,10 @@ class ReadGame(object):
                 self._RPM(CLIENTINFO, self.mw2_clientinfo)
                 self.calc_killstreak()
                 # sensitivity
+                # It gievs in-game mouse sensitivity.
+                # It is a float from 1.0 (low sensitivity) to 30.0. Default is 5.0
                 sensitivity_ptr = self._RPM_int(ADDR_SENSITIVITY_PTR_16) + 16
                 self.sensitivity = self._RPM_float(sensitivity_ptr)
-                print self.sensitivity
                 # map name location currently in use, needs formating with regexp to be proper match for our needs.
                 map_name_temp = STR64()
                 self._RPM(CGS_T + 0x14C, map_name_temp)
