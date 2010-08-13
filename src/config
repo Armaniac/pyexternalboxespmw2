@@ -158,11 +158,11 @@ BOT_KNIFE_Z = 0
 BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
 BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
 
-BOT_SPEED_1 = 5
+BOT_SPEED_1 = 1.8
 BOT_SPEED_TICK_1 = 15
-BOT_SPEED_2 = 3
+BOT_SPEED_2 = 1.8
 BOT_SPEED_TICK_2 = 30
-BOT_SPEED_3 = 2
+BOT_SPEED_3 = 1.8
 # TK Bot Config Info
 TK_BOT_COLOR = 0xFFFF0000
 KEY_TK_BOT = "~VK_RMENU" #Key to bind toggle for Aimbot to aim at same team.

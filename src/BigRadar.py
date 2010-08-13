@@ -3,7 +3,7 @@ from Keys import keys
 from ctypes import c_float, byref
 from directx.types import D3DXVECTOR2, D3DMATRIX
 from directx.d3dx import d3dxdll
-from structs import VECTOR, ET_PLAYER, ET_TURRET
+from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE
 from utils import draw_arrow
 
 
@@ -11,6 +11,11 @@ class BigRadar(object):
     
     def __init__(self, env):
         self.env = env
+        self.scaling = BIG_RADAR_SCALE
+        self.rx = 0
+        self.ry = 0
+        self.rh = 0
+        self.rw = 0
     
     def render(self):
         read_game = self.env.read_game
@@ -23,13 +28,17 @@ class BigRadar(object):
             print "map: %s not found" % map_name
             return
         
-        scaling = BIG_RADAR_SCALE
+        rx = self.rx = read_game.resolution_x - RADAR_OFFSET - 512*self.scaling
+        ry = self.rx = RADAR_OFFSET
+        rh = self.rh = 512*self.scaling
+        rw = self.rw = 512*self.scaling
+        
         sprite_center = D3DXVECTOR2(0, 0)
-        trans = D3DXVECTOR2(read_game.resolution_x - RADAR_OFFSET - 512*scaling, RADAR_OFFSET)
+        trans = D3DXVECTOR2(rx, ry)
 
         matrix = D3DMATRIX()
         d3dxdll.D3DXMatrixAffineTransformation2D(byref(matrix), #@UndefinedVariable
-                                                 c_float(scaling),          # scaling
+                                                 c_float(self.scaling),          # scaling
                                                  byref(sprite_center),  # rotation center
                                                  c_float(0),        # angle
                                                  byref(trans)           # translation
@@ -46,21 +55,29 @@ class BigRadar(object):
         arrow_angle = textures.angle[map_name]
         
         for te in self.env.tracker.get_tracked_entity_list():
+            x = self.scaling * (transl[0] + matrix[0]*te.pos.x + matrix[1]*te.pos.y)
+            y = self.scaling * (transl[1] + matrix[2]*te.pos.x + matrix[3]*te.pos.y)
+            if x < 0:               x = 0
+            if x > rw:              x = rw
+            if y < 0:               y = 0
+            if y > rh:              y = rh               
             if te.type == ET_TURRET:
-                x = scaling * (transl[0] + matrix[0]*te.pos.x + matrix[1]*te.pos.y)
-                y = scaling * (transl[1] + matrix[2]*te.pos.x + matrix[3]*te.pos.y)
-                self.env.sprites.draw_sentry(read_game.resolution_x - RADAR_OFFSET - 512*scaling + x, RADAR_OFFSET + y, te.planter.enemy)
+                self.env.sprites.draw_sentry(rx + x, ry + y, te.planter.enemy)
+            if te.type == ET_HELICOPTER:
+                self.env.sprites.draw_heli(rx + x, ry + y, -te.yaw + arrow_angle, te.planter.enemy)
+            if te.type == ET_PLANE:
+                self.env.sprites.draw_plane(rx + x, ry + y, -te.yaw + arrow_angle, te.planter.enemy)
         
         pos = read_game.mw2_mypos
-        map_pos.x = scaling * (transl[0] + matrix[0]*pos.x + matrix[1]*pos.y)
-        map_pos.y = scaling * (transl[1] + matrix[2]*pos.x + matrix[3]*pos.y)
-        draw_arrow(frame.line, read_game.resolution_x - RADAR_OFFSET - 512*scaling + map_pos.x, RADAR_OFFSET + map_pos.y,
+        map_pos.x = self.scaling * (transl[0] + matrix[0]*pos.x + matrix[1]*pos.y)
+        map_pos.y = self.scaling * (transl[1] + matrix[2]*pos.x + matrix[3]*pos.y)
+        draw_arrow(frame.line, rx + map_pos.x, ry + map_pos.y,
                    -read_game.view_angles.y + arrow_angle, MAP_COLOR_ME);        # myself
         
         for p in read_game.player:
             if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001:
-                map_pos.x = scaling * (transl[0] + matrix[0]*p.pos.x + matrix[1]*p.pos.y)
-                map_pos.y = scaling * (transl[1] + matrix[2]*p.pos.x + matrix[3]*p.pos.y)
-                draw_arrow(frame.line, read_game.resolution_x - RADAR_OFFSET - 512*scaling + map_pos.x, RADAR_OFFSET + map_pos.y,
+                map_pos.x = self.scaling * (transl[0] + matrix[0]*p.pos.x + matrix[1]*p.pos.y)
+                map_pos.y = self.scaling * (transl[1] + matrix[2]*p.pos.x + matrix[3]*p.pos.y)
+                draw_arrow(frame.line, rx + map_pos.x, ry + map_pos.y,
                            -p.yaw + arrow_angle, p.color_map);        # myself
         

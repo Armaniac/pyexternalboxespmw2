@@ -1,8 +1,9 @@
 from ctypes import POINTER, byref, c_float
-from Config import *
+from Config import * #@UnusedWildImport
 from directx.d3d import IDirect3DTexture9
 from directx.d3dx import d3dxdll, D3DXVECTOR2, D3DMATRIX
 import os
+import math
 
 SPRITES_FOLDER = "sprites\\"
 
@@ -23,6 +24,18 @@ SPRITES = { "WEAPON_CLAYMORE": "claymore.jpg",
             # Compass sprites for Radar
             "COMPASS_SENTRY_FRIEND": "sentry_friendly.png",
             "COMPASS_SENTRY_ENEMY": "sentry_enemy.png",
+            "COMPASS_AC130_FRIEND": "ac130_green.png",
+            "COMPASS_AC130_ENEMY": "ac130_red.png",
+            "COMPASS_COBRA_FRIEND": "cobra_green.png",
+            "COMPASS_COBRA_ENEMY": "cobra_red.png",
+            "COMPASS_HARRIER_FRIEND": "harrier_green.png",
+            "COMPASS_HARRIER_ENEMY": "harrier_red.png",
+            "COMPASS_HELI_FRIEND": "heli_green.png",
+            "COMPASS_HELI_ENEMY": "heli_red.png",
+            "COMPASS_LITTLEBIRD_FRIEND": "littlebird_green.png",
+            "COMPASS_LITTLEBIRD_ENEMY": "littlebird_red.png",
+            "COMPASS_PAVELOW_FRIEND": "pavelow_green.png",
+            "COMPASS_PAVELOW_ENEMY": "pavelow_red.png",
             }
 
 # if riot == 2
@@ -62,19 +75,18 @@ class Sprites(object):
     def get_sprite(self, model_name):
         return self.model_sprites.get(model_name)
 
-    def draw_sprite(self, model_name, x, y, angle, color):
+    def draw_sprite(self, model_name, x, y, angle, color, scaling):
         frame = self.env.frame
         sprite = self.get_sprite(model_name)
         if sprite:
             frame.sprite.Begin(D3DXSPRITE_ALPHABLEND)
             sprite_center = D3DXVECTOR2(16, 16)
-            scaling = 0.5
             trans = D3DXVECTOR2(x- SPRITE_SIZE*scaling/2, y- SPRITE_SIZE*scaling/2)
             matrix = D3DMATRIX()
             d3dxdll.D3DXMatrixAffineTransformation2D(byref(matrix), #@UndefinedVariable
                                                      c_float(scaling),          # scaling
                                                      byref(sprite_center),      # rotation center
-                                                     c_float(angle),                # angle
+                                                     c_float(math.radians(angle)),                # angle
                                                      byref(trans)               # translation
                                                      )
             frame.sprite.SetTransform(matrix)
@@ -85,6 +97,22 @@ class Sprites(object):
         if enemy is None:
             pass
         elif enemy:
-            self.draw_sprite("COMPASS_SENTRY_ENEMY", x, y, 0, COLOR_MAP_BLENDER_ENEMY)
+            self.draw_sprite("COMPASS_SENTRY_ENEMY", x, y, 0, COLOR_MAP_BLENDER_ENEMY, 0.5)
         else:
-            self.draw_sprite("COMPASS_SENTRY_FRIEND", x, y, 0, COLOR_MAP_BLENDER_FRIEND)
+            self.draw_sprite("COMPASS_SENTRY_FRIEND", x, y, 0, COLOR_MAP_BLENDER_FRIEND, 0.5)
+            
+    def draw_heli(self, x, y, yaw, enemy):
+        if enemy is None:
+            pass
+        elif enemy:
+            self.draw_sprite("COMPASS_HELI_ENEMY", x, y, yaw, COLOR_MAP_BLENDER_ENEMY, 1.0)
+        else:
+            self.draw_sprite("COMPASS_HELI_FRIEND", x, y, yaw, COLOR_MAP_BLENDER_FRIEND, 1.0)
+            
+    def draw_plane(self, x, y, yaw, enemy):
+        if enemy is None:
+            pass
+        elif enemy:
+            self.draw_sprite("COMPASS_HARRIER_ENEMY", x, y, yaw, COLOR_MAP_BLENDER_ENEMY, 1.0)
+        else:
+            self.draw_sprite("COMPASS_HARRIER_FRIEND", x, y, yaw, COLOR_MAP_BLENDER_FRIEND, 1.0)

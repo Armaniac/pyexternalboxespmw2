@@ -1,4 +1,4 @@
-from structs import VECTOR, ET_PLAYER, ET_TURRET
+from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE
 from Config import * #@UnusedWildImport
 from utils import draw_arrow, draw4
 from Keys import keys
@@ -83,11 +83,15 @@ class Radar(object):
         
         p_pos = VECTOR()
         for te in self.env.tracker.get_tracked_entity_list():
+            p_pos.x = transl[0] + p_matrix[0]*te.pos.x + p_matrix[1]*te.pos.y
+            p_pos.y = transl[1] + p_matrix[2]*te.pos.x + p_matrix[3]*te.pos.y
+            cx, cy = self.calcPoint(p_pos, matrix)
             if te.type == ET_TURRET:
-                p_pos.x = transl[0] + p_matrix[0]*te.pos.x + p_matrix[1]*te.pos.y
-                p_pos.y = transl[1] + p_matrix[2]*te.pos.x + p_matrix[3]*te.pos.y
-                cx, cy = self.calcPoint(p_pos, matrix)
                 self.env.sprites.draw_sentry(cx, cy, te.planter.enemy)
+            if te.type == ET_HELICOPTER:
+                self.env.sprites.draw_heli(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle, te.planter.enemy)
+            if te.type == ET_PLANE:
+                self.env.sprites.draw_plane(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle, te.planter.enemy)
         
         draw_arrow(frame.line, rx + rw/2, ry + rh/2, 0, MAP_COLOR_ME);        # myself
         
