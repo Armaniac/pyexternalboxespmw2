@@ -119,7 +119,7 @@ class Bot(object):
                 velocity = TUBE_VEL
                 if key_knifebot:
                     velocity = KNIFE_VEL
-                    aim.z += 40             # middle of body
+                    aim.z += BOT_KNIFE_Z             # middle of body
                 slope = self.find_slope(aim, read_game.my_pos, velocity)
                 if not slope is None:
                     aim.z = read_game.my_pos.z + slope * (aim - read_game.my_pos).length()
