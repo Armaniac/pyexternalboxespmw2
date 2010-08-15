@@ -3,7 +3,7 @@ import win32con, win32api
 from ctypes.wintypes import DWORD, LONG, ULONG, WORD, string_at, byref, Structure, Union, POINTER, sizeof, windll
 from directx.types import D3DXVECTOR2
 from directx.d3dx import RECT
-from math import radians, cos, sin
+from math import radians, cos, sin, ceil
 
 #
 # D3D draw functions
@@ -137,8 +137,9 @@ def mouse_move(delta_x, delta_y, center_x, center_y):
     input = INPUT()
     input.type = INPUT_MOUSE
     input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE
-    input.mi.dx = int(fx)
-    input.mi.dy = int(fy)
+    # using ceil() as recommended here: http://msdn.microsoft.com/en-us/library/ms646273%28v=VS.85%29.aspx
+    input.mi.dx = int(ceil(fx))
+    input.mi.dy = int(ceil(fy))
     windll.User32.SendInput(1, byref(input), sizeof(input))
 
 
