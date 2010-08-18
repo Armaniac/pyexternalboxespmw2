@@ -133,8 +133,11 @@ class MW2_Entity_T(Structure):
                 ("pose", c_uint),       # 0x6C
                 ("_p03", c_char * 12),  # 0x70
                 ("pos2", VECTOR),       # 0x7C
-                ("_p04", c_char * 76),  # 0x88
-                ("owner_air", c_int),       # 0xD4
+                ("_p04", c_char * 0x30),# 0x88
+                ("owner_scr1", c_int),  #0xB8
+                ("owner_scr2", c_int),  #0xBC
+                ('_p042', c_char * 0x14),# 0xC0
+                ("owner_air", c_int),   # 0xD4
                 ("_i01", c_int),        # 0xD8
                 ("clientNum", c_int),   # 0xDC
                 ("type", c_int),        # 0xE0
@@ -145,7 +148,7 @@ class MW2_Entity_T(Structure):
                 ("_p06", c_char * 12),  # 0xE8
                 ("pos3", VECTOR),       # 0xF4
                 ("_p100", c_char * 88), # 0x100
-                ("owner_turret", c_int),       # 0x158
+                ("owner_turret", c_int),# 0x158
                 ("_p15c", c_char * 12), # 0x15C
                 ("modelIndex", c_int),  # 0x168
                 ("_p16c", c_char * 60), # 0x16C
