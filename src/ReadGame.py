@@ -116,7 +116,10 @@ class ReadGame(object):
         self.is_inited = True
     
     def check_window_moved(self):
-        bounding_rect = Rect(win32gui.GetWindowRect(self.mw2_hwnd))
+        try:
+            bounding_rect = Rect(win32gui.GetWindowRect(self.mw2_hwnd))
+        except Exception:
+            raise ExitingException("Could not ClientToScreen: ", win32api.GetLastError())
         new_mouse_center_x = (bounding_rect.right + bounding_rect.left) / 2
         new_mouse_center_y = (bounding_rect.bottom + bounding_rect.top) / 2
         if self.mouse_center_x != new_mouse_center_x or self.mouse_center_y != new_mouse_center_y:
