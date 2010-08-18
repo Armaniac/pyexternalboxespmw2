@@ -109,4 +109,7 @@ def launch():
             m.run()
     finally:
         print "Application ending, cleaning up D3D"
-        m.release()
+        try:
+            m.release()
+        except:
+            pass
