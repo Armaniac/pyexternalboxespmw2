@@ -30,5 +30,10 @@ setup(name='',
       data_files = [('', ['config', 'README.txt']),
                     ('maps', map_files),
                     ('sprites', sprite_files)],
+      packages = [ 'directx', 'comtypes', 'psyco'],
+      package_dir = { 'directx': '../lib/directx',
+                      'comtypes': '../lib/comtypes',
+                      'psyco': '../lib/psyco',
+                      }
       #zipfile = None,
       )
