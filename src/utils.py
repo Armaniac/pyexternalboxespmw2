@@ -30,6 +30,9 @@ DT_NOPREFIX                 = 0x00000800
 DT_INTERNAL                 = 0x00001000
 
 
+class ExitingException(Exception):
+    pass
+
 def draw_spot(line, x, y, color):
     draw4(line, x, y - 2, x + 2, y, x, y + 2, x - 2, y, 2, color)
 

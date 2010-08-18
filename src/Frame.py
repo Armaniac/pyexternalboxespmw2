@@ -119,7 +119,6 @@ class Frame(object):
         d3dxdll.D3DXCreateSprite(self.device, byref(self.sprite)) #@UndefinedVariable
         
     def release_d3d(self):
-        print "Cleaning D3D"
         if not self.line is None:           self.line.Release()
         if not self.status_font is None:    self.status_font.Release()
         if not self.killstreak_font is None:    self.killstreak_font.Release()

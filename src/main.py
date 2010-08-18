@@ -6,6 +6,8 @@ import ReadGame, Frame, Textures, Radar2, Esp, Status, Keys, Autostab, Inspector
 import Crosshair, Bot, WebStats, Tracker
 import cProfile
 from Config import MAIN_LOOP_SLEEP, PROFILING
+import traceback
+from utils import ExitingException
 
 WM_QUIT = 0x0012
 
@@ -95,7 +97,13 @@ class Main(object):
                 if iter > 5000 :return      # 1 iteration only
 
     def release(self):
-        self.frame.release_d3d()
+        if self.frame:
+            print "Application ending, cleaning up D3D"
+            try:
+                self.frame.release_d3d()
+            except Exception:
+                pass
+        self.frame = None
 
 def launch():
     import psyco
@@ -107,9 +115,13 @@ def launch():
             cProfile.runctx('m.run()', globals(), locals())
         else:
             m.run()
+    except ExitingException as e:
+        print "Exiting: %s" % e
+        pass                # normal ending
+    except Exception:
+        m.release()
+        traceback.print_exc()
+        raw_input("Press [ENTER] to exit application")
+
     finally:
-        print "Application ending, cleaning up D3D"
-        try:
-            m.release()
-        except:
-            pass
+        m.release()

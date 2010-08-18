@@ -3,6 +3,7 @@ import re
 from time import sleep
 from structs import *   #@UnusedWildImport
 from Config import *    #@UnusedWildImport
+from utils import ExitingException
 
 # game_modes
 # dm= Free for all
@@ -122,7 +123,10 @@ class ReadGame(object):
             self.mouse_center_x = new_mouse_center_x
             self.mouse_center_y = new_mouse_center_y
             pt = (0,0)                              # window origin
-            x, y = win32gui.ClientToScreen(self.mw2_hwnd, pt)
+            try:
+                x, y = win32gui.ClientToScreen(self.mw2_hwnd, pt)
+            except Exception:
+                raise ExitingException("Could not ClientToScreen: ", win32api.GetLastError())
             self.wnd_bounding_x = x
             self.wnd_bounding_y = y
             return True
@@ -133,8 +137,7 @@ class ReadGame(object):
     
     def _RPM(self, address, buffer):
         if not windll.kernel32.ReadProcessMemory(self.mw2_process.handle, address, byref(buffer), sizeof(buffer), None):
-            print "Did you close the Modern Warfare 2 window?"
-            raise Exception("Could not ReadProcessMemory: ", win32api.GetLastError())
+            raise ExitingException("Could not ReadProcessMemory: ", win32api.GetLastError())
 
     def _RPM_int(self, address):
         buf_int = c_int()
@@ -160,36 +163,35 @@ class ReadGame(object):
         self.is_in_game = (self.game_time != 0 )
 
         if self.is_in_game:
-            if not MOCK:
-                self.kills = self._RPM_int(ADDR_KILLS)
-                self.deaths = self._RPM_int(ADDR_DEATHS)
-                self.local_client_num = self._RPM_int(CG_T)
-            
-                self._RPM(REFDEF, self.mw2_refdef)
-                self._RPM(REFDEF + 0x9904, self.mw2_mypos)
-                self._RPM(VIEWANGLEY-0x40, self.mw2_viewy)
-                self._RPM(ENTITY, self.mw2_entity)
-                self._RPM(CLIENTINFO, self.mw2_clientinfo)
-                self.calc_killstreak()
-                # sensitivity
-                # It gievs in-game mouse sensitivity.
-                # It is a float from 1.0 (low sensitivity) to 30.0. Default is 5.0
-                sensitivity_ptr = self._RPM_int(ADDR_SENSITIVITY_PTR_16) + 16
-                self.sensitivity = self._RPM_float(sensitivity_ptr)
-                # map name location currently in use, needs formating with regexp to be proper match for our needs.
-                map_name_temp = STR64()
-                self._RPM(CGS_T + 0x14C, map_name_temp)
-                #self._RPM(ADDR_MAP, map_name_temp) removed to keep maintainability
-                map_name_temp_str = cast(pointer(map_name_temp), c_char_p)
-                self.map_name = map_name_temp_str.value
-                match = self.map_name_re.search(self.map_name)
-                if match:
-                    self.map_name = match.group(1)
-                # read game_mode
-                game_mode_temp = STR4()
-                self._RPM(CGS_T + 0x20, game_mode_temp)
-                game_mode_temp_str = cast(pointer(game_mode_temp), c_char_p)
-                self.game_mode = game_mode_temp_str.value
+            self.kills = self._RPM_int(ADDR_KILLS)
+            self.deaths = self._RPM_int(ADDR_DEATHS)
+            self.local_client_num = self._RPM_int(CG_T)
+        
+            self._RPM(REFDEF, self.mw2_refdef)
+            self._RPM(REFDEF + 0x9904, self.mw2_mypos)
+            self._RPM(VIEWANGLEY-0x40, self.mw2_viewy)
+            self._RPM(ENTITY, self.mw2_entity)
+            self._RPM(CLIENTINFO, self.mw2_clientinfo)
+            self.calc_killstreak()
+            # sensitivity
+            # It gievs in-game mouse sensitivity.
+            # It is a float from 1.0 (low sensitivity) to 30.0. Default is 5.0
+            sensitivity_ptr = self._RPM_int(ADDR_SENSITIVITY_PTR_16) + 16
+            self.sensitivity = self._RPM_float(sensitivity_ptr)
+            # map name location currently in use, needs formating with regexp to be proper match for our needs.
+            map_name_temp = STR64()
+            self._RPM(CGS_T + 0x14C, map_name_temp)
+            #self._RPM(ADDR_MAP, map_name_temp) removed to keep maintainability
+            map_name_temp_str = cast(pointer(map_name_temp), c_char_p)
+            self.map_name = map_name_temp_str.value
+            match = self.map_name_re.search(self.map_name)
+            if match:
+                self.map_name = match.group(1)
+            # read game_mode
+            game_mode_temp = STR4()
+            self._RPM(CGS_T + 0x20, game_mode_temp)
+            game_mode_temp_str = cast(pointer(game_mode_temp), c_char_p)
+            self.game_mode = game_mode_temp_str.value
             
             self.fov_x = self.mw2_refdef.fov_x
             self.fov_y = self.mw2_refdef.fov_y
