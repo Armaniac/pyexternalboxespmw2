@@ -27,9 +27,6 @@ ADDR_SENSITIVITY_PTR_16 = 0x00A86730
 COD_WINDOW_NAME = "Modern Warfare 2"
 
 # ----------------------------------------------------------------------
-# MOCK is set to True to debug purposes only
-#
-MOCK = False              # only used to test hack without the game running
 PROFILING = False        # only used for debug profiling
 
 # ----------------------------------------------------------------------

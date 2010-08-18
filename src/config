@@ -24,9 +24,6 @@ ADDR_MAPS = 0x008F2278
 
 COD_WINDOW_NAME = "Modern Warfare 2"
 # ----------------------------------------------------------------------
-# MOCK is set to True to debug purposes only
-#
-MOCK = False              # only used to test hack without the game running
 PROFILING = False        # only used for debug profiling
 
 # ----------------------------------------------------------------------

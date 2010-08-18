@@ -58,14 +58,11 @@ class Frame(object):
             None)
         
         # make a transparent window
-        if not MOCK:
-            oledll.Dwmapi.DwmExtendFrameIntoClientArea(self.hwnd, byref(MARGINS(-1, -1, -1, -1)))
-            compo = c_int()
-            oledll.Dwmapi.DwmIsCompositionEnabled(byref(compo))
-            if not compo:
-                raise Exception("Composition is not activated")
-        else:
-            pass
+        oledll.Dwmapi.DwmExtendFrameIntoClientArea(self.hwnd, byref(MARGINS(-1, -1, -1, -1)))
+        compo = c_int()
+        oledll.Dwmapi.DwmIsCompositionEnabled(byref(compo))
+        if not compo:
+            raise Exception("Composition is not activated")
         
         
         
@@ -86,10 +83,7 @@ class Frame(object):
         
         self.d3d = POINTER(IDirect3D9)(address)
         self.device = POINTER(IDirect3DDevice9)()
-        if not MOCK:
-            self.d3d.CreateDevice(0, D3DDEVTYPE.HAL, self.hwnd, D3DCREATE.HARDWARE_VERTEXPROCESSING, byref(params), byref(self.device))
-        else:
-            self.d3d.CreateDevice(0, D3DDEVTYPE.HAL, self.hwnd, D3DCREATE.SOFTWARE_VERTEXPROCESSING, byref(params), byref(self.device))
+        self.d3d.CreateDevice(0, D3DDEVTYPE.HAL, self.hwnd, D3DCREATE.HARDWARE_VERTEXPROCESSING, byref(params), byref(self.device))
         
         self.device.SetRenderState(D3DRS_ZENABLE, False)
         self.device.SetRenderState(D3DRS_LIGHTING, False)
