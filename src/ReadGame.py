@@ -93,6 +93,11 @@ class ReadGame(object):
             tid, self.mw2_pid = win32process.GetWindowThreadProcessId(self.mw2_hwnd) #@UnusedVariable
             sleep(0.050)
         print "Found process ID: ", self.mw2_pid
+        
+        # boost our own process priority
+        own_process = win32process.GetCurrentProcess()
+        win32process.SetPriorityClass(own_process, win32process.ABOVE_NORMAL_PRIORITY_CLASS)
+        
         self.mw2_process = win32api.OpenProcess(win32con.PROCESS_VM_READ, False, self.mw2_pid)
         
         client_rect = Rect(win32gui.GetClientRect(self.mw2_hwnd))
