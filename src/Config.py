@@ -239,9 +239,10 @@ AIRDROP_PERSISTENCE = 15             # number of seconds to keep airdrop marker
 
 # ----------------------------------------------------------------------
 # inspector class for debug
-KEY_INSPECTOR = "VK_NUMPAD0"
+KEY_INSPECTOR = "!VK_NUMPAD0"
 KEY_INSPECT_POS = "!VK_NUMPAD1"
 KEY_INSPECT_DUMP = "!VK_NUMPAD9"
+KEY_INSPECT_DUMP_PLAYERS = "!VK_NUMPAD7"
 
 # ----------------------------------------------------------------------
 # calibration mode, only used for debugging of tubebot and knifebot

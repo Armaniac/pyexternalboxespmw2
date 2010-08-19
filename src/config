@@ -155,9 +155,9 @@ BOT_KNIFE_Z = 30
 BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
 BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
 
-BOT_SPEED_1 = 1.8
+BOT_SPEED_1 = 5
 BOT_SPEED_TICK_1 = 15
-BOT_SPEED_2 = 1.8
+BOT_SPEED_2 = 2.5
 BOT_SPEED_TICK_2 = 30
 BOT_SPEED_3 = 1.8
 # TK Bot Config Info
@@ -230,9 +230,10 @@ AIRDROP_PERSISTENCE = 15             # number of seconds to keep airdrop marker
 
 # ----------------------------------------------------------------------
 # inspector class for debug
-KEY_INSPECTOR = "VK_NUMPAD0"
+KEY_INSPECTOR = "!VK_NUMPAD0"
 KEY_INSPECT_POS = "!VK_NUMPAD1"
 KEY_INSPECT_DUMP = "!VK_NUMPAD9"
+KEY_INSPECT_DUMP_PLAYERS = "!VK_NUMPAD7"
 
 # ----------------------------------------------------------------------
 # calibration mode, only used for debugging of tubebot and knifebot

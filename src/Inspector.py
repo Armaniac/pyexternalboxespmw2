@@ -2,7 +2,7 @@ from utils import draw_string_center
 from Keys import keys
 from utils import dump_obj
 from ctypes import Structure, c_char
-from structs import ET_EXPLOSIVE, ENTITIESMAX
+from structs import ET_EXPLOSIVE, ENTITIESMAX, PLAYERMAX
 # this module allows to inspect entities near the center crosshair
 
 class dumped(Structure):
@@ -18,16 +18,26 @@ class Inspector(object):
         frame = self.env.frame
         #if not read_game.is_in_game or not keys["KEY_INSPECTOR"]: return
         if keys["KEY_INSPECTOR"]: 
+            for i in range(PLAYERMAX):
+                print "Player #%i: %s" % (i, read_game.player[i].name)
             for idx in range(ENTITIESMAX):
                 e = read_game.mw2_entity.arr[idx]
                 spot = read_game.world_to_screen(e.pos)
                 if spot:
                     cur_angle_dist = self.sq(spot.x - read_game.screen_center_x, spot.y - read_game.screen_center_y)
                     if cur_angle_dist < 50 * 50:      # not too far from center
-                        s = "[idx=%i, typ=%i, weap=%i]" % (idx, e.type, e.WeaponNum) 
+                        s = "[idx=%i(%x), typ=%i, weap=%i]" % (idx, idx, e.type, e.WeaponNum)
                         draw_string_center(frame.font, spot.x, spot.y, 0xFFFFFFFF, s)
                         print s
                         print dump_obj(e)
+                        if e.owner_scr1 >= 0 and e.owner_scr1 < 2047:
+                            ee = read_game.mw2_entity.arr[e.owner_scr1]
+                            print "[idx=%i(%x), typ=%i, weap=%i]" % (e.owner_scr1, e.owner_scr1, ee.type, ee.WeaponNum)
+                            print dump_obj(ee)
+                        if e.owner_scr2 >= 0 and e.owner_scr2 < 2047:
+                            ee = read_game.mw2_entity.arr[e.owner_scr2]
+                            print "[idx=%i(%x), typ=%i, weap=%i]" % (e.owner_scr2, e.owner_scr2, ee.type, ee.WeaponNum)
+                            print dump_obj(ee)
                         #=======================================================
                         # if e.type == ET_EXPLOSIVE:
                         #    print "dump explo"
@@ -52,6 +62,10 @@ class Inspector(object):
                 print "client info"
                 print dump_obj(read_game.mw2_clientinfo.arr[i])
             #del mem
+        
+        if keys["KEY_INSPECT_DUMP_PLAYERS"]:
+            for i in range(PLAYERMAX):
+                print "Player #%i: %s" % (i, read_game.player[i].name)
             #===================================================================
             # print "refdef"
             # print dump_obj(read_game.mw2_refdef)
