@@ -123,9 +123,9 @@ class INPUT(Structure):
     _fields_ = [ ("type", DWORD),
                  ("iu", _INPUT_UNION)]
 
-def mouse_move(delta_x, delta_y, center_x, center_y):
-    mouse_move_x = int(delta_x)
-    mouve_move_y = int(delta_y)
+def mouse_move(delta_x, delta_y, center_x, center_y, sensitivity):
+    mouse_move_x = int(delta_x * 2.7/ sensitivity )
+    mouve_move_y = int(delta_y * 2.7/ sensitivity )
     if mouse_move_x == 0 and mouve_move_y == 0:
         return
     fScreenWidth = win32api.GetSystemMetrics(win32con.SM_CXSCREEN) - 1.0

@@ -127,7 +127,7 @@ class Bot(object):
                     if spot_coord:
                         angle[0] = spot_coord.x - read_game.screen_center_x
                         angle[1] = spot_coord.y - read_game.screen_center_y
-                        mouse_move(angle[0] / 3, angle[1] / 3, read_game.mouse_center_x, read_game.mouse_center_y)
+                        mouse_move(angle[0] / 3, angle[1] / 3, read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
                 else:
                     self.player_locked = None
             elif key_bot:
@@ -141,7 +141,7 @@ class Bot(object):
                     aim_speed = BOT_SPEED_2
                 if self.env.ticks - self.player_locked_ticks > BOT_SPEED_TICK_2:
                     aim_speed = BOT_SPEED_3
-                mouse_move(angle[0] / aim_speed, angle[1] / aim_speed, read_game.mouse_center_x, read_game.mouse_center_y)
+                mouse_move(angle[0] / aim_speed, angle[1] / aim_speed, read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
             else:
                 self.player_locked = None
         
@@ -163,7 +163,7 @@ class Bot(object):
                         angle[0] = spot_coord.x - read_game.screen_center_x
                         angle[1] = spot_coord.y - read_game.screen_center_y
                         #print "slope = %.3f, angle = %.3f, %.3f" % (slope, angle[0], angle[1])
-                        mouse_move(angle[0] / 3, angle[1] / 3, read_game.mouse_center_x, read_game.mouse_center_y)
+                        mouse_move(angle[0] / 3, angle[1] / 3, read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
                 
 
     @staticmethod
