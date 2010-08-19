@@ -58,6 +58,10 @@ class WeaponNames(object):
             return None
         else:
             return self.weapon_models[weaponnum]
+        
+    def get_corrected_weapon_num(self, weapon_num):
+        # considering riot is at #2
+        return weapon_num - 2 + self.get_riot_shield_num()
     
     def get_riot_shield_num(self):
         for idx in range(10):
