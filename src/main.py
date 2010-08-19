@@ -1,13 +1,15 @@
 import stealth      # scramble memory a little - anti-VAC feature @UnusedImport
 import Scheduler
 import time
-import win32gui, win32con
+import win32gui
 import ReadGame, Frame, Textures, Radar2, Esp, Status, Keys, Autostab, Inspector, Rage, Killstreak, BigRadar, WeaponNames, Sprites
 import Crosshair, Bot, WebStats, Tracker
 import cProfile
-from Config import MAIN_LOOP_SLEEP, PROFILING
+from Config import PROFILING, MAIN_MAX_FPS
 import traceback
 from utils import ExitingException
+import threading
+from time import sleep
 
 WM_QUIT = 0x0012
 
@@ -20,6 +22,10 @@ class Main(object):
         self.ticks = 0
         self.time = time.clock()
         self.quit = False
+        self.wnd_thread = None
+        
+        self.lock = threading.Lock()
+        self.sleep_interval = 1.0 / MAIN_MAX_FPS
         
         self.sched = Scheduler.Scheduler()
                 
@@ -47,26 +53,27 @@ class Main(object):
     def init(self):
         # first wait for game
         self.read_game.init()
+        self.wnd_thread = threading.Thread(target=self.thread_window)
+        self.wnd_thread.daemon = True
+        self.wnd_thread.start()
         # then prepare frame environment
-        self.frame.init()
+        window_ready = False
+        while not window_ready:
+            with self.lock:
+                if self.frame.hwnd is not None:
+                    window_ready = True
+            sleep(0.050)
         self.frame.init_d3d()
         self.textures.init()
         self.sprites.init()
-
+        
     def run(self):
         if PROFILING:
             iter = 0
-        while not self.quit:            
-            pending, msg = win32gui.PeekMessage(0, 0, 0, win32con.PM_REMOVE) #@UnusedVariable
-            #===================================================================
-            # if (msg[2] & 0xFFFF) == WM_QUIT:
-            #    break
-            #===================================================================
-
+        while not self.quit:
             self.ticks += 1
             self.time = time.clock()
-            win32gui.TranslateMessage(msg)
-
+            
             self.read_game.render()
             self.frame.BeginPaint()
             Keys.render()
@@ -90,8 +97,7 @@ class Main(object):
             #
             self.frame.EndPaint()
 
-            win32gui.DispatchMessage(msg)
-            time.sleep(MAIN_LOOP_SLEEP)                                   # avoid eating up all CPU
+            time.sleep(self.sleep_interval)                                   # avoid eating up all CPU
             if PROFILING:
                 iter += 1
                 if iter > 5000 :return      # 1 iteration only
@@ -104,6 +110,12 @@ class Main(object):
             except Exception:
                 pass
         self.frame = None
+        
+    def thread_window(self):
+        with self.lock:
+            self.frame.init_create_window()
+        self.frame.init_show_window()
+        win32gui.PumpMessages()
 
 def launch():
     import psyco
@@ -117,7 +129,6 @@ def launch():
             m.run()
     except ExitingException as e:
         print "Exiting: %s" % e
-        pass                # normal ending
     except Exception:
         m.release()
         traceback.print_exc()

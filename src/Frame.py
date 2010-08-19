@@ -26,9 +26,14 @@ class Rect(object):
 class Frame(object):
     def __init__(self, env):
         self.env = env
+        self.hwnd = None
     
-    def init(self):
-        """main function"""
+    def init_show_window(self):
+        win32gui.ShowWindow(self.hwnd, win32con.SW_SHOWNORMAL)
+        win32gui.UpdateWindow(self.hwnd)    
+
+    def init_create_window(self):
+        # this is to be called by a specific thread that will be the owner
         read_game = self.env.read_game
         
         hInstance = win32api.GetModuleHandle()
@@ -63,14 +68,6 @@ class Frame(object):
         oledll.Dwmapi.DwmIsCompositionEnabled(byref(compo))
         if not compo:
             raise Exception("Composition is not activated")
-        
-        
-        
-        self.init_d3d()
-        
-        win32gui.ShowWindow(self.hwnd, win32con.SW_SHOWNORMAL)
-        win32gui.UpdateWindow(self.hwnd)    
-
 
     def init_d3d(self):
         address = windll.d3d9.Direct3DCreate9(UINT(D3D_SDK_VERSION))
@@ -83,7 +80,7 @@ class Frame(object):
         
         self.d3d = POINTER(IDirect3D9)(address)
         self.device = POINTER(IDirect3DDevice9)()
-        self.d3d.CreateDevice(0, D3DDEVTYPE.HAL, self.hwnd, D3DCREATE.HARDWARE_VERTEXPROCESSING, byref(params), byref(self.device))
+        self.d3d.CreateDevice(0, D3DDEVTYPE.HAL, self.hwnd, D3DCREATE.SOFTWARE_VERTEXPROCESSING, byref(params), byref(self.device))
         
         self.device.SetRenderState(D3DRS_ZENABLE, False)
         self.device.SetRenderState(D3DRS_LIGHTING, False)

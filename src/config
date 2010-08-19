@@ -31,11 +31,9 @@ PROFILING = False        # only used for debug profiling
 
 APP_NAME = 'Launcher'            # name of the hack window
 
-# this specifies the pause (sleep) between two iterations
-# the number is in seconds, 0.010 meaning 10ms
-# normally 0 should be OK but it might eat up too much CPU. 0.010 is also fine and less aggressive
-MAIN_LOOP_SLEEP = 0.010
-if PROFILING: MAIN_LOOP_SLEEP = 0.000
+# this is the maximum FPS allowed for the hack. It is not guaranteed that it will reach that level though...
+MAIN_MAX_FPS = 50
+if PROFILING: MAIN_LOOP_SLEEP = 1000000
 
 # ----------------------------------------------------------------------
 # Graphical preferences
@@ -155,11 +153,11 @@ BOT_KNIFE_Z = 30
 BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
 BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
 
-BOT_SPEED_1 = 3.0
+BOT_SPEED_1 = 1.8
 BOT_SPEED_TICK_1 = 15
-BOT_SPEED_2 = 1.5
+BOT_SPEED_2 = 1.8
 BOT_SPEED_TICK_2 = 30
-BOT_SPEED_3 = 1.0
+BOT_SPEED_3 = 1.8
 # TK Bot Config Info
 TK_BOT_COLOR = 0xFFFF0000
 KEY_TK_BOT = "~VK_RMENU" #Key to bind toggle for Aimbot to aim at same team.
@@ -232,8 +230,7 @@ AIRDROP_PERSISTENCE = 15             # number of seconds to keep airdrop marker
 # inspector class for debug
 KEY_INSPECTOR = "!VK_NUMPAD0"
 KEY_INSPECT_POS = "!VK_NUMPAD1"
-KEY_INSPECT_DUMP = "!VK_NUMPAD9"
-KEY_INSPECT_DUMP_PLAYERS = "!VK_NUMPAD7"
+KEY_INSPECT_DUMP_PLAYERS = "!VK_NUMPAD9"
 
 # ----------------------------------------------------------------------
 # calibration mode, only used for debugging of tubebot and knifebot
