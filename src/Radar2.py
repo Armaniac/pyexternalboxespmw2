@@ -28,7 +28,6 @@ class Radar(object):
         ry = self.ry = RADAR_OFFSET
         rh = rw = self.rh = self.rw = RADAR_SIZE
         
-        
         scaling = 0.5           # TODO
         
         pos = read_game.mw2_mypos
@@ -89,7 +88,7 @@ class Radar(object):
             if te.type == ET_TURRET:
                 self.env.sprites.draw_sentry(cx, cy, te.planter.enemy)
             if te.type == ET_HELICOPTER:
-                self.env.sprites.draw_heli(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle, te.planter.enemy)
+                self.env.sprites.draw_heli(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle, te.planter.enemy, te.weapon_num)
             if te.type == ET_PLANE:
                 self.env.sprites.draw_plane(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle, te.planter.enemy)
         

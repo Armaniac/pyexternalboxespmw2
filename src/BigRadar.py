@@ -64,7 +64,7 @@ class BigRadar(object):
             if te.type == ET_TURRET:
                 self.env.sprites.draw_sentry(rx + x, ry + y, te.planter.enemy)
             if te.type == ET_HELICOPTER:
-                self.env.sprites.draw_heli(rx + x, ry + y, -te.yaw + arrow_angle, te.planter.enemy)
+                self.env.sprites.draw_heli(rx + x, ry + y, -te.yaw + arrow_angle, te.planter.enemy, te.weapon_num)
             if te.type == ET_PLANE:
                 self.env.sprites.draw_plane(rx + x, ry + y, -te.yaw + arrow_angle, te.planter.enemy)
         

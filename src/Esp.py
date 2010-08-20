@@ -106,7 +106,8 @@ class Esp(object):
             elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & 0x0001 and keys["KEY_BOXESP"]:
                 if e.owner_air >= 0 and e.owner_air < PLAYERMAX:
                     self.env.tracker.track_entity(idx, e.owner_air)
-                    if read_game.player[e.owner_air].enemy:
+                    if e.type == ET_PLANE or read_game.player[e.owner_air].enemy:
+                        # all planes are shown because we don't know if they are enemies
                         head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 100)       # eyepos of standing player
                         feet = read_game.world_to_screen(e.pos)
                         head = read_game.world_to_screen(head_pos)
