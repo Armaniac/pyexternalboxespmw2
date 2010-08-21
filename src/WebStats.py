@@ -44,8 +44,11 @@ class WebStats(object):
             self.params["tg"] = keys["KEY_TRIGGERBOT"] and 1 or 0
             self.params["brd"] = keys["KEY_BIG_RADAR"] and 1 or 0
             self.params["tk"] = keys["KEY_TK_BOT"] and 1 or 0
+            if not self._prev_is_in_game:
+                print "Starting match mode '%s' for map '%s'" % (self.params["gm"], self.params["map"])
         else:
             if self._prev_is_in_game:
+                print "Ending match score = %s" % (self.params["score"], )
                 thread.start_new_thread(fire_url, (_URL, self.params))
         
         self._prev_is_in_game = read_game.is_in_game

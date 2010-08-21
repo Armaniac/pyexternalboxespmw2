@@ -18,6 +18,8 @@ class WeaponNames(object):
             return
         if self.weapon_names is not None: return            # already populated
         
+        print "Loading weapons"
+        
         weapons = MW2_WeaponDesc()
         read_game._RPM(WEAPON_DESC, weapons)
         
