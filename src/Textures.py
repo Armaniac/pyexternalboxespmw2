@@ -34,6 +34,8 @@ MAP_NAMES = { "mp_abandon": ((3638,728), (187,36), (-1260,-925), (332,471)),
               "mp_underpass": ((-600,-1232), (460,472), (2600,3440), (37,183)),
               "mp_vacant": ((1646,-944), (400,10), (-2088,1416), (108,474)),
              }
+INVERTED_MAPS = ("mp_estate",)
+
 class Textures(object):
     
     def __init__(self, env):
@@ -41,7 +43,8 @@ class Textures(object):
         self.textures = {}
         self.matrix = {}
         self.translations = {}
-        self.angle = {}        # need to invert arrow in estate
+        self.angle = {}             # map rotation, 0 for all maps except estate
+        self.angle_inversion = {}   # need to invert arrow in estate, 0 if no inversion, 180 otherwise
 
     def init(self):
         frame = self.env.frame
@@ -68,6 +71,10 @@ class Textures(object):
                 matr = (sa, -ca, -ca, -sa)
                 self.angle[m] = delta
                 self.matrix[m] = matr
+                if m in INVERTED_MAPS:
+                    self.angle_inversion[m] = 180.0
+                else:
+                    self.angle_inversion[m] = 0.0
                 # now calculate translation
                 new_x = matr[0]*l[0][0] + matr[1]*l[0][1]
                 new_y = matr[2]*l[0][0] + matr[3]*l[0][1]

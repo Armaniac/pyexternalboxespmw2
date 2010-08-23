@@ -39,6 +39,7 @@ class Radar(object):
         map_pos.x = scaling * (transl[0] + p_matrix[0]*pos.x + p_matrix[1]*pos.y)
         map_pos.y = scaling * (transl[1] + p_matrix[2]*pos.x + p_matrix[3]*pos.y)
         arrow_angle = textures.angle[map_name]      # offset to apply to angles (only in estate)s
+        arrow_inversion = textures.angle_inversion[map_name]
         
         sprite_center = D3DXVECTOR2(map_pos.x, map_pos.y)
         trans = D3DXVECTOR2(rx + rw/2 - map_pos.x, ry + rh/2 - map_pos.y)   # global translation
@@ -88,9 +89,9 @@ class Radar(object):
             if te.type == ET_TURRET:
                 self.env.sprites.draw_sentry(cx, cy, te.planter.enemy)
             if te.type == ET_HELICOPTER:
-                self.env.sprites.draw_heli(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle, te.planter.enemy, te.weapon_num)
+                self.env.sprites.draw_heli(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle + arrow_inversion, te.planter.enemy, te.weapon_num)
             if te.type == ET_PLANE:
-                self.env.sprites.draw_plane(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle, te.planter.enemy)
+                self.env.sprites.draw_plane(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle + arrow_inversion, te.planter.enemy)
         
         draw_arrow(frame.line, rx + rw/2, ry + rh/2, 0, MAP_COLOR_ME);        # myself
         
@@ -99,7 +100,7 @@ class Radar(object):
                 p_pos.x = transl[0] + p_matrix[0]*p.pos.x + p_matrix[1]*p.pos.y
                 p_pos.y = transl[1] + p_matrix[2]*p.pos.x + p_matrix[3]*p.pos.y
                 cx, cy = self.calcPoint(p_pos, matrix)
-                draw_arrow(frame.line, cx, cy, -p.yaw + read_game.view_angles.y + arrow_angle, p.color_map);
+                draw_arrow(frame.line, cx, cy, -p.yaw + read_game.view_angles.y + arrow_angle + arrow_inversion, p.color_map);
         
     def calcPoint(self, vec, mat):
         ir = D3DXVECTOR2()

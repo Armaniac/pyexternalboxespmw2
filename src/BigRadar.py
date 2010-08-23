@@ -53,6 +53,7 @@ class BigRadar(object):
         transl = textures.translations[map_name]
         map_pos = VECTOR()
         arrow_angle = textures.angle[map_name]
+        arrow_inversion = textures.angle_inversion[map_name]
         
         for te in self.env.tracker.get_tracked_entity_list():
             x = self.scaling * (transl[0] + matrix[0]*te.pos.x + matrix[1]*te.pos.y)
@@ -64,9 +65,9 @@ class BigRadar(object):
             if te.type == ET_TURRET:
                 self.env.sprites.draw_sentry(rx + x, ry + y, te.planter.enemy)
             if te.type == ET_HELICOPTER:
-                self.env.sprites.draw_heli(rx + x, ry + y, -te.yaw + arrow_angle, te.planter.enemy, te.weapon_num)
+                self.env.sprites.draw_heli(rx + x, ry + y, -te.yaw + arrow_angle + arrow_inversion, te.planter.enemy, te.weapon_num)
             if te.type == ET_PLANE:
-                self.env.sprites.draw_plane(rx + x, ry + y, -te.yaw + arrow_angle, te.planter.enemy)
+                self.env.sprites.draw_plane(rx + x, ry + y, -te.yaw + arrow_angle + arrow_inversion, te.planter.enemy)
         
         pos = read_game.mw2_mypos
         map_pos.x = self.scaling * (transl[0] + matrix[0]*pos.x + matrix[1]*pos.y)
@@ -79,5 +80,5 @@ class BigRadar(object):
                 map_pos.x = self.scaling * (transl[0] + matrix[0]*p.pos.x + matrix[1]*p.pos.y)
                 map_pos.y = self.scaling * (transl[1] + matrix[2]*p.pos.x + matrix[3]*p.pos.y)
                 draw_arrow(frame.line, rx + map_pos.x, ry + map_pos.y,
-                           -p.yaw + arrow_angle, p.color_map);        # myself
+                           -p.yaw + arrow_angle + arrow_inversion, p.color_map);        # myself
         
