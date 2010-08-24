@@ -1,6 +1,6 @@
 from Config import * #@UnusedWildImport
 from ctypes import * #@UnusedWildImport
-from structs import MW2_WeaponDesc, STR256
+from structs import MW2_WeaponDesc, STR256, MW2_WeaponDesc_T
 
     
 class WeaponNames(object):
@@ -16,9 +16,22 @@ class WeaponNames(object):
             self.weapon_names = None
             self.weapon_models = None
             return
-        if self.weapon_names is not None: return            # already populated
-        
-        print "Loading weapons"
+        if self.weapon_names is not None:               # already populated
+            # just check if RIOT_SHIELD has not moved since last time
+            cur_riot_shield = self.get_riot_shield_num()
+            str256 = STR256()
+            weap_desc = MW2_WeaponDesc_T()
+            read_game._RPM(WEAPON_DESC + cur_riot_shield * sizeof(MW2_WeaponDesc_T), weap_desc)
+            str256 = STR256()
+            addr = weap_desc.name_addr
+            read_game._RPM(addr, str256)
+            weapon_name = string_at(addressof(str256))
+            model_name = string_at(addressof(str256) + len(weapon_name) + 1)
+            if model_name.find("RIOTSHIELD") < 0:
+                print "Reloading weapons"
+            else:
+                return
+
         
         weapons = MW2_WeaponDesc()
         read_game._RPM(WEAPON_DESC, weapons)
