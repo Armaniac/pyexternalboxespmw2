@@ -36,6 +36,8 @@ SPRITES = { "WEAPON_CLAYMORE": "claymore.jpg",
             "COMPASS_LITTLEBIRD_ENEMY": "littlebird_red.png",
             "COMPASS_PAVELOW_FRIEND": "pavelow_green.png",
             "COMPASS_PAVELOW_ENEMY": "pavelow_red.png",
+            #
+            "COMPASS_FLARE": "flare.png",
             }
 
 HELIS = { 1181: "COMPASS_HARRIER",
@@ -122,3 +124,6 @@ class Sprites(object):
     def draw_plane(self, x, y, yaw, enemy):
         # don't know how to determine enemy...
         self.draw_sprite("COMPASS_HARRIER_ENEMY", x, y, yaw, COLOR_MAP_BLENDER_ENEMY, 1.0)
+    
+    def draw_flare(self, x, y):
+        self.draw_sprite("COMPASS_FLARE", x, y, 0, COLOR_MAP_BLENDER_NEUTRAL, 0.5)

@@ -30,14 +30,14 @@ class Inspector(object):
                         draw_string_center(frame.font, spot.x, spot.y, 0xFFFFFFFF, s)
                         print s
                         print dump_obj(e)
-                        if e.owner_scr1 >= 0 and e.owner_scr1 < 2047:
-                            ee = read_game.mw2_entity.arr[e.owner_scr1]
-                            print "[idx=%i(%x), typ=%i, weap=%i]" % (e.owner_scr1, e.owner_scr1, ee.type, ee.WeaponNum)
-                            print dump_obj(ee)
-                        if e.owner_scr2 >= 0 and e.owner_scr2 < 2047:
-                            ee = read_game.mw2_entity.arr[e.owner_scr2]
-                            print "[idx=%i(%x), typ=%i, weap=%i]" % (e.owner_scr2, e.owner_scr2, ee.type, ee.WeaponNum)
-                            print dump_obj(ee)
+#                        if e.owner_scr1 >= 0 and e.owner_scr1 < 2047:
+#                            ee = read_game.mw2_entity.arr[e.owner_scr1]
+#                            print "[idx=%i(%x), typ=%i, weap=%i]" % (e.owner_scr1, e.owner_scr1, ee.type, ee.WeaponNum)
+#                            print dump_obj(ee)
+#                        if e.owner_scr2 >= 0 and e.owner_scr2 < 2047:
+#                            ee = read_game.mw2_entity.arr[e.owner_scr2]
+#                            print "[idx=%i(%x), typ=%i, weap=%i]" % (e.owner_scr2, e.owner_scr2, ee.type, ee.WeaponNum)
+#                            print dump_obj(ee)
                         #=======================================================
                         # if e.type == ET_EXPLOSIVE:
                         #    print "dump explo"

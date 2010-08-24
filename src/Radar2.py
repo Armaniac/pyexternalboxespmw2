@@ -1,4 +1,4 @@
-from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE
+from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE, ET_EXPLOSIVE
 from Config import * #@UnusedWildImport
 from utils import draw_arrow, draw4
 from Keys import keys
@@ -92,6 +92,8 @@ class Radar(object):
                 self.env.sprites.draw_heli(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle + arrow_inversion, te.planter.enemy, te.weapon_num)
             if te.type == ET_PLANE:
                 self.env.sprites.draw_plane(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle + arrow_inversion, te.planter.enemy)
+            if te.type == ET_EXPLOSIVE and te.model_name.find("_AIRDROP_") > 0:
+                self.env.sprites.draw_flare(cx, cy)
         
         draw_arrow(frame.line, rx + rw/2, ry + rh/2, 0, MAP_COLOR_ME);        # myself
         

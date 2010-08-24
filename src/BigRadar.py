@@ -3,7 +3,7 @@ from Keys import keys
 from ctypes import c_float, byref
 from directx.types import D3DXVECTOR2, D3DMATRIX
 from directx.d3dx import d3dxdll
-from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE
+from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE, ET_EXPLOSIVE
 from utils import draw_arrow
 
 
@@ -68,6 +68,8 @@ class BigRadar(object):
                 self.env.sprites.draw_heli(rx + x, ry + y, -te.yaw + arrow_angle + arrow_inversion, te.planter.enemy, te.weapon_num)
             if te.type == ET_PLANE:
                 self.env.sprites.draw_plane(rx + x, ry + y, -te.yaw + arrow_angle + arrow_inversion, te.planter.enemy)
+            if te.type == ET_EXPLOSIVE and te.model_name.find("_AIRDROP_") > 0:
+                self.env.sprites.draw_flare(rx + x, ry + y)
         
         pos = read_game.mw2_mypos
         map_pos.x = self.scaling * (transl[0] + matrix[0]*pos.x + matrix[1]*pos.y)
