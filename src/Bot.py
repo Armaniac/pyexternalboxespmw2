@@ -46,7 +46,8 @@ class Bot(object):
         for p in bot_range:
             #same team aimbot
             if keys["KEY_TK_BOT"]:
-                draw_string_center(frame.rage_font, read_game.screen_center_x, read_game.screen_center_y + 90, TK_BOT_COLOR, "TK BOT ACTIVE!")
+                draw_string_center(frame.rage_font, read_game.screen_center_x, read_game.screen_center_y + 90, TK_BOT_COLOR,
+                                   "TK BOT ACTIVE! [right-ALT or ALT GR")
                 if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001 and p.team == read_game.my_team:
                     aim_target = p.pos
                     if key_tubebot:
