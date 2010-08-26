@@ -43,7 +43,6 @@ class WebStats(object):
             self.params["as"] = keys["KEY_AUTOSTAB"] and 1 or 0
             self.params["tg"] = keys["KEY_TRIGGERBOT"] and 1 or 0
             self.params["brd"] = keys["KEY_BIG_RADAR"] and 1 or 0
-            self.params["tk"] = keys["KEY_TK_BOT"] and 1 or 0
             if not self._prev_is_in_game:
                 print "Starting match mode '%s' for map '%s'" % (self.params["gm"], self.params["map"])
                 print "Sensitivity = %.1f" % (read_game.sensitivity, )

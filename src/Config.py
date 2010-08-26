@@ -48,7 +48,7 @@ if PROFILING: MAIN_LOOP_SLEEP = 1000000
 #    BB = blue
 
 # position of the Radar on the screen
-RADAR_SIZE = 160            # size of the radar in pixels
+RADAR_SIZE = 192            # size of the radar in pixels
 RADAR_OFFSET = 20           # margin from top and right of the screen, in pixels
 RADAR_CENTER_X = 0          # X offset from center: 0 means center of the screen
 RADAR_RANGE = 50            # this is the scale divider for the radar: the higher value, the higher range (players are closer)
@@ -87,10 +87,6 @@ COLOR_CLAYMORE = 0x3FFF6666                 # color of claymores
 COLOR_CLAYMORE_DISTANCE = 0x7FFF6666        # color of distance indicator for claymore
 COLOR_CLAYMORE_SPRITE = 0xAF7F7F7F          # blending color for sprites
 COLOR_PLANE = 0x7F880088                    # color for planes & helicopters
-
-COLOR_MAP_BLENDER_FRIEND = 0xFF7FFF7F       # adds green color to friend sprites
-COLOR_MAP_BLENDER_ENEMY = 0xFFFF7F7F        # adds red color to enemy sprites
-COLOR_MAP_BLENDER_NEUTRAL = 0xFFFFFFFF      # no color correction
 
 # distance ESP (in meters or ft)
 DISTANCE_ESP_UNIT =  0.03048                # use  0.03048 for meters, or 0.1 for ft
@@ -157,19 +153,16 @@ BOT_CROUCHED_Z = 38
 BOT_PRONE_Z = 10
 
 BOT_TUBE_Z = 0
-BOT_KNIFE_Z = 0
+BOT_KNIFE_Z = 30
 
 BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
 BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
 
-BOT_SPEED_1 = 5
+BOT_SPEED_1 = 1.8
 BOT_SPEED_TICK_1 = 15
-BOT_SPEED_2 = 3
+BOT_SPEED_2 = 1.8
 BOT_SPEED_TICK_2 = 30
-BOT_SPEED_3 = 2
-# TK Bot Config Info
-TK_BOT_COLOR = 0xFFFF0000
-KEY_TK_BOT = "~VK_RMENU" #Key to bind toggle for Aimbot to aim at same team.
+BOT_SPEED_3 = 1.8
 # ----------------------------------------------------------------------
 # labels
 F1_LABEL = "display"
@@ -204,7 +197,6 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 # all globals beginning with KEY_ are parsed and corresponding keys are being scanned
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
-KEY_RAPID_KNIFE = "OFF"                  # Used to turn knife glitch on for autostab
 KEY_BOT = "VK_RBUTTON VK_HOME"
 KEY_TRIGGER_BOT_KEY = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
 KEY_TUBEBOT = "VK_RBUTTON VK_HOME"
