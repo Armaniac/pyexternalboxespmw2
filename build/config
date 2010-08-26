@@ -24,9 +24,6 @@ ADDR_MAPS = 0x008F2278
 
 COD_WINDOW_NAME = "Modern Warfare 2"
 # ----------------------------------------------------------------------
-# MOCK is set to True to debug purposes only
-#
-MOCK = False              # only used to test hack without the game running
 PROFILING = False        # only used for debug profiling
 
 # ----------------------------------------------------------------------
@@ -34,11 +31,9 @@ PROFILING = False        # only used for debug profiling
 
 APP_NAME = 'Launcher'            # name of the hack window
 
-# this specifies the pause (sleep) between two iterations
-# the number is in seconds, 0.010 meaning 10ms
-# normally 0 should be OK but it might eat up too much CPU. 0.010 is also fine and less aggressive
-MAIN_LOOP_SLEEP = 0.010
-if PROFILING: MAIN_LOOP_SLEEP = 0.000
+# this is the maximum FPS allowed for the hack. It is not guaranteed that it will reach that level though...
+MAIN_MAX_FPS = 50
+if PROFILING: MAIN_LOOP_SLEEP = 1000000
 
 # ----------------------------------------------------------------------
 # Graphical preferences
@@ -50,13 +45,15 @@ if PROFILING: MAIN_LOOP_SLEEP = 0.000
 #    BB = blue
 
 # position of the Radar on the screen
-RADAR_SIZE = 160            # size of the radar in pixels
+RADAR_SIZE = 192            # size of the radar in pixels
 RADAR_OFFSET = 20           # margin from top and right of the screen, in pixels
 RADAR_CENTER_X = 0          # X offset from center: 0 means center of the screen
 RADAR_RANGE = 50            # this is the scale divider for the radar: the higher value, the higher range (players are closer)
 
-KEY_BIG_RADAR = "~VK_ADD "  # display a global map with players, good for air-strikes
+KEY_BIG_RADAR = "+VK_ADD "  # display a global map with players, good for air-strikes
+KEY_RADAR_MAP = "ON"        # display map background?
 BIG_RADAR_SCALE = 0.5       # scale factor for maps, 1.0 makes a 512x512 pix, 0.5 is reduced to 256x256
+BIG_RADAR_BLENDING = 0xAF7F7F7F     # blending color used in BigRadar
 
 # colors for the BOX Esp
 COLOR_FRIEND = 0x7F0000FF                  # blue
@@ -141,7 +138,7 @@ GRAV = 800.0
 TUBE_VEL = 2400.0
 KNIFE_VEL = 1420.0
 
-TUBE_WEAPONS = ("WEAPON_M203", "WEAPON_M79")
+TUBE_WEAPONS = ("WEAPON_M203", "WEAPON_M79", "WEAPON_GP25")
 
 # below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
@@ -151,16 +148,16 @@ BOT_CROUCHED_Z = 38
 BOT_PRONE_Z = 10
 
 BOT_TUBE_Z = 0
-BOT_KNIFE_Z = 0
+BOT_KNIFE_Z = 30
 
 BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
 BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
 
-BOT_SPEED_1 = 5
+BOT_SPEED_1 = 1.8
 BOT_SPEED_TICK_1 = 15
-BOT_SPEED_2 = 3
+BOT_SPEED_2 = 1.8
 BOT_SPEED_TICK_2 = 30
-BOT_SPEED_3 = 2
+BOT_SPEED_3 = 1.8
 # TK Bot Config Info
 TK_BOT_COLOR = 0xFFFF0000
 KEY_TK_BOT = "~VK_RMENU" #Key to bind toggle for Aimbot to aim at same team.
@@ -185,8 +182,8 @@ KEY_STATUS =                "+VK_F1"                        # is status display 
 KEY_STATUS_UP =             "+VK_F2"                        # to select if you want the status up on the screen 
 KEY_CROSSHAIR =     		"+VK_F3"
 KEY_EXPLOSIVES =    		"+VK_F4"
-KEY_AIMBOT_ACTIVE =        	"-VK_F5"
-KEY_TUBEBOT_ACTIVE =       	"-VK_F5"                        # same as AIMBOT
+KEY_AIMBOT_ACTIVE =        	"+VK_F5"
+KEY_TUBEBOT_ACTIVE =       	"+VK_F5"                        # same as AIMBOT
 KEY_WEAPON_ESP =            "-VK_F6"
 KEY_KNIFEBOT_ACTIVE =      	"-VK_F7"
 KEY_AUTOSTAB =      		"-VK_F8"
@@ -198,10 +195,10 @@ KEY_BOX_SNAPLINE =   		"+VK_F12"
 # all globals beginning with KEY_ are parsed and corresponding keys are being scanned
 # key codes can be Windows VK_* key codes or single characters
 # seperate multiple keys with spaces
-KEY_RAPID_KNIFE = "!E"                  # Used to turn knife glitch on for autostab
+KEY_RAPID_KNIFE = "OFF"                  # Used to turn knife glitch on for autostab
 KEY_BOT = "VK_RBUTTON VK_HOME"
 KEY_TRIGGER_BOT_KEY = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I just made this available, since I like it :)
-KEY_TUBEBOT = "VK_HOME VK_LMENU"
+KEY_TUBEBOT = "VK_RBUTTON VK_HOME"
 KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"        # CAPS LOCK
 
@@ -231,9 +228,10 @@ AIRDROP_PERSISTENCE = 15             # number of seconds to keep airdrop marker
 
 # ----------------------------------------------------------------------
 # inspector class for debug
-KEY_INSPECTOR = "VK_NUMPAD0"
+KEY_INSPECTOR = "!VK_NUMPAD0"
 KEY_INSPECT_POS = "!VK_NUMPAD1"
 KEY_INSPECT_DUMP = "!VK_NUMPAD9"
+KEY_INSPECT_DUMP_PLAYERS = "!VK_NUMPAD7"
 
 # ----------------------------------------------------------------------
 # calibration mode, only used for debugging of tubebot and knifebot
