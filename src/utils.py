@@ -124,19 +124,19 @@ class INPUT(Structure):
                  ("iu", _INPUT_UNION)]
 
 def mouse_move(delta_x, delta_y, center_x, center_y, sensitivity):
-    mouse_move_x = int(delta_x * 2.7/ sensitivity )
-    mouve_move_y = int(delta_y * 2.7/ sensitivity )
+    mouse_move_x = delta_x * 2.7/ sensitivity 
+    mouve_move_y = delta_y * 2.7/ sensitivity
     if mouse_move_x == 0 and mouve_move_y == 0:
         return
     fScreenWidth = win32api.GetSystemMetrics(win32con.SM_CXSCREEN) - 1.0
     fScreenHeight = win32api.GetSystemMetrics(win32con.SM_CYSCREEN) - 1.0
     dx = 65535.0 / fScreenWidth
     dy = 65535.0 / fScreenHeight
-    fx = (center_x + delta_x) * dx
+    fx = (center_x + mouse_move_x) * dx
     if not MOUSE_INVERSION:
-        fy = (center_y + delta_y) * dy
+        fy = (center_y + mouve_move_y) * dy
     else:
-        fy = (center_y - delta_y) * dy
+        fy = (center_y - mouve_move_y) * dy
     input = INPUT()
     input.type = INPUT_MOUSE
     input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE

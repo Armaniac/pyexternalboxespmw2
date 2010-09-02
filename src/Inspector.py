@@ -1,8 +1,8 @@
 from utils import draw_string_center
 from Keys import keys
-from utils import dump_obj
+from utils import dump_obj, mouse_move
 from ctypes import Structure, c_char
-from structs import ET_EXPLOSIVE, ENTITIESMAX, PLAYERMAX
+from structs import ET_EXPLOSIVE, ENTITIESMAX, PLAYERMAX, VECTOR
 # this module allows to inspect entities near the center crosshair
 
 class dumped(Structure):
@@ -12,6 +12,37 @@ class Inspector(object):
     
     def __init__(self, env):
         self.env = env
+    
+    def move_sequence(self):                 # coroutine
+        yield
+        read_game = self.env.read_game
+        old_va = read_game.view_angles
+        for i in range(15): #@UnusedVariable
+            va = read_game.view_angles
+            print "va = %.2f %.2f %.2f" % (va.x, va.y, va.z)
+            print "dd = %.2f %.2f %.2f" % (va.x - old_va.x, va.y - old_va.y, va.z - old_va.z)
+            print "moving 10 pix right, sensitivity = %.1f" % read_game.sensitivity
+            old_va = VECTOR(va.x, va.y, va.z)
+            mouse_move(10.0, 0.0, read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
+            yield
+            yield
+            yield
+            yield
+            yield
+            yield
+        for i in range(10): #@UnusedVariable
+            va = read_game.view_angles
+            print "va = %.2f %.2f %.2f" % (va.x, va.y, va.z)
+            print "dd = %.2f %.2f %.2f" % (va.x - old_va.x, va.y - old_va.y, va.z - old_va.z)
+            print "moving 10 pix down, sensitivity = %.1f" % read_game.sensitivity
+            old_va = VECTOR(va.x, va.y, va.z)
+            mouse_move(0.0, 10.0, read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
+            yield
+            yield
+            yield
+            yield
+            yield
+            yield
     
     def render(self):
         read_game = self.env.read_game
@@ -104,6 +135,8 @@ class Inspector(object):
         if False and read_game.is_in_game:
             print "weapon=%i" % read_game.my_player.weapon_num
             
+        if keys["KEY_INSPECT_MOVE_MOUSE"]:
+            self.env.sched.new(self.move_sequence())
         
 
     @staticmethod
