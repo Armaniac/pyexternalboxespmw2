@@ -21,7 +21,7 @@ class Inspector(object):
             va = read_game.view_angles
             print "va = %.2f %.2f %.2f" % (va.x, va.y, va.z)
             print "dd = %.2f %.2f %.2f" % (va.x - old_va.x, va.y - old_va.y, va.z - old_va.z)
-            print "moving 10 pix right, sensitivity = %.1f" % read_game.sensitivity
+            print "moving 10 pix right, fov_x=%.2f fov_y=%.2f sensitivity = %.1f" % (read_game.fov_x, read_game.fov_y, read_game.sensitivity)
             old_va = VECTOR(va.x, va.y, va.z)
             mouse_move(10.0, 0.0, read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
             yield

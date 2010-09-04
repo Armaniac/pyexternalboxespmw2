@@ -1,5 +1,5 @@
 from Config import * #@UnusedWildImport
-from utils import draw_spot, mouse_move, draw_string_center
+from utils import draw_spot, mouse_move
 from Keys import keys
 from structs import ET_PLAYER, FLAGS_CROUCHED, FLAGS_PRONE, VECTOR
 import re
@@ -96,7 +96,7 @@ class Bot(object):
                     if spot_coord:
                         angle[0] = spot_coord.x - read_game.screen_center_x
                         angle[1] = spot_coord.y - read_game.screen_center_y
-                        mouse_move(angle[0] / 3, angle[1] / 3, read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
+                        mouse_move(angle[0] / 1.2, angle[1] / 1.2, read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
                 else:
                     self.player_locked = None
             elif key_bot:

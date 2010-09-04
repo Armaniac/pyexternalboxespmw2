@@ -1,4 +1,4 @@
-from structs import EntityTracker, ET_PLAYER, PLAYERMAX
+from structs import EntityTracker, ET_PLAYER, PLAYERMAX, ET_EXPLOSIVE
 
 class Tracker(object):
     _next_zombie = -1                               # decrementing number for the next zombie index to use
@@ -36,6 +36,8 @@ class Tracker(object):
             te.set_values(e)
             te.weapon_num = e.WeaponNum
             te.model_name = self.env.weapon_names.get_weapon_model(e.WeaponNum)
+#            if e.type != ET_EXPLOSIVE:
+#                print "Track new entity #%i type %i corr_weap=%i" % (idx, e.type, self.env.weapon_names.get_corrected_weapon_num(e.WeaponNum))
             if owner >= 0 and owner < PLAYERMAX:
                 te.planter = read_game.player[owner]
             else:

@@ -43,7 +43,8 @@ SPRITES = { "WEAPON_CLAYMORE": "claymore.jpg",
 HELIS = { 1181: "COMPASS_HARRIER",
           1183: "COMPASS_LITTLEBIRD",
           1184: "COMPASS_HELI",
-          1185: "COMPASS_PAVELOW"
+          1185: "COMPASS_PAVELOW",
+          1186: "COMPASS_HELI",     # apache
          }
 # if riot == 2
 # 1176, 1175, 1174: AC-130 from big to small
