@@ -1,4 +1,4 @@
-External BoxESP v5.1 by sph4ck & dheir
+External BoxESP v5.2 by sph4ck & dheir
 ----------------------------------------
 Design notes and technical insight
 
@@ -51,7 +51,11 @@ The following are utilities classes:
 
 * Keys.py: first parses the config file to extract all parameters starting with "KEY_". This gives us the list of all keys to scan. At each iteration, reads all the keys status and publish them in the keys[] hash. Special treatment for F1-F12 working in on/off toggles (to catch real status of F1-F12 use VK_F1).
 
-* stealth.py: this module only creates random data structures and pieces of code to avoid any anti-cheat program to look at fixed memory location to detec this hack.
+* stealth.py: this module only creates random data structures and pieces of code to avoid any anti-cheat program to look at fixed memory location to detect this hack.
+
+* Tracker.py: registers objects to be tracked for the ESP, offering a light-weight alternative to scanning all entities over and over
+
+* Sheduler.py: a co-routines scheduler, offering a simpler way to do lightweight threads (uses the Python yield() statement)
 
 Note: on some antivirus software like Kaspersky, the key scanning is alerted as a potential key logger. This is obviously a false positive. If you are a real paranoid, you can check that this program has network communication at all.
 
@@ -82,6 +86,7 @@ List of feature-modules:
 * Esp.py: draws the Box ESP on the screen
 * Inspector.py: for debug only
 * Radar.py: draws the mini-radar
+* Radar2.py: draws the mini-radar, newer version with map background
 * BigRadar.py: draws a non-rotating big radar with players
 * Rage.py: selects an enemy player with a specific color, so you can rage him again and again (another hacker?)
 * Status.py: draw the status bar at the bottom of the window
