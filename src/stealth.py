@@ -8,7 +8,7 @@ import string
 def rand_letters(len):
     return "".join([random.choice(string.letters) for x in xrange(len)]) #@UnusedVariable
 
-for i in range(random.randint(2,128)):
+for i in range(random.randint(2,1024)):
     name = "RAND_" + rand_letters(random.randint(8,24))
-    val = rand_letters(random.randint(16,512))
+    val = rand_letters(random.randint(16,1000))
     exec "%s = '%s'" % (name, val)
