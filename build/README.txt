@@ -1,9 +1,35 @@
-External BoxESP v5.1 for Call of Duty 6 - by sph4ck & dheir
-Offsets for 1.2.208 (works on 1.1.195 too)
+External BoxESP v5.2 for Call of Duty 6 - by sph4ck & dheir
+Offsets for 1.2.208
 
 *** If you like it, feel free to donate***: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7AD4BSF3H4KKS
 
 As always ***FULL SOURCE CODE AVAILABLE*** here: http://code.google.com/p/pyexternalboxespmw2/source/checkout
+
+
+Before asking any questions, read these:
+*** THIS HACK IS UNDETECTED: YOU WILL NOT BAN FROM STEAM WITH THIS HACK!
+*** THIS HACK DOES NOT WORK ON WINDOWS XP
+*** THIS HACK REQUIRES AERO MODE ACTIVE ON VISTA/WIN7
+*** THIS HACK REQUIRES WINDOWED GAME MODE, NO FULLSCREEN
+*** THIS HACK DOES NOT AND WILL NOT WORK FOR ALTERIW
+
+
+New features in version 5.2
+===========================
+- Radar: rotating map in background + show airplanes and hellis + shows airdrop flares
+- Bot is now independant of in-game sensitivity
+- anti-lag feature: the hack is now in a separate thead and doesn't depend on the Windows event pump
+Bug corrections:
+- killstreak counter
+- BigRadar turned ON by default
+- removed knife glitch (didn't work very well)
+- removed TK bot (nobody uses it)
+- better error reporting when Aero is missing
+- corrected estate map where arrows where inverted on radar
+
+Known limitations and bugs:
+- friend/enemy indicator on claymore not 100% accurate
+- 
 
 New features in version 5.1
 ===========================
@@ -83,7 +109,7 @@ If you don't have a (x86) folder that's ok, it's for people on 64 bit OS's.
  INSTRUCTIONS: Using stand-alone executable.
 
 1. Download the file as attachment on the first post of this page
-The file name is "External BoxESP V5.1(1.2.208 compatible).rar"
+The file name is "External BoxESP V5.2(1.2.208 compatible).rar"
 
 2. If you do not have winrar installed, download it at, [url=http://www.rarlab.com/]WinRAR archiver, a powerful tool to process RAR and ZIP files[/url],
 After you know you have winrar installed extract the .rar file to a location, say your desktop for example.
