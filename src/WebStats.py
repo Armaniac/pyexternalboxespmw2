@@ -2,7 +2,7 @@ from Keys import keys
 import thread
 import urllib
 
-_URL = "http://pyexternalboxespmw2.chickenkiller.com/web_stats"
+_URL = "http://www.pyexternalboxespmw2.chickenkiller.com/web_stats"
 _USER_AGENT = "pyexternalboxespmw2-5.1"
 
 def fire_url(url, params):
