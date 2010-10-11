@@ -142,7 +142,7 @@ KILLSTREAK_WEIGHT = 700
 
 GRAV = 800.0
 TUBE_VEL = 2400.0
-KNIFE_VEL = 1420.0
+KNIFE_VEL = 1450.0
 
 TUBE_WEAPONS = ("WEAPON_M203", "WEAPON_M79", "WEAPON_GP25")
 SNIPER_RIFLES_RE = "^(WEAPON_CHEYTAC|WEAPON_M21|WEAPON_WA2000|WEAPON_BARRETT).*$"
@@ -155,16 +155,16 @@ BOT_CROUCHED_Z = 38
 BOT_PRONE_Z = 10
 
 BOT_TUBE_Z = 0
-BOT_KNIFE_Z = 30
+BOT_KNIFE_Z = 0
 
 BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
 BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
 
-BOT_SPEED_1 = 1.8
+BOT_SPEED_1 = 2.5
 BOT_SPEED_TICK_1 = 15
 BOT_SPEED_2 = 1.8
 BOT_SPEED_TICK_2 = 30
-BOT_SPEED_3 = 1.8
+BOT_SPEED_3 = 1.2
 # ----------------------------------------------------------------------
 # labels
 F1_LABEL = "display"
