@@ -223,7 +223,7 @@ class Player(object):
         self.zoomed = mw2_entity.Zoomed
         self.weapon_num = mw2_entity.WeaponNum
         self.alive = mw2_entity.alive
-        self.enemy = False
+        #self.enemy = False        #keep previous state
         
         p_str = cast(pointer(mw2_clientinfo.name), c_char_p)
         self.name = p_str.value

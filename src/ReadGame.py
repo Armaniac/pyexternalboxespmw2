@@ -230,7 +230,7 @@ class ReadGame(object):
             for p in self.player:
                 if (p.type == ET_PLAYER) and p.valid and p.alive:
                     if ((p.team == 1 or p.team == 2) and (p.team == self.my_team)) or p == self.my_player:
-                        self.enemy = False
+                        p.enemy = False
                         if p.alive & 0x0001:
                             p.color_esp = COLOR_FRIEND
                             p.color_map = MAP_COLOR_FRIEND
