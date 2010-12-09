@@ -70,13 +70,6 @@ class Esp(object):
                             
                             
         
-        #=======================================================================
-        # pp = cast(pointer(read_game.mw2_entity), POINTER(c_int))
-        # for i in range(ENTITIESMAX):
-        #    #type = pp[0xE0/4 + 0x204/4*i]
-        #    type = pp[0x38 + 0x81*i]
-        #    if type == ET_TURRET or type == ET_EXPLOSIVE or type==ET_HELICOPTER or type==ET_PLANE:
-        #=======================================================================
 #        for idx in range(ENTITIESMAX):
 #            e = read_game.mw2_entity.arr[idx]
 #            if e.type == ET_TURRET and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:

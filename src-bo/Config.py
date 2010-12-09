@@ -212,6 +212,7 @@ KNIFE_RIOT_OFFSET = 2                   # all offsets are considered if RIOT SHI
 KNIFE_TACTICAL_WEAPONS = (22, 36, 42)   # pistols with tactical knife enabled
 # ----------------------------------------------------------------------
 # autostab parameters
+AUTOSTAB_KEY = "V"
 AUTOSTAB_DIST = 75             # distance in 1/10th of ft
 AUTOSTAB_DIST_Z = 50            # max vertical distance (otherwise you try to stab people above/under you)
 

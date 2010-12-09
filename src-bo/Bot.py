@@ -150,7 +150,6 @@ class Bot(object):
 
     @staticmethod
     def find_slope(target, player, vel):
-        from math import sqrt
         # calculate the slope (or tan(angle)) based on the trajectory of grenade
         # see: http://en.wikipedia.org/wiki/Trajectory_of_a_projectile#Angle_.CE.B8_required_to_hit_coordinate_.28x.2Cy.29
         sq_vel = vel * vel

@@ -24,5 +24,5 @@ class Autostab(object):
                     if dist < AUTOSTAB_DIST and vert_dist < AUTOSTAB_DIST_Z:
                         if self.env.ticks - self.last_melee_tick > 10:          # surge protector
                             self.last_melee_tick = self.env.ticks
-                            windll.User32.keybd_event(0x54, 0x12, 0, 0)
-                            windll.User32.keybd_event(0x54, 0x12, KEYEVENTF_KEYUP, 0)
+                            windll.User32.keybd_event(ord(AUTOSTAB_KEY), 0x12, 0, 0)
+                            windll.User32.keybd_event(ord(AUTOSTAB_KEY), 0x12, KEYEVENTF_KEYUP, 0)
