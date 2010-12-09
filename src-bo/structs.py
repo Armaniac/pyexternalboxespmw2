@@ -2,14 +2,6 @@ from ctypes import * #@UnusedWildImport
 #from UserList import UserList
 import math
 
-#class Rect(UserList):
-#    def __init__(self, initlist=None):
-#        super(Rect, self).__init__(initlist)
-#        self.left = initlist[0]
-#        self.top = initlist[1]
-#        self.right = initlist[2]
-#        self.bottom = initlist[3]    
-
 PLAYERMAX = 64            # number of players to loop in
 ENTITIESMAX = 2048        # total number of entities present XXX
 
@@ -41,7 +33,7 @@ ALIVE_FIRING        = 0x04
 FLAGS_CROUCHED      = 0x000001
 FLAGS_PRONE         = 0x000002
 
-PERK_STEALTH        = 0x40000
+PERK_STEALTH        = 0x40000           # Hmmm doesn't seem to work XXX
 
 TEAM_FREE           = 0
 TEAM_ALLIES         = 1
@@ -60,6 +52,8 @@ class VECTOR(Structure):
         return math.sqrt(self.x*self.x + self.y*self.y + self.z*self.z)
     def dotProduct(self, dot):
         return self.x*dot.x + self.y*dot.y + self.z*dot.z;
+    def scalar_mul(self, multiplier):
+        return VECTOR(self.x * multiplier, self.y * multiplier, self.z * multiplier)
     def __add__(self, other):
         return VECTOR(self.x+other.x, self.y+other.y, self.z+other.z)
     def __sub__(self, other):
@@ -87,12 +81,6 @@ class MSG(Structure):
                 ('time', c_int),
                 ('pt', POINT)]
 
-#class MW2_RefDef(Structure):
-#    _fields_ = [ ("_p00", c_char * 16),
-#                 ("fov_x", c_float),
-#                 ("fov_y", c_float),
-#                 ("_P01", c_char * 12),
-#                 ("viewAxis", VECTOR * 3) ]
 class COD7_RefDef(Structure):
     _fields_ = [ 
                  ("viewAngles", VECTOR),    # 0x00
@@ -108,25 +96,6 @@ class COD7_RefDef(Structure):
                  ("_P01", c_char * 4),      # 0x28
                  ("viewAxis", VECTOR * 3),  # 0x2C
                  ]
-
-#===============================================================================
-# class MW2_CGS_T(Structure):
-#    _fields_ = [ ("_p00", c_char * 8),          # 0x00
-#                 ("screenXScale", c_int),       # 0x08
-#                 ("screenYScale", c_int),       # 0X0C
-#                 ("ScreenXBias", c_float),      # 0x10
-#                 ("serverCommandSequence", c_int),# 0x14
-#                 ("processedSnapshotNum", c_int),# 0x18
-#                 ("localServer", c_int),        # 0x1C
-#                 ("GameMode", STR4),            # 0x20
-#                 ("_p24", c_char * 28),         # 0x24
-#                 ("ServerName", c_char * 16),   # 0x40
-#                 ("_p50", c_char * 244),        # 0x50
-#                 ("maxclients", c_int),         # 0x144
-#                 ("_p148", c_char * 4),         # 0x148
-#                 ("mapname", c_char * 64),      # 0x14C
-#                ]
-#===============================================================================
 
 class COD7_CG_T(Structure):
     _fields_ = [ ("clientNum", c_int),          # 0x00
@@ -196,28 +165,8 @@ class COD7_CGS_T(Structure):
                  ("_p01", c_char * 28),         # 0x24
                  ("server", STR16),             # 0x40
                  ("_p02", c_char * 244),        # 0x50
-                 ("map", c_char * 32),                # 0x144
+                 ("map", c_char * 32),          # 0x144
                 ]
-
-#class MW2_ClientInfo_T(Structure):
-#    _fields_= [ ("_p00", c_char * 12),  # 0x00
-#                ("name", STR16),        # 0x0C
-#                ("team", c_uint),       # 0x1C
-#                ("team2", c_uint),      # 0x20
-#                ("_p01", c_char * 8),   # 0x24
-#                ("perk", c_uint),       # 0x2C
-#                ("_p02", c_char * 16),  # 0x30
-#                ("BodyModel", STR64),   # 0x40
-#                ("HeadModel", STR64),   # 0x80
-#                ("WeaponModel", STR64), # 0xC0
-#                ("WeaponModel2", STR64),# 0x100
-#                ("WeaponExplosive", STR64),# 0x140
-#                ("_p03", c_char * 552), # 0x180
-#                ("pose", c_uint),       # 0x3A8
-#                ("_p04", c_char * 96),  # 0x3AC
-#                ("pose2", c_uint),      # 0x40C
-#                ("_p05", c_char * 284), # 0x410
-#               ]                        # 0x528
     
 class COD7_ClientInfo_T(Structure):
     _fields_= [ ("infoValid", c_int),   # 0x000
@@ -245,43 +194,6 @@ class COD7_ClientInfo_T(Structure):
                 ("_p07", c_char * 140), # 0x53C
                ]                        # 0x5C8
 
-#class MW2_Entity_T(Structure):
-#    _fields_= [ ("_p00", c_ushort),     # 0x00
-#                ("valid", c_ushort),    # 0x02
-#                ("_p01", c_char * 20),  # 0x04
-#                ("pos", VECTOR),        # 0x18
-#                ("fPitch", c_float),    # 0x24
-#                ("fYaw", c_float),      # 0x28
-#                ("fRoll", c_float),     # 0x2C
-#                ("_p02", c_char * 60),  # 0x30
-#                ("pose", c_uint),       # 0x6C
-#                ("_p03", c_char * 12),  # 0x70
-#                ("pos2", VECTOR),       # 0x7C
-#                ("_p04", c_char * 0x30),# 0x88
-#                ("owner_scr1", c_int),  #0xB8
-#                ("owner_scr2", c_int),  #0xBC
-#                ('_p042', c_char * 0x14),# 0xC0
-#                ("owner_air", c_int),   # 0xD4
-#                ("_i01", c_int),        # 0xD8
-#                ("clientNum", c_int),   # 0xDC
-#                ("type", c_int),        # 0xE0
-#                ("PlayerPose", c_ubyte),# 0xE4
-#                ("Shooting", c_ubyte),  # 0xE5
-#                ("Zoomed", c_ubyte),    # 0xE6
-#                ("_p05", c_ubyte),      # 0xE7
-#                ("_p06", c_char * 12),  # 0xE8
-#                ("pos3", VECTOR),       # 0xF4
-#                ("_p100", c_char * 88), # 0x100
-#                ("owner_turret", c_int),# 0x158
-#                ("_p15c", c_char * 12), # 0x15C
-#                ("modelIndex", c_int),  # 0x168
-#                ("_p16c", c_char * 60), # 0x16C
-#                ("WeaponNum", c_short), # 0x1A8
-#                ("_p07", c_char * 50),  # 0x1AA
-#                ("alive", c_int),       # 0x1DC
-#                ("_p08", c_char * 36),  # 0x1E0
-#                ]                       # 0x204 - 516 bytes
-#    
 class COD7_Entity_T(Structure):
     _fields_= [ ("_p00", c_char * 48),      # 0x000
                 ("pos", VECTOR),            # 0x030
@@ -289,13 +201,13 @@ class COD7_Entity_T(Structure):
                 ("angley", c_float),        # 0x040
                 ("anglez", c_float),        # 0x044
                 ("_p01", c_char * 320),     # 0x048
-                ("pos2", VECTOR),           # 0x188
+                ("newpos", VECTOR),         # 0x188
                 ("_p02", c_char * 24),      # 0x194
                 ("angle2", VECTOR),         # 0x1AC
                 ("_p12", c_char * 52),      # 0x1B8
                 ("perk", c_int),            # 0x1EC 0:Not Zoomed 0x40000 stealth perk?
                 ("_p22", c_char * 16),      # 0x1F0
-                ("pos3", VECTOR),           # 0x200
+                ("oldpos", VECTOR),         # 0x200
                 ("_p03", c_char * 24),      # 0x20C
                 ("oldangle", VECTOR),       # 0x224
                 ("_p13", c_char * 20),      # 0x230
@@ -337,8 +249,8 @@ class Player(object):
     def __init__(self):
         self.valid = 0
         self.pos = None
-        #self.pos2 = None
-        #self.pos3 = None
+        self.newpos = None
+        self.oldpos = None
         self.prev_pos = None
         self.pitch = 0
         self.yaw = 0
@@ -370,8 +282,8 @@ class Player(object):
         self.valid = True
         self.prev_pos = self.pos
         self.pos = cod7_entity.pos
-        #self.pos2 = cod7_entity.pos2
-        #self.pos3 = cod7_entity.pos3
+        self.newpos = cod7_entity.newpos
+        self.oldpos = cod7_entity.oldpos
         self.pitch = cod7_entity.anglex
         self.yaw = cod7_entity.angley
         #self.roll = cod7_entity.fRoll

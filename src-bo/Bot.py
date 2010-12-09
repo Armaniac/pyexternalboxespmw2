@@ -46,7 +46,7 @@ class Bot(object):
         #Aimbot
         for p in bot_range:                                
             if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & ALIVE_FLAG and p.enemy:
-                aim_target = p.pos
+                aim_target = p.pos + (p.newpos - p.oldpos).scalar_mul(BOT_MOTION_COMPENSATE)
                 if key_tubebot:
                     aim_target.z += BOT_TUBE_Z
                 elif key_knifebot:
