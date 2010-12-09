@@ -313,7 +313,7 @@ class EntityTracker(object):
         self.yaw = 0
         self.type = 0                       # type of object (as in entity)
         self.alive = 0                      # alive attribute (as in entity)
-        self.weapon_num = 0                 # weaponnul (as in entity)
+        self.weapon_num = 0                 # weaponnum (as in entity)
         self.model_name = ""                # model name
         self.planter = None                 # player who planted the explosive
     
@@ -322,6 +322,7 @@ class EntityTracker(object):
         self.yaw = cod7_entity.fYaw
         self.type = cod7_entity.type
         self.alive = cod7_entity.alive
+        self.weapon_num = cod7_entity.weapon - 1
 
 if __name__ == "__main__":
     print "Sizeof COD7_Entity_T is 0x%x, should be 0x328" % sizeof(COD7_Entity_T)

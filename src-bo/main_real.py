@@ -1,12 +1,8 @@
 import Scheduler
 import time
-from ctypes import windll, byref, pointer
-from structs import MSG
 import ReadGame, Frame, Radar, Status, Keys, Inspector, Tracker, Crosshair, Esp, Bot, Rage, Killstreak, WeaponNames, Autostab, WebStats
-#import ReadGame, Frame, Textures, Radar2, Esp, Status, Keys, Autostab, Inspector, Rage, Killstreak, BigRadar, WeaponNames, Sprites
-#import Crosshair, Bot, WebStats, Tracker
-#import PatternFinder
-import cProfile
+#import Textures, Radar2, BigRadar, Sprites, PatternFinder
+#import cProfile
 from Config import PROFILING, MAIN_MAX_FPS
 import traceback
 from utils import ExitingException
@@ -136,10 +132,11 @@ def launch():
     m = Main()
     try:
         m.init()
-        if PROFILING:
-            cProfile.runctx('m.run()', globals(), locals())
-        else:
-            m.run()
+        m.run()
+#        if PROFILING:
+#            cProfile.runctx('m.run()', globals(), locals())
+#        else:
+#            m.run()
     except ExitingException, e:
         print "Exiting: %s" % e
     except Exception:

@@ -30,18 +30,17 @@ class Tracker(object):
     def track_entity(self, idx, owner=-1):
         read_game = self.env.read_game
         if not idx in self._tracked_ent:
-            e = read_game.mw2_entity.arr[idx]
+            e = read_game.cod7_entity.arr[idx]
             te = EntityTracker(idx)
             te.startoflife = read_game.game_time
             te.set_values(e)
-            te.weapon_num = e.WeaponNum
-            te.model_name = self.env.weapon_names.get_weapon_model(e.WeaponNum)
+            te.model_name = self.env.weapon_names.get_weapon_model(te.weapon_num)
 #            if e.type != ET_EXPLOSIVE:
 #                print "Track new entity #%i type %i corr_weap=%i" % (idx, e.type, self.env.weapon_names.get_corrected_weapon_num(e.WeaponNum))
             if owner >= 0 and owner < PLAYERMAX:
                 te.planter = read_game.player[owner]
-            else:
-                te.planter = self.find_nearest_player(te.pos)
+#            else:
+#                te.planter = self.find_nearest_player(te.pos)
             # if airdrop
             self._tracked_ent[idx] = te
             return te

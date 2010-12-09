@@ -2,7 +2,6 @@ from Config import * #@UnusedWildImport
 from utils import draw_string_center
 from Keys import keys
 
-
 class Killstreak(object):
     
     def __init__(self, env):

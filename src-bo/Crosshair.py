@@ -2,7 +2,6 @@ from Config import * #@UnusedWildImport
 from utils import draw_line_abs
 from Keys import keys
 
-
 class Crosshair(object):
     
     def __init__(self, env):

@@ -3,7 +3,7 @@ from Config import * #@UnusedWildImport
 from utils import draw_box, draw_line_abs, draw_string_center, draw_spot
 from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX, ENTITIESMAX, ALIVE_FLAG
 from structs import RECT
-from directx.d3d import D3DMATRIX
+from directx.d3d import D3DMATRIX, D3DRECT, D3DCLEAR
 from directx.d3dx import d3dxdll, D3DXVECTOR2
 from Keys import keys
 from ctypes import windll
@@ -35,17 +35,6 @@ class Esp(object):
                         p.color_esp = self.get_faded_color(p.pos, p.color_esp)
 
                         if keys["KEY_BOXESP"]:
-                            if keys["KEY_SPOT23_ESP"]:
-                                p3 = read_game.mw2_entity.arr[idx].pos3
-                                pos3 = VECTOR(p3.x, p3.y, p3.z + 55)
-                                head3 = read_game.world_to_screen(pos3)
-                                if head3:
-                                    draw_spot(frame.line, head3.x, head3.y, 0x7FC00000)
-                                p2 = read_game.mw2_entity.arr[idx].pos2
-                                pos2 = VECTOR(p2.x, p2.y, p2.z + 55)
-                                head2 = read_game.world_to_screen(pos2)
-                                if head2:
-                                    draw_spot(frame.line, head2.x, head2.y, 0x80FFBF00)
                             draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, p.color_esp)
                             if keys["KEY_WEAPON_ESP"]:
                                 name_esp_str = "%s [%s]" % (p.name, weapon_names.get_weapon_model(p.weapon_num))
@@ -70,8 +59,8 @@ class Esp(object):
                             
                             
         
-#        for idx in range(ENTITIESMAX):
-#            e = read_game.mw2_entity.arr[idx]
+        for idx in range(ENTITIESMAX):
+            e = read_game.cod7_entity.arr[idx]
 #            if e.type == ET_TURRET and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
 #                if e.owner_turret >= 0 and e.owner_turret < PLAYERMAX:
 #                    self.env.tracker.track_entity(idx, e.owner_turret)
@@ -85,9 +74,8 @@ class Esp(object):
 #                            size_x = size_y / 2.75
 #                            draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, COLOR_SENTRY)
 #                    
-#            elif e.type == ET_EXPLOSIVE and e.alive & ALIVE_FLAG:
-#                #self.draw_explosive(e)
-#                self.track_explosive(idx)
+            if e.type == ET_EXPLOSIVE and e.alive & ALIVE_FLAG:
+                self.track_explosive(idx)
 #                    
 #            elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
 #                if e.owner_air >= 0 and e.owner_air < PLAYERMAX:
@@ -106,7 +94,7 @@ class Esp(object):
 #                                draw_line_abs(frame.line, read_game.screen_center_x, read_game.resolution_y,
 #                                      feet.x, feet.y, COLOR_BOX_LINE_WIDTH, COLOR_PLANE)
 #                        
-#        self.loop_tracked_explo()
+        self.loop_tracked_explo()
     
     def calc_size_xy(self, p):
         head_pos = VECTOR(p.pos.x, p.pos.y, p.pos.z + 60)       # eyepos of standing player
@@ -134,8 +122,8 @@ class Esp(object):
     
     def track_explosive(self, idx):
         te = self.env.tracker.track_entity(idx)
-        if te and te.model_name.find("_AIRDROP_") > 0:
-            te.endoflife = self.env.read_game.game_time + int(AIRDROP_PERSISTENCE*1000)
+#        if te and te.model_name.find("_AIRDROP_") > 0:
+#            te.endoflife = self.env.read_game.game_time + int(AIRDROP_PERSISTENCE*1000)
 
     def loop_tracked_explo(self):
         for te in self.env.tracker.get_tracked_entity_list():
@@ -150,6 +138,11 @@ class Esp(object):
         feet = read_game.world_to_screen(te.pos)
         head = read_game.world_to_screen(head_pos)
         if feet and head:
+            r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
+            frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
+            return
+        
+        
             # claymore friend tracking
             if te.model_name == "WEAPON_CLAYMORE":
                 if not te.planter.enemy:
