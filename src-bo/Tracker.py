@@ -18,7 +18,7 @@ class Tracker(object):
         for idx in te_keys:
             te = self._tracked_ent[idx]
             if idx >= 0:                     # do not update if zombie object
-                te.set_values(read_game.mw2_entity.arr[te.idx])
+                te.set_values(read_game.cod7_entity.arr[te.idx])
                 if not(te.alive & ALIVE_FLAG):                # do not update if zombie object                  # go to zombie mode
                     del self._tracked_ent[idx]           # remove from regular list
                     if te.endoflife > 0 and te.endoflife > read_game.game_time:

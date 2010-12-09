@@ -319,7 +319,7 @@ class EntityTracker(object):
     
     def set_values(self, cod7_entity):
         self.pos = cod7_entity.pos
-        self.yaw = cod7_entity.fYaw
+        self.yaw = cod7_entity.angley
         self.type = cod7_entity.type
         self.alive = cod7_entity.alive
         self.weapon_num = cod7_entity.weapon - 1

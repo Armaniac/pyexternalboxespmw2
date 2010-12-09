@@ -126,7 +126,7 @@ class Frame(object):
         quit = False
         while not quit:
             msg = MSG()
-            pending = windll.user32.PeekMessageA(pointer(msg), self.hwnd, 0, 0, 1)      # PM_REMOVE = 1
+            pending = windll.user32.GetMessageA(pointer(msg), self.hwnd, 0, 0)      # PM_REMOVE = 1
             if (msg.message & 0xFFFF == 18):         # WM_QUIT = 18
                 break
             windll.user32.TranslateMessage(byref(msg))
