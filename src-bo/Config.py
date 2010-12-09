@@ -17,8 +17,8 @@ ENTITY_PTR      = 0xD2E8F0
 ISINGAME_PTR    = 0xD2EB9C  # ??? (*(DWORD*)0xD2EB9C)+0x18
 
 #WEAPON_PTR  = 0x00c55f4c
-WEAPON_PTR  = 0x00c57f4c
-#WEAPON_PTR  = 0x00c5c21c
+#WEAPON_PTR  = 0x00c57f4c
+WEAPON_PTR  = 0x00c5c21c
 REFDEF      = 0x2ABDAFC0
 CLIENTINFO  = 0x2ABF70E8 
 ENTITY      = 0x2AC840DC 
@@ -245,7 +245,7 @@ KEY_INSPECT_MOVE_MOUSE = "!VK_NUMPAD5"
 # calibration mode, only used for debugging of tubebot and knifebot
 # *** DON'T ACTIVATE UNLESS YOU KNOW WHAT YOU ARE DOING
 CALIBRATING = False
-DEBUG_PRINT_WEAPON_NAMES = False
+DEBUG_PRINT_WEAPON_NAMES = True
 
 # ======================================================================
 # == CUT HERE to recreate the config file                             ==

@@ -140,6 +140,8 @@ class Esp(object):
         if feet and head:
             r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
             frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
+            s = "[weap=%i]" % (te.weapon_num)
+            draw_string_center(frame.font, feet.x, feet.y, 0xFFFFFFFF, s)
             return
         
         
