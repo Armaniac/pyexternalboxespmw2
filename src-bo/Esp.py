@@ -138,17 +138,10 @@ class Esp(object):
         feet = read_game.world_to_screen(te.pos)
         head = read_game.world_to_screen(head_pos)
         if feet and head:
-            r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
-            frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
-            s = "[weap=%i]" % (te.weapon_num)
-            draw_string_center(frame.font, feet.x, feet.y, 0xFFFFFFFF, s)
-            return
-        
-        
             # claymore friend tracking
-            if te.model_name == "WEAPON_CLAYMORE":
-                if not te.planter.enemy:
-                    te.model_name = "WEAPON_CLAYMORE-friend"
+#            if te.model_name == "WEAPON_CLAYMORE":
+#                if not te.planter.enemy:
+#                    te.model_name = "WEAPON_CLAYMORE-friend"
             size_y = feet.y - head.y
             if size_y < 12:  size_y = 12.0
             sprite = self.env.sprites.get_sprite(te.model_name)
@@ -169,7 +162,10 @@ class Esp(object):
                 frame.sprite.End()
                 self.draw_distance_ESP(te.pos, feet.x, feet.y, COLOR_CLAYMORE_DISTANCE)
             else:
-                pass
+                r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
+                frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
+                s = "[weap=%i]" % (te.weapon_num)
+                draw_string_center(frame.font, feet.x, feet.y, 0xFFFFFFFF, s)
                 #print "unknown explosive model:%s (%i)" % (model_name, e.WeaponNum)
                 #r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
                 #frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
