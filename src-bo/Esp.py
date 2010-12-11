@@ -122,6 +122,8 @@ class Esp(object):
     
     def track_explosive(self, idx):
         te = self.env.tracker.track_entity(idx)
+        if te is not None:
+            print "Tracking explosive idx=%i, weapon=%i, name=%s" % (idx, te.weapon_num, te.model_name)
 #        if te and te.model_name.find("_AIRDROP_") > 0:
 #            te.endoflife = self.env.read_game.game_time + int(AIRDROP_PERSISTENCE*1000)
 

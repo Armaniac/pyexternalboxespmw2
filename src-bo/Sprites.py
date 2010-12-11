@@ -10,7 +10,7 @@ SPRITES_FOLDER = "sprites\\"
 SPRITES = { "claymore_mp":              "claymore.jpg",
             "claymore_mp-friend":       "claymore_friend.jpg",
             "satchel_charge_mp":        "c4.jpg",
-#            "WEAPON_FLASH_GRENADE": "flash.jpg",
+            "flash_grenade_mp":         "flash.jpg",
             "frag_grenade_mp":          "grenade.jpg",
             "sticky_grenade_mp":        "semtex.jpg",
             "willy_pete_mp":            "smoke.jpg",
