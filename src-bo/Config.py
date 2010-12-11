@@ -100,9 +100,9 @@ DISTANCE_ESP_UNIT_NAME = "m"                # either "m" or "ft"
 # fading esp
 FADE_ENABLED = True                         # set to False to disable fading
 FADE_MIN_DIST = 300                         # in 1/10th of ft, so 600 is ~20m
-FADE_MIN_ALPHA = 0xFF                       # level of transparency
+FADE_MIN_ALPHA = 0xB0                       # level of transparency
 FADE_MAX_DIST = 2500                        # in 1/10th of ft, 2500 is ~80m
-FADE_MAX_ALPHA = 0x32                       # level of transparency
+FADE_MAX_ALPHA = 0x62                       # level of transparency
 # ----------------------------------------------------------------------
 # rage module - special coloring for the player you want to rage
 
