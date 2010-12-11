@@ -4,7 +4,7 @@ from structs import COD7_WeaponDesc, STR256, COD7_WeaponDesc_T
 import re
 
 WEAPON_PREFIX = "WEAPON_"
-WEAPON_LIMIT = 1700         # size of array to be read
+WEAPON_LIMIT = 1750         # size of array to be read
 GRENADE_LAUNCHER_REGEXP = "(^gl_)|(^[^_]+_gl_[^_]+_mp)"
     
 class WeaponNames(object):

@@ -146,7 +146,7 @@ KILLSTREAK_WEIGHT = 700
 GRAV = 800.0
 TUBE_VEL = 2400.0
 KNIFE_VEL = 1420.0
-BOT_MOTION_COMPENSATE = 0.3
+BOT_MOTION_COMPENSATE = -1.0
 
 # below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
@@ -188,7 +188,7 @@ KEY_STATUS_UP =             "+VK_F2"                        # to select if you w
 KEY_CROSSHAIR =     		"+VK_F3"
 KEY_EXPLOSIVES =    		"-VK_F4"
 KEY_AIMBOT_ACTIVE =        	"+VK_F5"
-KEY_TUBEBOT_ACTIVE =       	"-VK_F5"                        # same as AIMBOT
+KEY_TUBEBOT_ACTIVE =       	"+VK_F5"                        # same as AIMBOT
 KEY_WEAPON_ESP =            "-VK_F6"
 KEY_KNIFEBOT_ACTIVE =      	"-VK_F7"
 KEY_AUTOSTAB =      		"-VK_F8"

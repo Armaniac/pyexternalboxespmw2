@@ -62,7 +62,7 @@ class Bot(object):
                 box = esp.calc_player_rect(p)
                 spot = read_game.world_to_screen(aim_target)
                 player_dist = self.sq(read_game.my_pos.x - p.pos.x, read_game.my_pos.y - p.pos.y) + .1
-                if box and box.left < read_game.screen_center_x and box.right > read_game.screen_center_x and box.top < read_game.screen_center_y and box.bottom > read_game.screen_center_y:
+                if spot and box and box.left < read_game.screen_center_x and box.right > read_game.screen_center_x and box.top < read_game.screen_center_y and box.bottom > read_game.screen_center_y:
                     # Crosshair in bounding box
                     cur_angle_dist = -1.0 / player_dist
                     if cur_angle_dist < angle_dist:

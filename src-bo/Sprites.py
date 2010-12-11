@@ -18,7 +18,7 @@ SPRITES = { "claymore_mp":              "claymore.jpg",
             "knife_ballistic_mp":       "knife.jpg",
 #            "WEAPON_M203": "nade.jpg",
 #            "WEAPON_M79": "nade.jpg",
-#            "WEAPON_AIRDROP_MARKER": "airdrop.jpg",
+            "supplydrop_mp":            "airdrop.jpg",
 #            "WEAPON_AIRDROP_SENTRY_MARKER": "sentry.jpg",
 #            "WEAPON_AIRDROP_MEGA_MARKER": "emergency.jpg",
 #            # Compass sprites for Radar
