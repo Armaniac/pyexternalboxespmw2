@@ -1,7 +1,7 @@
 import Scheduler
 import time
 import ReadGame, Frame, Radar, Status, Keys, Inspector, Tracker, Crosshair, Esp, Bot, Rage, Killstreak, WeaponNames, Autostab, WebStats
-import Sprites
+import Sprites, Textures, BigRadar
 #import Textures, Radar2, BigRadar, PatternFinder
 #import cProfile
 from Config import PROFILING, MAIN_MAX_FPS
@@ -34,14 +34,14 @@ class Main(object):
         #self.pattern_finder = PatternFinder.PatternFinder(self)
 #        self.pattern_finder = PatternFinder.PatternFinder(self)
         self.frame = Frame.Frame(self)
-        #self.textures = Textures.Textures(self)
+        self.textures = Textures.Textures(self)
         self.tracker = Tracker.Tracker(self)
         # other are simple modules
         self.rage = Rage.Rage(self)
         self.status = Status.Status(self)
         self.esp = Esp.Esp(self)
         self.radar = Radar.Radar(self)
-        #self.bigradar = BigRadar.BigRadar(self)
+        self.bigradar = BigRadar.BigRadar(self)
         self.sprites = Sprites.Sprites(self)
         self.crosshair = Crosshair.Crosshair(self)
         self.bot = Bot.Bot(self)
@@ -71,7 +71,7 @@ class Main(object):
                 self.lock.release()
             sleep(0.050)
         self.frame.init_d3d()
-        #self.textures.init()
+        self.textures.init()
         self.sprites.init()
         
     def run(self):
@@ -91,7 +91,7 @@ class Main(object):
             self.status.render()
             self.esp.render()
             self.radar.render()
-            #self.bigradar.render()
+            self.bigradar.render()
             self.crosshair.render()
             self.bot.render()
             self.autostab.render()

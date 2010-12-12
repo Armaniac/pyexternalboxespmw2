@@ -25,7 +25,7 @@ class BigRadar(object):
         
         map_name = read_game.map_name
         if map_name not in textures.textures:
-            print "map: %s not found" % map_name
+            #print "map: %s not found" % map_name
             return
         
         rx = self.rx = read_game.resolution_x - RADAR_OFFSET - 512*self.scaling
@@ -71,7 +71,7 @@ class BigRadar(object):
             if te.type == ET_EXPLOSIVE and te.model_name.find("_AIRDROP_") > 0:
                 self.env.sprites.draw_flare(rx + x, ry + y)
         
-        pos = read_game.mw2_mypos
+        pos = read_game.my_pos
         map_pos.x = self.scaling * (transl[0] + matrix[0]*pos.x + matrix[1]*pos.y)
         map_pos.y = self.scaling * (transl[1] + matrix[2]*pos.x + matrix[3]*pos.y)
         draw_arrow(frame.line, rx + map_pos.x, ry + map_pos.y,

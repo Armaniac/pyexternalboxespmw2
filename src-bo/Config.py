@@ -245,7 +245,7 @@ KEY_INSPECT_MOVE_MOUSE = "!VK_NUMPAD5"
 # calibration mode, only used for debugging of tubebot and knifebot
 # *** DON'T ACTIVATE UNLESS YOU KNOW WHAT YOU ARE DOING
 CALIBRATING = False
-DEBUG_PRINT_WEAPON_NAMES = True
+DEBUG_PRINT_WEAPON_NAMES = False
 
 # ======================================================================
 # == CUT HERE to recreate the config file                             ==

@@ -76,10 +76,10 @@ class Inspector(object):
                         #=======================================================
         
         if keys["KEY_INSPECT_POS"]:                 # print my player's position
-            pos = read_game.mw2_mypos
+            pos = read_game.my_pos
             print "pos= (%.2f, %.2f, %.2f)" % (pos.x, pos.y, pos.z)
             ang = read_game.view_angles
-            print "angles= (%.2f, %.2f, %.2f)" % (ang.x, ang.y, ang.z)
+            #print "angles= (%.2f, %.2f, %.2f)" % (ang.x, ang.y, ang.z)
         
         if keys["KEY_INSPECT_DUMP"]:                # dump some memory structures
             #mem = dumped()
