@@ -184,6 +184,8 @@ class ReadGame(object):
             # It gives in-game mouse sensitivity.
             # It is a float from 1.0 (low sensitivity) to 30.0. Default is 5.0
             self.sensitivity = self._RPM_float(SENSITIVITY_PTR)
+            if self.sensitivity < 1.0 or self.sensitivity > 30.0:
+                self.sensitivity = 5.0
             # map name location currently in use, needs formating with regexp to be proper match for our needs.
             self.map_name = self.cgs.map
             match = self.map_name_re.search(self.map_name)
