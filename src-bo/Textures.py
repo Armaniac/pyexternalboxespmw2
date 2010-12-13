@@ -22,7 +22,6 @@ MAP_NAMES = { "mp_array": ((-1836,3869), (41,361), (979,-2809), (464,181)),
               "mp_villa": ((4310,4776), (29,185), (2036,-1056), (465,355)),
               "mp_russianbase": ((2360,904), (206,44), (-2416,-464), (333,467)),
              }
-INVERTED_MAPS = ("mp_estate",)
 
 class Textures(object):
     
@@ -59,10 +58,7 @@ class Textures(object):
                 matr = (sa, -ca, -ca, -sa)
                 self.angle[m] = delta
                 self.matrix[m] = matr
-                if m in INVERTED_MAPS:
-                    self.angle_inversion[m] = 180.0
-                else:
-                    self.angle_inversion[m] = 0.0
+                self.angle_inversion[m] = 0.0
                 # now calculate translation
                 new_x = matr[0]*l[0][0] + matr[1]*l[0][1]
                 new_y = matr[2]*l[0][0] + matr[3]*l[0][1]
