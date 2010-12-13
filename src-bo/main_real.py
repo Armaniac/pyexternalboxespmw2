@@ -1,6 +1,6 @@
 import Scheduler
 import time
-import ReadGame, Frame, Radar, Status, Keys, Inspector, Tracker, Crosshair, Esp, Bot, Rage, Killstreak, WeaponNames, Autostab, WebStats
+import ReadGame, Frame, Radar2, Status, Keys, Inspector, Tracker, Crosshair, Esp, Bot, Rage, Killstreak, WeaponNames, Autostab, WebStats
 import Sprites, Textures, BigRadar
 #import Textures, Radar2, BigRadar, PatternFinder
 #import cProfile
@@ -40,7 +40,7 @@ class Main(object):
         self.rage = Rage.Rage(self)
         self.status = Status.Status(self)
         self.esp = Esp.Esp(self)
-        self.radar = Radar.Radar(self)
+        self.radar = Radar2.Radar(self)
         self.bigradar = BigRadar.BigRadar(self)
         self.sprites = Sprites.Sprites(self)
         self.crosshair = Crosshair.Crosshair(self)

@@ -30,7 +30,7 @@ class Radar(object):
         
         scaling = 0.5           # TODO
         
-        pos = read_game.mw2_mypos
+        pos = read_game.my_pos
         
         map_name = read_game.map_name               # name of the current map
         p_matrix = textures.matrix[map_name]          # transformation matrix (scale + rotation)
@@ -81,19 +81,19 @@ class Radar(object):
                 
         draw4(frame.line, rx, ry, rx+rw, ry, rx+rw, ry+rh, rx, ry+rh, 2, MAP_COLOR_BORDER)
         
-        p_pos = VECTOR()
-        for te in self.env.tracker.get_tracked_entity_list():
-            p_pos.x = transl[0] + p_matrix[0]*te.pos.x + p_matrix[1]*te.pos.y
-            p_pos.y = transl[1] + p_matrix[2]*te.pos.x + p_matrix[3]*te.pos.y
-            cx, cy = self.calcPoint(p_pos, matrix)
-            if te.type == ET_TURRET:
-                self.env.sprites.draw_sentry(cx, cy, te.planter.enemy)
-            if te.type == ET_HELICOPTER:
-                self.env.sprites.draw_heli(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle + arrow_inversion, te.planter.enemy, te.weapon_num)
-            if te.type == ET_PLANE:
-                self.env.sprites.draw_plane(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle + arrow_inversion, te.planter.enemy)
-            if te.type == ET_EXPLOSIVE and te.model_name.find("_AIRDROP_") > 0:
-                self.env.sprites.draw_flare(cx, cy)
+#        p_pos = VECTOR()
+#        for te in self.env.tracker.get_tracked_entity_list():
+#            p_pos.x = transl[0] + p_matrix[0]*te.pos.x + p_matrix[1]*te.pos.y
+#            p_pos.y = transl[1] + p_matrix[2]*te.pos.x + p_matrix[3]*te.pos.y
+#            cx, cy = self.calcPoint(p_pos, matrix)
+#            if te.type == ET_TURRET:
+#                self.env.sprites.draw_sentry(cx, cy, te.planter.enemy)
+#            if te.type == ET_HELICOPTER:
+#                self.env.sprites.draw_heli(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle + arrow_inversion, te.planter.enemy, te.weapon_num)
+#            if te.type == ET_PLANE:
+#                self.env.sprites.draw_plane(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle + arrow_inversion, te.planter.enemy)
+#            if te.type == ET_EXPLOSIVE and te.model_name.find("_AIRDROP_") > 0:
+#                self.env.sprites.draw_flare(cx, cy)
         
         draw_arrow(frame.line, rx + rw/2, ry + rh/2, 0, MAP_COLOR_ME);        # myself
         
