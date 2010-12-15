@@ -8,13 +8,12 @@
 # this file is interpreted as Python code, so beware: you can easily break the program
 
 # ----------------------------------------------------------------------
-# Offsets for COD6 - build 1.2.208
 #
-CG_PTR          = 0xD2B710
-CGS_PTR         = 0xD2B6E0
-CLIENTINFO_PTR  = 0x05EFE8
-ENTITY_PTR      = 0xD2E8F0
-ISINGAME_PTR    = 0xD2EB9C  # ??? (*(DWORD*)0xD2EB9C)+0x18
+#CG_PTR          = 0xD2B710
+#CGS_PTR         = 0xD2B6E0
+#CLIENTINFO_PTR  = 0x05EFE8
+#ENTITY_PTR      = 0xD2E8F0
+#ISINGAME_PTR    = 0xD2EB9C  # ??? (*(DWORD*)0xD2EB9C)+0x18
 
 #WEAPON_PTR  = 0x00c55f4c
 #WEAPON_PTR  = 0x00c57f4c
@@ -58,7 +57,7 @@ RADAR_RANGE = 50            # this is the scale divider for the radar: the highe
 
 KEY_BIG_RADAR = "+VK_ADD "  # display a global map with players, good for air-strikes
 KEY_RADAR_MAP = "ON"        # display map background?
-BIG_RADAR_SCALE = 0.5       # scale factor for maps, 1.0 makes a 512x512 pix, 0.5 is reduced to 256x256
+BIG_RADAR_SCALE = 0.4       # scale factor for maps, 1.0 makes a 512x512 pix, 0.5 is reduced to 256x256
 BIG_RADAR_BLENDING = 0xAF7F7F7F     # blending color used in BigRadar
 
 # colors for the BOX Esp
@@ -138,7 +137,7 @@ KEY_HOST_DISPLAY = "ON"
 # killstreak display
 
 KILLSTREAK_FONT = "Arial"
-KILLSTREAK_SIZE = 120
+KILLSTREAK_SIZE = 80
 KILLSTREAK_WEIGHT = 700
 # ----------------------------------------------------------------------
 # bot constants
@@ -208,8 +207,6 @@ KEY_INDIRECT_BOT = "~VK_CAPITAL"        # CAPS LOCK
 KEY_SNIPER_BOT = "OFF"
 
 TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
-KNIFE_RIOT_OFFSET = 2                   # all offsets are considered if RIOT SHIELD is at offset 3
-KNIFE_TACTICAL_WEAPONS = (22, 36, 42)   # pistols with tactical knife enabled
 # ----------------------------------------------------------------------
 # autostab parameters
 AUTOSTAB_KEY = "V"
@@ -220,7 +217,7 @@ AUTOSTAB_DIST_Z = 50            # max vertical distance (otherwise you try to st
 # killstreak counter
 KEY_KILLSTREAK = "ON"           # always on
 KILLSTREAK_FONT_NAME = "Arial"
-KILLSTREAK_FONT_SIZE = 120
+KILLSTREAK_FONT_SIZE = 80
 KILLSTREAK_FONT_WEIGHT = 700    # bold
 KILLSTREAK_FONT_COLOR = 0x5FFFFFFF  # grey
 
