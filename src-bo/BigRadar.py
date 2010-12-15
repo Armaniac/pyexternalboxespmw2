@@ -6,6 +6,7 @@ from directx.d3dx import d3dxdll
 from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE, ET_EXPLOSIVE, ALIVE_FLAG
 from utils import draw_arrow
 
+D3DXSPRITE_ALPHABLEND = (1 << 4)
 
 class BigRadar(object):
     
@@ -44,7 +45,7 @@ class BigRadar(object):
                                                  byref(trans)           # translation
                                                  )
         
-        frame.sprite.Begin(0)
+        frame.sprite.Begin(D3DXSPRITE_ALPHABLEND)
         frame.sprite.SetTransform(matrix)
         frame.sprite.Draw(textures.textures[map_name], None, None, None, BIG_RADAR_BLENDING)
         frame.sprite.End()
@@ -68,8 +69,8 @@ class BigRadar(object):
                 self.env.sprites.draw_heli(rx + x, ry + y, -te.yaw + arrow_angle + arrow_inversion, te.planter.enemy, te.weapon_num)
             if te.type == ET_PLANE:
                 self.env.sprites.draw_plane(rx + x, ry + y, -te.yaw + arrow_angle + arrow_inversion, te.planter.enemy)
-            if te.type == ET_EXPLOSIVE and te.model_name.find("_AIRDROP_") > 0:
-                self.env.sprites.draw_flare(rx + x, ry + y)
+#            if te.type == ET_EXPLOSIVE and te.model_name.find("_AIRDROP_") > 0:
+#                self.env.sprites.draw_flare(rx + x, ry + y)
         
         pos = read_game.my_pos
         map_pos.x = self.scaling * (transl[0] + matrix[0]*pos.x + matrix[1]*pos.y)

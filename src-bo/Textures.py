@@ -5,7 +5,7 @@ import math
 import os
 
 MAP_FOLDER = "maps\\"
-MAP_EXT = ".jpg"
+MAP_EXT = ".png"
 # map_name => first point in game, first point coord on pic (512*512), same for 2nd point
 MAP_NAMES = { "mp_array": ((-1836,3869), (41,361), (979,-2809), (464,181)),
               "mp_cracked": ((-3450,-990), (276,480), (816,1208), (83,120)),

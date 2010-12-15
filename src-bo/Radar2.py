@@ -7,6 +7,7 @@ from ctypes import byref, c_float
 from directx.d3d import D3DRECT, D3DCLEAR, RECT
 from directx.d3dx import d3dxdll, D3DXVECTOR2, D3DMATRIX
 
+D3DXSPRITE_ALPHABLEND = (1 << 4)
 
 class Radar(object):
     
@@ -68,9 +69,9 @@ class Radar(object):
                 pass
                 
             
-            frame.sprite.Begin(0)
+            frame.sprite.Begin(D3DXSPRITE_ALPHABLEND)
             frame.sprite.SetTransform(matrix)
-            frame.sprite.Draw(textures.textures[map_name], None, None, None, BIG_RADAR_BLENDING)
+            frame.sprite.Draw(textures.textures[map_name], None, None, None, MAP_BLENDING)
             frame.sprite.Flush()
             frame.sprite.End()
             
@@ -81,7 +82,7 @@ class Radar(object):
                 
         draw4(frame.line, rx, ry, rx+rw, ry, rx+rw, ry+rh, rx, ry+rh, 2, MAP_COLOR_BORDER)
         
-#        p_pos = VECTOR()
+        p_pos = VECTOR()
 #        for te in self.env.tracker.get_tracked_entity_list():
 #            p_pos.x = transl[0] + p_matrix[0]*te.pos.x + p_matrix[1]*te.pos.y
 #            p_pos.y = transl[1] + p_matrix[2]*te.pos.x + p_matrix[3]*te.pos.y

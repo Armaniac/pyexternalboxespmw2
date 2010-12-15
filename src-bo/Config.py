@@ -37,7 +37,7 @@ DEBUG = False
 APP_NAME = 'Launcher'            # name of the hack window
 
 # this is the maximum FPS allowed for the hack. It is not guaranteed that it will reach that level though...
-MAIN_MAX_FPS = 50
+MAIN_MAX_FPS = 100
 if PROFILING: MAIN_LOOP_SLEEP = 1000000
 
 # ----------------------------------------------------------------------
@@ -58,7 +58,7 @@ RADAR_RANGE = 50            # this is the scale divider for the radar: the highe
 KEY_BIG_RADAR = "+VK_ADD "  # display a global map with players, good for air-strikes
 KEY_RADAR_MAP = "ON"        # display map background?
 BIG_RADAR_SCALE = 0.4       # scale factor for maps, 1.0 makes a 512x512 pix, 0.5 is reduced to 256x256
-BIG_RADAR_BLENDING = 0xAF7F7F7F     # blending color used in BigRadar
+BIG_RADAR_BLENDING = 0xDF7F7F7F     # blending color used in BigRadar
 
 # colors for the BOX Esp
 COLOR_FRIEND = 0x7F0000FF                  # blue
@@ -77,12 +77,13 @@ PLAYER_NAME_SIZE = 14
 PLAYER_NAME_WEIGHT = 400
 
 # colors for mini-map
-MAP_COLOR_BACK = 0x44000000                 # radar back color
+MAP_COLOR_BACK = 0x00000000                 # radar back color
 MAP_COLOR_BORDER = 0x7F0000FF               # radar border color
 MAP_COLOR_ME = 0xFF00FF00                   # color of my player
 MAP_COLOR_FRIEND = 0xFF4444FF               # color of team-mates
 MAP_COLOR_ENEMY = 0XFFFF4444                # color of enemies
 MAP_COLOR_ENEMY_COLDBLOODED = 0XFFFFBF44    # color of enemies with coldblood perk
+MAP_BLENDING = 0xDF7F7F7F
 
 # color of the claymore ESP
 COLOR_CLAYMORE = 0x3FFF6666                 # color of claymores
