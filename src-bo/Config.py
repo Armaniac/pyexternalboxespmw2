@@ -17,7 +17,9 @@
 
 #WEAPON_PTR  = 0x00c55f4c
 #WEAPON_PTR  = 0x00c57f4c
-WEAPON_PTR  = 0x00c5c21c
+WEAPON_PTR  = 0x00c5E21c
+
+# WEAPON_DEFAULTWEAPON -> 181dd714, pointed by 03005140, corrected to 03005134
 REFDEF      = 0x2ABDAFC0
 CLIENTINFO  = 0x2ABF70E8 
 ENTITY      = 0x2AC840DC 
@@ -146,7 +148,7 @@ KILLSTREAK_WEIGHT = 700
 GRAV = 800.0
 TUBE_VEL = 2400.0
 KNIFE_VEL = 1420.0
-BOT_MOTION_COMPENSATE = -1.0
+BOT_MOTION_COMPENSATE = -2.0
 
 # below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
