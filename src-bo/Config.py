@@ -9,14 +9,6 @@
 
 # ----------------------------------------------------------------------
 #
-#CG_PTR          = 0xD2B710
-#CGS_PTR         = 0xD2B6E0
-#CLIENTINFO_PTR  = 0x05EFE8
-#ENTITY_PTR      = 0xD2E8F0
-#ISINGAME_PTR    = 0xD2EB9C  # ??? (*(DWORD*)0xD2EB9C)+0x18
-
-#WEAPON_PTR  = 0x00c55f4c
-#WEAPON_PTR  = 0x00c57f4c
 WEAPON_PTR  = 0x00c5E21c
 
 # WEAPON_DEFAULTWEAPON -> 181dd714, pointed by 03005140, corrected to 03005134
@@ -28,7 +20,7 @@ CGS_T       = 0x2AC09700
 
 SENSITIVITY_PTR = 0x04267E98        # or 04267EA8
 
-COD_WINDOW_CLASS = "CoDBlackOps"
+COD_WINDOW_CLASS = "CoDBlackOps"    # window class used to find BlackOps window
 
 # ----------------------------------------------------------------------
 PROFILING = False        # only used for debug profiling
@@ -39,8 +31,7 @@ DEBUG = False
 APP_NAME = 'Launcher'            # name of the hack window
 
 # this is the maximum FPS allowed for the hack. It is not guaranteed that it will reach that level though...
-MAIN_MAX_FPS = 100
-if PROFILING: MAIN_LOOP_SLEEP = 1000000
+MAIN_MAX_FPS = 60
 
 # ----------------------------------------------------------------------
 # Graphical preferences
@@ -185,9 +176,9 @@ F2_LABEL = "move disp"
 F3_LABEL = "crosshair"
 F4_LABEL = ""
 F5_LABEL = "aimbot"
-F6_LABEL = ""
+F6_LABEL = "weapon"
 F7_LABEL = ""
-F8_LABEL = ""
+F8_LABEL = "autostab"
 F9_LABEL = ""
 F10_LABEL = "radar"
 F11_LABEL = "boxesp"
@@ -198,12 +189,12 @@ F12_LABEL = "snapline"
 KEY_STATUS =                "+VK_F1"                        # is status display enabled
 KEY_STATUS_UP =             "+VK_F2"                        # to select if you want the status up on the screen 
 KEY_CROSSHAIR =     		"+VK_F3"
-KEY_EXPLOSIVES =    		"-VK_F4"
+KEY_EXPLOSIVES =    		"ON"
 KEY_AIMBOT_ACTIVE =        	"+VK_F5"
 KEY_TUBEBOT_ACTIVE =       	"+VK_F5"                        # same as AIMBOT
 KEY_WEAPON_ESP =            "-VK_F6"
 KEY_KNIFEBOT_ACTIVE =      	"-VK_F7"
-KEY_AUTOSTAB =      		"-VK_F8"
+KEY_AUTOSTAB =      		"+VK_F8"
 KEY_TRIGGERBOT =    		"-VK_F9"
 KEY_RADAR =         		"+VK_F10"
 KEY_BOXESP =        		"+VK_F11"
@@ -252,6 +243,9 @@ KEY_INSPECT_DUMP_CG = "!VK_NUMPAD8"
 KEY_INSPECT_MOVE_MOUSE = "!VK_NUMPAD5"
 
 KEY_INSPECT_WEAPON_NAME = "ON"
+
+KEY_FPS_VIEWER = "ON"
+FPS_VIEWER_INTERVAL = 5        # number of ticks to measure the hack FPS
 
 # ----------------------------------------------------------------------
 # calibration mode, only used for debugging of tubebot and knifebot
