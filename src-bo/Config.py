@@ -251,6 +251,8 @@ KEY_INSPECT_DUMP_PLAYERS = "!VK_NUMPAD7"
 KEY_INSPECT_DUMP_CG = "!VK_NUMPAD8"
 KEY_INSPECT_MOVE_MOUSE = "!VK_NUMPAD5"
 
+KEY_INSPECT_WEAPON_NAME = "ON"
+
 # ----------------------------------------------------------------------
 # calibration mode, only used for debugging of tubebot and knifebot
 # *** DON'T ACTIVATE UNLESS YOU KNOW WHAT YOU ARE DOING

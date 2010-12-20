@@ -70,8 +70,10 @@ class WeaponNames(object):
         return None
         
     def is_grenade_launcher(self, weaponnum):
+        weapon_model = self.get_weapon_model(weaponnum)
+        if weapon_model is not None:
+            return self.gl_re.search(weapon_model)
         return False
-        return self.gl_re.search(self.get_weapon_model(weaponnum))
     
     def is_sniper_rifle(self, weaponnum):
         return False

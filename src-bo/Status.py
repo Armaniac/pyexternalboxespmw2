@@ -32,7 +32,8 @@ class Status(object):
                 color = STATUS_COLOR_INACTIVE
             label = "F" + str(i) + ":" + getattr(Config, "F"+str(i)+"_LABEL")
             draw_string_left(frame.status_font, (i-1)*70 + 5, text_y, 65, 15, color, label)
-        #=======================================================================
-        # if read_game.is_host_check() and keys["KEY_HOST_DISPLAY"]:
-        #    draw_string_center(frame.rage_font, read_game.resolution_x - 100, read_game.resolution_y - (read_game.resolution_y - 8), 0x9600FF00, "You are host!")   
-        #=======================================================================
+        
+        if read_game.is_in_game and keys["KEY_INSPECT_WEAPON_NAME"]:
+            weapon_model = self.env.weapon_names.get_weapon_model(self.env.read_game.my_player.weapon_num)
+            if weapon_model is not None:
+                draw_string_center(frame.rage_font, read_game.resolution_x - 100, read_game.resolution_y - 10, 0xA0FFFF00, weapon_model)   
