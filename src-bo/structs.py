@@ -2,8 +2,8 @@ from ctypes import * #@UnusedWildImport
 #from UserList import UserList
 import math
 
-PLAYERMAX = 64            # number of players to loop in
-ENTITIESMAX = 2048        # total number of entities present XXX
+PLAYERMAX = 22            # number of players to loop in
+ENTITIESMAX = 1024        # total number of entities present XXX
 
 ET_GENERAL          = 0
 ET_PLAYER           = 1
