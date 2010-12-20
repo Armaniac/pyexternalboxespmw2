@@ -23,8 +23,6 @@ class Esp(object):
         weapon_names = self.env.weapon_names
         if not read_game.is_in_game: return
         
-        #print "my_weapon=%i %s" % (read_game.my_player.weapon_num, weapon_names.get_weapon_model(read_game.my_player.weapon_num))
-        
         if keys["KEY_BOXESP"]:
             for idx in range(PLAYERMAX):
                 p = read_game.player[idx]
@@ -56,9 +54,7 @@ class Esp(object):
 #                                            self.last_trigger_tick = self.env.ticks
 #                                            windll.User32.keybd_event(TRIGGER_BOT_FIRE_KEY, 0x12, 0, 0)
 #                                            windll.User32.keybd_event(TRIGGER_BOT_FIRE_KEY, 0x12, KEYEVENTF_KEYUP, 0)
-                            
-                            
-        
+
         for idx in range(ENTITIESMAX):
             e = read_game.cod7_entity.arr[idx]
 #            if e.type == ET_TURRET and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
@@ -73,13 +69,14 @@ class Esp(object):
 #                            if size_y < 5:  size_y = 5
 #                            size_x = size_y / 2.75
 #                            draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, COLOR_SENTRY)
-#                    
+
             if e.type == ET_EXPLOSIVE and e.alive & ALIVE_FLAG:
                 self.track_explosive(idx)
 
             elif e.type == ET_HELICOPTER and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
             #elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
-                # all planes are shown because we don't know if they are enemies
+                # all planes are shown because we don't know if they are enemies                
+                self.env.tracker.track_entity(idx, e.owner_air)
                 head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 100)
                 feet = read_game.world_to_screen(e.pos)
                 head = read_game.world_to_screen(head_pos)
