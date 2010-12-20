@@ -2,7 +2,7 @@ from ctypes import * #@UnusedWildImport
 #from UserList import UserList
 import math
 
-PLAYERMAX = 22            # number of players to loop in
+PLAYERMAX = 34            # number of players to loop in
 ENTITIESMAX = 1024        # total number of entities present XXX
 
 ET_GENERAL          = 0
@@ -93,7 +93,7 @@ class COD7_RefDef(Structure):
                  ("fov_y", c_float),        # 0x14
                  ("totalfov", c_float),     # 0x18
                  ("viewOrg", VECTOR),       # 0x1C
-                 ("_P01", c_char * 4),      # 0x28
+                 ("other", c_int),      # 0x28
                  ("viewAxis", VECTOR * 3),  # 0x2C
                  ]
 

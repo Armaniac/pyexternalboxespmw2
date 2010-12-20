@@ -194,11 +194,13 @@ class ReadGame(object):
                 self.map_name = match.group(1)
             self.game_mode = self.cgs.gamemode
             
-            self.my_pos = self.cod7_refdef.viewOrg
             
             # views
             self.fov_x = self.cod7_refdef.fov_x
             self.fov_y = self.cod7_refdef.fov_y
+            self.my_pos = self.cod7_refdef.viewOrg
+            #self.my_pos = self.cg.lerpOrigin
+            #self.my_pos.z += 60
             self.view_axis = self.cod7_refdef.viewAxis
             #self.view_angles = self.cod7_refdef.viewAngles
             self.view_angles.x = self.cg.viewAngleY

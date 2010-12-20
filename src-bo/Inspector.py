@@ -75,7 +75,7 @@ class Inspector(object):
                         #    print dump_obj(e)
                         #=======================================================
         
-        if keys["KEY_INSPECT_POS"]:                 # print my player's position
+        if keys["KEY_INSPECT_POS"]:                 # print my player's position NUMPAD1
             pos = read_game.my_pos
             ang = read_game.view_angles
             print "time=%i ticks=%i pos=(%.2f, %.2f, %.2f) angles=(%.2f, %.2f, %.2f)" % (read_game.game_time, self.env.ticks,
