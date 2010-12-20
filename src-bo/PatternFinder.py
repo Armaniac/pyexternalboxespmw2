@@ -83,7 +83,7 @@ class PatternFinder(object):
         print "centity_t_size=%x" % self.centity_t_size
         print "cg_entities=%x" % self.cg_entities
         
-    def _RPM(self, address, buffer):
+    def _RPM(self, process_handle, address, buffer):
         if not windll.kernel32.ReadProcessMemory(process_handle, address, byref(buffer), sizeof(buffer), None): #@UndefinedVariable
             raise ExitingException("Could not ReadProcessMemory: ", windll.kernel32.GetLastError()) #@UndefinedVariable
     

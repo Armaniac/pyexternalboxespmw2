@@ -17,34 +17,34 @@ class Status(object):
         self.fps_time = 0
     
     def render(self):
-        if not keys["KEY_STATUS"]: return
         frame = self.env.frame
         read_game = self.env.read_game
         
-        if keys["KEY_STATUS_UP"]:
-            draw_line(frame.line, 0, 9, 845, 0, 20, STATUS_COLOR_LINE)
-            text_y = 3
-        else:
-            draw_line(frame.line, 0, read_game.resolution_y - 10, 845, 0, 20, STATUS_COLOR_LINE)
-            text_y = read_game.resolution_y-15
-
-        for i in range(1, 13):
-            if keys_raw[vk_codes.VK_F1+i-1] & KEY_TOGGLE:
-                color = STATUS_COLOR_ACTIVE
+        if keys["KEY_STATUS"]:
+            if keys["KEY_STATUS_UP"]:
+                draw_line(frame.line, 0, 9, 845, 0, 20, STATUS_COLOR_LINE)
+                text_y = 3
             else:
-                color = STATUS_COLOR_INACTIVE
-            label = "F" + str(i) + ":" + getattr(Config, "F"+str(i)+"_LABEL")
-            draw_string_left(frame.status_font, (i-1)*70 + 5, text_y, 65, 15, color, label)
-        
+                draw_line(frame.line, 0, read_game.resolution_y - 10, 845, 0, 20, STATUS_COLOR_LINE)
+                text_y = read_game.resolution_y-15
+    
+            for i in range(1, 13):
+                if keys_raw[vk_codes.VK_F1+i-1] & KEY_TOGGLE:
+                    color = STATUS_COLOR_ACTIVE
+                else:
+                    color = STATUS_COLOR_INACTIVE
+                label = "F" + str(i) + ":" + getattr(Config, "F"+str(i)+"_LABEL")
+                draw_string_left(frame.status_font, (i-1)*70 + 5, text_y, 65, 15, color, label)
+            
         if read_game.is_in_game and keys["KEY_INSPECT_WEAPON_NAME"]:
             weapon_model = self.env.weapon_names.get_weapon_model(self.env.read_game.my_player.weapon_num)
             if weapon_model is not None:
                 draw_string_center(frame.rage_font, read_game.resolution_x - 100, read_game.resolution_y - 10, 0xA0FFFF00, weapon_model)
 
-        if read_game.is_in_game and keys["KEY_FPS_VIEWER"]:
+        if keys["KEY_FPS_VIEWER"]:
             self.calc_fps()
             if self.fps > 0:
-                draw_string_center(frame.rage_font, read_game.resolution_x - 180, read_game.resolution_y - 10, 0xA0FFFF00, "Hackfps=%.1f" % self.fps)
+                draw_string_center(frame.rage_font, read_game.resolution_x - 250, read_game.resolution_y - 10, 0xA0FFFF00, "Fps=%.1f" % self.fps)
         else:
             self.reset_fps()
 
