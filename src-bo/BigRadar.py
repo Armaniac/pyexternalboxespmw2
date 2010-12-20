@@ -65,10 +65,10 @@ class BigRadar(object):
             if y > rh:              y = rh               
             if te.type == ET_TURRET:
                 self.env.sprites.draw_sentry(rx + x, ry + y, te.planter.enemy)
-            if te.type == ET_HELICOPTER:
-                self.env.sprites.draw_heli(rx + x, ry + y, -te.yaw + arrow_angle + arrow_inversion, te.planter.enemy, te.weapon_num)
-            if te.type == ET_PLANE:
-                self.env.sprites.draw_plane(rx + x, ry + y, -te.yaw + arrow_angle + arrow_inversion, te.planter.enemy)
+#            if te.type == ET_HELICOPTER:
+#                self.env.sprites.draw_heli(rx + x, ry + y, -te.yaw + arrow_angle + arrow_inversion, te.planter.enemy, te.weapon_num)
+#            if te.type == ET_PLANE:
+#                self.env.sprites.draw_plane(rx + x, ry + y, -te.yaw + arrow_angle + arrow_inversion, te.planter.enemy)
 #            if te.type == ET_EXPLOSIVE and te.model_name.find("_AIRDROP_") > 0:
 #                self.env.sprites.draw_flare(rx + x, ry + y)
         

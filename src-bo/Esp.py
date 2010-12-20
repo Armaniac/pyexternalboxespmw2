@@ -75,7 +75,7 @@ class Esp(object):
 
             elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
                 # all planes are shown because we don't know if they are enemies                
-                self.env.tracker.track_entity(idx, e.owner_air)
+                self.env.tracker.track_entity(idx)
                 head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 100)
                 feet = read_game.world_to_screen(e.pos)
                 head = read_game.world_to_screen(head_pos)
