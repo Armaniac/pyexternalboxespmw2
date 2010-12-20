@@ -77,9 +77,8 @@ class Inspector(object):
         
         if keys["KEY_INSPECT_POS"]:                 # print my player's position
             pos = read_game.my_pos
-            print "pos= (%.2f, %.2f, %.2f)" % (pos.x, pos.y, pos.z)
             ang = read_game.view_angles
-            #print "angles= (%.2f, %.2f, %.2f)" % (ang.x, ang.y, ang.z)
+            print "pos= (%.2f, %.2f, %.2f) angles= (%.2f, %.2f, %.2f)" % (pos.x, pos.y, pos.z, ang.x, ang.y, ang.z)
         
         if keys["KEY_INSPECT_DUMP"]:                # dump some memory structures
             #mem = dumped()
@@ -119,7 +118,7 @@ class Inspector(object):
                                                                          read_game.my_player.pos3.y,
                                                                          read_game.my_player.pos3.z,
                                                                          )
-            
+
         if False and read_game.is_in_game:
             print "time=%8i, motion=%.1f %.1f %.1f, abs=%.1f" % (read_game.game_time,
                                                                          read_game.my_player.motion.x,
@@ -127,6 +126,7 @@ class Inspector(object):
                                                                          read_game.my_player.motion.z,
                                                                          read_game.my_player.motion.length()
                                                                          )
+
         if False:
             for e in read_game.mw2_entity.arr:
                 if e.type == ET_EXPLOSIVE and e.alive & ALIVE_FLAG:
