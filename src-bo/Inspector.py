@@ -60,7 +60,7 @@ class Inspector(object):
                         s = "[idx=%i(%x), typ=%i, weap=%i]" % (idx, idx, e.type, e.WeaponNum)
                         draw_string_center(frame.font, spot.x, spot.y, 0xFFFFFFFF, s)
                         print s
-                        print dump_obj(e)
+                        #print dump_obj(e)
 #                        if e.owner_scr1 >= 0 and e.owner_scr1 < 2047:
 #                            ee = read_game.mw2_entity.arr[e.owner_scr1]
 #                            print "[idx=%i(%x), typ=%i, weap=%i]" % (e.owner_scr1, e.owner_scr1, ee.type, ee.WeaponNum)
@@ -78,7 +78,8 @@ class Inspector(object):
         if keys["KEY_INSPECT_POS"]:                 # print my player's position
             pos = read_game.my_pos
             ang = read_game.view_angles
-            print "pos= (%.2f, %.2f, %.2f) angles= (%.2f, %.2f, %.2f)" % (pos.x, pos.y, pos.z, ang.x, ang.y, ang.z)
+            print "time=%i ticks=%i pos=(%.2f, %.2f, %.2f) angles=(%.2f, %.2f, %.2f)" % (read_game.game_time, self.env.ticks,
+                                                                                           pos.x, pos.y, pos.z, ang.x, ang.y, ang.z)
         
         if keys["KEY_INSPECT_DUMP"]:                # dump some memory structures
             #mem = dumped()
@@ -102,45 +103,7 @@ class Inspector(object):
             print "local_client=%i" % read_game.local_client_num
             for i in range(PLAYERMAX):
                 print "Player #%i: %s, Team:%i" % (i, read_game.player[i].name, read_game.player[i].team)
-            #===================================================================
-            # print "refdef"
-            # print dump_obj(read_game.COD7_RefDef)
-            # print "viewy"
-            # print dump_obj(read_game.mw2_viewy)
-            #===================================================================
-        
-        if False and read_game.is_in_game:
-            print "time=%8i, pos2=%.1f %.1f %.1f, pos3=%.1f %.1f %.1f" % (read_game.game_time,
-                                                                         read_game.my_player.pos2.x,
-                                                                         read_game.my_player.pos2.y,
-                                                                         read_game.my_player.pos2.z,
-                                                                         read_game.my_player.pos3.x,
-                                                                         read_game.my_player.pos3.y,
-                                                                         read_game.my_player.pos3.z,
-                                                                         )
 
-        if False and read_game.is_in_game:
-            print "time=%8i, motion=%.1f %.1f %.1f, abs=%.1f" % (read_game.game_time,
-                                                                         read_game.my_player.motion.x,
-                                                                         read_game.my_player.motion.y,
-                                                                         read_game.my_player.motion.z,
-                                                                         read_game.my_player.motion.length()
-                                                                         )
-
-        if False:
-            for e in read_game.mw2_entity.arr:
-                if e.type == ET_EXPLOSIVE and e.alive & ALIVE_FLAG:
-                    print "time=%8i, pos=%.1f %.1f %.1f" % (read_game.game_time,
-                                                                                 e.pos.x,
-                                                                                 e.pos.y,
-                                                                                 e.pos.z,
-                                                                                 )
-        if False and read_game.is_in_game:
-            print "kills=%i, deaths=%i" % (read_game.kills, read_game.deaths)
-                                          
-        if False and read_game.is_in_game:
-            print "weapon=%i" % read_game.my_player.weapon_num
-            
         if keys["KEY_INSPECT_MOVE_MOUSE"]:
             self.env.sched.new(self.move_sequence())
         
