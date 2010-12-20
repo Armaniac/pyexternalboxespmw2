@@ -17,6 +17,7 @@ SPRITES = { "claymore_mp":              "claymore.jpg",
             "concussion_grenade_mp":    "stun.jpg",
             "knife_ballistic_mp":       "knife.jpg",
             "crossbow_explosive_mp":    "arrow.jpg",
+            "explosive_bolt_mp":        "arrow.jpg",
             "supplydrop_mp":            "airdrop.jpg",
             }
 
