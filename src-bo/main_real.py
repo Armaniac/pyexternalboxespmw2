@@ -1,9 +1,7 @@
 import Scheduler
 import time
 import ReadGame, Frame, Radar2, Status, Keys, Inspector, Tracker, Crosshair, Esp, Bot, Rage, Killstreak, WeaponNames, Autostab, WebStats
-import Sprites, Textures, BigRadar, VisualMouse
-#import Textures, Radar2, BigRadar, PatternFinder
-#import cProfile
+import Sprites, Textures, BigRadar, VisualMouse, PatternFinder
 from Config import PROFILING, MAIN_MAX_FPS
 import traceback
 from utils import ExitingException
@@ -31,8 +29,7 @@ class Main(object):
                 
         # read_game and frame are 2 special modules
         self.read_game = ReadGame.ReadGame(self)
-        #self.pattern_finder = PatternFinder.PatternFinder(self)
-#        self.pattern_finder = PatternFinder.PatternFinder(self)
+        self.pattern_finder = PatternFinder.PatternFinder(self)
         self.frame = Frame.Frame(self)
         self.textures = Textures.Textures(self)
         self.tracker = Tracker.Tracker(self)
@@ -56,7 +53,7 @@ class Main(object):
     def init(self):
         # first wait for game
         self.read_game.init()
-        #self.pattern_finder.find_patterns(self.read_game.mw2_process.handle)
+        self.pattern_finder.find_patterns(self.read_game.mw2_process.handle)
         self.wnd_thread = threading.Thread(target=self.thread_window)
         self.wnd_thread.daemon = True
         self.wnd_thread.start()
