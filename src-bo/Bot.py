@@ -12,11 +12,15 @@ class Bot(object):
         self.env = env
         self.player_locked = None               # -1 means unlocked
         self.player_locked_ticks = 0            # tick count when player lock started
+        self.mouse_move_x = 0
+        self.mouse_move_y = 0
     
     def render(self):
         read_game = self.env.read_game
         frame = self.env.frame
         esp = self.env.esp
+        self.mouse_move_x = 0
+        self.mouse_move_y = 0
         if not read_game.is_in_game: return
         key_tubebot = False
         
@@ -123,7 +127,7 @@ class Bot(object):
                     aim_speed = BOT_SPEED_2
                 if self.env.ticks - self.player_locked_ticks > BOT_SPEED_TICK_2:
                     aim_speed = BOT_SPEED_3
-                mouse_move(angle[0] / aim_speed, angle[1] / aim_speed, read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
+                self.mouse_move(angle[0] / aim_speed, angle[1] / aim_speed, read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
             else:
                 self.player_locked = None
         
@@ -145,7 +149,7 @@ class Bot(object):
                         angle[0] = spot_coord.x - read_game.screen_center_x
                         angle[1] = spot_coord.y - read_game.screen_center_y
                         #print "slope = %.3f, angle = %.3f, %.3f" % (slope, angle[0], angle[1])
-                        mouse_move(angle[0] / 3, angle[1] / 3, read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
+                        self.mouse_move(angle[0] / 3, angle[1] / 3, read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
                 
 
     @staticmethod
@@ -165,6 +169,11 @@ class Bot(object):
             return traj_slope
         else:
             return None
+
+    def mouse_move(self, delta_x, delta_y, center_x, center_y, sensitivity):
+        (mouse_move_x, mouse_move_y) = mouse_move(delta_x, delta_y, center_x, center_y, sensitivity)
+        self.mouse_move_x = mouse_move_x
+        self.mouse_move_y = mouse_move_y
 
     @staticmethod
     def sq(x, y):

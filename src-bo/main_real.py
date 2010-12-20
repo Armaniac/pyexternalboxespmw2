@@ -1,7 +1,7 @@
 import Scheduler
 import time
 import ReadGame, Frame, Radar2, Status, Keys, Inspector, Tracker, Crosshair, Esp, Bot, Rage, Killstreak, WeaponNames, Autostab, WebStats
-import Sprites, Textures, BigRadar
+import Sprites, Textures, BigRadar, VisualMouse
 #import Textures, Radar2, BigRadar, PatternFinder
 #import cProfile
 from Config import PROFILING, MAIN_MAX_FPS
@@ -45,6 +45,7 @@ class Main(object):
         self.sprites = Sprites.Sprites(self)
         self.crosshair = Crosshair.Crosshair(self)
         self.bot = Bot.Bot(self)
+        self.visual_mouse = VisualMouse.VisualMouse(self)
         self.autostab = Autostab.Autostab(self)
         self.killstreak = Killstreak.Killstreak(self)
         self.weapon_names = WeaponNames.WeaponNames(self)
@@ -96,6 +97,7 @@ class Main(object):
             self.bot.render()
             self.autostab.render()
             self.killstreak.render()
+            self.visual_mouse.render()
             #
             self.webstats.render()
             self.inspector.render()

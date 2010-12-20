@@ -77,7 +77,8 @@ class Esp(object):
             if e.type == ET_EXPLOSIVE and e.alive & ALIVE_FLAG:
                 self.track_explosive(idx)
 
-            elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
+            elif e.type == ET_HELICOPTER and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
+            #elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
                 # all planes are shown because we don't know if they are enemies
                 head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 100)
                 feet = read_game.world_to_screen(e.pos)

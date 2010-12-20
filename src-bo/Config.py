@@ -148,7 +148,7 @@ KILLSTREAK_WEIGHT = 700
 GRAV = 800.0
 TUBE_VEL = 2400.0
 KNIFE_VEL = 1420.0
-BOT_MOTION_COMPENSATE = -2.0
+BOT_MOTION_COMPENSATE = -1.0
 
 # below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
@@ -168,6 +168,15 @@ BOT_SPEED_TICK_1 = 15
 BOT_SPEED_2 = 1.8
 BOT_SPEED_TICK_2 = 30
 BOT_SPEED_3 = 1.8
+
+KEY_BOT_VISUAL_MOUSE = "ON"
+VISUAL_MOUSE_SIZE = 50            # size of the radar in pixels
+VISUAL_MOUSE_BOTTOM_MARGIN = 20
+VISUAL_MOUSE_RIGHT_MARGIN = 20
+VISUAL_MOUSE_COLOR_BACK = 0x7F000000                 # radar back color
+VISUAL_MOUSE_COLOR_BORDER = 0x7F0000FF               # radar border color
+VISUAL_MOUSE_COLOR_LINE = 0xFF00FF00
+VISUAL_MOUSE_LINE_WIDTH = 2
 # ----------------------------------------------------------------------
 # labels
 F1_LABEL = "display"
