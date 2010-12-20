@@ -36,7 +36,7 @@ class WebStats(object):
             self.params["gm"] = read_game.game_mode
             if not self._prev_is_in_game:
                 print "Starting match mode '%s' for map '%s'" % (self.params["gm"], self.params["map"])
-                #print "Sensitivity = %.1f" % (read_game.sensitivity, )
+                print "Sensitivity = %.1f" % (read_game.sensitivity, )
         else:
             if self._prev_is_in_game:
                 print "Ending match score = %s" % (self.params["score"], )
