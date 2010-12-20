@@ -1,6 +1,6 @@
 from ctypes import byref, c_float
 from Config import * #@UnusedWildImport
-from utils import draw_box, draw_line_abs, draw_string_center, draw_spot
+from utils import draw_box, draw_line_abs, draw_string_center
 from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX, ENTITIESMAX, ALIVE_FLAG
 from structs import RECT
 from directx.d3d import D3DMATRIX, D3DRECT, D3DCLEAR
@@ -22,7 +22,7 @@ class Esp(object):
         frame = self.env.frame
         weapon_names = self.env.weapon_names
         if not read_game.is_in_game: return
-        
+
         if keys["KEY_BOXESP"]:
             for idx in range(PLAYERMAX):
                 p = read_game.player[idx]
@@ -73,8 +73,7 @@ class Esp(object):
             if e.type == ET_EXPLOSIVE and e.alive & ALIVE_FLAG:
                 self.track_explosive(idx)
 
-            elif e.type == ET_HELICOPTER and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
-            #elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
+            elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
                 # all planes are shown because we don't know if they are enemies                
                 self.env.tracker.track_entity(idx, e.owner_air)
                 head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 100)
@@ -134,7 +133,7 @@ class Esp(object):
     
     def track_explosive(self, idx):
         te = self.env.tracker.track_entity(idx)
-        if te is not None:
+        if te is not None and not self.env.sprites.get_sprite(te.model_name):
             print "Tracking explosive idx=%i, weapon=%i, name=%s" % (idx, te.weapon_num, te.model_name)
 #        if te and te.model_name.find("_AIRDROP_") > 0:
 #            te.endoflife = self.env.read_game.game_time + int(AIRDROP_PERSISTENCE*1000)
@@ -154,7 +153,7 @@ class Esp(object):
         if feet and head:
             # claymore friend tracking
 #            if te.model_name == "WEAPON_CLAYMORE":
-#                if not te.planter.enemy:
+#                if not te.planter.enemy: 
 #                    te.model_name = "WEAPON_CLAYMORE-friend"
             size_y = feet.y - head.y
             if size_y < 12:  size_y = 12.0
