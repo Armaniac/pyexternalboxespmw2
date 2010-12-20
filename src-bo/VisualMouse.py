@@ -16,9 +16,9 @@ class VisualMouse(object):
         bot = self.env.bot
         if not read_game.is_in_game or not keys["KEY_BOT_VISUAL_MOUSE"]: return
         
-        rx = read_game.resolution_x - VISUAL_MOUSE_SIZE - VISUAL_MOUSE_RIGHT_MARGIN
-        ry = read_game.resolution_y - VISUAL_MOUSE_SIZE - VISUAL_MOUSE_BOTTOM_MARGIN
-        rh = rw = VISUAL_MOUSE_SIZE
+        rh = rw = VISUAL_MOUSE_SIZE + (VISUAL_MOUSE_SIZE % 2)
+        rx = read_game.resolution_x - rw - VISUAL_MOUSE_RIGHT_MARGIN
+        ry = read_game.resolution_y - rh - VISUAL_MOUSE_BOTTOM_MARGIN
         
         r = D3DRECT(rx, ry, rx + rw, ry + rh)
         frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, VISUAL_MOUSE_COLOR_BACK, 1, 0)
@@ -31,4 +31,6 @@ class VisualMouse(object):
         if (line_y < -rh/2): line_y = -rh/2
         if (line_y > +rh/2): line_y = +rh/2
         
-        draw_line(frame.line, int(rx + rw/2), int(ry + rh/2), line_x, line_y, VISUAL_MOUSE_LINE_WIDTH, VISUAL_MOUSE_COLOR_LINE)
+        draw_line(frame.line, rx + rw/2, ry, rx + rw/2, ry + rh, 1, VISUAL_MOUSE_COLOR_CROSSHAIR)
+        draw_line(frame.line, rx, ry + rh/2, rx + rw, ry + rh/2, 1, VISUAL_MOUSE_COLOR_CROSSHAIR)
+        draw_line(frame.line, rx + rw/2, ry + rh/2, line_x, line_y, VISUAL_MOUSE_LINE_WIDTH, VISUAL_MOUSE_COLOR_LINE)
