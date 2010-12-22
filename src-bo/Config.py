@@ -19,6 +19,7 @@ CG_T        = 0x2AB98100
 CGS_T       = 0x2AC09700
 
 SENSITIVITY_PTR = 0x04303398        # or 04267EA8
+SENSITIVITY_DVAR = 0x00E3CC54
 
 COD_WINDOW_CLASS = "CoDBlackOps"    # window class used to find BlackOps window
 
