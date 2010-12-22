@@ -1,7 +1,7 @@
 from ctypes import byref, c_float
 from Config import * #@UnusedWildImport
 from utils import draw_box, draw_line_abs, draw_string_center
-from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX, ENTITIESMAX, ALIVE_FLAG
+from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX, ENTITIESMAX, ALIVE_FLAG, ET_VEHICLE
 from structs import RECT
 from directx.d3d import D3DMATRIX, D3DRECT, D3DCLEAR
 from directx.d3dx import d3dxdll, D3DXVECTOR2
@@ -72,6 +72,10 @@ class Esp(object):
 
             if e.type == ET_EXPLOSIVE and e.alive & ALIVE_FLAG:
                 self.track_explosive(idx)
+            
+            elif e.type == ET_VEHICLE and e.alive & ALIVE_FLAG:
+                if weapon_names.get_weapon_model(e.weapon) == "rcbomb_mp":      # RC-XD
+                    self.env.tracker.track_entity(idx)
 
             elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
                 # all planes are shown because we don't know if they are enemies                

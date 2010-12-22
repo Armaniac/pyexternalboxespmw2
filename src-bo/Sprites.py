@@ -19,6 +19,7 @@ SPRITES = { "claymore_mp":              "claymore.jpg",
             "crossbow_explosive_mp":    "arrow.jpg",
             "explosive_bolt_mp":        "arrow.jpg",
             "supplydrop_mp":            "airdrop.jpg",
+            "rcbomb_mp":                "rcxd.jpg",
             }
 
 #HELIS = { 1181: "COMPASS_HARRIER",
