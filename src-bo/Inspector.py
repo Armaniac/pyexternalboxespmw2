@@ -49,18 +49,18 @@ class Inspector(object):
         frame = self.env.frame
         #if not read_game.is_in_game or not keys["KEY_INSPECTOR"]: return
         if keys["KEY_INSPECTOR"]: 
-            for i in range(PLAYERMAX):
-                print "Player #%i: %s" % (i, read_game.player[i].name)
+#            for i in range(PLAYERMAX):
+#                print "Player #%i: %s" % (i, read_game.player[i].name)
             for idx in range(ENTITIESMAX):
-                e = read_game.mw2_entity.arr[idx]
+                e = read_game.cod7_entity.arr[idx]
                 spot = read_game.world_to_screen(e.pos)
                 if spot:
                     cur_angle_dist = self.sq(spot.x - read_game.screen_center_x, spot.y - read_game.screen_center_y)
                     if cur_angle_dist < 50 * 50:      # not too far from center
-                        s = "[idx=%i(%x), typ=%i, weap=%i]" % (idx, idx, e.type, e.WeaponNum)
+                        s = "[idx=%i(%x), typ=%i, weap=%i]" % (idx, idx, e.type, e.weapon)
                         draw_string_center(frame.font, spot.x, spot.y, 0xFFFFFFFF, s)
                         print s
-                        #print dump_obj(e)
+                        print dump_obj(e)
 #                        if e.owner_scr1 >= 0 and e.owner_scr1 < 2047:
 #                            ee = read_game.mw2_entity.arr[e.owner_scr1]
 #                            print "[idx=%i(%x), typ=%i, weap=%i]" % (e.owner_scr1, e.owner_scr1, ee.type, ee.WeaponNum)
@@ -81,17 +81,17 @@ class Inspector(object):
             print "time=%i ticks=%i perk=%i pos=(%.2f, %.2f, %.2f) angles=(%.2f, %.2f, %.2f)" % (read_game.game_time, self.env.ticks, read_game.my_player.perk,
                                                                                            pos.x, pos.y, pos.z, ang.x, ang.y, ang.z)
         
-        if keys["KEY_INSPECT_DUMP"]:                # dump some memory structures
+        if keys["KEY_INSPECT_DUMP"]:                # dump some memory structures NUMPAD9
             #mem = dumped()
             #read_game._RPM(0x6727F13, mem)
             #read_game._RPM(0x6727F10, mem)
             #print dump_obj(mem)
             #read_game._RPM(0x64DA350, mem)
-            for i in range(1):
-                print "player #%i" % i
-                print dump_obj(read_game.cod7_entity.arr[i])
-                print "client info"
-                print dump_obj(read_game.cod7_clientinfo.arr[i])
+            i = 1
+            print "player #%i" % i
+            print dump_obj(read_game.cod7_entity.arr[i])
+            print "client info"
+            print dump_obj(read_game.cod7_clientinfo.arr[i])
             #del mem
             
         if keys["KEY_INSPECT_DUMP_CG"]:        # NUMPAD 8
