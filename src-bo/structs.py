@@ -2,7 +2,7 @@ from ctypes import * #@UnusedWildImport
 #from UserList import UserList
 import math
 
-PLAYERMAX = 34            # number of players to loop in
+PLAYERMAX = 32            # number of players to loop in
 ENTITIESMAX = 1024        # total number of entities present XXX
 
 ET_GENERAL          = 0
@@ -204,7 +204,8 @@ class COD7_Entity_T(Structure):
                 ("newpos", VECTOR),         # 0x188
                 ("_p02", c_char * 24),      # 0x194
                 ("angle2", VECTOR),         # 0x1AC
-                ("_p12", c_char * 52),      # 0x1B8
+                ("_p12", c_char * 48),      # 0x1B8
+                ("clientnum", c_int),       # 0x1E9
                 ("perk", c_int),            # 0x1EC 0:Not Zoomed 0x40000 stealth perk?
                 ("_p22", c_char * 16),      # 0x1F0
                 ("oldpos", VECTOR),         # 0x200
