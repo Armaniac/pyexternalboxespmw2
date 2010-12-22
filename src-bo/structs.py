@@ -30,8 +30,8 @@ ET_STREAMER_HINT    = 20
 ALIVE_FLAG          = 0x02
 ALIVE_FIRING        = 0x04
 
-FLAGS_CROUCHED      = 0x000001
-FLAGS_PRONE         = 0x000002
+FLAGS_CROUCHED      = 0x000004
+FLAGS_PRONE         = 0x000008
 
 PERK_STEALTH        = 0x40000           # Hmmm doesn't seem to work XXX
 
@@ -206,7 +206,7 @@ class COD7_Entity_T(Structure):
                 ("angle2", VECTOR),         # 0x1AC
                 ("_p12", c_char * 48),      # 0x1B8
                 ("clientnum", c_int),       # 0x1E9
-                ("perk", c_int),            # 0x1EC 0:Not Zoomed 0x40000 stealth perk?
+                ("pose", c_int),            # 0x1EC 0:Not Zoomed 0x40000 stealth perk?
                 ("_p22", c_char * 16),      # 0x1F0
                 ("oldpos", VECTOR),         # 0x200
                 ("_p03", c_char * 24),      # 0x20C
@@ -298,10 +298,8 @@ class Player(object):
         p_str = cast(pointer(cod7_clientinfo.name), c_char_p)
         self.name = p_str.value
         self.team = cod7_clientinfo.team
-        self.pose = cod7_clientinfo.pose
-        if cod7_entity.movingState == 3:        # prone or Second Chance
-            self.pose = FLAGS_PRONE
-        self.perk = cod7_entity.perk
+        self.pose = cod7_entity.pose
+        self.perk = cod7_entity.pose
 
 class EntityTracker(object):
     __slots__ = ( 'idx', 'startoflife', 'endoflife', 'pos', 'yaw', 'type', 'alive', 'weapon_num', 'model_name', 'planter')
