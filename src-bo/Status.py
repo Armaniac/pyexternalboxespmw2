@@ -44,7 +44,7 @@ class Status(object):
         if keys["KEY_FPS_VIEWER"]:
             self.calc_fps()
             if self.fps > 0:
-                draw_string_center(frame.rage_font, read_game.resolution_x - 250, read_game.resolution_y - 10, 0xA0FFFF00, "Fps=%.1f" % self.fps)
+                draw_string_center(frame.rage_font, read_game.resolution_x - 250, read_game.resolution_y - 10, 0xA0FFFF00, "Fps=%.0f" % self.fps)
         else:
             self.reset_fps()
 

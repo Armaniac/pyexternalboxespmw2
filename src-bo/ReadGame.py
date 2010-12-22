@@ -51,6 +51,7 @@ class ReadGame(object):
         self.game_time = 0
         self.game_mode = ""
         self.is_host_text = ""
+        self.sensitivity_raw = 5.0      # in-game mouse sensitivity
         self.sensitivity = 5.0          # in-game mouse sensitivity
         #These are internal variables to determine if we are new in round, leaving round, or mapname
         self.maps_temp = None
@@ -183,10 +184,11 @@ class ReadGame(object):
             # sensitivity
             # It gives in-game mouse sensitivity.
             # It is a float from 1.0 (low sensitivity) to 30.0. Default is 5.0
-            self.sensitivity = self._RPM_float(SENSITIVITY_PTR)
+            self.sensitivity_raw = self._RPM_float(SENSITIVITY_PTR)
+            self.sensitivity = self.sensitivity_raw
             if self.sensitivity < 1.0 or self.sensitivity > 30.0:
-                print "Sensitivity is inconsistent %.1f, reverted to 5.0" % self.sensitivity
                 self.sensitivity = 5.0
+                self.sensitivity_raw = -1
             # map name location currently in use, needs formating with regexp to be proper match for our needs.
             self.map_name = self.cgs.map
             match = self.map_name_re.search(self.map_name)
