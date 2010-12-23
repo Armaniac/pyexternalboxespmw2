@@ -292,7 +292,7 @@ class Player(object):
         self.type = cod7_entity.type
         #self.shooting = cod7_entity.Shooting
         #self.zoomed = cod7_entity.Zoomed
-        self.weapon_num = cod7_entity.weapon - 1
+        self.weapon_num = cod7_entity.weapon
         self.alive = cod7_entity.alive
         
         p_str = cast(pointer(cod7_clientinfo.name), c_char_p)
@@ -321,7 +321,7 @@ class EntityTracker(object):
         self.yaw = cod7_entity.angley
         self.type = cod7_entity.type
         self.alive = cod7_entity.alive
-        self.weapon_num = cod7_entity.weapon - 1
+        self.weapon_num = cod7_entity.weapon
 
 if __name__ == "__main__":
     print "Sizeof COD7_Entity_T is 0x%x, should be 0x328" % sizeof(COD7_Entity_T)

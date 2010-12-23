@@ -9,7 +9,7 @@
 
 # ----------------------------------------------------------------------
 #
-WEAPON_PTR  = 0x00c5E21c
+WEAPON_PTR  = 0x00c5E218
 
 # WEAPON_DEFAULTWEAPON -> 181dd714, pointed by 03005140, corrected to 03005134
 REFDEF      = 0x2ABDAFC0
