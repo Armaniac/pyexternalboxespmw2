@@ -1,4 +1,4 @@
-from binascii import unhexlify
+from binascii import unhexlify, hexlify
 import re
 from Config import * #@UnusedWildImport
 from ctypes import create_string_buffer, windll, byref, sizeof, addressof
@@ -9,11 +9,20 @@ PATTERN_START_ADDR = 0x00401000
 PATTERN_LEN = 0x00300000
 PATTERN_MATCH = unhexlify('FF')
 
+# for Sensitivity finder
+# "sensitivity" string: => A1951B, string is at +1   0xA1951C
+
 FIND_PATTERNS = { 
-                  'CG_ClientFrame':             ("83ec3453555657e800000000",
-                                                 "FFFFFFFFFFFFFFFF00000000"),
-                  'getWeaponinfo':              ("8b4424048b0c85000000008b4108c3",
-                                                 "FFFFFFFFFFFFFF00000000FFFFFFFF"),
+#                  'CG_ClientFrame':             ("83ec3453555657e800000000",
+#                                                 "FFFFFFFFFFFFFFFF00000000"),
+#                  'getWeaponinfo':              ("8b4424048b0c85000000008b4108c3",
+#                                                 "FFFFFFFFFFFFFF00000000FFFFFFFF"),
+                  'sensitivity_str':             ("0073656E736974697669747900",
+                                                  "FFFFFFFFFFFFFFFFFFFFFFFFFF"),
+                  'sensitivity_dvar':            ("6800000000E800000000D9050000000083C41868000000006A0183EC0CD95C2408A300000000",
+                                                  "FF00000000FF00000000FFFF00000000FFFFFFFF00000000FFFFFFFFFFFFFFFFFFFF00000000"),
+                  'weapons':                     ("8B5424048B0D0000000033C08D6424003B1485000000007407403BC176F233C0C3",
+                                                  "FFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFFFF")
                 }
 
 class PatternFinder(object):
@@ -49,8 +58,24 @@ class PatternFinder(object):
                 addr = PATTERN_START_ADDR + res[0]
                 self.addr[name] = addr
                 print "%s found: 0x%x" % (name, addr)
-                
+        
         print "----------------------------------------"
+        
+        print "Finding Sensitivity location, string is at location 0x%x" % self.addr['sensitivity_str']
+        sensitivity_dvar_pattern = FIND_PATTERNS['sensitivity_dvar'][0]
+        sensitivity_dvar_mask = FIND_PATTERNS['sensitivity_dvar'][1]
+        sensitivity_ptr = hexlify(self.addr['sensitivity_str'])
+        sensitivity_dvar_pattern = sensitivity_dvar_pattern[:2] + sensitivity_ptr + sensitivity_dvar_pattern[10:]
+        res = self._find_pattern(raw, unhexlify(sensitivity_dvar_pattern), unhexlify(sensitivity_dvar_mask))
+        if res == 1:
+            sensitivity_dvar_code = PATTERN_START_ADDR + res[0]
+            print "Sensitivity DVAR code found 0x%x" % sensitivity_dvar_code
+            sensitivity_dvar_ptr = self._get_int_in_raw(raw, sensitivity_dvar_code + 34)
+            print "Sensitivity DVAR found 0x%x, should be 0x%x" % (sensitivity_dvar_ptr, SENSITIVITY_DVAR)
+        
+        weapons_ptr = self._get_int_in_raw(raw, self.addr["weapons"] + 19)
+        print "Found Weapons 0x%x, should be 0x%x" % (weapons_ptr, WEAPON_PTR)
+        
         return
         addr = self.addr["cvar"]
         self.cvar_phys_drawDebugInfo = self._get_int_in_raw(raw, addr + 1)
