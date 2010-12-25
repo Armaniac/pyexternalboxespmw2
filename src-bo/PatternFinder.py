@@ -37,6 +37,8 @@ FIND_PATTERNS = {
                                                   "FFFFFFFFFFFF00000000FFFFFFFFFFFFFF"),
                   'cgs_t':                       ("8B4424088B0D0000000083EC24568BB481",
                                                   "FFFFFFFFFFFF00000000FFFFFFFFFFFFFF"),
+                  'entities':                    ("8B4424083D000400008B4C24047C198B1500000000C1E10903C8",
+                                                  "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFF"),
                 }
 
 class PatternFinder(object):
@@ -44,6 +46,13 @@ class PatternFinder(object):
     def __init__(self, env):
         self.env = env
         self.addr = {}
+        self.WEAPON_PTR         = 0x00c5E218
+        self.REFDEF             = 0x2ABDAFC0
+        self.CLIENTINFO         = 0x2ABF70E8 
+        self.ENTITY             = 0x2AC840DC 
+        self.CG_T               = 0x2AB98100 
+        self.CGS_T              = 0x2AC09700
+        self.SENSITIVITY_DVAR   = 0x00E3CC54
 
     def _find_pattern(self, buf, data, mask):
         # first compile the regex correponding to the mask
@@ -84,19 +93,27 @@ class PatternFinder(object):
         if len(res) == 1:
             sensitivity_dvar_code = PATTERN_START_ADDR + res[0]
             print "Sensitivity DVAR code found 0x%x" % sensitivity_dvar_code
-            sensitivity_dvar_ptr = self._get_int_in_raw(raw, sensitivity_dvar_code + 34)
-            print "Sensitivity DVAR found 0x%x, should be 0x%x" % (sensitivity_dvar_ptr, SENSITIVITY_DVAR)
+            self.SENSITIVITY_DVAR = self._get_int_in_raw(raw, sensitivity_dvar_code + 34)
+            print "Sensitivity DVAR found 0x%x, should be 0x%x" % (self.SENSITIVITY_DVAR, SENSITIVITY_DVAR)
         
         weapons_ptr = self._get_int_in_raw(raw, self.addr["weapons"] + 19)
         print "Found Weapons 0x%x, should be 0x%x" % (weapons_ptr, WEAPON_PTR)
         
         cg_t_ptr = self._get_int_in_raw(raw, self.addr["cg_t"] + 6)
-        cg_t = self._RPM_int(process_handle, cg_t_ptr)
-        print "Found CG_T ptr 0x%x and 0x%x, should be 0x%x" % (cg_t_ptr, cg_t, CG_T)
+        self.CG_T = self._RPM_int(process_handle, cg_t_ptr)
+        print "Found CG_T ptr 0x%x and 0x%x, should be 0x%x" % (cg_t_ptr, self.CG_T, CG_T)
+        self.REFDEF = self.CG_T + 0x42EC0
+        print "Calculated REFDEF 0x%x, should be 0x%x" % (self.REFDEF, REFDEF)
         
         cgs_t_ptr = self._get_int_in_raw(raw, self.addr["cgs_t"] + 6)
-        cgs_t = self._RPM_int(process_handle, cgs_t_ptr)
-        print "Found CGS_T ptr 0x%x and 0x%x, should be 0x%x" % (cgs_t_ptr, cgs_t, CGS_T)
+        self.CGS_T = self._RPM_int(process_handle, cgs_t_ptr)
+        print "Found CGS_T ptr 0x%x and 0x%x, should be 0x%x" % (cgs_t_ptr, self.CGS_T, CGS_T)
+        
+        entities_ptr = self._get_int_in_raw(raw, self.addr["entities"] + 49)
+        self.ENTITY = self._RPM_int(process_handle, entities_ptr)
+        print "Found ENTITIES ptr 0x%x and 0x%x, should be 0x%x" % (entities_ptr, self.ENTITY, ENTITY)
+        self.CLIENTINFO = self.ENTITY - 0x8CFF4
+        print "Calculated CLIENTINFO 0x%x, should be 0x%x" % (self.CLIENTINFO, CLIENTINFO)
         
         return
         addr = self.addr["cvar"]
