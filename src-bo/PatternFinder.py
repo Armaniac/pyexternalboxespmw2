@@ -35,6 +35,8 @@ FIND_PATTERNS = {
                                                   "FFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFFFF"),
                   'cg_t':                        ("8B4424088B0D0000000089818C150700C3",
                                                   "FFFFFFFFFFFF00000000FFFFFFFFFFFFFF"),
+                  'cgs_t':                       ("8B4424088B0D0000000083EC24568BB481",
+                                                  "FFFFFFFFFFFF00000000FFFFFFFFFFFFFF"),
                 }
 
 class PatternFinder(object):
@@ -91,6 +93,10 @@ class PatternFinder(object):
         cg_t_ptr = self._get_int_in_raw(raw, self.addr["cg_t"] + 6)
         cg_t = self._RPM_int(process_handle, cg_t_ptr)
         print "Found CG_T ptr 0x%x and 0x%x, should be 0x%x" % (cg_t_ptr, cg_t, CG_T)
+        
+        cgs_t_ptr = self._get_int_in_raw(raw, self.addr["cgs_t"] + 6)
+        cgs_t = self._RPM_int(process_handle, cgs_t_ptr)
+        print "Found CGS_T ptr 0x%x and 0x%x, should be 0x%x" % (cgs_t_ptr, cgs_t, CGS_T)
         
         return
         addr = self.addr["cvar"]
