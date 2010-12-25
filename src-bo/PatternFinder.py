@@ -9,6 +9,16 @@ PATTERN_START_ADDR = 0x00401000
 PATTERN_LEN = 0x00700000
 PATTERN_MATCH = unhexlify('FF')
 
+
+#Entities 2AC840DC
+#from D2F970
+#
+#CG_T 2AB98100
+#from D2C790
+#
+#CG_ST 2AC09700
+#from D2C760
+
 # for Sensitivity finder
 # "sensitivity" string: => A1951B, string is at +1   0xA1951C
 
@@ -22,7 +32,9 @@ FIND_PATTERNS = {
                   'sensitivity_dvar':            ("6800000000E800000000D9050000000083C41868000000006A0183EC0CD95C2408A300000000",
                                                   "FFFFFFFFFFFF00000000FFFF00000000FFFFFFFF00000000FFFFFFFFFFFFFFFFFFFF00000000"),
                   'weapons':                     ("8B5424048B0D0000000033C08D6424003B1485000000007407403BC176F233C0C3",
-                                                  "FFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFFFF")
+                                                  "FFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFFFF"),
+                  'cg_t':                        ("8B4424088B0D0000000089818C150700C3",
+                                                  "FFFFFFFFFFFF00000000FFFFFFFFFFFFFF"),
                 }
 
 class PatternFinder(object):
@@ -76,6 +88,10 @@ class PatternFinder(object):
         weapons_ptr = self._get_int_in_raw(raw, self.addr["weapons"] + 19)
         print "Found Weapons 0x%x, should be 0x%x" % (weapons_ptr, WEAPON_PTR)
         
+        cg_t_ptr = self._get_int_in_raw(raw, self.addr["cg_t"] + 6)
+        cg_t = self._RPM_int(process_handle, cg_t_ptr)
+        print "Found CG_T ptr 0x%x and 0x%x, should be 0x%x" % (cg_t_ptr, cg_t, CG_T)
+        
         return
         addr = self.addr["cvar"]
         self.cvar_phys_drawDebugInfo = self._get_int_in_raw(raw, addr + 1)
@@ -111,6 +127,11 @@ class PatternFinder(object):
     def _RPM(self, process_handle, address, buffer):
         if not windll.kernel32.ReadProcessMemory(process_handle, address, byref(buffer), sizeof(buffer), None): #@UndefinedVariable
             raise ExitingException("Could not ReadProcessMemory: ", windll.kernel32.GetLastError()) #@UndefinedVariable
+    
+    def _RPM_int(self, process_handle, address):
+        buf_int = c_int()
+        self._RPM(process_handle, address, buf_int)
+        return buf_int.value
     
     def _get_int_in_raw(self, raw, addr):
         return unpack("i", raw[addr-PATTERN_START_ADDR:addr-PATTERN_START_ADDR+4])[0]

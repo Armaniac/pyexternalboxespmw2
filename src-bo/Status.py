@@ -39,12 +39,12 @@ class Status(object):
         if read_game.is_in_game and keys["KEY_INSPECT_WEAPON_NAME"]:
             weapon_model = self.env.weapon_names.get_weapon_model(self.env.read_game.my_player.weapon_num)
             if weapon_model is not None:
-                draw_string_center(frame.rage_font, read_game.resolution_x - 100, read_game.resolution_y - 10, 0xA0FFFF00, weapon_model)
+                draw_string_center(frame.rage_font, read_game.resolution_x - 250, read_game.resolution_y - 10, 0xA0FFFF00, weapon_model)
 
         if keys["KEY_FPS_VIEWER"]:
             self.calc_fps()
             if self.fps > 0:
-                draw_string_center(frame.rage_font, read_game.resolution_x - 250, read_game.resolution_y - 10, 0xA0FFFF00, "Hack FPS=%.0f" % self.fps)
+                draw_string_center(frame.rage_font, read_game.resolution_x - 100, read_game.resolution_y - 10, 0xA0FFFF00, "Hack FPS=%.0f" % self.fps)
         else:
             self.reset_fps()
 
