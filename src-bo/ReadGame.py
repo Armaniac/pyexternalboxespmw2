@@ -164,7 +164,8 @@ class ReadGame(object):
         return buf_float.value
         
     def render(self):
-        self._RPM(CG_T, self.cg)
+        offsets = self.env.offsets
+        self._RPM(offsets.CG_T, self.cg)
         self.game_time = self.cg.time
         self.is_in_game = (self.game_time != 0 )
         self.local_client_num = self.cg.clientNum
@@ -173,18 +174,18 @@ class ReadGame(object):
             #===================================================================
             self.kills = self.cod7_clientinfo.arr[self.local_client_num].kills
             self.deaths = self.cod7_clientinfo.arr[self.local_client_num].deaths
-            self._RPM(CGS_T, self.cgs)
+            self._RPM(offsets.CGS_T, self.cgs)
             #===================================================================
         
-            self._RPM(REFDEF - 0x158, self.cod7_refdef)
-            self._RPM(ENTITY, self.cod7_entity)
-            self._RPM(CLIENTINFO, self.cod7_clientinfo)
+            self._RPM(offsets.REFDEF - 0x158, self.cod7_refdef)
+            self._RPM(offsets.ENTITY, self.cod7_entity)
+            self._RPM(offsets.CLIENTINFO, self.cod7_clientinfo)
             self.calc_killstreak()
             
             # sensitivity
             # It gives in-game mouse sensitivity.
             # It is a float from 1.0 (low sensitivity) to 30.0. Default is 5.0
-            sensitivity_ptr = self._RPM_int(SENSITIVITY_DVAR) + 24
+            sensitivity_ptr = self._RPM_int(offsets.SENSITIVITY_DVAR) + 24
             self.sensitivity_raw = self._RPM_float(sensitivity_ptr)
             #self.sensitivity_raw = self._RPM_float(SENSITIVITY_PTR)
             self.sensitivity = self.sensitivity_raw

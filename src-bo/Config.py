@@ -9,17 +9,6 @@
 
 # ----------------------------------------------------------------------
 #
-WEAPON_PTR  = 0x00c5E218
-
-# WEAPON_DEFAULTWEAPON -> 181dd714, pointed by 03005140, corrected to 03005134
-REFDEF      = 0x2ABDAFC0
-CLIENTINFO  = 0x2ABF70E8 
-ENTITY      = 0x2AC840DC 
-CG_T        = 0x2AB98100 
-CGS_T       = 0x2AC09700
-
-SENSITIVITY_PTR = 0x04303398        # or 04267EA8
-SENSITIVITY_DVAR = 0x00E3CC54
 
 COD_WINDOW_CLASS = "CoDBlackOps"    # window class used to find BlackOps window
 

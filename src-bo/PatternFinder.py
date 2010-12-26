@@ -9,7 +9,13 @@ PATTERN_START_ADDR = 0x00401000
 PATTERN_LEN = 0x00700000
 PATTERN_MATCH = unhexlify('FF')
 
-
+WEAPON_PTR         = 0x00c5E218
+REFDEF             = 0x2ABDAFC0
+CLIENTINFO         = 0x2ABF70E8 
+ENTITY             = 0x2AC840DC 
+CG_T               = 0x2AB98100 
+CGS_T              = 0x2AC09700
+SENSITIVITY_DVAR   = 0x00E3CC54
 #Entities 2AC840DC
 #from D2F970
 #
@@ -46,13 +52,13 @@ class PatternFinder(object):
     def __init__(self, env):
         self.env = env
         self.addr = {}
-        self.WEAPON_PTR         = 0x00c5E218
-        self.REFDEF             = 0x2ABDAFC0
-        self.CLIENTINFO         = 0x2ABF70E8 
-        self.ENTITY             = 0x2AC840DC 
-        self.CG_T               = 0x2AB98100 
-        self.CGS_T              = 0x2AC09700
-        self.SENSITIVITY_DVAR   = 0x00E3CC54
+        self.WEAPON_PTR         = None
+        self.REFDEF             = None
+        self.CLIENTINFO         = None 
+        self.ENTITY             = None 
+        self.CG_T               = None 
+        self.CGS_T              = None
+        self.SENSITIVITY_DVAR   = None
 
     def _find_pattern(self, buf, data, mask):
         # first compile the regex correponding to the mask
@@ -96,8 +102,8 @@ class PatternFinder(object):
             self.SENSITIVITY_DVAR = self._get_int_in_raw(raw, sensitivity_dvar_code + 34)
             print "Sensitivity DVAR found 0x%x, should be 0x%x" % (self.SENSITIVITY_DVAR, SENSITIVITY_DVAR)
         
-        weapons_ptr = self._get_int_in_raw(raw, self.addr["weapons"] + 19)
-        print "Found Weapons 0x%x, should be 0x%x" % (weapons_ptr, WEAPON_PTR)
+        self.WEAPON_PTR = self._get_int_in_raw(raw, self.addr["weapons"] + 19)
+        print "Found Weapons 0x%x, should be 0x%x" % (self.WEAPON_PTR, WEAPON_PTR)
         
         cg_t_ptr = self._get_int_in_raw(raw, self.addr["cg_t"] + 6)
         self.CG_T = self._RPM_int(process_handle, cg_t_ptr)

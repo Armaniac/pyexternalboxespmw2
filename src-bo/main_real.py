@@ -29,7 +29,7 @@ class Main(object):
                 
         # read_game and frame are 2 special modules
         self.read_game = ReadGame.ReadGame(self)
-        self.pattern_finder = PatternFinder.PatternFinder(self)
+        self.offsets = PatternFinder.PatternFinder(self)
         self.frame = Frame.Frame(self)
         self.textures = Textures.Textures(self)
         self.tracker = Tracker.Tracker(self)
@@ -53,7 +53,7 @@ class Main(object):
     def init(self):
         # first wait for game
         self.read_game.init()
-        self.pattern_finder.find_patterns(self.read_game.cod7_process)
+        self.offsets.find_patterns(self.read_game.cod7_process)
         self.wnd_thread = threading.Thread(target=self.thread_window)
         self.wnd_thread.daemon = True
         self.wnd_thread.start()

@@ -16,6 +16,7 @@ class WeaponNames(object):
         self.gl_re = re.compile(GRENADE_LAUNCHER_REGEXP)
 
     def render(self):
+        offsets = self.env.offsets
         read_game = self.env.read_game
         if not read_game.is_in_game:
             self.weapon_names = None
@@ -25,7 +26,7 @@ class WeaponNames(object):
             return
         
         weapons = COD7_WeaponDesc()
-        read_game._RPM(WEAPON_PTR, weapons)
+        read_game._RPM(offsets.WEAPON_PTR, weapons)
         weapon = COD7_WeaponDesc_T()
         
         self.weapon_names = ["" for x in xrange(WEAPON_LIMIT)] #@UnusedVariable
