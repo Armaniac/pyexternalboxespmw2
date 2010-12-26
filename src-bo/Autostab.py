@@ -16,7 +16,7 @@ class Autostab(object):
         
         if not read_game.is_in_game:    return
     
-        if keys["KEY_AUTOSTAB"]:
+        if keys["KEY_AUTOSTAB"] and read_game.my_player.alive & ALIVE_FLAG:
             for p in read_game.player:
                 if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & ALIVE_FLAG and p.enemy:
                     dist = (p.pos - read_game.my_pos).length()
