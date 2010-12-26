@@ -25,12 +25,12 @@ class VisualMouse(object):
         
         draw4(frame.line, rx, ry, rx+rw, ry, rx+rw, ry+rh, rx, ry+rh, 2, VISUAL_MOUSE_COLOR_BORDER)
         line_x = bot.mouse_move_x
-        line_y = bot.mouse_move_x
+        line_y = bot.mouse_move_y
         if (line_x < -rw/2): line_x = -rw/2
         if (line_x > +rw/2): line_x = +rw/2
         if (line_y < -rh/2): line_y = -rh/2
         if (line_y > +rh/2): line_y = +rh/2
         
-        draw_line(frame.line, rx + rw/2, ry, rx + rw/2, ry + rh, 1, VISUAL_MOUSE_COLOR_CROSSHAIR)
-        draw_line(frame.line, rx, ry + rh/2, rx + rw, ry + rh/2, 1, VISUAL_MOUSE_COLOR_CROSSHAIR)
+        draw_line(frame.line, rx + rw/2, ry, 0, rh, 1, VISUAL_MOUSE_COLOR_CROSSHAIR)
+        draw_line(frame.line, rx, ry + rh/2, rw, 0, 1, VISUAL_MOUSE_COLOR_CROSSHAIR)
         draw_line(frame.line, rx + rw/2, ry + rh/2, line_x, line_y, VISUAL_MOUSE_LINE_WIDTH, VISUAL_MOUSE_COLOR_LINE)
