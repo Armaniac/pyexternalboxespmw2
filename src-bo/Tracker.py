@@ -38,10 +38,10 @@ class Tracker(object):
             te.model_name = self.env.weapon_names.get_weapon_model(te.weapon_num)
             if e.type == ET_HELICOPTER or e.type == ET_PLANE:
                 print "Track HELI entity #%i type %i weapon_id=%i, pos=%.1f|%.1f|%.1f" % (idx, e.type, te.weapon_num, e.pos.x, e.pos.y, e.pos.z)
-                print dump_obj(e)
+                #print dump_obj(e)
             if e.type == ET_VEHICLE:
                 print "Track VEHICLE entity #%i type %i weapon_id=%i, pos=%.1f|%.1f|%.1f" % (idx, e.type, te.weapon_num, e.pos.x, e.pos.y, e.pos.z)
-                print dump_obj(e)
+                #print dump_obj(e)
 #            if e.type != ET_EXPLOSIVE:
 #                print "Track new entity #%i type %i corr_weap=%i" % (idx, e.type, self.env.weapon_names.get_corrected_weapon_num(e.WeaponNum))
             if owner >= 0 and owner < PLAYERMAX:
