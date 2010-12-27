@@ -23,11 +23,12 @@ class Bot(object):
         self.mouse_move_y = 0
         if not read_game.is_in_game: return
         key_tubebot = False
+        hop = False             # is True when you are locked on a player but he was killed (by you or other)
         
         key_bot = keys["KEY_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
-        if self.is_sniper():
-            if (self.env.read_game.my_player.zoomed):
-                key_bot |= keys["KEY_SNIPER_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
+#        if self.is_sniper():
+#            if (self.env.read_game.my_player.zoomed):
+#                key_bot |= keys["KEY_SNIPER_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
         
         if self.is_tube_active() and key_bot:
             key_tubebot = keys["KEY_TUBEBOT"]
@@ -36,6 +37,7 @@ class Bot(object):
         
         if self.player_locked and not (self.player_locked.alive & ALIVE_FLAG):
             self.player_locked = None           # if player dead, cancel locked tracking
+            hop = True                          # was killed so do HOP tracking
         
         if self.player_locked and not key_bot and not key_knifebot and not key_tubebot:
             self.player_locked = None           # all tracking keys released
@@ -47,6 +49,9 @@ class Bot(object):
         angle_dist = INFINITY                   # current distance to the center
         aimed_player = None                     # currently aimed player
         angle = [0, 0]
+        
+        BOT_MAX_PIX_TO_CENTER = int(BOT_MAX_TO_CENTER * read_game.resolution_x)     # calculated from resolution
+        BOT_HOP_MAX_PIX_TO_CENTER = int(BOT_HOP_MIN_TO_CENTER * read_game.resolution_x)     # calculated from resolution
         #Aimbot
         for p in bot_range:                                
             if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & ALIVE_FLAG and p.enemy:
@@ -63,12 +68,12 @@ class Bot(object):
                     else:
                         aim_target.z += BOT_STAND_Z
                 
-                box = esp.calc_player_rect(p)
-                spot = read_game.world_to_screen(aim_target)
-                player_dist = self.sq(read_game.my_pos.x - p.pos.x, read_game.my_pos.y - p.pos.y) + .1
+                box = esp.calc_player_rect(p)                   # get the bounding box of player
+                spot = read_game.world_to_screen(aim_target)    # calculate the spot location on screen
+                player_dist = self.sq(read_game.my_pos.x - p.pos.x, read_game.my_pos.y - p.pos.y) + .1  # calculate player distance
                 if spot and box and box.left < read_game.screen_center_x and box.right > read_game.screen_center_x and box.top < read_game.screen_center_y and box.bottom > read_game.screen_center_y:
                     # Crosshair in bounding box
-                    cur_angle_dist = -1.0 / player_dist
+                    cur_angle_dist = -1.0 / player_dist     # here cur_angle_dist will be negative
                     if cur_angle_dist < angle_dist:
                         # select this player
                         angle_dist = cur_angle_dist
@@ -77,7 +82,11 @@ class Bot(object):
                 elif spot:
                     cur_angle_dist = self.sq(spot.x - read_game.screen_center_x, spot.y - read_game.screen_center_y)
                     # square of the distance of the spot to the center of the screen
-                    if cur_angle_dist < BOT_MIN_PIX_TO_CENTER * BOT_MIN_PIX_TO_CENTER:      # not too far from center
+                    if hop:                 # if hopping from one player to another, reduce the screen area to scan
+                        bot_max_pix = BOT_HOP_MAX_PIX_TO_CENTER
+                    else:
+                        bot_max_pix = BOT_MAX_PIX_TO_CENTER
+                    if cur_angle_dist < bot_max_pix * bot_max_pix:      # not too far from center
                         cur_angle_dist = cur_angle_dist * sqrt(player_dist)
                         if cur_angle_dist < angle_dist:
                             # select this player
@@ -94,7 +103,7 @@ class Bot(object):
             self.player_locked = aimed_player               # lock on player
             self.player_locked_ticks = self.env.ticks       # take the timestamp of the lock
 
-        if angle_dist != INFINITY and (keys["KEY_AIMBOT_ACTIVE"] or keys["KEY_TUBEBOT_ACTIVE"] or keys["KEY_KNIFEBOT_ACTIVE"]):
+        if angle_dist != INFINITY and (keys["KEY_AIMBOT_ACTIVE"] or keys["KEY_TUBEBOT_ACTIVE"] or keys["KEY_KNIFEBOT_ACTIVE"]) and keys["KEY_BOT_DRAW_SPOT"]:
             # draw white spot on the targeted player
             draw_spot(frame.line, read_game.screen_center_x + angle[0], read_game.screen_center_y + angle[1], BOT_FRAME_COLOR)
 
@@ -148,9 +157,14 @@ class Bot(object):
                     if spot_coord:
                         angle[0] = spot_coord.x - read_game.screen_center_x
                         angle[1] = spot_coord.y - read_game.screen_center_y
-                        #print "slope = %.3f, angle = %.3f, %.3f" % (slope, angle[0], angle[1])
-                        self.mouse_move(angle[0] / 3, angle[1] / 3, read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
-                
+                        print "slope = %.3f, angle = %.3f, %.3f" % (slope, angle[0], angle[1])
+                        self.mouse_move(angle[0], angle[1], read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
+            elif key_bot:
+                if spot_coord:
+                    angle[0] = spot_coord.x - read_game.screen_center_x
+                    angle[1] = spot_coord.y - read_game.screen_center_y
+                    print "angle = %.3f, %.3f" % (slope, angle[0], angle[1])
+                    self.mouse_move(angle[0], angle[1], read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
 
     @staticmethod
     def find_slope(target, player, vel):

@@ -141,8 +141,11 @@ BOT_PRONE_Z = 10
 BOT_TUBE_Z = 0
 BOT_KNIFE_Z = 30
 
-BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
-BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
+#BOT_MIN_PIX_TO_CENTER = 200        # aim only if not more than 200 pixels from center of screen
+BOT_MAX_TO_CENTER = 0.2             # number of pixel to hop next targetfraction of horizontal resolution: ex for 1024*768, it is 1024*.2 = 204
+BOT_HOP_MIN_TO_CENTER = 0.05        # number of pixel to hop next target, fraction of horizontal resolution: ex for 1024*768, it is 1024*.05 = 51
+BOT_FRAME_COLOR = 0x6FFF0000        # color of the spot / kind of laser red spot
+KEY_BOT_DRAW_SPOT = "ON"            # shall we draw the aimbot spot?
 
 BOT_SPEED_1 = 1.8
 BOT_SPEED_TICK_1 = 15
