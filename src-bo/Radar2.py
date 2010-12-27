@@ -83,12 +83,12 @@ class Radar(object):
         draw4(frame.line, rx, ry, rx+rw, ry, rx+rw, ry+rh, rx, ry+rh, 2, MAP_COLOR_BORDER)
         
         p_pos = VECTOR()
-#        for te in self.env.tracker.get_tracked_entity_list():
-#            p_pos.x = transl[0] + p_matrix[0]*te.pos.x + p_matrix[1]*te.pos.y
-#            p_pos.y = transl[1] + p_matrix[2]*te.pos.x + p_matrix[3]*te.pos.y
-#            cx, cy = self.calcPoint(p_pos, matrix)
-#            if te.type == ET_TURRET:
-#                self.env.sprites.draw_sentry(cx, cy, te.planter.enemy)
+        for te in self.env.tracker.get_tracked_entity_list():
+            p_pos.x = transl[0] + p_matrix[0]*te.pos.x + p_matrix[1]*te.pos.y
+            p_pos.y = transl[1] + p_matrix[2]*te.pos.x + p_matrix[3]*te.pos.y
+            cx, cy = self.calcPoint(p_pos, matrix)
+            if te.type == ET_TURRET:
+                self.env.sprites.draw_sentry(cx, cy, te.planter.enemy)
 #            if te.type == ET_HELICOPTER:
 #                self.env.sprites.draw_heli(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle + arrow_inversion, te.planter.enemy, te.weapon_num)
 #            if te.type == ET_PLANE:

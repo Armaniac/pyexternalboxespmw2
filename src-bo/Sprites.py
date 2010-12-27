@@ -20,6 +20,9 @@ SPRITES = { "claymore_mp":              "claymore.jpg",
             "explosive_bolt_mp":        "arrow.jpg",
             "supplydrop_mp":            "airdrop.jpg",
             "rc_car_weapon_mp":         "rcxd.jpg",
+            # Compass sprites for Radar
+            "COMPASS_SENTRY_FRIEND":    "sentry_friendly.png",
+            "COMPASS_SENTRY_ENEMY":     "sentry_enemy.png",
             }
 
 #HELIS = { 1181: "COMPASS_HARRIER",
@@ -75,7 +78,8 @@ class Sprites(object):
             frame.sprite.Draw(sprite, None, None, None, color)
             frame.sprite.End()
 
-#    def draw_sentry(self, x, y, enemy):
+    def draw_sentry(self, x, y, enemy):
+        self.draw_sprite("COMPASS_SENTRY_ENEMY", x, y, 0, COLOR_MAP_BLENDER_ENEMY, 0.5)
 #        if enemy is None:
 #            pass
 #        elif enemy:

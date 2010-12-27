@@ -57,7 +57,17 @@ class Esp(object):
 
         for idx in range(ENTITIESMAX):
             e = read_game.cod7_entity.arr[idx]
-#            if e.type == ET_TURRET and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
+            
+            if e.type == ET_TURRET and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
+                self.env.tracker.track_entity(idx)
+                head_pos = VECTOR(e.pos.x, e.pos.y, e.pos.z + 20)       # eyepos of standing player
+                feet = read_game.world_to_screen(e.pos)
+                head = read_game.world_to_screen(head_pos)
+                if feet and head:
+                    size_y = feet.y - head.y
+                    if size_y < 5:  size_y = 5
+                    size_x = size_y / 2.75
+                    draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, COLOR_SENTRY)
 #                if e.owner_turret >= 0 and e.owner_turret < PLAYERMAX:
 #                    self.env.tracker.track_entity(idx, e.owner_turret)
 #                    if read_game.player[e.owner_turret].enemy:
