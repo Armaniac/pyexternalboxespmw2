@@ -144,7 +144,7 @@ class Esp(object):
 
     def loop_tracked_explo(self):
         for te in self.env.tracker.get_tracked_entity_list():
-            if te.type == ET_EXPLOSIVE:
+            if te.type == ET_EXPLOSIVE or te.type == ET_VEHICLE:
                 self.draw_tracked_explo(te)
 
     def draw_tracked_explo(self, te):
