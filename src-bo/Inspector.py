@@ -104,8 +104,8 @@ class Inspector(object):
             for i in range(PLAYERMAX):
                 print "Player #%i: %s, Team:%i" % (i, read_game.player[i].name, read_game.player[i].team)
 
-        if keys["KEY_INSPECT_MOVE_MOUSE"]:
-            self.env.sched.new(self.move_sequence())
+#        if keys["KEY_INSPECT_MOVE_MOUSE"]:
+#            self.env.sched.new(self.move_sequence())
         
 
     @staticmethod

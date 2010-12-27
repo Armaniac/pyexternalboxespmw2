@@ -142,7 +142,7 @@ class Bot(object):
         
         # debug mode calibration - aiming at (0,0,0) point
         if CALIBRATING:
-            origin = VECTOR(0, 0, 0)
+            origin = VECTOR(640, 395, 0)
             spot_coord = read_game.world_to_screen(origin)
             if spot_coord:
                 draw_spot(frame.line, spot_coord.x, spot_coord.y, 0x7FFFFFFF)
@@ -163,7 +163,7 @@ class Bot(object):
                 if spot_coord:
                     angle[0] = spot_coord.x - read_game.screen_center_x
                     angle[1] = spot_coord.y - read_game.screen_center_y
-                    print "angle = %.3f, %.3f" % (slope, angle[0], angle[1])
+                    print "angle = %.3f, %.3f" % (angle[0], angle[1])
                     self.mouse_move(angle[0], angle[1], read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
 
     @staticmethod

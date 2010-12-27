@@ -147,11 +147,11 @@ BOT_HOP_MIN_TO_CENTER = 0.05        # number of pixel to hop next target, fracti
 BOT_FRAME_COLOR = 0x6FFF0000        # color of the spot / kind of laser red spot
 KEY_BOT_DRAW_SPOT = "ON"            # shall we draw the aimbot spot?
 
-BOT_SPEED_1 = 1.8
+BOT_SPEED_1 = 3.0
 BOT_SPEED_TICK_1 = 15
-BOT_SPEED_2 = 1.8
+BOT_SPEED_2 = 2.2
 BOT_SPEED_TICK_2 = 30
-BOT_SPEED_3 = 1.8
+BOT_SPEED_3 = 1.5
 
 KEY_BOT_VISUAL_MOUSE = "-VK_SUBTRACT"
 VISUAL_MOUSE_SIZE = 50            # size of the radar in pixels
