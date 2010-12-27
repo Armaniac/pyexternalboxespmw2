@@ -3,7 +3,7 @@ import re
 from Config import * #@UnusedWildImport
 from ctypes import create_string_buffer, windll, byref, sizeof, c_int
 from utils import ExitingException
-from struct import unpack
+from struct import unpack, pack
 import time
 
 PATTERN_START_ADDR = 0x00401000
@@ -115,7 +115,7 @@ class PatternFinder(object):
             print "Finding Sensitivity location, string is at location 0x%x" % self.addr['sensitivity_str']
             sensitivity_dvar_pattern = SENSITIVITY_DVAR_PATTERN
             sensitivity_dvar_mask = SENSITIVITY_DVAR_MASK
-            sensitivity_ptr = hexlify(c_int(self.addr['sensitivity_str'] + 1))     # skipping leading 00
+            sensitivity_ptr = hexlify(pack("I", self.addr['sensitivity_str'] + 1))     # skipping leading 00
             sensitivity_dvar_pattern = sensitivity_dvar_pattern[:2] + sensitivity_ptr + sensitivity_dvar_pattern[10:]
             res = self._find_pattern(raw, unhexlify(sensitivity_dvar_pattern), unhexlify(sensitivity_dvar_mask))
             if len(res) == 1:
