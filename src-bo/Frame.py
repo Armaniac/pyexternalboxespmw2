@@ -112,7 +112,7 @@ class Frame(object):
             None)
         
         # make a transparent window
-        if not DEBUG:
+        if not FAKE:
             oledll.Dwmapi.DwmExtendFrameIntoClientArea(self.hwnd, byref(MARGINS(-1, -1, -1, -1)))
             compo = c_int()
             oledll.Dwmapi.DwmIsCompositionEnabled(byref(compo))
@@ -143,7 +143,7 @@ class Frame(object):
         
         self.d3d = POINTER(IDirect3D9)(address)
         self.device = POINTER(IDirect3DDevice9)()
-        if not DEBUG:
+        if not FAKE:
             self.d3d.CreateDevice(0, D3DDEVTYPE.HAL, self.hwnd, D3DCREATE.HARDWARE_VERTEXPROCESSING, byref(params), byref(self.device))
         else:
             self.d3d.CreateDevice(0, D3DDEVTYPE.HAL, self.hwnd, D3DCREATE.SOFTWARE_VERTEXPROCESSING, byref(params), byref(self.device))

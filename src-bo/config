@@ -13,9 +13,6 @@
 COD_WINDOW_CLASS = "CoDBlackOps"    # window class used to find BlackOps window
 
 # ----------------------------------------------------------------------
-PROFILING = False        # only used for debug profiling
-DEBUG = False
-# ----------------------------------------------------------------------
 # You can customize below to avoid easily bannable hack
 
 APP_NAME = 'Launcher'            # name of the hack window

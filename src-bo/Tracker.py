@@ -1,5 +1,6 @@
 from structs import EntityTracker, ET_PLAYER, PLAYERMAX, ET_EXPLOSIVE, ALIVE_FLAG, ET_HELICOPTER, ET_PLANE, ET_VEHICLE
-from utils import dump_obj
+#from utils import dump_obj
+from Config import DEBUG
 
 class Tracker(object):
     _next_zombie = -1                               # decrementing number for the next zombie index to use
@@ -37,10 +38,10 @@ class Tracker(object):
             te.set_values(e)
             te.model_name = self.env.weapon_names.get_weapon_model(te.weapon_num)
             if e.type == ET_HELICOPTER or e.type == ET_PLANE:
-                print "Track HELI entity #%i type %i weapon_id=%i, pos=%.1f|%.1f|%.1f" % (idx, e.type, te.weapon_num, e.pos.x, e.pos.y, e.pos.z)
+                if DEBUG: print "Track HELI entity #%i type %i weapon_id=%i, pos=%.1f|%.1f|%.1f" % (idx, e.type, te.weapon_num, e.pos.x, e.pos.y, e.pos.z)
                 #print dump_obj(e)
             if e.type == ET_VEHICLE:
-                print "Track VEHICLE entity #%i type %i weapon_id=%i, pos=%.1f|%.1f|%.1f" % (idx, e.type, te.weapon_num, e.pos.x, e.pos.y, e.pos.z)
+                if DEBUG: print "Track VEHICLE entity #%i type %i weapon_id=%i, pos=%.1f|%.1f|%.1f" % (idx, e.type, te.weapon_num, e.pos.x, e.pos.y, e.pos.z)
                 #print dump_obj(e)
 #            if e.type != ET_EXPLOSIVE:
 #                print "Track new entity #%i type %i corr_weap=%i" % (idx, e.type, self.env.weapon_names.get_corrected_weapon_num(e.WeaponNum))

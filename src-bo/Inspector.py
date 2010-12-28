@@ -1,3 +1,4 @@
+from Config import DEBUG
 from utils import draw_string_center
 from Keys import keys
 from utils import dump_obj, mouse_move
@@ -45,6 +46,8 @@ class Inspector(object):
 #            yield
     
     def render(self):
+        if not DEBUG:   return
+        
         read_game = self.env.read_game
         frame = self.env.frame
         #if not read_game.is_in_game or not keys["KEY_INSPECTOR"]: return

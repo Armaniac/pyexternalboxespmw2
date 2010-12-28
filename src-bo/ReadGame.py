@@ -87,10 +87,7 @@ class ReadGame(object):
         print
         print "Waiting for BlackOps game..."
         while self.cod7_hwnd == 0:
-            if not DEBUG:
-                self.cod7_hwnd = windll.user32.FindWindowA(COD_WINDOW_CLASS, None)
-            else:
-                self.cod7_hwnd = windll.user32.FindWindowA(None, "Microsoft Office Communicator")
+            self.cod7_hwnd = windll.user32.FindWindowA(COD_WINDOW_CLASS, None)
             sleep(0.050)
         print "COD7 game found."
         while self.cod7_pid == 0:

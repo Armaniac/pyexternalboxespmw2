@@ -13,9 +13,6 @@
 COD_WINDOW_CLASS = "CoDBlackOps"    # window class used to find BlackOps window
 
 # ----------------------------------------------------------------------
-PROFILING = False        # only used for debug profiling
-DEBUG = False
-# ----------------------------------------------------------------------
 # You can customize below to avoid easily bannable hack
 
 APP_NAME = 'Launcher'            # name of the hack window
@@ -245,6 +242,11 @@ FPS_VIEWER_INTERVAL = 5        # number of ticks to measure the hack FPS
 # *** DON'T ACTIVATE UNLESS YOU KNOW WHAT YOU ARE DOING
 CALIBRATING = False
 DEBUG_PRINT_WEAPON_NAMES = False
+# ----------------------------------------------------------------------
+PROFILING = False        # only used for debug profiling
+DEBUG = True
+FAKE = False            # run without the game active
+
 
 # ======================================================================
 # == CUT HERE to recreate the config file                             ==

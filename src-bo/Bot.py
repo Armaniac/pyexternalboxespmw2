@@ -163,7 +163,7 @@ class Bot(object):
                 if spot_coord:
                     angle[0] = spot_coord.x - read_game.screen_center_x
                     angle[1] = spot_coord.y - read_game.screen_center_y
-                    print "angle = %.3f, %.3f" % (angle[0], angle[1])
+                    print "time = %i   angle = %.3f, %.3f" % (read_game.game_time, angle[0], angle[1])
                     self.mouse_move(angle[0], angle[1], read_game.mouse_center_x, read_game.mouse_center_y, read_game.sensitivity)
 
     @staticmethod
