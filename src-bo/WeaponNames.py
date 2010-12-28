@@ -5,7 +5,7 @@ import re
 
 WEAPON_PREFIX = "WEAPON_"
 WEAPON_LIMIT = 1750         # size of array to be read
-GRENADE_LAUNCHER_REGEXP = "(^gl_)|(^[^_]+_gl_[^_]+_mp)"
+GRENADE_LAUNCHER_REGEXP = "(^gl_)|(^china_lake_)"
     
 class WeaponNames(object):
     
