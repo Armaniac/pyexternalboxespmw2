@@ -1,6 +1,6 @@
 from distutils.core import setup
 import py2exe #@UnusedImport
-#import os
+import os
 
 py2exe_options = dict(
                        ascii=True,  # Exclude encodings
@@ -17,20 +17,19 @@ py2exe_options = dict(
                        compressed=True,  # Compress library.zip
                        bundle_files = 2,
                        )
-#map_files = ['maps/'+name for name in os.listdir('maps/') if name.endswith('.jpg')]
-#sprite_files = ['sprites/'+name for name in os.listdir('sprites/') if name.endswith('.jpg') or name.endswith('.png')]
+map_files = ['maps/'+name for name in os.listdir('maps/') if name.endswith('.jpg')]
+sprite_files = ['sprites/'+name for name in os.listdir('sprites/') if name.endswith('.jpg') or name.endswith('.png')]
 
 setup(name='',
-      version='1.0.0.0',
+      version='1.5.0.0',
       description='',
       author='Sph4ck',
       console=['launcher.py'],
-      #console = [{ 'script': "launcher.py", 'uac_info': "requireAdministrator", },],
       options={'py2exe': py2exe_options},
-#      data_files = [('', ['config', 'README.txt']),
-#                    ('maps', map_files),
-#                    ('sprites', sprite_files)],
-      data_files = [('', ['README.txt', ]),
-                    ],
+      data_files = [('', ['config', 'README.txt']),
+                    ('maps', map_files),
+                    ('sprites', sprite_files)],
+#      data_files = [('', ['README.txt', ]),
+#                    ],
       #zipfile = None,
       )
