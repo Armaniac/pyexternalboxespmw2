@@ -150,7 +150,7 @@ BOT_SPEED_2 = 2.2
 BOT_SPEED_TICK_2 = 30
 BOT_SPEED_3 = 1.5
 
-KEY_BOT_VISUAL_MOUSE = "-VK_SUBTRACT"
+KEY_BOT_VISUAL_MOUSE = "+VK_SUBTRACT"
 VISUAL_MOUSE_SIZE = 50            # size of the radar in pixels
 VISUAL_MOUSE_BOTTOM_MARGIN = 20
 VISUAL_MOUSE_RIGHT_MARGIN = 20
@@ -164,7 +164,7 @@ VISUAL_MOUSE_LINE_WIDTH = 4
 F1_LABEL = "display"
 F2_LABEL = "move disp"
 F3_LABEL = "crosshair"
-F4_LABEL = ""
+F4_LABEL = "explo"
 F5_LABEL = "aimbot"
 F6_LABEL = "weapon"
 F7_LABEL = ""
@@ -179,13 +179,13 @@ F12_LABEL = "snapline"
 KEY_STATUS =                "+VK_F1"                        # is status display enabled
 KEY_STATUS_UP =             "+VK_F2"                        # to select if you want the status up on the screen 
 KEY_CROSSHAIR =     		"+VK_F3"
-KEY_EXPLOSIVES =    		"ON"
+KEY_EXPLOSIVES =    		"+VK_F4"
 KEY_AIMBOT_ACTIVE =        	"+VK_F5"
 KEY_TUBEBOT_ACTIVE =       	"+VK_F5"                        # same as AIMBOT
 KEY_WEAPON_ESP =            "-VK_F6"
-KEY_KNIFEBOT_ACTIVE =      	"-VK_F7"
+KEY_KNIFEBOT_ACTIVE =      	"OFF"
 KEY_AUTOSTAB =      		"+VK_F8"
-KEY_TRIGGERBOT =    		"-VK_F9"
+KEY_TRIGGERBOT =    		"-OFF"
 KEY_RADAR =         		"+VK_F10"
 KEY_BOXESP =        		"+VK_F11"
 KEY_BOX_SNAPLINE =   		"+VK_F12"
@@ -198,9 +198,9 @@ KEY_TRIGGER_BOT_KEY = "VK_RBUTTON" # Note: this can be same button as KEY_BOT, I
 KEY_TUBEBOT = "VK_RBUTTON VK_HOME"
 KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"        # CAPS LOCK
-KEY_SNIPER_BOT = "OFF"
+#KEY_SNIPER_BOT = "OFF"
 
-TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
+#TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
 # ----------------------------------------------------------------------
 # autostab parameters
 AUTOSTAB_KEY = "V"
@@ -221,7 +221,7 @@ MOUSE_INVERSION = False
 
 # ----------------------------------------------------------------------
 # airdrop marker persistence
-AIRDROP_PERSISTENCE = 15             # number of seconds to keep airdrop marker
+#AIRDROP_PERSISTENCE = 15             # number of seconds to keep airdrop marker
 
 # ----------------------------------------------------------------------
 # inspector class for debug
@@ -232,9 +232,9 @@ KEY_INSPECT_DUMP_PLAYERS = "!VK_NUMPAD7"
 KEY_INSPECT_DUMP_CG = "!VK_NUMPAD8"
 KEY_INSPECT_MOVE_MOUSE = "!VK_NUMPAD5"
 
-KEY_INSPECT_WEAPON_NAME = "ON"
+KEY_INSPECT_WEAPON_NAME = "OFF"
 
-KEY_FPS_VIEWER = "ON"
+KEY_FPS_VIEWER = "+VK_F11"
 FPS_VIEWER_INTERVAL = 5        # number of ticks to measure the hack FPS
 
 # ----------------------------------------------------------------------

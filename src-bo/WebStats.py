@@ -1,9 +1,8 @@
-from Keys import keys
 import thread
 import urllib
 
 _URL = "http://www.pyexternalboxespmw2.chickenkiller.com/web_stats"
-_USER_AGENT = "pyexternalboxespmw2-5.1"
+_USER_AGENT = "pyexternalhack-1.5"
 
 def fire_url(url, params):
     try:
@@ -43,7 +42,7 @@ class WebStats(object):
         else:
             if self._prev_is_in_game:
                 print "Ending match score = %s" % (self.params["score"], )
-                #thread.start_new_thread(fire_url, (_URL, self.params))
+                thread.start_new_thread(fire_url, (_URL, self.params))
         
         self._prev_is_in_game = read_game.is_in_game
             

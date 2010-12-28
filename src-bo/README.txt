@@ -1,11 +1,6 @@
-External BoxESP v1.0 for Call of Duty BlackOps - by sph4ck
+ExternalHack v1.5 for Call of Duty BlackOps - by sph4ck
 
-
-*** If you like it, feel free to donate***: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7AD4BSF3H4KKS
-
-As always ***FULL SOURCE CODE AVAILABLE***
-
-This is a quick & dirty adaptation of ExternatBoxesp 5.2 initially for COD6 MW2. For now only basic features are ported, the others shall follow shortly.
+Happy new year to all of you.
 
 Before asking any questions, read these:
 *** THIS HACK IS MAY BE EVENTUALLY DETECTED: use at your own risk
@@ -13,30 +8,46 @@ Before asking any questions, read these:
 *** THIS HACK REQUIRES AERO MODE ACTIVE ON VISTA/WIN7
 *** THIS HACK REQUIRES WINDOWED GAME MODE, NO FULLSCREEN
 
-This hack is currently a quick and dirty port of my ExternalBox ESP v5.2 to BlackOps.
 
 Features
 ===========================
-- Radar ESP
-- Box ESP + Name tag
+- Radar ESP: both rotating radar and global fixed radar (toggle with NUMPAD +)
+- Box ESP + Name tag + Weapon name + Helis + Sentries
+- Explosive ESP - including all grenades and RC-XD
 - Rage feature to mark a player you want to molest repeatedly
 - Crosshair
-- simple aimbot (press right mouse or HOME key)
+- Aimbot + Tubebot: use either right mouse button or HOME key.
+  Note: aimbot target selection is a mix between closest enemy and closest to crosshair.
+- Includes a pattern scanner, automatic offset updates when game updates
 
-The hack is packaged in source format and in ready-to-use EXE.
+
+Improvements over 1.0
+===========================
+- automatic aimbot adjustment to mouse sensitivity
+- Hack FPS viewer -- this the overlay FPS not the game's
+- works for any Python version : 2.5, 2.6, 2.7 -- from ActivePython or python.org
+- correct crouch/prone detection
+- Helis + Sentry BOX ESP -- no friend/enemy detection yet
+- Map background on radars
+- Visual Mouse: shows how the aimbot pushes your mouse and in which direction (disable with NUMPAD '-')
+
+
 
 Original credits for External BoxESP for MW2:
 - KN4CK3R, Tristan Ward (not cheat related), Big Dave, SuprNovaAO, S0beit, xZetera, Sumol, blambo, cardoow, Ghett0, jixz, kolbybrooks, username_in_use, warezdude92.
 - Special thanks to dheir.
 
 Credit for BlackOps version:
-- xxx
+- cardoow, CyberDwak, s0beit
+- Bug thanks to Mif for thorough beta testing
+
+
 
 * INFORMATION:
 1. You are downloading a hack that was designed for Windows 7/Vista.
 The reason this hack is for windows 7/Vista is because it uses functions of Windows AERO to use as a medium to draw the hack information on. Windows XP does not and will not have those functions on it (Sorry).
 
-2. You download one .rar file - when extracted it makes a set of folders containing the released compiled version of the stock hack, and a folder with the source code for the hack itself.
+2. You download one .rar file - when extracted contains a folder with the hack code.
 
 3. Why this hack is safe vs. other hacks that are injected.
 When you use a hack that injects its own code into a game, it changes information in the running game in your computers memory.
@@ -46,40 +57,37 @@ drawn on the game window itself, (as that would be easily detected), but rather 
 
 Be careful however, VAC finally started using EXE signature scanning and the MW2 hack was finally detected after 9 months...
 
- INSTRUCTIONS: Using stand-alone executable.
+INSTRUCTIONS:
 
-1. Download the file as attachment on the first post of this page
+1. Download and Install Python 2.7 (it's free): http://downloads.activestate.com/ActivePython/releases/2.6.5.12/ActivePython-2.6.5.12-win32-x86.msi
 
-2. If you do not have winrar installed, download it at, [url=http://www.rarlab.com/]WinRAR archiver, a powerful tool to process RAR and ZIP files[/url],
+2. Download the file as attachment on the first post of this page
+
+3. If you do not have winrar installed, download it at, [url=http://www.rarlab.com/]WinRAR archiver, a powerful tool to process RAR and ZIP files[/url],
 After you know you have winrar installed extract the .rar file to a location, say your desktop for example.
 Inside the folder you have this directory structure.
-Look inside the folder and you have 'launcher.exe', this is the hack you will use. (Feel free to move this folder anywhere as long as you keep all the files together.)
+(Feel free to move this folder anywhere as long as you keep all the files together.)
 
-Note: there is a 'library.zip' containing the actual code in pre-compiled Python bytecode. This zip file may be marked as corrupt by winrar but it's not! (It's actually a .z file).
+4. Open the folder, and double-click on 'launcher.pyc'.
 
-*** DO NOT RENAME OR UNZIP THE 'library.zip' FILE ! ***
+If Python is installed with default file association you should see the hack running.
+
 *** DO NOT INJECT ANY DLL ***
-
- INSTRUCTIONS: Using the source.
-
-Unpack the rar file as above.
-Download and Install ActivePython 2.6.xxx (it's free): http://downloads.activestate.com/ActivePython/releases/2.6.5.12/ActivePython-2.6.5.12-win32-x86.msi
-
-Double-click on 'src/lanucher.py'
 
 
 
 INSTRUCTIONS / HACK USAGE:
 F3: Crosshair
 	Toggle this on or off for a more precise aim.
-F4: 
+F4: Explosive ESP
 F5: Aimbot
 	Use this to get a lock on the enemy when they are near your crosshairs. (press right mouse button or HOME key)
-F6:
+F6: Show weapon names
 F7: 
-F8: 
+F8: Autostab - make sure the melee key is 'V' in your game
 F9: 
 F10: Radar
 F11: Box Esp
 F12: Snapline
-	Draw lines to easily locate enemy players
+	 Draw lines to easily locate enemy players
+
