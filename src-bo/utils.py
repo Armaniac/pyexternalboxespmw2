@@ -123,8 +123,8 @@ class INPUT(Structure):
                  ("iu", _INPUT_UNION)]
 
 def mouse_move(delta_x, delta_y, center_x, center_y, sensitivity):
-    mouse_move_x = delta_x * 3.0/ sensitivity 
-    mouse_move_y = delta_y * 3.0/ sensitivity
+    mouse_move_x = delta_x * 4.0/ sensitivity 
+    mouse_move_y = delta_y * 4.0/ sensitivity
     if mouse_move_x == 0 and mouse_move_y == 0:
         return (0, 0)
     fScreenWidth = windll.user32.GetSystemMetrics(0) - 1.0      # SM_CXSCREEN

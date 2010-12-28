@@ -87,7 +87,7 @@ class Bot(object):
                     else:
                         bot_max_pix = BOT_MAX_PIX_TO_CENTER
                     if cur_angle_dist < bot_max_pix * bot_max_pix:      # not too far from center
-                        cur_angle_dist = cur_angle_dist * sqrt(player_dist)
+                        cur_angle_dist = cur_angle_dist * player_dist
                         if cur_angle_dist < angle_dist:
                             # select this player
                             angle_dist = cur_angle_dist
