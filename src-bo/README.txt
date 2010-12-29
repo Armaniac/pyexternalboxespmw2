@@ -2,6 +2,10 @@ ExternalHack v1.5 for Call of Duty BlackOps - by sph4ck
 
 Happy new year to all of you.
 
+This software is NGOWare. If you like it, please donate to the Red Cross and PM me to let me know.
+Red Cross EU: http://www.redcross-eu.net/ or Red Cross US: http://www.redcross.org/
+Thanks in advance.
+
 Before asking any questions, read these:
 *** THIS HACK IS MAY BE EVENTUALLY DETECTED: use at your own risk
 *** THIS HACK DOES NOT WORK ON WINDOWS XP
@@ -31,6 +35,11 @@ Improvements over 1.0
 - Map background on radars
 - Visual Mouse: shows how the aimbot pushes your mouse and in which direction (disable with NUMPAD '-')
 
+Candidate features for further versions:
+- knife/tomahawk bot
+- more customized sprites for explosives
+- helis on map
+- enemy/friend detector on explosives/rcxd/dogs...
 
 
 Original credits for External BoxESP for MW2:
@@ -39,7 +48,7 @@ Original credits for External BoxESP for MW2:
 
 Credit for BlackOps version:
 - cardoow, CyberDwak, s0beit
-- Bug thanks to Mif for thorough beta testing
+- Bug thanks to MiF for thorough beta testing
 
 
 
