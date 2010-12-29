@@ -56,7 +56,8 @@ class Radar(object):
                                                  )
         
         r = D3DRECT(rx, ry, rx + rw, ry + rh)
-        frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, MAP_COLOR_BACK, 1, 0)
+        if MAP_COLOR_BACK != 0:
+            frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, MAP_COLOR_BACK, 1, 0)
         if keys["KEY_RADAR_MAP"]:
             frame.device.SetRenderState(174, True)
             save_scissors = None
