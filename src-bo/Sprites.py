@@ -2,6 +2,7 @@ from ctypes import POINTER, byref, c_float
 from Config import * #@UnusedWildImport
 from directx.d3d import IDirect3DTexture9
 from directx.d3dx import d3dxdll, D3DXVECTOR2, D3DMATRIX
+from Keys import keys
 import os
 import math
 
@@ -23,6 +24,8 @@ SPRITES = { "claymore_mp":              "claymore.jpg",
             # Compass sprites for Radar
             "COMPASS_SENTRY_FRIEND":    "sentry_friendly.png",
             "COMPASS_SENTRY_ENEMY":     "sentry_enemy.png",
+            
+            "sph4ck":                   "sph4ck.png",
             }
 
 #HELIS = { 1181: "COMPASS_HARRIER",
@@ -55,7 +58,9 @@ class Sprites(object):
             raise Exception("'sprites' folder is not present!")
     
     def render(self):
-        pass
+        read_game = self.env.read_game
+        if keys['KEY_SPH4CK_DISPLAY']:
+            self.draw_sprite("sph4ck", 16, read_game.resolution_y - 16, 0.0, 0xBFFFFFFF, 1.0)
     
     def get_sprite(self, model_name):
         return self.model_sprites.get(model_name)

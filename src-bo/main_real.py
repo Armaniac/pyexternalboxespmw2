@@ -95,6 +95,7 @@ class Main(object):
             self.autostab.render()
             self.killstreak.render()
             self.visual_mouse.render()
+            self.sprites.render()
             #
             self.webstats.render()
             self.inspector.render()

@@ -112,7 +112,7 @@ CROSSHAIR_SIZE = 10                         # crosshair length
 STATUS_COLOR_ACTIVE = 0xFFFFCC00
 STATUS_COLOR_INACTIVE = 0xFF777777
 STATUS_COLOR_LINE = 0xAF000000              # color of status line
-KEY_HOST_DISPLAY = "ON"
+KEY_SPH4CK_DISPLAY = "ON"
 
 # ----------------------------------------------------------------------
 # killstreak display
