@@ -22,6 +22,7 @@ Features
 - Crosshair
 - Aimbot + Tubebot: use either right mouse button or HOME key.
   Note: aimbot target selection is a mix between closest enemy and closest to crosshair.
+  Note: tubebot allows indirect bell-curved rather than direct curve with CAPSLOCK key
 - Includes a pattern scanner, automatic offset updates when game updates
 
 
