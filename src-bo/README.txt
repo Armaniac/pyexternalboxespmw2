@@ -2,7 +2,7 @@ ExternalHack v1.5 for Call of Duty BlackOps - by sph4ck
 
 Happy new year to all of you.
 
-This software is NGOWare. If you like it, please donate to the Red Cross and PM me to let me know.
+This software is NGO-Ware. If you like it, please donate to the Red Cross and PM me to let me know.
 Red Cross EU: http://www.redcross-eu.net/ or Red Cross US: http://www.redcross.org/
 Thanks in advance.
 
@@ -56,7 +56,7 @@ Credit for BlackOps version:
 1. You are downloading a hack that was designed for Windows 7/Vista.
 The reason this hack is for windows 7/Vista is because it uses functions of Windows AERO to use as a medium to draw the hack information on. Windows XP does not and will not have those functions on it (Sorry).
 
-2. You download one .rar file - when extracted contains a folder with the hack code.
+2. You download one .rar file - when extracted contains a folder with everything needed for the hack.
 
 3. Why this hack is safe vs. other hacks that are injected.
 When you use a hack that injects its own code into a game, it changes information in the running game in your computers memory.
@@ -66,20 +66,19 @@ drawn on the game window itself, (as that would be easily detected), but rather 
 
 Be careful however, VAC finally started using EXE signature scanning and the MW2 hack was finally detected after 9 months...
 
+
 INSTRUCTIONS:
 
-1. Download and Install Python 2.7 (it's free): http://downloads.activestate.com/ActivePython/releases/2.6.5.12/ActivePython-2.6.5.12-win32-x86.msi
+1. Download the file as attachment on the first post of this page
 
-2. Download the file as attachment on the first post of this page
-
-3. If you do not have winrar installed, download it at, [url=http://www.rarlab.com/]WinRAR archiver, a powerful tool to process RAR and ZIP files[/url],
+2. If you do not have winrar installed, download it at, [url=http://www.rarlab.com/]WinRAR archiver, a powerful tool to process RAR and ZIP files[/url],
 After you know you have winrar installed extract the .rar file to a location, say your desktop for example.
 Inside the folder you have this directory structure.
 (Feel free to move this folder anywhere as long as you keep all the files together.)
 
-4. Open the folder, and double-click on 'launcher.pyc'.
+3. Open the folder, and double-click on 'run.bat'.
 
-If Python is installed with default file association you should see the hack running.
+Note: it includes a stripped down version of Python 2.7. You can download alternative 2.7 python from python.org or activestate web sites.
 
 *** DO NOT INJECT ANY DLL ***
 
