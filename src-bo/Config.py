@@ -244,7 +244,7 @@ CALIBRATING = False
 DEBUG_PRINT_WEAPON_NAMES = False
 # ----------------------------------------------------------------------
 PROFILING = False        # only used for debug profiling
-DEBUG = True
+DEBUG = False
 FAKE = False            # run without the game active
 
 
