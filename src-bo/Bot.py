@@ -14,6 +14,7 @@ class Bot(object):
         self.player_locked_ticks = 0            # tick count when player lock started
         self.mouse_move_x = 0
         self.mouse_move_y = 0
+        self.last_mouse_move = 0
     
     def render(self):
         read_game = self.env.read_game
@@ -21,7 +22,9 @@ class Bot(object):
         esp = self.env.esp
         self.mouse_move_x = 0
         self.mouse_move_y = 0
-        if not read_game.is_in_game: return
+        if not read_game.is_in_game:
+            self.last_mouse_move = 0
+            return
         key_tubebot = False
         hop = False             # is True when you are locked on a player but he was killed (by you or other)
         
@@ -185,9 +188,12 @@ class Bot(object):
             return None
 
     def mouse_move(self, delta_x, delta_y, center_x, center_y, sensitivity):
-        (mouse_move_x, mouse_move_y) = mouse_move(delta_x, delta_y, center_x, center_y, sensitivity)
-        self.mouse_move_x = mouse_move_x
-        self.mouse_move_y = mouse_move_y
+        cur_time = self.env.read_game.game_time
+        if cur_time != self.last_mouse_move:                # check whether time changed since last mpuse_move
+            self.last_mouse_move = cur_time
+            (mouse_move_x, mouse_move_y) = mouse_move(delta_x, delta_y, center_x, center_y, sensitivity)
+            self.mouse_move_x = mouse_move_x
+            self.mouse_move_y = mouse_move_y
 
     @staticmethod
     def sq(x, y):

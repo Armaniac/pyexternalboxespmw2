@@ -126,7 +126,7 @@ KILLSTREAK_WEIGHT = 700
 GRAV = 800.0
 TUBE_VEL = 2400.0
 KNIFE_VEL = 1420.0
-BOT_MOTION_COMPENSATE = -1.0
+BOT_MOTION_COMPENSATE = -1.5
 
 # below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
