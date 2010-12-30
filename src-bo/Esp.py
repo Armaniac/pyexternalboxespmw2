@@ -39,7 +39,7 @@ class Esp(object):
                             else:
                                 name_esp_str = p.name
                             draw_string_center(frame.font, feet.x, feet.y - size_y, COLOR_PLAYER_NAME, name_esp_str)
-                        if keys["KEY_BOX_SNAPLINE"] and p.enemy and p.alive & 0x0001:
+                        if keys["KEY_BOX_SNAPLINE"] and p.enemy and p.alive & ALIVE_FLAG:
                             draw_line_abs(frame.line, read_game.screen_center_x, read_game.resolution_y,
                                   feet.x, feet.y, COLOR_BOX_LINE_WIDTH, p.color_esp)      # w/h ratio
                         if keys["KEY_BOXESP"]:
