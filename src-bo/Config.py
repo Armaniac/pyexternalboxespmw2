@@ -257,7 +257,7 @@ FAKE = False            # run without the game active
 glob_context = {}
 local_context = {}
 try:
-    execfile("../config", glob_context, local_context)
+    execfile("config", glob_context, local_context)
     globals().update(local_context)
 except Exception, err:
     print "Warning: Could not load 'config' file, reverting to defaults: %s" % err
