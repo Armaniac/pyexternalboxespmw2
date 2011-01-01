@@ -2,7 +2,7 @@ from utils import draw_string_center
 from Keys import keys
 from utils import dump_obj, mouse_move
 from ctypes import Structure, c_char
-from structs import ET_EXPLOSIVE, ENTITIESMAX, PLAYERMAX, VECTOR
+from structs import ET_EXPLOSIVE, ENTITIESMAX, PLAYERMAX, VECTOR, ALIVE_FLAG
 # this module allows to inspect entities near the center crosshair
 
 class dumped(Structure):
@@ -123,7 +123,7 @@ class Inspector(object):
                                                                          )
         if False:
             for e in read_game.mw2_entity.arr:
-                if e.type == ET_EXPLOSIVE and e.alive & 0x0001:
+                if e.type == ET_EXPLOSIVE and e.alive & ALIVE_FLAG:
                     print "time=%8i, pos=%.1f %.1f %.1f" % (read_game.game_time,
                                                                                  e.pos.x,
                                                                                  e.pos.y,

@@ -1,4 +1,4 @@
-from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE, ET_EXPLOSIVE
+from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE, ET_EXPLOSIVE, ALIVE_FLAG
 from Config import * #@UnusedWildImport
 from utils import draw_arrow, draw4
 from Keys import keys
@@ -98,7 +98,7 @@ class Radar(object):
         draw_arrow(frame.line, rx + rw/2, ry + rh/2, 0, MAP_COLOR_ME);        # myself
         
         for p in read_game.player:
-            if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001:
+            if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & ALIVE_FLAG:
                 p_pos.x = transl[0] + p_matrix[0]*p.pos.x + p_matrix[1]*p.pos.y
                 p_pos.y = transl[1] + p_matrix[2]*p.pos.x + p_matrix[3]*p.pos.y
                 cx, cy = self.calcPoint(p_pos, matrix)

@@ -3,7 +3,7 @@ from Keys import keys
 from ctypes import c_float, byref
 from directx.types import D3DXVECTOR2, D3DMATRIX
 from directx.d3dx import d3dxdll
-from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE, ET_EXPLOSIVE
+from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE, ET_EXPLOSIVE, ALIVE_FLAG
 from utils import draw_arrow
 
 
@@ -78,7 +78,7 @@ class BigRadar(object):
                    -read_game.view_angles.y + arrow_angle, MAP_COLOR_ME);        # myself
         
         for p in read_game.player:
-            if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001:
+            if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & ALIVE_FLAG:
                 map_pos.x = self.scaling * (transl[0] + matrix[0]*p.pos.x + matrix[1]*p.pos.y)
                 map_pos.y = self.scaling * (transl[1] + matrix[2]*p.pos.x + matrix[3]*p.pos.y)
                 draw_arrow(frame.line, rx + map_pos.x, ry + map_pos.y,

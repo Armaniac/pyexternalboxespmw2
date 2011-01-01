@@ -32,6 +32,8 @@ ET_VEHICLE_COLLMAP  = 15
 ET_VEHICLE_CORPSE   = 16
 ET_VEHICLE_SPAWNER  = 17
 
+ALIVE_FLAG          = 0x01
+
 FLAGS_CROUCHED      = 0x000004
 FLAGS_PRONE         = 0x000008
 FLASG_NOINPUT       = 0x000100
@@ -50,6 +52,8 @@ class VECTOR(Structure):
         return math.sqrt(self.x*self.x + self.y*self.y + self.z*self.z)
     def dotProduct(self, dot):
         return self.x*dot.x + self.y*dot.y + self.z*dot.z;
+    def scalar_mul(self, multiplier):
+        return VECTOR(self.x * multiplier, self.y * multiplier, self.z * multiplier)
     def __add__(self, other):
         return VECTOR(self.x+other.x, self.y+other.y, self.z+other.z)
     def __sub__(self, other):
@@ -58,7 +62,25 @@ class VECTOR(Structure):
 class COORD(Structure):
     _fields_ = [ ("x", c_float),
                  ("y", c_float) ]
-    
+
+class RECT(Structure):
+    _fields_ = [ ("left", c_int),
+                 ("top", c_int),
+                 ("right", c_int),
+                 ("bottom", c_int) ]
+
+class POINT(Structure):
+    _fields_ = [ ("x", c_int),
+                 ("y", c_int) ]
+
+class MSG(Structure):
+    _fields_ = [('hwnd', c_int),
+                ('message', c_uint),
+                ('wParam', c_int),
+                ('lParam', c_int),
+                ('time', c_int),
+                ('pt', POINT)]
+
 class MW2_RefDef(Structure):
     _fields_ = [ ("_p00", c_char * 16),
                  ("fov_x", c_float),
@@ -67,7 +89,7 @@ class MW2_RefDef(Structure):
                  ("viewAxis", VECTOR * 3) ]
 
 class STR4(Structure):
-    _fields_ = [ ("str", c_char * 16)]
+    _fields_ = [ ("str", c_char * 4)]
     
 class MW2_CGS_T(Structure):
     _fields_ = [ ("_p00", c_char * 8),          # 0x00
@@ -180,8 +202,6 @@ class STR256(Structure):
 # high level Player object
 
 class Player(object):
-    __slots__ = ( 'valid', 'pos', 'pos2', 'pos3', 'pitch', 'yaw', 'roll', 'client_num', 'type', 'pose', 'shooting', 'zoomed',
-                  'weapon_num', 'alive', 'enemy', 'name', 'team', 'perk', 'color_esp', 'color_map', 'motion')
    
     def __init__(self):
         self.valid = 0
@@ -231,7 +251,6 @@ class Player(object):
         self.perk = mw2_clientinfo.perk
 
 class EntityTracker(object):
-    __slots__ = ( 'idx', 'startoflife', 'endoflife', 'pos', 'yaw', 'type', 'alive', 'weapon_num', 'model_name', 'planter')
     
     def __init__(self, idx):
         self.idx = idx                      # index of entity object

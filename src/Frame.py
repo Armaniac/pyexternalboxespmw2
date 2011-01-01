@@ -1,4 +1,3 @@
-import win32api, win32con, win32gui
 from Config import * #@UnusedWildImport
 from directx.d3d import IDirect3D9, IDirect3DDevice9
 from directx.types import * #@UnusedWildImport
@@ -7,6 +6,42 @@ from directx.d3dx import d3dxdll, TestHR, ID3DXFont, ID3DXLine, ID3DXSprite
 D3DRS_ZENABLE                      = 7
 D3DRS_LIGHTING                     = 137
 D3DRS_CULLMODE                     = 22
+
+WS_EX_TOPMOST       = 8
+WS_EX_COMPOSITED    = 0x02000000
+WS_EX_TRANSPARENT   = 32
+WS_EX_LAYERED       = 0x00080000
+
+WS_POPUP            = 0x80000000
+
+WNDPROC = WINFUNCTYPE(c_long, c_int, c_uint, c_int, c_int)
+
+class WNDCLASS(Structure):
+    _fields_ = [('style', c_uint),
+                ('lpfnWndProc', WNDPROC),
+                ('cbClsExtra', c_int),
+                ('cbWndExtra', c_int),
+                ('hInstance', c_int),
+                ('hIcon', c_int),
+                ('hCursor', c_int),
+                ('hbrBackground', c_int),
+                ('lpszMenuName', c_char_p),
+                ('lpszClassName', c_char_p)]
+
+class PAINTSTRUCT(Structure):
+    _fields_ = [('hdc', c_int),
+                ('fErase', c_int),
+                ('rcPaint', RECT),
+                ('fRestore', c_int),
+                ('fIncUpdate', c_int),
+                ('rgbReserved', c_char * 32)]
+
+def wndProc(hwnd, message, wParam, lParam):    
+    if message == 2:                    #WM_DESTROY        
+        windll.user32.PostQuitMessage(0)
+        return 0                 
+    else:
+        return windll.user32.DefWindowProcA(c_int(hwnd), c_int(message), c_int(wParam), c_int(lParam))
 
 class MARGINS(Structure):
     _fields_ = [ ("cxLeftWidth", c_int),
@@ -28,31 +63,31 @@ class Frame(object):
         self.env = env
         self.hwnd = None
     
-    def init_show_window(self):
-        win32gui.ShowWindow(self.hwnd, win32con.SW_SHOWNORMAL)
-        win32gui.UpdateWindow(self.hwnd)    
-
     def init_create_window(self):
         # this is to be called by a specific thread that will be the owner
         read_game = self.env.read_game
         
-        hInstance = win32api.GetModuleHandle()
-        wndClass                = win32gui.WNDCLASS()
+        hInstance = windll.kernel32.GetModuleHandleA(None)
+        wndClass                = WNDCLASS()
         wndClass.style          = 0
-        wndClass.lpfnWndProc    = lambda hwnd, message, wParam, lParam: self.wndProc(hwnd, message, wParam, lParam)
+        wndClass.lpfnWndProc    = WNDPROC(wndProc)
         wndClass.hInstance      = hInstance
-        wndClass.hIcon          = win32gui.LoadIcon(0, win32con.IDI_APPLICATION)
-        wndClass.hCursor        = win32gui.LoadCursor(0, win32con.IDC_ARROW)
+        wndClass.hIcon          = windll.user32.LoadIconA(0, 32512)     # 32512 = IDI_APPLICATION
+        wndClass.hCursor        = windll.user32.LoadCursorA(0, 32512)   # 32512 = IDC_ARROW
         wndClass.hbrBackground  = 0
         wndClass.lpszClassName  = str(APP_NAME)                 # not Unicode
+        wndClass.lpszMenuName   = None
         
-        win32gui.RegisterClass(wndClass)
-    
-        self.hwnd = win32gui.CreateWindowEx(
-            win32con.WS_EX_TOPMOST | win32con.WS_EX_COMPOSITED | win32con.WS_EX_TRANSPARENT | win32con.WS_EX_LAYERED,
+        if not windll.user32.RegisterClassA(byref(wndClass)):
+            raise WinError()
+        
+        self.wndClass = wndClass        # make sure it is not garbage-collected
+
+        self.hwnd = windll.user32.CreateWindowExA(
+            WS_EX_TOPMOST | WS_EX_COMPOSITED | WS_EX_TRANSPARENT | WS_EX_LAYERED,
             APP_NAME,
             APP_NAME,
-            win32con.WS_POPUP,
+            WS_POPUP,
             read_game.wnd_bounding_x,
             read_game.wnd_bounding_y,
             read_game.resolution_x,
@@ -63,11 +98,25 @@ class Frame(object):
             None)
         
         # make a transparent window
-        oledll.Dwmapi.DwmExtendFrameIntoClientArea(self.hwnd, byref(MARGINS(-1, -1, -1, -1)))
-        compo = c_int()
-        oledll.Dwmapi.DwmIsCompositionEnabled(byref(compo))
-        if not compo:
-            raise Exception("Composition is not activated")
+        if not FAKE:
+            oledll.Dwmapi.DwmExtendFrameIntoClientArea(self.hwnd, byref(MARGINS(-1, -1, -1, -1)))
+            compo = c_int()
+            oledll.Dwmapi.DwmIsCompositionEnabled(byref(compo))
+            if not compo:
+                raise Exception("Composition is not activated")
+            
+        windll.user32.ShowWindow(self.hwnd, 1)      # SW_SHOWNORMAL = 1
+        windll.user32.UpdateWindow(self.hwnd)
+        
+    def pump_messages(self):
+        quit = False
+        while not quit:
+            msg = MSG()
+            pending = windll.user32.GetMessageA(pointer(msg), self.hwnd, 0, 0)      # PM_REMOVE = 1
+            if (msg.message & 0xFFFF == 18):         # WM_QUIT = 18
+                break
+            windll.user32.TranslateMessage(byref(msg))
+            windll.user32.DispatchMessageA(byref(msg))
 
     def init_d3d(self):
         address = windll.d3d9.Direct3DCreate9(UINT(D3D_SDK_VERSION))
@@ -80,7 +129,10 @@ class Frame(object):
         
         self.d3d = POINTER(IDirect3D9)(address)
         self.device = POINTER(IDirect3DDevice9)()
-        self.d3d.CreateDevice(0, D3DDEVTYPE.HAL, self.hwnd, D3DCREATE.SOFTWARE_VERTEXPROCESSING, byref(params), byref(self.device))
+        if not FAKE:
+            self.d3d.CreateDevice(0, D3DDEVTYPE.HAL, self.hwnd, D3DCREATE.HARDWARE_VERTEXPROCESSING, byref(params), byref(self.device))
+        else:
+            self.d3d.CreateDevice(0, D3DDEVTYPE.HAL, self.hwnd, D3DCREATE.SOFTWARE_VERTEXPROCESSING, byref(params), byref(self.device))
         
         self.device.SetRenderState(D3DRS_ZENABLE, False)
         self.device.SetRenderState(D3DRS_LIGHTING, False)
@@ -123,7 +175,7 @@ class Frame(object):
         read_game = self.env.read_game
         if self.env.ticks % 10 == 0:            # check not too often
             if read_game.check_window_moved():
-                win32gui.MoveWindow(self.hwnd, read_game.wnd_bounding_x, read_game.wnd_bounding_y,
+                windll.user32.MoveWindow(self.hwnd, read_game.wnd_bounding_x, read_game.wnd_bounding_y,
                                     read_game.resolution_x, read_game.resolution_y, False)
         
         self.device.Clear(0, None, D3DCLEAR.TARGET, 0x00000000, 1, 0)
@@ -135,8 +187,8 @@ class Frame(object):
             self.device.Present(None, None, self.hwnd, None)    
     
     def wndProc(self, hwnd, message, wParam, lParam):    
-        if message == win32con.WM_DESTROY:        
-            win32gui.PostQuitMessage(0)
+        if message == 2:                    #WM_DESTROY        
+            windll.user32.PostQuitMessage(0)
             return 0                 
         else:
-            return win32gui.DefWindowProc(hwnd, message, wParam, lParam)
+            return windll.user32.DefWindowProcA(hwnd, message, wParam, lParam)

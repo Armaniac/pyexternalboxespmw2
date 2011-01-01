@@ -1,4 +1,4 @@
-from structs import ET_PLAYER, PLAYERMAX
+from structs import ET_PLAYER, PLAYERMAX, ALIVE_FLAG
 from Config import * #@UnusedWildImport
 from Keys import keys
 from utils import draw_string_center
@@ -34,7 +34,7 @@ class Rage(object):
                 if idx >= PLAYERMAX:    idx = 0
                 if idx < 0:             idx = PLAYERMAX - 1
                 p = read_game.player[idx]
-                if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001 and p.enemy:
+                if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & ALIVE_FLAG and p.enemy:
                     self.rage_player_index = idx
                     break
             else:
@@ -52,7 +52,7 @@ class Rage(object):
         # now display player
         if self.rage_player_index >= 0:
             p = read_game.player[self.rage_player_index]
-            if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001 and p.enemy:
+            if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & ALIVE_FLAG and p.enemy:
                 p.color_esp = RAGE_COLOR_ESP
                 p.color_map = RAGE_COLOR_MAP
         

@@ -1,7 +1,7 @@
 from ctypes import byref, c_float
 from Config import * #@UnusedWildImport
 from utils import draw_box, draw_line_abs, draw_string_center, draw_spot
-from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX, ENTITIESMAX
+from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX, ENTITIESMAX, ALIVE_FLAG, RECT
 from directx.d3d import D3DMATRIX
 from directx.d3dx import d3dxdll, D3DXVECTOR2
 from Keys import keys
@@ -27,45 +27,24 @@ class Esp(object):
                 p = read_game.player[idx]
                 if (p.type == ET_PLAYER) and p.valid and p.alive and p != read_game.my_player:
                     # colors already calculated
-                    head_pos = VECTOR(p.pos.x, p.pos.y, p.pos.z + 60)       # eyepos of standing player
-                    feet = read_game.world_to_screen(p.pos)
-                    head = read_game.world_to_screen(head_pos)
+                    feet, head, size_x, size_y = self.calc_size_xy(p)
                     if feet and head:
                         p.color_esp = self.get_faded_color(p.pos, p.color_esp)
-                        size_y = feet.y - head.y
-                        size_x = size_y / 2.75          # standing up
-                        if size_y < 10:     size_y = 10
-                        if p.pose & FLAGS_CROUCHED:
-                            size_y /= 1.5
-                            size_x = size_y / 1.5       # w/h ratio
-                        elif p.pose & FLAGS_PRONE:
-                            size_y /= 3
-                            size_x = size_y * 2         # w/h ratio
+
                         if keys["KEY_BOXESP"]:
-                            if keys["KEY_SPOT23_ESP"]:
-                                p3 = read_game.mw2_entity.arr[idx].pos3
-                                pos3 = VECTOR(p3.x, p3.y, p3.z + 55)
-                                head3 = read_game.world_to_screen(pos3)
-                                if head3:
-                                    draw_spot(frame.line, head3.x, head3.y, 0x7FC00000)
-                                p2 = read_game.mw2_entity.arr[idx].pos2
-                                pos2 = VECTOR(p2.x, p2.y, p2.z + 55)
-                                head2 = read_game.world_to_screen(pos2)
-                                if head2:
-                                    draw_spot(frame.line, head2.x, head2.y, 0x80FFBF00)
                             draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, p.color_esp)
                             if keys["KEY_WEAPON_ESP"]:
                                 name_esp_str = "%s [%s]" % (p.name, weapon_names.get_weapon_name(p.weapon_num))
                             else:
                                 name_esp_str = p.name
                             draw_string_center(frame.font, feet.x, feet.y - size_y, COLOR_PLAYER_NAME, name_esp_str)
-                        if keys["KEY_BOX_SNAPLINE"] and p.enemy and p.alive & 0x0001:
+                        if keys["KEY_BOX_SNAPLINE"] and p.enemy and p.alive & ALIVE_FLAG:
                             draw_line_abs(frame.line, read_game.screen_center_x, read_game.resolution_y,
                                   feet.x, feet.y, COLOR_BOX_LINE_WIDTH, p.color_esp)      # w/h ratio
                         if keys["KEY_BOXESP"]:
                             self.draw_distance_ESP(p.pos, feet.x, feet.y, COLOR_PLAYER_NAME)
                         if keys["KEY_TRIGGERBOT"] and keys["KEY_TRIGGER_BOT_KEY"]:
-                            if p.alive & 0x0001 and p.enemy and p.pose != 0:
+                            if p.alive & ALIVE_FLAG and p.enemy and p.pose != 0:
                                 if (read_game.screen_center_x > feet.x - size_x/2) and (read_game.screen_center_x < feet.x + size_x/2):
                                     if (read_game.screen_center_y > feet.y - size_y) and (read_game.screen_center_y < feet.y ):
                                         #print "try trigger bot"
@@ -86,7 +65,7 @@ class Esp(object):
         #=======================================================================
         for idx in range(ENTITIESMAX):
             e = read_game.mw2_entity.arr[idx]
-            if e.type == ET_TURRET and e.alive & 0x0001 and keys["KEY_BOXESP"]:
+            if e.type == ET_TURRET and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
                 if e.owner_turret >= 0 and e.owner_turret < PLAYERMAX:
                     self.env.tracker.track_entity(idx, e.owner_turret)
                     if read_game.player[e.owner_turret].enemy:
@@ -99,11 +78,11 @@ class Esp(object):
                             size_x = size_y / 2.75
                             draw_box(frame.line, feet.x - size_x/2, feet.y, size_x, -size_y, COLOR_BOX_OUTER_WIDTH, COLOR_SENTRY)
                     
-            elif e.type == ET_EXPLOSIVE and e.alive & 0x0001:
+            elif e.type == ET_EXPLOSIVE and e.alive & ALIVE_FLAG:
                 #self.draw_explosive(e)
                 self.track_explosive(idx)
                     
-            elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & 0x0001 and keys["KEY_BOXESP"]:
+            elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
                 if e.owner_air >= 0 and e.owner_air < PLAYERMAX:
                     self.env.tracker.track_entity(idx, e.owner_air)
                     if e.type == ET_PLANE or read_game.player[e.owner_air].enemy:
@@ -121,6 +100,30 @@ class Esp(object):
                                       feet.x, feet.y, COLOR_BOX_LINE_WIDTH, COLOR_PLANE)
                         
         self.loop_tracked_explo()
+    
+    def calc_size_xy(self, p):
+        head_pos = VECTOR(p.pos.x, p.pos.y, p.pos.z + 60)       # eyepos of standing player
+        feet = self.env.read_game.world_to_screen(p.pos)
+        head = self.env.read_game.world_to_screen(head_pos)
+        size_x = 0
+        size_y = 0
+        if feet and head:
+            size_y = feet.y - head.y
+            size_x = size_y / 2.75          # standing up
+            if size_y < 10:     size_y = 10
+            if p.pose & FLAGS_CROUCHED:
+                size_y /= 1.5
+                size_x = size_y / 1.5       # w/h ratio
+            elif p.pose & FLAGS_PRONE:
+                size_y /= 3
+                size_x = size_y * 2         # w/h ratio
+        return (feet, head, size_x, size_y)
+
+    def calc_player_rect(self, p):
+        feet, head, size_x, size_y = self.calc_size_xy(p)
+        if feet and head:
+            return RECT(int(feet.x - size_x/2), int(feet.y - size_y), int(feet.x + size_x/2), int(feet.y))
+        return None
     
     def track_explosive(self, idx):
         te = self.env.tracker.track_entity(idx)

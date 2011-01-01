@@ -1,4 +1,4 @@
-from structs import ET_PLAYER, VECTOR
+from structs import ET_PLAYER, VECTOR, ALIVE_FLAG
 from ctypes import byref
 from Config import * #@UnusedWildImport
 from directx.types import D3DRECT, D3DCLEAR
@@ -35,7 +35,7 @@ class Radar(object):
         draw_arrow(frame.line, rx + rw/2, ry + rh/2, 0, MAP_COLOR_ME);        # myself
         
         for p in read_game.player:
-            if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & 0x0001:
+            if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & ALIVE_FLAG:
                 cx, cy = self.calcPoint(p.pos, RADAR_RANGE)
                 draw_arrow(frame.line, cx, cy, -p.yaw + read_game.view_angles.y, p.color_map);
         

@@ -1,5 +1,4 @@
 from Config import MOUSE_INVERSION
-import win32con, win32api
 from ctypes.wintypes import DWORD, LONG, ULONG, WORD, string_at, byref, Structure, Union, POINTER, sizeof, windll
 from directx.types import D3DXVECTOR2
 from directx.d3dx import RECT
@@ -125,18 +124,18 @@ class INPUT(Structure):
 
 def mouse_move(delta_x, delta_y, center_x, center_y, sensitivity):
     mouse_move_x = delta_x * 2.7/ sensitivity 
-    mouve_move_y = delta_y * 2.7/ sensitivity
-    if mouse_move_x == 0 and mouve_move_y == 0:
-        return
-    fScreenWidth = win32api.GetSystemMetrics(win32con.SM_CXSCREEN) - 1.0
-    fScreenHeight = win32api.GetSystemMetrics(win32con.SM_CYSCREEN) - 1.0
+    mouse_move_y = delta_y * 2.7/ sensitivity
+    if mouse_move_x == 0 and mouse_move_y == 0:
+        return (0, 0)
+    fScreenWidth = windll.user32.GetSystemMetrics(0) - 1.0      # SM_CXSCREEN
+    fScreenHeight = windll.user32.GetSystemMetrics(1) - 1.0     # SM_CYSCREEN
     dx = 65535.0 / fScreenWidth
     dy = 65535.0 / fScreenHeight
     fx = (center_x + mouse_move_x) * dx
     if not MOUSE_INVERSION:
-        fy = (center_y + mouve_move_y) * dy
+        fy = (center_y + mouse_move_y) * dy
     else:
-        fy = (center_y - mouve_move_y) * dy
+        fy = (center_y - mouse_move_y) * dy
     input = INPUT()
     input.type = INPUT_MOUSE
     input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE
@@ -144,6 +143,7 @@ def mouse_move(delta_x, delta_y, center_x, center_y, sensitivity):
     input.mi.dx = int(ceil(fx))
     input.mi.dy = int(ceil(fy))
     windll.User32.SendInput(1, byref(input), sizeof(input))
+    return (mouse_move_x, mouse_move_y)
 
 
 # ======================================================================

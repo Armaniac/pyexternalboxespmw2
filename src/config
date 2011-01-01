@@ -26,8 +26,6 @@ ADDR_SENSITIVITY_PTR_16 = 0x00A86730
 
 COD_WINDOW_NAME = "Modern Warfare 2"
 
-# ----------------------------------------------------------------------
-PROFILING = False        # only used for debug profiling
 
 # ----------------------------------------------------------------------
 # You can customize below to avoid easily bannable hack
@@ -36,7 +34,6 @@ APP_NAME = 'Launcher'            # name of the hack window
 
 # this is the maximum FPS allowed for the hack. It is not guaranteed that it will reach that level though...
 MAIN_MAX_FPS = 50
-if PROFILING: MAIN_LOOP_SLEEP = 1000000
 
 # ----------------------------------------------------------------------
 # Graphical preferences
@@ -56,7 +53,7 @@ RADAR_RANGE = 50            # this is the scale divider for the radar: the highe
 KEY_BIG_RADAR = "+VK_ADD "  # display a global map with players, good for air-strikes
 KEY_RADAR_MAP = "ON"        # display map background?
 BIG_RADAR_SCALE = 0.5       # scale factor for maps, 1.0 makes a 512x512 pix, 0.5 is reduced to 256x256
-BIG_RADAR_BLENDING = 0xAF7F7F7F     # blending color used in BigRadar
+BIG_RADAR_BLENDING = 0xDF7F7F7F     # blending color used in BigRadar
 
 # colors for the BOX Esp
 COLOR_FRIEND = 0x7F0000FF                  # blue
@@ -75,12 +72,13 @@ PLAYER_NAME_SIZE = 14
 PLAYER_NAME_WEIGHT = 400
 
 # colors for mini-map
-MAP_COLOR_BACK = 0x44000000                 # radar back color
+MAP_COLOR_BACK = 0x00000000                 # radar back color
 MAP_COLOR_BORDER = 0x7F0000FF               # radar border color
 MAP_COLOR_ME = 0xFF00FF00                   # color of my player
 MAP_COLOR_FRIEND = 0xFF4444FF               # color of team-mates
 MAP_COLOR_ENEMY = 0XFFFF4444                # color of enemies
 MAP_COLOR_ENEMY_COLDBLOODED = 0XFFFFBF44    # color of enemies with coldblood perk
+MAP_BLENDING = 0xDF7F7F7F
 
 # color of the claymore ESP
 COLOR_CLAYMORE = 0x3FFF6666                 # color of claymores
@@ -97,9 +95,9 @@ DISTANCE_ESP_UNIT_NAME = "m"                # either "m" or "ft"
 # fading esp
 FADE_ENABLED = True                         # set to False to disable fading
 FADE_MIN_DIST = 300                         # in 1/10th of ft, so 600 is ~20m
-FADE_MIN_ALPHA = 0xFF                       # level of transparency
+FADE_MIN_ALPHA = 0xB0                       # level of transparency
 FADE_MAX_DIST = 2500                        # in 1/10th of ft, 2500 is ~80m
-FADE_MAX_ALPHA = 0x32                       # level of transparency
+FADE_MAX_ALPHA = 0x62                       # level of transparency
 # ----------------------------------------------------------------------
 # rage module - special coloring for the player you want to rage
 
@@ -130,19 +128,21 @@ STATUS_COLOR_ACTIVE = 0xFFFFCC00
 STATUS_COLOR_INACTIVE = 0xFF777777
 STATUS_COLOR_LINE = 0xAF000000              # color of status line
 KEY_HOST_DISPLAY = "ON"
+KEY_SPH4CK_DISPLAY = "ON"
 
 # ----------------------------------------------------------------------
 # killstreak display
 
 KILLSTREAK_FONT = "Arial"
-KILLSTREAK_SIZE = 120
+KILLSTREAK_SIZE = 80
 KILLSTREAK_WEIGHT = 700
 # ----------------------------------------------------------------------
 # bot constants
 
 GRAV = 800.0
 TUBE_VEL = 2400.0
-KNIFE_VEL = 1450.0
+KNIFE_VEL = 1420.0
+BOT_MOTION_COMPENSATE = -0.5
 
 TUBE_WEAPONS = ("WEAPON_M203", "WEAPON_M79", "WEAPON_GP25")
 SNIPER_RIFLES_RE = "^(WEAPON_CHEYTAC|WEAPON_M21|WEAPON_WA2000|WEAPON_BARRETT).*$"
@@ -155,16 +155,28 @@ BOT_CROUCHED_Z = 38
 BOT_PRONE_Z = 10
 
 BOT_TUBE_Z = 0
-BOT_KNIFE_Z = 0
+BOT_KNIFE_Z = 30
 
-BOT_MIN_PIX_TO_CENTER = 300         # aim only if not more than 300 pixels from center of screen
-BOT_FRAME_COLOR = 0x3FFFFFFF        # color of the spot
+BOT_MAX_TO_CENTER = 0.2             # number of pixel to hop next targetfraction of horizontal resolution: ex for 1024*768, it is 1024*.2 = 204
+BOT_HOP_MIN_TO_CENTER = 0.05        # number of pixel to hop next target, fraction of horizontal resolution: ex for 1024*768, it is 1024*.05 = 51
+BOT_FRAME_COLOR = 0x6FFF0000        # color of the spot / kind of laser red spot
+KEY_BOT_DRAW_SPOT = "ON"            # shall we draw the aimbot spot?
 
-BOT_SPEED_1 = 2.5
+BOT_SPEED_1 = 1.8
 BOT_SPEED_TICK_1 = 15
 BOT_SPEED_2 = 1.8
 BOT_SPEED_TICK_2 = 30
-BOT_SPEED_3 = 1.2
+BOT_SPEED_3 = 1.8
+
+KEY_BOT_VISUAL_MOUSE = "+VK_SUBTRACT"
+VISUAL_MOUSE_SIZE = 50            # size of the radar in pixels
+VISUAL_MOUSE_BOTTOM_MARGIN = 20
+VISUAL_MOUSE_RIGHT_MARGIN = 20
+VISUAL_MOUSE_COLOR_BACK = 0x7F000000                 # radar back color
+VISUAL_MOUSE_COLOR_BORDER = 0x7F0000FF               # radar border color
+VISUAL_MOUSE_COLOR_CROSSHAIR = 0x7F4F4F4F            # radar border color
+VISUAL_MOUSE_COLOR_LINE = 0xFF00FF00
+VISUAL_MOUSE_LINE_WIDTH = 4
 # ----------------------------------------------------------------------
 # labels
 F1_LABEL = "display"
@@ -190,7 +202,7 @@ KEY_AIMBOT_ACTIVE =        	"+VK_F5"
 KEY_TUBEBOT_ACTIVE =       	"+VK_F5"                        # same as AIMBOT
 KEY_WEAPON_ESP =            "-VK_F6"
 KEY_KNIFEBOT_ACTIVE =      	"-VK_F7"
-KEY_AUTOSTAB =      		"-VK_F8"
+KEY_AUTOSTAB =      		"+VK_F8"
 KEY_TRIGGERBOT =    		"-VK_F9"
 KEY_RADAR =         		"+VK_F10"
 KEY_BOXESP =        		"+VK_F11"
@@ -211,6 +223,7 @@ KNIFE_RIOT_OFFSET = 2                   # all offsets are considered if RIOT SHI
 KNIFE_TACTICAL_WEAPONS = (22, 36, 42)   # pistols with tactical knife enabled
 # ----------------------------------------------------------------------
 # autostab parameters
+AUTOSTAB_KEY = "E"
 AUTOSTAB_DIST = 75             # distance in 1/10th of ft
 AUTOSTAB_DIST_Z = 50            # max vertical distance (otherwise you try to stab people above/under you)
 
@@ -218,7 +231,7 @@ AUTOSTAB_DIST_Z = 50            # max vertical distance (otherwise you try to st
 # killstreak counter
 KEY_KILLSTREAK = "ON"           # always on
 KILLSTREAK_FONT_NAME = "Arial"
-KILLSTREAK_FONT_SIZE = 120
+KILLSTREAK_FONT_SIZE = 80
 KILLSTREAK_FONT_WEIGHT = 700    # bold
 KILLSTREAK_FONT_COLOR = 0x5FFFFFFF  # grey
 
@@ -229,18 +242,3 @@ MOUSE_INVERSION = False
 # ----------------------------------------------------------------------
 # airdrop marker persistence
 AIRDROP_PERSISTENCE = 15             # number of seconds to keep airdrop marker
-
-# ----------------------------------------------------------------------
-# inspector class for debug
-KEY_INSPECTOR = "!VK_NUMPAD0"
-KEY_INSPECT_POS = "!VK_NUMPAD1"
-KEY_INSPECT_DUMP = "!VK_NUMPAD9"
-KEY_INSPECT_DUMP_PLAYERS = "!VK_NUMPAD7"
-KEY_INSPECT_MOVE_MOUSE = "!VK_NUMPAD5"
-
-# ----------------------------------------------------------------------
-# calibration mode, only used for debugging of tubebot and knifebot
-# *** DON'T ACTIVATE UNLESS YOU KNOW WHAT YOU ARE DOING
-CALIBRATING = False
-KEY_SPOT23_ESP = "OFF"
-DEBUG_PRINT_WEAPON_NAMES = False

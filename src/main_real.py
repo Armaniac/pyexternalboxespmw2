@@ -1,10 +1,8 @@
 import Scheduler
 import time
-import win32gui
 import ReadGame, Frame, Textures, Radar2, Esp, Status, Keys, Autostab, Inspector, Rage, Killstreak, BigRadar, WeaponNames, Sprites
-import Crosshair, Bot, WebStats, Tracker
+import Crosshair, Bot, WebStats, Tracker, VisualMouse
 import PatternFinder
-import cProfile
 from Config import PROFILING, MAIN_MAX_FPS
 import traceback
 from utils import ExitingException
@@ -31,8 +29,7 @@ class Main(object):
                 
         # read_game and frame are 2 special modules
         self.read_game = ReadGame.ReadGame(self)
-        self.pattern_finder = PatternFinder.PatternFinder(self)
-#        self.pattern_finder = PatternFinder.PatternFinder(self)
+        self.offsets = PatternFinder.PatternFinder(self)
         self.frame = Frame.Frame(self)
         self.textures = Textures.Textures(self)
         self.tracker = Tracker.Tracker(self)
@@ -45,6 +42,7 @@ class Main(object):
         self.sprites = Sprites.Sprites(self)
         self.crosshair = Crosshair.Crosshair(self)
         self.bot = Bot.Bot(self)
+        self.visual_mouse = VisualMouse.VisualMouse(self)
         self.autostab = Autostab.Autostab(self)
         self.killstreak = Killstreak.Killstreak(self)
         self.weapon_names = WeaponNames.WeaponNames(self)
@@ -55,16 +53,20 @@ class Main(object):
     def init(self):
         # first wait for game
         self.read_game.init()
-        self.pattern_finder.find_patterns(self.read_game.mw2_process.handle)
+        self.offsets.find_patterns(self.read_game.mw2_process.handle)
         self.wnd_thread = threading.Thread(target=self.thread_window)
         self.wnd_thread.daemon = True
         self.wnd_thread.start()
         # then prepare frame environment
         window_ready = False
         while not window_ready:
-            with self.lock:
+            #with self.lock:
+            try:
+                self.lock.acquire()
                 if self.frame.hwnd is not None:
                     window_ready = True
+            finally:
+                self.lock.release()
             sleep(0.050)
         self.frame.init_d3d()
         self.textures.init()
@@ -92,6 +94,8 @@ class Main(object):
             self.bot.render()
             self.autostab.render()
             self.killstreak.render()
+            self.visual_mouse.render()
+            self.sprites.render()
             #
             self.webstats.render()
             self.inspector.render()
@@ -115,10 +119,13 @@ class Main(object):
         self.frame = None
         
     def thread_window(self):
-        with self.lock:
+        #with self.lock:
+        try:
+            self.lock.acquire()
             self.frame.init_create_window()
-        self.frame.init_show_window()
-        win32gui.PumpMessages() #@UndefinedVariable
+        finally:
+            self.lock.release()
+        self.frame.pump_messages()
 
 def launch():
     import psyco
@@ -126,11 +133,12 @@ def launch():
     m = Main()
     try:
         m.init()
-        if PROFILING:
-            cProfile.runctx('m.run()', globals(), locals())
-        else:
-            m.run()
-    except ExitingException as e:
+        m.run()
+#        if PROFILING:
+#            cProfile.runctx('m.run()', globals(), locals())
+#        else:
+#            m.run()
+    except ExitingException, e:
         print "Exiting: %s" % e
     except Exception:
         m.release()

@@ -231,14 +231,14 @@ class ReadGame(object):
                 if (p.type == ET_PLAYER) and p.valid and p.alive:
                     if ((p.team == 1 or p.team == 2) and (p.team == self.my_team)) or p == self.my_player:
                         p.enemy = False
-                        if p.alive & 0x0001:
+                        if p.alive & ALIVE_FLAG:
                             p.color_esp = COLOR_FRIEND
                             p.color_map = MAP_COLOR_FRIEND
                         else:
                             p.color_esp = COLOR_DEAD
                     else:
                         p.enemy = True
-                        if p.alive & 0x0001:
+                        if p.alive & ALIVE_FLAG:
                             if p.perk & 0x8000000:
                                 p.color_esp = COLOR_ENEMY_COLDBLOODED
                                 p.color_map = MAP_COLOR_ENEMY_COLDBLOODED

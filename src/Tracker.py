@@ -1,4 +1,4 @@
-from structs import EntityTracker, ET_PLAYER, PLAYERMAX, ET_EXPLOSIVE
+from structs import EntityTracker, ET_PLAYER, PLAYERMAX, ET_EXPLOSIVE, ALIVE_FLAG
 
 class Tracker(object):
     _next_zombie = -1                               # decrementing number for the next zombie index to use
@@ -19,7 +19,7 @@ class Tracker(object):
             te = self._tracked_ent[idx]
             if idx >= 0:                     # do not update if zombie object
                 te.set_values(read_game.mw2_entity.arr[te.idx])
-                if not(te.alive & 0x01):                # do not update if zombie object                  # go to zombie mode
+                if not(te.alive & ALIVE_FLAG):                # do not update if zombie object                  # go to zombie mode
                     del self._tracked_ent[idx]           # remove from regular list
                     if te.endoflife > 0 and te.endoflife > read_game.game_time:
                         te.idx = self.get_next_zombie_idx()   
@@ -53,7 +53,7 @@ class Tracker(object):
         dist = -1
         cur_p = read_game.my_player
         for p in read_game.player:
-            if (p.type == ET_PLAYER) and p.valid and p.alive & 0x01: 
+            if (p.type == ET_PLAYER) and p.valid and p.alive & ALIVE_FLAG: 
                 len = (pos-p.pos).length()
                 if dist < 0:
                     dist = len
