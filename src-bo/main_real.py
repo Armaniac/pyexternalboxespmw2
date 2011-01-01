@@ -10,7 +10,6 @@ from time import sleep
 
 WM_QUIT = 0x0012
 
-
 class Main(object):
     
     def __init__(self):

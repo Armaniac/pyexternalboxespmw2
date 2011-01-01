@@ -43,20 +43,6 @@ def wndProc(hwnd, message, wParam, lParam):
     else:
         return windll.user32.DefWindowProcA(c_int(hwnd), c_int(message), c_int(wParam), c_int(lParam))
 
-
-#class WNDCLASS(Structure):
-#    _fields_ = [ ("style", c_uint),
-#                 ("lpfnWndProc", c_int),
-#                 ("cbClsExtra", c_int),
-#                 ("cbWndExtra", c_int),
-#                 ("hInstance", c_int),
-#                 ("hIcon", c_int),
-#                 ("hCursor", c_int),
-#                 ("hbrBackground", c_int),
-#                 ("lpszMenuName", c_char_p),
-#                 ("lpszClassName", c_char_p),
-#               ]
-
 class MARGINS(Structure):
     _fields_ = [ ("cxLeftWidth", c_int),
                  ("cxRightWidth", c_int),
