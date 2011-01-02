@@ -1,5 +1,5 @@
 from ctypes import windll, Structure, c_byte, byref, WinError
-import win32con
+import vk_codes
 import Config
 import array
 
@@ -90,7 +90,7 @@ def keyname_to_mask(key_name):
             mask = KEY_NEWLY_PRESSED
         key_name = key_name[1:]
     if key_name.startswith("VK_"):
-        code = getattr(win32con, key_name)
+        code = getattr(vk_codes, key_name)
     elif len(key_name) == 1:
         code = ord(key_name)
     elif key_name == "ON":

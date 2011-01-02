@@ -53,7 +53,7 @@ class Main(object):
     def init(self):
         # first wait for game
         self.read_game.init()
-        self.offsets.find_patterns(self.read_game.mw2_process.handle)
+        self.offsets.find_patterns(self.read_game.mw2_process)
         self.wnd_thread = threading.Thread(target=self.thread_window)
         self.wnd_thread.daemon = True
         self.wnd_thread.start()

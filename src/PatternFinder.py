@@ -4,7 +4,6 @@ from Config import * #@UnusedWildImport
 from ctypes import create_string_buffer, windll, byref, sizeof, addressof
 from utils import ExitingException
 from struct import unpack
-import win32api
 
 PATTERN_START_ADDR = 0x00401000
 PATTERN_LEN = 0x00300000
@@ -105,7 +104,7 @@ class PatternFinder(object):
         
     def _RPM(self, process_handle, address, buffer):
         if not windll.kernel32.ReadProcessMemory(process_handle, address, byref(buffer), sizeof(buffer), None): #@UndefinedVariable
-            raise ExitingException("Could not ReadProcessMemory: ", win32api.GetLastError())
+            raise ExitingException("Could not ReadProcessMemory: ", windll.kernel32.GetLastError()) #@UndefinedVariable
     
     def _get_int_in_raw(self, raw, addr):
         return unpack("i", raw[addr-PATTERN_START_ADDR:addr-PATTERN_START_ADDR+4])[0]

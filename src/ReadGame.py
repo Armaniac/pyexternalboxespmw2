@@ -1,5 +1,5 @@
-import win32api, win32con, win32gui, win32process
 import re
+from ctypes import windll, c_int, byref
 from time import sleep
 from structs import *   #@UnusedWildImport
 from Config import *    #@UnusedWildImport
@@ -86,34 +86,38 @@ class ReadGame(object):
         print
         print "Waiting for COD6 game..."
         while self.mw2_hwnd == 0:
-            self.mw2_hwnd = win32gui.FindWindow(None, COD_WINDOW_NAME)
+            self.mw2_hwnd = windll.user32.FindWindowA(None, COD_WINDOW_NAME)
             sleep(0.050)
         print "COD6 game found."
         while self.mw2_pid == 0:
-            tid, self.mw2_pid = win32process.GetWindowThreadProcessId(self.mw2_hwnd) #@UnusedVariable
+            hwnd = c_int()
+            tid = windll.user32.GetWindowThreadProcessId(self.mw2_hwnd, byref(hwnd)) #@UnusedVariable
+            self.mw2_pid = hwnd.value
             sleep(0.050)
         print "Found process ID: ", self.mw2_pid
         
         # boost our own process priority
-        own_process = win32process.GetCurrentProcess()
-        win32process.SetPriorityClass(own_process, win32process.ABOVE_NORMAL_PRIORITY_CLASS)
+        own_process = windll.kernel32.GetCurrentProcess() #@UndefinedVariable
+        windll.kernel32.SetPriorityClass(own_process, 0x00008000)       # ABOVE_NORMAL_PRIORITY_CLASS @UndefinedVariable
         
-        self.mw2_process = win32api.OpenProcess(win32con.PROCESS_VM_READ, False, self.mw2_pid)
+        self.mw2_process = windll.kernel32.OpenProcess(0x0010, False, self.mw2_pid)  # 0x0010 = PROCESS_VM_READ @UndefinedVariable
         
-        client_rect = Rect(win32gui.GetClientRect(self.mw2_hwnd))
+        client_rect = RECT()
+        windll.user32.GetClientRect(self.mw2_hwnd, byref(client_rect))
         self.resolution_x = client_rect.right
         self.resolution_y = client_rect.bottom
         self.screen_center_x = self.resolution_x / 2
         self.screen_center_y = self.resolution_y / 2
-        bounding_rect = Rect(win32gui.GetWindowRect(self.mw2_hwnd))
+        bounding_rect = RECT()
+        windll.user32.GetWindowRect(self.mw2_hwnd, byref(bounding_rect))
         self.mouse_center_x = (bounding_rect.right + bounding_rect.left) / 2
         self.mouse_center_y = (bounding_rect.bottom + bounding_rect.top) / 2
         
         # window origin
-        pt = (0,0)
-        x, y = win32gui.ClientToScreen(self.mw2_hwnd, pt)
-        self.wnd_bounding_x = x
-        self.wnd_bounding_y = y
+        pt = POINT(0, 0)
+        windll.user32.ClientToScreen(self.mw2_hwnd, byref(pt))
+        self.wnd_bounding_x = pt.x
+        self.wnd_bounding_y = pt.y
 
         print "Resolution: %d x %d, pos: %ix%ix%ix%i" % \
             (self.resolution_x, self.resolution_y,
@@ -121,22 +125,19 @@ class ReadGame(object):
         self.is_inited = True
     
     def check_window_moved(self):
-        try:
-            bounding_rect = Rect(win32gui.GetWindowRect(self.mw2_hwnd))
-        except Exception:
-            raise ExitingException("Could not ClientToScreen: ", win32api.GetLastError())
+        bounding_rect = RECT()
+        if not windll.user32.GetWindowRect(self.mw2_hwnd, byref(bounding_rect)):
+            raise ExitingException("Could not ClientToScreen: ", windll.kernel32.GetLastError()) #@UndefinedVariable
         new_mouse_center_x = (bounding_rect.right + bounding_rect.left) / 2
         new_mouse_center_y = (bounding_rect.bottom + bounding_rect.top) / 2
         if self.mouse_center_x != new_mouse_center_x or self.mouse_center_y != new_mouse_center_y:
             self.mouse_center_x = new_mouse_center_x
             self.mouse_center_y = new_mouse_center_y
-            pt = (0,0)                              # window origin
-            try:
-                x, y = win32gui.ClientToScreen(self.mw2_hwnd, pt)
-            except Exception:
-                raise ExitingException("Could not ClientToScreen: ", win32api.GetLastError())
-            self.wnd_bounding_x = x
-            self.wnd_bounding_y = y
+            pt = POINT(0, 0)
+            if not windll.user32.ClientToScreen(self.mw2_hwnd, byref(pt)):
+                raise ExitingException("Could not ClientToScreen: ", windll.kernel32.GetLastError()) #@UndefinedVariable
+            self.wnd_bounding_x = pt.x
+            self.wnd_bounding_y = pt.y
             return True
         elif self.mw2_hwnd == 0:
             return False
@@ -144,8 +145,8 @@ class ReadGame(object):
         
     
     def _RPM(self, address, buffer):
-        if not windll.kernel32.ReadProcessMemory(self.mw2_process.handle, address, byref(buffer), sizeof(buffer), None):
-            raise ExitingException("Could not ReadProcessMemory: ", win32api.GetLastError())
+        if not windll.kernel32.ReadProcessMemory(self.mw2_process, address, byref(buffer), sizeof(buffer), None):
+            raise ExitingException("Could not ReadProcessMemory: ", windll.kernel32.GetLastError()) #@UndefinedVariable
 
     def _RPM_int(self, address):
         buf_int = c_int()
@@ -228,6 +229,8 @@ class ReadGame(object):
             
             # calculate colors
             for p in self.player:
+                p.color_esp = COLOR_ENEMY
+                p.color_map = MAP_COLOR_ENEMY
                 if (p.type == ET_PLAYER) and p.valid and p.alive:
                     if ((p.team == 1 or p.team == 2) and (p.team == self.my_team)) or p == self.my_player:
                         p.enemy = False

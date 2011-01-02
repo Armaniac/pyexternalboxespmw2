@@ -250,6 +250,10 @@ KEY_INSPECT_POS = "!VK_NUMPAD1"
 KEY_INSPECT_DUMP = "!VK_NUMPAD9"
 KEY_INSPECT_DUMP_PLAYERS = "!VK_NUMPAD7"
 KEY_INSPECT_MOVE_MOUSE = "!VK_NUMPAD5"
+KEY_INSPECT_WEAPON_NAME = "OFF"
+
+KEY_FPS_VIEWER = "+VK_F11"
+FPS_VIEWER_INTERVAL = 5        # number of ticks to measure the hack FPS
 
 # ----------------------------------------------------------------------
 # calibration mode, only used for debugging of tubebot and knifebot
