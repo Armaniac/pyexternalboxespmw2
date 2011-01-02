@@ -128,8 +128,8 @@ class Main(object):
         self.frame.pump_messages()
 
 def launch():
-    import psyco
-    psyco.profile()
+    # import psyco
+    # psyco.profile()
     m = Main()
     try:
         m.init()
