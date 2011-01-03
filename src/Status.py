@@ -1,5 +1,5 @@
 import Config
-from Config import STATUS_COLOR_ACTIVE, STATUS_COLOR_INACTIVE, STATUS_COLOR_LINE, FPS_VIEWER_INTERVAL
+from Config import STATUS_COLOR_ACTIVE, STATUS_COLOR_INACTIVE, STATUS_COLOR_LINE, FPS_VIEWER_INTERVAL, FPS_FONT_COLOR
 from utils import draw_line, draw_string_left, draw_string_center
 from Keys import keys, keys_raw, KEY_TOGGLE
 import vk_codes
@@ -46,7 +46,7 @@ class Status(object):
         if keys["KEY_FPS_VIEWER"]:
             self.calc_fps()
             if self.fps > 0:
-                draw_string_center(frame.rage_font, read_game.resolution_x - 50, read_game.resolution_y - 10, 0xA0FFFF00, "FPS=%.0f" % self.fps)
+                draw_string_center(frame.fps_font, read_game.resolution_x - 50, read_game.resolution_y - 10, FPS_FONT_COLOR, "FPS=%.0f" % self.fps)
         else:
             self.reset_fps()
 

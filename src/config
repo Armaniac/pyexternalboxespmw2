@@ -33,7 +33,8 @@ COD_WINDOW_NAME = "Modern Warfare 2"
 APP_NAME = 'Launcher'            # name of the hack window
 
 # this is the maximum FPS allowed for the hack. It is not guaranteed that it will reach that level though...
-MAIN_MAX_FPS = 50
+MAIN_MAX_FPS = 99
+
 
 # ----------------------------------------------------------------------
 # Graphical preferences
@@ -137,6 +138,13 @@ KILLSTREAK_FONT = "Arial"
 KILLSTREAK_SIZE = 80
 KILLSTREAK_WEIGHT = 700
 # ----------------------------------------------------------------------
+# FPS display
+
+FPS_FONT_NAME = "Ariel"
+FPS_FONT_COLOR = 0xFFFFCC00
+FPS_FONT_SIZE = 20
+FPS_FONT_WEIGHT = 700
+# ----------------------------------------------------------------------
 # bot constants
 
 GRAV = 800.0
@@ -157,14 +165,14 @@ BOT_PRONE_Z = 10
 BOT_TUBE_Z = 0
 BOT_KNIFE_Z = 30
 
-BOT_MAX_TO_CENTER = 0.2             # number of pixel to hop next targetfraction of horizontal resolution: ex for 1024*768, it is 1024*.2 = 204
-BOT_HOP_MIN_TO_CENTER = 0.05        # number of pixel to hop next target, fraction of horizontal resolution: ex for 1024*768, it is 1024*.05 = 51
-BOT_FRAME_COLOR = 0x6FFF0000        # color of the spot / kind of laser red spot
+BOT_MAX_TO_CENTER = 0.09             # number of pixel to hop next targetfraction of horizontal resolution: ex for 1024*768, it is 1024*.2 = 204
+BOT_HOP_MIN_TO_CENTER = 0.02        # number of pixel to hop next target, fraction of horizontal resolution: ex for 1024*768, it is 1024*.05 = 51
+BOT_FRAME_COLOR = 0xFF66CC00        # color of the spot / kind of laser cyan spot
 KEY_BOT_DRAW_SPOT = "ON"            # shall we draw the aimbot spot?
 
-BOT_SPEED_1 = 1.8
+BOT_SPEED_1 = 6.4
 BOT_SPEED_TICK_1 = 15
-BOT_SPEED_2 = 1.8
+BOT_SPEED_2 = 3
 BOT_SPEED_TICK_2 = 30
 BOT_SPEED_3 = 1.8
 

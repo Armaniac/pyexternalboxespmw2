@@ -148,6 +148,8 @@ class Frame(object):
         d3dxdll.D3DXCreateFontW(self.device, KILLSTREAK_FONT_SIZE, 0, KILLSTREAK_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(KILLSTREAK_FONT_NAME)), byref(self.killstreak_font)) #@UndefinedVariable
         self.rage_font = POINTER(ID3DXFont)()
         d3dxdll.D3DXCreateFontW(self.device, RAGE_FONT_SIZE, 0, RAGE_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(RAGE_FONT_NAME)), byref(self.rage_font)) #@UndefinedVariable
+        self.fps_font = POINTER(ID3DXFont)()
+        d3dxdll.D3DXCreateFontW(self.device, FPS_FONT_SIZE, 0, FPS_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(FPS_FONT_NAME)), byref(self.fps_font)) #@UndefinedVariable
         
         
         self.line = POINTER(ID3DXLine)()
