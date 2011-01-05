@@ -1,4 +1,5 @@
-from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE, ET_EXPLOSIVE, ALIVE_FLAG
+from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE, ET_EXPLOSIVE, ALIVE_FLAG,\
+    ET_VEHICLE
 from Config import * #@UnusedWildImport
 from utils import draw_arrow, draw4
 from Keys import keys
@@ -90,6 +91,8 @@ class Radar(object):
             cx, cy = self.calcPoint(p_pos, matrix)
             if te.type == ET_TURRET:
                 self.env.sprites.draw_sentry(cx, cy, True)
+            if te.type == ET_VEHICLE:
+                self.env.sprites.draw_rcxd(cx, cy, -te.yaw + read_game.view_angles.y, True)
 #            if te.type == ET_HELICOPTER:
 #                self.env.sprites.draw_heli(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle + arrow_inversion, te.planter.enemy, te.weapon_num)
 #            if te.type == ET_PLANE:

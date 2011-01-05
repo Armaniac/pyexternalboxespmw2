@@ -3,7 +3,7 @@ from Keys import keys
 from ctypes import c_float, byref
 from directx.types import D3DXVECTOR2, D3DMATRIX
 from directx.d3dx import d3dxdll
-from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE, ET_EXPLOSIVE, ALIVE_FLAG
+from structs import VECTOR, ET_PLAYER, ET_TURRET, ET_HELICOPTER, ET_PLANE, ET_EXPLOSIVE, ALIVE_FLAG, ET_VEHICLE
 from utils import draw_arrow
 
 D3DXSPRITE_ALPHABLEND = (1 << 4)
@@ -65,6 +65,8 @@ class BigRadar(object):
             if y > rh:              y = rh               
             if te.type == ET_TURRET:
                 self.env.sprites.draw_sentry(rx + x, ry + y, True)
+            if te.type == ET_VEHICLE:
+                self.env.sprites.draw_rcxd(rx + x, ry + y, -te.yaw + arrow_angle, True)
 #            if te.type == ET_HELICOPTER:
 #                self.env.sprites.draw_heli(rx + x, ry + y, -te.yaw + arrow_angle + arrow_inversion, te.planter.enemy, te.weapon_num)
 #            if te.type == ET_PLANE:

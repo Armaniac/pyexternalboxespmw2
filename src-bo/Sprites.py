@@ -26,6 +26,7 @@ SPRITES = { "claymore_mp":              "claymore.jpg",
             "COMPASS_SENTRY_ENEMY":     "sentry_enemy.png",
             
             "sph4ck":                   "sph4ck.png",
+            "rcxd":                     "rcxd-map.png",
             }
 
 #HELIS = { 1181: "COMPASS_HARRIER",
@@ -82,6 +83,10 @@ class Sprites(object):
             frame.sprite.SetTransform(matrix)
             frame.sprite.Draw(sprite, None, None, None, color)
             frame.sprite.End()
+
+    def draw_rcxd(self, x, y, yaw, enemy):
+        # don't know how to determine enemy...
+        self.draw_sprite("rcxd", x, y, yaw, COLOR_MAP_BLENDER_ENEMY, 1.0)
 
     def draw_sentry(self, x, y, enemy):
         self.draw_sprite("COMPASS_SENTRY_ENEMY", x, y, 0, COLOR_MAP_BLENDER_ENEMY, 0.5)
