@@ -17,6 +17,10 @@ ENTITY             = 0x2AC840DC
 CG_T               = 0x2AB98100 
 CGS_T              = 0x2AC09700
 SENSITIVITY_DVAR   = 0x00E3CC54
+
+DOG_T              = 0x00C76038
+RXCD_T             = 0x00C75E78
+HELI_T             = 0x00C76AB8
 #Entities 2AC840DC
 #from D2F970
 #
@@ -40,6 +44,8 @@ FIND_PATTERNS = {
                                                   "FFFFFFFFFFFF00000000FFFFFFFFFFFFFF"),
                   'entities':                    ("8B4424083D000400008B4C24047C198B1500000000C1E10903C8",
                                                   "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFF"),
+                  'helis':                       ("68800900006A006800000000E80000000068000600006A0068",
+                                                  "FFFFFFFFFFFFFFFF00000000FF00000000FFFFFFFFFFFFFFFF"),
                 }
 
 SENSITIVITY_DVAR_PATTERN = "6800000000E800000000D9050000000083C41868000000006A0183EC0CD95C2408A300000000"
@@ -57,6 +63,9 @@ class PatternFinder(object):
         self.CG_T               = None 
         self.CGS_T              = None
         self.SENSITIVITY_DVAR   = None
+        self.DOG_T              = None
+        self.RXCD_T             = None
+        self.HELI_T             = None
 
     def _find_pattern(self, buf, data, mask):
         # first compile the regex correponding to the mask
@@ -126,6 +135,14 @@ class PatternFinder(object):
             
             self.WEAPON_PTR = self._get_int_in_raw(raw, self.addr["weapons"] + 19)
             print "Found Weapons 0x%x, should be 0x%x" % (self.WEAPON_PTR, WEAPON_PTR)
+
+            self.DOG_T = self._get_int_in_raw(raw, self.addr["helis"] + 59)
+            print "Found DOG_T 0x%x, should be 0x%x" % (self.DOG_T, DOG_T)
+            self.RXCD_T = self._get_int_in_raw(raw, self.addr["helis"] + 42)
+            print "Found RXCD_T 0x%x, should be 0x%x" % (self.RXCD_T, RXCD_T)
+            self.HELI_T = self._get_int_in_raw(raw, self.addr["helis"] + 110)
+            print "Found HELI_T 0x%x, should be 0x%x" % (self.HELI_T, HELI_T)
+            
         
             print "===> All offsets seem ok."
             print "----------------------------------------"
