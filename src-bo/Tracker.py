@@ -29,13 +29,14 @@ class Tracker(object):
             elif te.endoflife <= read_game.game_time:
                 del self._tracked_ent[idx]
     
-    def track_entity(self, idx, owner=-1):
+    def track_entity(self, idx, enemy=True):
         read_game = self.env.read_game
         if not idx in self._tracked_ent:
             e = read_game.cod7_entity.arr[idx]
             te = EntityTracker(idx)
             te.startoflife = read_game.game_time
             te.set_values(e)
+            te.enemy = enemy
             te.model_name = self.env.weapon_names.get_weapon_model(te.weapon_num)
             if e.type == ET_HELICOPTER or e.type == ET_PLANE:
                 if DEBUG: print "Track HELI entity #%i type %i weapon_id=%i, pos=%.1f|%.1f|%.1f" % (idx, e.type, te.weapon_num, e.pos.x, e.pos.y, e.pos.z)
@@ -45,8 +46,6 @@ class Tracker(object):
                 #print dump_obj(e)
 #            if e.type != ET_EXPLOSIVE:
 #                print "Track new entity #%i type %i corr_weap=%i" % (idx, e.type, self.env.weapon_names.get_corrected_weapon_num(e.WeaponNum))
-            if owner >= 0 and owner < PLAYERMAX:
-                te.planter = read_game.player[owner]
 #            else:
 #                te.planter = self.find_nearest_player(te.pos)
             # if airdrop
@@ -55,6 +54,14 @@ class Tracker(object):
         else:
             return None                             # no new object created
 
+    def track_rcxd(self, idx):
+        enemy = True
+        for rcxd in self.env.read_game.cod7_rcxd:
+            if rcxd.client_num == idx:
+                enemy = not self.env.read_game.is_friend(rcxd.team)
+                break
+        self.track_entity(idx, enemy)
+        
     def find_nearest_player(self, pos):
         read_game = self.env.read_game
         dist = -1

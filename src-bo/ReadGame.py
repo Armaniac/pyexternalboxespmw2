@@ -47,6 +47,7 @@ class ReadGame(object):
         self.cg = COD7_CG_T()
         self.cgs = COD7_CGS_T()
         self.cod7_rcxd = COD7_RCXD()
+        self.cod7_dog = COD7_DOG()
         self.map_name = None
         self.map_name_re = re.compile("/(mp_\w+)\.d3dbsp")
         self.game_time = 0
@@ -179,6 +180,7 @@ class ReadGame(object):
             self._RPM(offsets.ENTITY, self.cod7_entity)
             self._RPM(offsets.CLIENTINFO, self.cod7_clientinfo)
             self._RPM(offsets.RXCD_T, self.cod7_rcxd)
+            self._RPM(offsets.DOG_T, self.cod7_dog)
             self.calc_killstreak()
             
             # sensitivity
@@ -223,7 +225,7 @@ class ReadGame(object):
                 p.color_esp = COLOR_ENEMY
                 p.color_map = MAP_COLOR_ENEMY
                 if (p.type == ET_PLAYER) and p.valid and p.alive:
-                    if ((p.team == 1 or p.team == 2) and (p.team == self.my_team)) or p == self.my_player:
+                    if p == self.my_player or self.is_friend(p.team):
                         p.enemy = False
                         if p.alive & ALIVE_FLAG:
                             p.color_esp = COLOR_FRIEND
@@ -269,6 +271,8 @@ class ReadGame(object):
             for p in self._last_pos3:
                 p.x = p.y = p.z = 0.0
             
+    def is_friend(self, team):
+        return ((team == 1 or team == 2) and (team == self.my_team))
 
     def calc_killstreak(self):
         if not self.is_in_game:                         # invalidate killstreak counter

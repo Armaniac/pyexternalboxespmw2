@@ -241,7 +241,6 @@ class COD7_WeaponDesc_T(Structure):
 class COD7_WeaponDesc(Structure):
     _fields_ = [ ("arr", c_int * 2048)]
 
-
 class COD7_RCXD_T(Structure):
     _fields_ = [ ("client_num", c_int),     # 0x00
                  ("i1", c_int),             # 0x04
@@ -253,6 +252,18 @@ class COD7_RCXD_T(Structure):
 class COD7_RCXD(Structure):
     _fields_ = [ ("arr", COD7_RCXD_T * 16) ]
 
+class COD7_DOG_T(Structure):
+    _fields_ = [ ("client_num", c_int),     # 0x00
+                 ("i1", c_int),             # 0x04
+                 ("pos", VECTOR),           # 0x08
+                 ("team", c_int),           # 0x14
+                 ("owner", c_int),          # 0x18
+                 ("i2", c_int),             # 0x1C
+                 ]                          # 0x20
+
+class COD7_DOG(Structure):
+    _fields_ = [ ("arr", COD7_RCXD_T * 16) ]
+    
 class STR256(Structure):
     _fields_ = [ ("str", c_byte * 256)]
 # high level Player object
@@ -314,8 +325,6 @@ class Player(object):
         self.perk = cod7_entity.pose
 
 class EntityTracker(object):
-    __slots__ = ( 'idx', 'startoflife', 'endoflife', 'pos', 'yaw', 'type', 'alive', 'weapon_num', 'model_name', 'planter')
-    
     def __init__(self, idx):
         self.idx = idx                      # index of entity object
         self.startoflife = -1               # time_code when the entity was first tracked
@@ -327,6 +336,7 @@ class EntityTracker(object):
         self.weapon_num = 0                 # weaponnum (as in entity)
         self.model_name = ""                # model name
         self.planter = None                 # player who planted the explosive
+        self.enemy = True                   # is entity enemy? 
     
     def set_values(self, cod7_entity):
         self.pos = cod7_entity.pos
