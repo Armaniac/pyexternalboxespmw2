@@ -20,6 +20,7 @@ SPRITES = { "claymore_mp":              "claymore.jpg",
             "crossbow_explosive_mp":    "arrow.jpg",
             "explosive_bolt_mp":        "arrow.jpg",
             "supplydrop_mp":            "airdrop.jpg",
+            "tabun_gas_mp":             "tabun.jpg",
             "rc_car_weapon_mp":         "rcxd-hud.jpg",
             "rc_car_weapon_mp-friend":  "rcxd-hud-friend.jpg",
             # Compass sprites for Radar
