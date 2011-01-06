@@ -165,6 +165,8 @@ class Esp(object):
         feet = read_game.world_to_screen(te.pos)
         head = read_game.world_to_screen(head_pos)
         if feet and head:
+            if te.model_name == "rc_car_weapon_mp" and te.enemy:
+                te.model_name = "rc_car_weapon_mp-friend"
             # claymore friend tracking
 #            if te.model_name == "WEAPON_CLAYMORE":
 #                if not te.planter.enemy: 
