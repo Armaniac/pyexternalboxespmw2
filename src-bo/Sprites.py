@@ -24,6 +24,8 @@ SPRITES = { "claymore_mp":              "claymore.jpg",
             "tactical_insertion_mp":    "tact_insert.jpg",
             "rc_car_weapon_mp":         "rcxd-hud.jpg",
             "rc_car_weapon_mp-friend":  "rcxd-hud-friend.jpg",
+            "hatchet_mp":               "hatchet.jpg",
+            "nightingale_mp":           "nightingale.jpg",
             # Compass sprites for Radar
             "COMPASS_SENTRY_FRIEND":    "sentry_friendly.png",
             "COMPASS_SENTRY_ENEMY":     "sentry_enemy.png",
@@ -95,7 +97,7 @@ class Sprites(object):
         self.draw_sprite(sprite_name, x, y, yaw, COLOR_MAP_BLENDER_ENEMY, 1.0)
 
     def draw_sentry(self, x, y, enemy):
-        self.draw_sprite("COMPASS_SENTRY_ENEMY", x, y, 0, COLOR_MAP_BLENDER_ENEMY, 0.5)
+        self.draw_sprite("COMPASS_SENTRY_ENEMY", x, y, 0, COLOR_MAP_BLENDER_ENEMY, 0.6)
 #        if enemy is None:
 #            pass
 #        elif enemy:

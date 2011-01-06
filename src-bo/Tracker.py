@@ -56,7 +56,7 @@ class Tracker(object):
 
     def track_rcxd(self, idx):
         enemy = True
-        for rcxd in self.env.read_game.cod7_rcxd:
+        for rcxd in self.env.read_game.cod7_rcxd.arr:
             if rcxd.client_num == idx:
                 enemy = not self.env.read_game.is_friend(rcxd.team)
                 break

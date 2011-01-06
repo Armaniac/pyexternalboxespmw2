@@ -85,7 +85,7 @@ class Esp(object):
             
             elif e.type == ET_VEHICLE and e.alive & ALIVE_FLAG:
                 if weapon_names.get_weapon_model(e.weapon) == "rc_car_weapon_mp":      # RC-XD
-                    self.env.tracker.track_entity(idx)
+                    self.env.tracker.track_rcxd(idx)
 
             elif (e.type == ET_HELICOPTER or e.type == ET_PLANE) and e.alive & ALIVE_FLAG and keys["KEY_BOXESP"]:
                 # all planes are shown because we don't know if they are enemies                

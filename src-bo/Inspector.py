@@ -7,7 +7,7 @@ from structs import ET_EXPLOSIVE, ENTITIESMAX, PLAYERMAX, VECTOR, ALIVE_FLAG
 # this module allows to inspect entities near the center crosshair
 
 class dumped(Structure):
-    _fields_ = [("val", c_char * 1024)]
+    _fields_ = [("val", c_char * 0x1C0)]
 
 class Inspector(object):
     
@@ -100,8 +100,11 @@ class Inspector(object):
         if keys["KEY_INSPECT_DUMP_CG"]:        # NUMPAD 8
             #i = read_game.local_client_num
             #print "Current player, pose=%x, isalive=%x|%x" % (read_game.cod7_clientinfo.arr[i].pose, read_game.cod7_entity.arr[i].isalive, read_game.cod7_entity.arr[i].isalive2)
-            print dump_obj(read_game.cgs)
-        
+            #print dump_obj(read_game.cgs)
+            mem = dumped()
+            read_game._RPM(self.env.offsets.RXCD_T, mem)
+            print dump_obj(mem)
+            
         if keys["KEY_INSPECT_DUMP_PLAYERS"]:        # NUMPAD 7
             print "local_client=%i" % read_game.local_client_num
             for i in range(PLAYERMAX):
