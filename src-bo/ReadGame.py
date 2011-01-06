@@ -44,8 +44,9 @@ class ReadGame(object):
         self.cod7_refdef = COD7_RefDef()
         self.cod7_clientinfo = COD7_ClientInfo()
         self.cod7_entity = COD7_Entity()
-        self.cg = COD7_CG_T();
-        self.cgs = COD7_CGS_T();
+        self.cg = COD7_CG_T()
+        self.cgs = COD7_CGS_T()
+        self.cod7_rcxd = COD7_RCXD()
         self.map_name = None
         self.map_name_re = re.compile("/(mp_\w+)\.d3dbsp")
         self.game_time = 0
@@ -177,6 +178,7 @@ class ReadGame(object):
             self._RPM(offsets.REFDEF - 0x158, self.cod7_refdef)
             self._RPM(offsets.ENTITY, self.cod7_entity)
             self._RPM(offsets.CLIENTINFO, self.cod7_clientinfo)
+            self._RPM(offsets.RXCD_T, self.cod7_rcxd)
             self.calc_killstreak()
             
             # sensitivity

@@ -241,6 +241,18 @@ class COD7_WeaponDesc_T(Structure):
 class COD7_WeaponDesc(Structure):
     _fields_ = [ ("arr", c_int * 2048)]
 
+
+class COD7_RCXD_T(Structure):
+    _fields_ = [ ("client_num", c_int),     # 0x00
+                 ("i1", c_int),             # 0x04
+                 ("pos", VECTOR),           # 0x08
+                 ("team", c_int),           # 0x14
+                 ("owner", c_int),          # 0x18
+                 ]                          # 0x1C
+
+class COD7_RCXD(Structure):
+    _fields_ = [ ("arr", COD7_RCXD_T * 16) ]
+
 class STR256(Structure):
     _fields_ = [ ("str", c_byte * 256)]
 # high level Player object
