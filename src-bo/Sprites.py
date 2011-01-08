@@ -2,6 +2,7 @@ from ctypes import POINTER, byref, c_float
 from Config import * #@UnusedWildImport
 from directx.d3d import IDirect3DTexture9
 from directx.d3dx import d3dxdll, D3DXVECTOR2, D3DMATRIX
+from structs import ALIVE_FLAG
 from Keys import keys
 import os
 import math
@@ -70,7 +71,7 @@ class Sprites(object):
     
     def render(self):
         read_game = self.env.read_game
-        if keys['KEY_SPH4CK_DISPLAY']:
+        if keys['KEY_SPH4CK_DISPLAY'] and read_game.is_in_game and read_game.my_player.alive & ALIVE_FLAG:
             self.draw_sprite("sph4ck", 16, read_game.resolution_y - 16, 0.0, 0xBFFFFFFF, 1.0)
     
     def get_sprite(self, model_name):
