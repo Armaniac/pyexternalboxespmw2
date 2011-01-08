@@ -92,7 +92,7 @@ class Radar(object):
             if te.type == ET_TURRET:
                 self.env.sprites.draw_sentry(cx, cy, True)
             if te.type == ET_VEHICLE:
-                self.env.sprites.draw_rcxd(cx, cy, -te.yaw + read_game.view_angles.y, True)
+                self.env.sprites.draw_rcxd_map(cx, cy, -te.yaw + read_game.view_angles.y, te.enemy)
 #            if te.type == ET_HELICOPTER:
 #                self.env.sprites.draw_heli(cx, cy, -te.yaw + read_game.view_angles.y + arrow_angle + arrow_inversion, te.planter.enemy, te.weapon_num)
 #            if te.type == ET_PLANE:

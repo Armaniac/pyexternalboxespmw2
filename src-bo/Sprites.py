@@ -22,8 +22,8 @@ SPRITES = { "claymore_mp":              "claymore.jpg",
             "supplydrop_mp":            "airdrop.jpg",
             "tabun_gas_mp":             "tabun.jpg",
             "tactical_insertion_mp":    "tact_insert.jpg",
-            "rc_car_weapon_mp":         "rcxd-hud.jpg",
-            "rc_car_weapon_mp-friend":  "rcxd-hud-friend.jpg",
+            "rc_car_weapon_mp":         "rcxd-hud-friend.jpg",
+            "rc_car_weapon_mp-enemy":   "rcxd-hud.jpg",
             "hatchet_mp":               "hatchet.jpg",
             "nightingale_mp":           "nightingale.jpg",
             "knife_mp":                 "knife.jpg",
@@ -94,7 +94,7 @@ class Sprites(object):
             frame.sprite.Draw(sprite, None, None, None, color)
             frame.sprite.End()
 
-    def draw_rcxd(self, x, y, yaw, enemy):
+    def draw_rcxd_map(self, x, y, yaw, enemy):
         sprite_name = "rcxd-friend"
         if enemy:
             sprite_name = "rcxd-enemy"

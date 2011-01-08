@@ -42,7 +42,7 @@ class Tracker(object):
                 if DEBUG: print "Track HELI entity #%i type %i weapon_id=%i, pos=%.1f|%.1f|%.1f" % (idx, e.type, te.weapon_num, e.pos.x, e.pos.y, e.pos.z)
                 #print dump_obj(e)
             if e.type == ET_VEHICLE:
-                if DEBUG: print "Track VEHICLE entity #%i type %i weapon_id=%i, pos=%.1f|%.1f|%.1f" % (idx, e.type, te.weapon_num, e.pos.x, e.pos.y, e.pos.z)
+                if DEBUG: print "Track VEHICLE entity #%i type %i weapon_id=%i, pos=%.1f|%.1f|%.1f, enemy=%i" % (idx, e.type, te.weapon_num, e.pos.x, e.pos.y, e.pos.z, enemy)
                 #print dump_obj(e)
 #            if e.type != ET_EXPLOSIVE:
 #                print "Track new entity #%i type %i corr_weap=%i" % (idx, e.type, self.env.weapon_names.get_corrected_weapon_num(e.WeaponNum))

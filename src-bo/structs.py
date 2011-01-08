@@ -298,6 +298,8 @@ class Player(object):
         
         self.entity = None
         self.client_info = None
+        
+        self.aimbot = True                      # this entity is eligible for aimbot
 
     def set_values(self, cod7_entity, cod7_clientinfo):
         self.entity = cod7_entity
@@ -337,6 +339,7 @@ class EntityTracker(object):
         self.model_name = ""                # model name
         self.planter = None                 # player who planted the explosive
         self.enemy = True                   # is entity enemy? 
+        self.aimbot = False                 # not eligible for aimbot by dfault
     
     def set_values(self, cod7_entity):
         self.pos = cod7_entity.pos
