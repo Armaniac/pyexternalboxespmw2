@@ -63,7 +63,7 @@ class Inspector(object):
                         s = "[idx=%i(%x), typ=%i, weap=%i]" % (idx, idx, e.type, e.weapon)
                         draw_string_center(frame.font, spot.x, spot.y, 0xFFFFFFFF, s)
                         print s
-                        print dump_obj(e)
+                        #print dump_obj(e)
 #                        if e.owner_scr1 >= 0 and e.owner_scr1 < 2047:
 #                            ee = read_game.mw2_entity.arr[e.owner_scr1]
 #                            print "[idx=%i(%x), typ=%i, weap=%i]" % (e.owner_scr1, e.owner_scr1, ee.type, ee.WeaponNum)
