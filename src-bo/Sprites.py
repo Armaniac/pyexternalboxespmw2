@@ -35,6 +35,11 @@ SPRITES = { "claymore_mp":              "claymore.jpg",
             "turret_drop_mp":           "turret.jpg",
             "m220_tow_drop_mp":         "valkyrie-drop.jpg",
             "m220_tow_mp":              "valkyrie.jpg",
+            "napalm_mp":                "napalm.jpg",
+            "m72_law_mp":                "nade.jpg",
+            "camera_spike_mp":           "camera.jpg",
+            "acoustic_sensor_mp":        "acoustic_sensor.jpg",
+            "strela_mp":                 "strela.jpg",
             # Compass sprites for Radar
             "COMPASS_SENTRY_FRIEND":    "sentry_friendly.png",
             "COMPASS_SENTRY_ENEMY":     "sentry_enemy.png",
@@ -42,6 +47,8 @@ SPRITES = { "claymore_mp":              "claymore.jpg",
             "sph4ck":                   "sph4ck.png",
             "rcxd-enemy":               "rcxd-enemy.png",
             "rcxd-friend":              "rcxd-friend.png",
+            
+            "GRENADE":                  "nade.jpg",
             }
 
 #HELIS = { 1181: "COMPASS_HARRIER",
@@ -79,7 +86,10 @@ class Sprites(object):
             self.draw_sprite("sph4ck", 16, read_game.resolution_y - 16, 0.0, 0xBFFFFFFF, 1.0)
     
     def get_sprite(self, model_name):
-        return self.model_sprites.get(model_name)
+        if self.env.weapon_names.is_grenade_launcher_name(model_name):
+            return self.model_sprites.get("GRENADE")
+        else:
+            return self.model_sprites.get(model_name)
 
     def draw_sprite(self, model_name, x, y, angle, color, scaling):
         frame = self.env.frame

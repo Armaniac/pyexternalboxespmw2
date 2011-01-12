@@ -167,7 +167,7 @@ F3_LABEL = "crosshair"
 F4_LABEL = "explo"
 F5_LABEL = "aimbot"
 F6_LABEL = "weapon"
-F7_LABEL = ""
+F7_LABEL = "tomabot"
 F8_LABEL = "autostab"
 F9_LABEL = ""
 F10_LABEL = "radar"
@@ -183,7 +183,7 @@ KEY_EXPLOSIVES =    		"+VK_F4"
 KEY_AIMBOT_ACTIVE =        	"+VK_F5"
 KEY_TUBEBOT_ACTIVE =       	"+VK_F5"                        # same as AIMBOT
 KEY_WEAPON_ESP =            "-VK_F6"
-KEY_KNIFEBOT_ACTIVE =      	"OFF"
+KEY_KNIFEBOT_ACTIVE =      	"-VK_F7"
 KEY_AUTOSTAB =      		"+VK_F8"
 KEY_TRIGGERBOT =    		"-OFF"
 KEY_RADAR =         		"+VK_F10"
@@ -204,8 +204,10 @@ KEY_INDIRECT_BOT = "~VK_CAPITAL"        # CAPS LOCK
 # ----------------------------------------------------------------------
 # autostab parameters
 AUTOSTAB_KEY = "V"
-AUTOSTAB_DIST = 75             # distance in 1/10th of ft
+AUTOSTAB_DIST = 75              # distance in 1/10th of ft
 AUTOSTAB_DIST_Z = 50            # max vertical distance (otherwise you try to stab people above/under you)
+AUTOSTAB_DIST_RUN = 140         # distance for autostab while running
+KEY_AUTOSTAB_RUN = "VK_LSHIFT"  # key mapped to the running key
 
 # ----------------------------------------------------------------------
 # killstreak counter
