@@ -137,6 +137,13 @@ KILLSTREAK_FONT = "Arial"
 KILLSTREAK_SIZE = 80
 KILLSTREAK_WEIGHT = 700
 # ----------------------------------------------------------------------
+# FPS display
+
+FPS_FONT_NAME = "Ariel"
+FPS_FONT_COLOR = 0xFFFFCC00
+FPS_FONT_SIZE = 20
+FPS_FONT_WEIGHT = 700
+# ----------------------------------------------------------------------
 # bot constants
 
 GRAV = 800.0
@@ -162,9 +169,9 @@ BOT_HOP_MIN_TO_CENTER = 0.05        # number of pixel to hop next target, fracti
 BOT_FRAME_COLOR = 0x6FFF0000        # color of the spot / kind of laser red spot
 KEY_BOT_DRAW_SPOT = "ON"            # shall we draw the aimbot spot?
 
-BOT_SPEED_1 = 1.8
+BOT_SPEED_1 = 6
 BOT_SPEED_TICK_1 = 15
-BOT_SPEED_2 = 1.8
+BOT_SPEED_2 = 3
 BOT_SPEED_TICK_2 = 30
 BOT_SPEED_3 = 1.8
 
@@ -226,7 +233,8 @@ KNIFE_TACTICAL_WEAPONS = (22, 36, 42)   # pistols with tactical knife enabled
 AUTOSTAB_KEY = "E"
 AUTOSTAB_DIST = 75             # distance in 1/10th of ft
 AUTOSTAB_DIST_Z = 50            # max vertical distance (otherwise you try to stab people above/under you)
-
+AUTOSTAB_DIST_RUN = 140         # distance for autostab while running
+KEY_AUTOSTAB_RUN = "VK_LSHIFT"  # key mapped to the running key
 # ----------------------------------------------------------------------
 # killstreak counter
 KEY_KILLSTREAK = "ON"           # always on
