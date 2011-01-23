@@ -18,9 +18,9 @@ CG_T               = 0x2AB98100
 CGS_T              = 0x2AC09700
 SENSITIVITY_DVAR   = 0x00E3CC54
 
-DOG_T              = 0x00C76038
-RXCD_T             = 0x00C75E78
-HELI_T             = 0x00C76AB8
+DOG_T              = 0x00C75038
+RXCD_T             = 0x00C74E78
+HELI_T             = 0x00C75AB8
 #Entities 2AC840DC
 #from D2F970
 #
