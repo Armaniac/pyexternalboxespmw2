@@ -1,5 +1,8 @@
 ExternalHack v1.6 for Call of Duty BlackOps - by sph4ck
 
+Full video trailer here: http://www.youtube.com/watch?v=Wg78711iSpc
+Big big thanks to Miffy!
+
 Full source included (guess what, it's Python).
 
 This software is NGO-Ware. If you like it, please donate to the Red Cross and PM me to let me know.
