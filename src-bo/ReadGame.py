@@ -83,7 +83,7 @@ class ReadGame(object):
         self._last_pos3 = [ VECTOR(0,0,0) for x in range(PLAYERMAX) ] #@UnusedVariable
     
     def init(self):
-        print "External Hack version 1.5 by sph4ck"
+        print "External Hack version 1.6 by sph4ck"
         print "for COD7 BlackOps"
         print "- works on Vista/Win7 with Aero theme activated"
         print

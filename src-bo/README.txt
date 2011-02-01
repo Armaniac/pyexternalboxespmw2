@@ -1,13 +1,13 @@
-ExternalHack v1.5 for Call of Duty BlackOps - by sph4ck
+ExternalHack v1.6 for Call of Duty BlackOps - by sph4ck
 
-Happy new year to all of you.
+Full source included (guess what, it's Python).
 
 This software is NGO-Ware. If you like it, please donate to the Red Cross and PM me to let me know.
 Red Cross EU: http://www.redcross-eu.net/ or Red Cross US: http://www.redcross.org/
 Thanks in advance.
 
 Before asking any questions, read these:
-*** THIS HACK IS MAY BE EVENTUALLY DETECTED: use at your own risk
+*** THIS HACK MAY BE EVENTUALLY DETECTED: use at your own risk
 *** THIS HACK DOES NOT WORK ON WINDOWS XP
 *** THIS HACK REQUIRES AERO MODE ACTIVE ON VISTA/WIN7
 *** THIS HACK REQUIRES WINDOWED GAME MODE, NO FULLSCREEN
@@ -24,23 +24,16 @@ Features
   Note: aimbot target selection is a mix between closest enemy and closest to crosshair.
   Note: tubebot allows indirect bell-curved rather than direct curve with CAPSLOCK key
 - Includes a pattern scanner, automatic offset updates when game updates
+- Works for any Python version : 2.5, 2.6, 2.7 -- from ActivePython or python.org
 
 
-Improvements over 1.0
+Improvements over 1.5
 ===========================
-- automatic aimbot adjustment to mouse sensitivity
-- Hack FPS viewer -- this the overlay FPS not the game's
-- works for any Python version : 2.5, 2.6, 2.7 -- from ActivePython or python.org
-- correct crouch/prone detection
-- Helis + Sentry BOX ESP -- no friend/enemy detection yet
-- Map background on radars
-- Visual Mouse: shows how the aimbot pushes your mouse and in which direction (disable with NUMPAD '-')
-
-Candidate features for further versions:
-- knife/tomahawk bot
-- more customized sprites for explosives
-- helis on map
-- enemy/friend detector on explosives/rcxd/dogs...
+- snaplines now really work
+- RCXD ESP including radar and friend/enemy detection
+- tomahawk bot
+- extended autostab radius while running (shift key pressed) 
+- more sprited on ESP
 
 
 Original credits for External BoxESP for MW2:
@@ -92,7 +85,7 @@ F4: Explosive ESP
 F5: Aimbot
 	Use this to get a lock on the enemy when they are near your crosshairs. (press right mouse button or HOME key)
 F6: Show weapon names
-F7: 
+F7: Tomahawk bot
 F8: Autostab - make sure the melee key is 'V' in your game
 F9: 
 F10: Radar
