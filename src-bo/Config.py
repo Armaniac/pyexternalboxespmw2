@@ -185,7 +185,7 @@ KEY_TUBEBOT_ACTIVE =       	"+VK_F5"                        # same as AIMBOT
 KEY_WEAPON_ESP =            "-VK_F6"
 KEY_KNIFEBOT_ACTIVE =      	"-VK_F7"
 KEY_AUTOSTAB =      		"+VK_F8"
-KEY_TRIGGERBOT =    		"-OFF"
+KEY_TRIGGERBOT =    		"OFF"
 KEY_RADAR =         		"+VK_F10"
 KEY_BOXESP =        		"+VK_F11"
 KEY_BOX_SNAPLINE =   		"+VK_F12"
@@ -246,7 +246,7 @@ CALIBRATING = False
 DEBUG_PRINT_WEAPON_NAMES = False
 # ----------------------------------------------------------------------
 PROFILING = False        # only used for debug profiling
-DEBUG = True
+DEBUG = False
 FAKE = False            # run without the game active
 
 
