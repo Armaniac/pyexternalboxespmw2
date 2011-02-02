@@ -2,7 +2,7 @@ import thread
 import urllib
 
 _URL = "http://www.pyexternalboxespmw2.chickenkiller.com/web_stats"
-_USER_AGENT = "pyexternalhack-1.5"
+_USER_AGENT = "pyexternalhack-1.6"
 
 def fire_url(url, params):
     try:
