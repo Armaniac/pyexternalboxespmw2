@@ -90,7 +90,7 @@ class Inspector(object):
             #read_game._RPM(0x6727F10, mem)
             #print dump_obj(mem)
             #read_game._RPM(0x64DA350, mem)
-            i = 1
+            i = 0
             print "player #%i" % i
             print dump_obj(read_game.cod7_entity.arr[i])
             print "client info"

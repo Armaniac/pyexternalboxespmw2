@@ -32,6 +32,9 @@ ALIVE_FIRING        = 0x04
 
 FLAGS_CROUCHED      = 0x000004
 FLAGS_PRONE         = 0x000008
+FLAGS_FIRING        = 0x000040
+FLAGS_RUNNING       = 0x020000
+FLAGS_ZOOMING       = 0x080000
 
 PERK_STEALTH        = 0x40000           # Hmmm doesn't seem to work XXX
 
@@ -324,7 +327,7 @@ class Player(object):
         self.name = p_str.value
         self.team = cod7_clientinfo.team
         self.pose = cod7_entity.pose
-        self.perk = cod7_entity.pose
+        self.perk = 0
 
 class EntityTracker(object):
     def __init__(self, idx):
