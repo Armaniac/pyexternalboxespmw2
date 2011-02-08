@@ -1,4 +1,4 @@
-ExternalHack v1.6 for Call of Duty BlackOps - by sph4ck
+ExternalHack v1.6.1 for Call of Duty BlackOps - by sph4ck
 
 Full video trailer here: http://www.youtube.com/watch?v=Wg78711iSpc
 Big big thanks to Miffy!
@@ -29,6 +29,10 @@ Features
 - Includes a pattern scanner, automatic offset updates when game updates
 - Works for any Python version : 2.5, 2.6, 2.7 -- from ActivePython or python.org
 
+
+Improvements over 1.6
+===========================
+- Corrected pattern scanner for BlackOps update of Feb 8th 2011
 
 Improvements over 1.5
 ===========================
