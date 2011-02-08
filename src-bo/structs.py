@@ -100,6 +100,11 @@ class COD7_RefDef(Structure):
                  ("viewAxis", VECTOR * 3),  # 0x2C
                  ]
 
+class COD7_Ammo(Structure):
+    _fields_ = [ ("weapon_id", c_int),          # 0x00
+                 ("ammo", c_int),               # 0x04
+               ]                                # 0x08
+
 class COD7_CG_T(Structure):
     _fields_ = [ ("clientNum", c_int),          # 0x00
                  ("_p00", c_char * 32),         # 0x04
@@ -123,20 +128,8 @@ class COD7_CG_T(Structure):
                  ("_p07", c_char * 20),         # 0x1FC
                  ("viewAngleY", c_float),       # 0x210
                  ("viewAngleX", c_float),       # 0x214
-                 ("_p09", c_char * 564),        # 0x218
-                 ("ammo_prim", c_int),          # 0x44C
-                 ("_p19", c_char * 4),          # 0x450
-                 ("ammo_second", c_int),        # 0x454
-                 ("_p29", c_char * 4),          # 0x458
-                 ("ammo_nade", c_int),          # 0x45C
-                 ("_p39", c_char * 4),          # 0x460
-                 ("ammo_smoke", c_int),         # 0x464
-                 ("_p49", c_char * 12),         # 0x468
-                 ("killstreak", c_int),         # 0x474
-                 ("_p59", c_char * 12),         # 0x478
-                 ("ammo_right", c_int),         # 0x484
-                 ("_p69", c_char * 4),          # 0x488
-                 ("ammo_left", c_int),          # 0x48C
+                 ("_p09", c_char * 560),        # 0x218
+                 ("ammos", COD7_Ammo * 9),      # 0x448
                  ]                              # 0x490
 
 class COD7_SNAPSHOT_T(Structure):
@@ -354,3 +347,4 @@ class EntityTracker(object):
 if __name__ == "__main__":
     print "Sizeof COD7_Entity_T is 0x%x, should be 0x328" % sizeof(COD7_Entity_T)
     print "Sizeof COD7_ClientInfo_T is 0x%x, should be 0x5C8" % sizeof(COD7_ClientInfo_T)
+    print "Sizeof COD7_CG_T is 0x%x, should be 0x490" % sizeof(COD7_CG_T)
