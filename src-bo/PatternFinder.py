@@ -1,9 +1,9 @@
-from binascii import unhexlify, hexlify
+from binascii import unhexlify
 import re
 from Config import * #@UnusedWildImport
 from ctypes import create_string_buffer, windll, byref, sizeof, c_int
 from utils import ExitingException
-from struct import unpack, pack
+from struct import unpack
 import time
 
 PATTERN_START_ADDR = 0x00401000
@@ -11,16 +11,16 @@ PATTERN_LEN = 0x00700000
 PATTERN_MATCH = unhexlify('FF')
 
 WEAPON_PTR         = 0x00c5E218
-REFDEF             = 0x2ABDAFC0
-CLIENTINFO         = 0x2ABF70E8 
-ENTITY             = 0x2AC840DC 
-CG_T               = 0x2AB98100 
-CGS_T              = 0x2AC09700
+REFDEF             = 0x2B3DAFC0
+CLIENTINFO         = 0x2B3F70E8 
+ENTITY             = 0x2B4840DC 
+CG_T               = 0x2B398100 
+CGS_T              = 0x2B409700
 SENSITIVITY_DVAR   = 0x00E3CC54
 
-DOG_T              = 0x00C75038
-RXCD_T             = 0x00C74E78
-HELI_T             = 0x00C75AB8
+DOG_T              = 0x00C76038
+RXCD_T             = 0x00C75E78
+HELI_T             = 0x00C76AB8
 #Entities 2AC840DC
 #from D2F970
 #
@@ -34,8 +34,8 @@ HELI_T             = 0x00C75AB8
 # "sensitivity" string: => A1951B, string is at +1   0xA1951C
 
 FIND_PATTERNS = { 
-                  'sensitivity_str':             ("0073656E736974697669747900",
-                                                  "FFFFFFFFFFFFFFFFFFFFFFFFFF"),
+                  'sensitivity':                 ("A100000000D9542404D94218D8C9D84018D80D",
+                                                  "FF00000000FFFFFFFFFFFFFFFFFFFFFFFFFFFF"),
                   'weapons':                     ("8B5424048B0D0000000033C08D6424003B1485000000007407403BC176F233C0C3",
                                                   "FFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFFFF"),
                   'cg_t':                        ("8B4424088B0D0000000089818C150700C3",
@@ -121,17 +121,8 @@ class PatternFinder(object):
                 time.sleep(2.0)
                 continue
             
-            print "Finding Sensitivity location, string is at location 0x%x" % self.addr['sensitivity_str']
-            sensitivity_dvar_pattern = SENSITIVITY_DVAR_PATTERN
-            sensitivity_dvar_mask = SENSITIVITY_DVAR_MASK
-            sensitivity_ptr = hexlify(pack("I", self.addr['sensitivity_str'] + 1))     # skipping leading 00
-            sensitivity_dvar_pattern = sensitivity_dvar_pattern[:2] + sensitivity_ptr + sensitivity_dvar_pattern[10:]
-            res = self._find_pattern(raw, unhexlify(sensitivity_dvar_pattern), unhexlify(sensitivity_dvar_mask))
-            if len(res) == 1:
-                sensitivity_dvar_code = PATTERN_START_ADDR + res[0]
-                print "Sensitivity DVAR code found 0x%x" % sensitivity_dvar_code
-                self.SENSITIVITY_DVAR = self._get_int_in_raw(raw, sensitivity_dvar_code + 34)
-                print "Sensitivity DVAR found 0x%x, should be 0x%x" % (self.SENSITIVITY_DVAR, SENSITIVITY_DVAR)
+            self.SENSITIVITY_DVAR = self._get_int_in_raw(raw, self.addr["sensitivity"] + 1)
+            print "Sensitivity DVAR found 0x%x, should be 0x%x" % (self.SENSITIVITY_DVAR, SENSITIVITY_DVAR)
             
             self.WEAPON_PTR = self._get_int_in_raw(raw, self.addr["weapons"] + 19)
             print "Found Weapons 0x%x, should be 0x%x" % (self.WEAPON_PTR, WEAPON_PTR)
