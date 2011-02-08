@@ -216,6 +216,6 @@ class Esp(object):
     
     def draw_distance_ESP(self, pos, x, y, color):
         distance = (pos - self.env.read_game.my_player.pos).length()
-        converted_distance = distance * DISTANCE_ESP_UNIT
+        converted_distance = int(distance * DISTANCE_ESP_UNIT)
         distance_str = "%i %s" % (converted_distance, DISTANCE_ESP_UNIT_NAME)
         draw_string_center(self.env.frame.font, x, y + 12, color, distance_str)
