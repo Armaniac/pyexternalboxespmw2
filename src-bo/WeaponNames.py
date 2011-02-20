@@ -2,7 +2,6 @@ from Config import * #@UnusedWildImport
 from ctypes import * #@UnusedWildImport
 from structs import COD7_WeaponDesc, STR256, COD7_WeaponDesc_T, AMMOMAX
 import re
-from directx.types import D3DRECT, D3DCLEAR
 from utils import draw_string_center
 
 WEAPON_PREFIX = "WEAPON_"
@@ -29,8 +28,6 @@ class WeaponNames(object):
             return
         if self.weapon_models is not None:               # already populated
             frame = self.env.frame
-            r = D3DRECT(read_game.resolution_x - 150, read_game.resolution_y - 160, read_game.resolution_x - 50, read_game.resolution_y - 140)
-            #frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, 0x7F000000, 1, 0)
             ammo_str = "%i" % self.get_ammo(self.get_current_weapon())
             draw_string_center(frame.rage_font, read_game.resolution_x - 200, read_game.resolution_y - 12, 0xE0000000, ammo_str)
             draw_string_center(frame.rage_font, read_game.resolution_x - 202, read_game.resolution_y - 14, 0xE0CFCF7F, ammo_str)
