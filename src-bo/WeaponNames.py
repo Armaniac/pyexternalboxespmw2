@@ -97,7 +97,7 @@ class WeaponNames(object):
             ammo = self.env.read_game.cg.ammos[i]
             if weaponnum == ammo.weapon_id:
                 return ammo.ammo
-        return None
+        return 0
     
     def get_frag_grenade_model(self):
         for i in range(AMMOMAX):
