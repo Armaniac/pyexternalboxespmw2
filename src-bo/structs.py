@@ -4,6 +4,7 @@ import math
 
 PLAYERMAX = 32            # number of players to loop in
 ENTITIESMAX = 1024        # total number of entities present XXX
+AMMOMAX = 16              # number of ammo slots in CG_T
 
 ET_GENERAL          = 0
 ET_PLAYER           = 1
@@ -129,7 +130,7 @@ class COD7_CG_T(Structure):
                  ("viewAngleY", c_float),       # 0x210
                  ("viewAngleX", c_float),       # 0x214
                  ("_p09", c_char * 560),        # 0x218
-                 ("ammos", COD7_Ammo * 9),      # 0x448
+                 ("ammos", COD7_Ammo * AMMOMAX),# 0x448
                  ]                              # 0x490
 
 class COD7_SNAPSHOT_T(Structure):

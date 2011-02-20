@@ -3,7 +3,7 @@ from utils import draw_string_center
 from Keys import keys
 from utils import dump_obj, mouse_move
 from ctypes import Structure, c_char
-from structs import ET_EXPLOSIVE, ENTITIESMAX, PLAYERMAX, VECTOR, ALIVE_FLAG
+from structs import ET_EXPLOSIVE, ENTITIESMAX, PLAYERMAX, VECTOR, ALIVE_FLAG, AMMOMAX
 # this module allows to inspect entities near the center crosshair
 
 class dumped(Structure):
@@ -110,6 +110,11 @@ class Inspector(object):
             for i in range(PLAYERMAX):
                 print "Player #%i: %s, Team:%i" % (i, read_game.player[i].name, read_game.player[i].team)
 
+        if keys["KEY_INSPECT_AMMO"]:
+            for i in range(AMMOMAX):
+                ammo = read_game.cg.ammos[i]
+                print "Ammo[%i] (%i)%s = %i" % (i, ammo.weapon_id, self.env.weapon_names.get_weapon_model(ammo.weapon_id), ammo.ammo)
+                
 #        if keys["KEY_INSPECT_MOVE_MOUSE"]:
 #            self.env.sched.new(self.move_sequence())
         

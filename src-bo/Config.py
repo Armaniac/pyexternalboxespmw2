@@ -131,7 +131,7 @@ BOT_MOTION_COMPENSATE = -1.5
 # below are the height of aiming for regular weapon, depending on pose
 # feet-to-eyes are 60 (stand), 40 (crouched), 20 (prone)
 # beware that having too much headshots can unbalance your stats, use EAM to reset them
-BOT_STAND_Z = 48            # or 55 for more headshots
+BOT_STAND_Z = 52            # or 55 for more headshots
 BOT_CROUCHED_Z = 38
 BOT_PRONE_Z = 10
 
@@ -144,11 +144,11 @@ BOT_HOP_MIN_TO_CENTER = 0.05        # number of pixel to hop next target, fracti
 BOT_FRAME_COLOR = 0x6FFF0000        # color of the spot / kind of laser red spot
 KEY_BOT_DRAW_SPOT = "ON"            # shall we draw the aimbot spot?
 
-BOT_SPEED_1 = 3.0
-BOT_SPEED_TICK_1 = 15
-BOT_SPEED_2 = 2.2
+BOT_SPEED_1 = 1.3
+BOT_SPEED_TICK_1 = 10
+BOT_SPEED_2 = 1.2
 BOT_SPEED_TICK_2 = 30
-BOT_SPEED_3 = 1.5
+BOT_SPEED_3 = 1.2
 
 KEY_BOT_VISUAL_MOUSE = "+VK_SUBTRACT"
 VISUAL_MOUSE_SIZE = 50            # size of the radar in pixels
@@ -176,7 +176,7 @@ F12_LABEL = "snapline"
 
 # virtual keys ON and OFF are also accepted if always on or off
 # all globs starting with IS_ are parsed and mapped to an F key or ON/OFF
-KEY_STATUS =                "+VK_F1"                        # is status display enabled
+KEY_STATUS =                "-VK_F1"                        # is status display enabled
 KEY_STATUS_UP =             "+VK_F2"                        # to select if you want the status up on the screen 
 KEY_CROSSHAIR =     		"+VK_F3"
 KEY_EXPLOSIVES =    		"+VK_F4"
@@ -233,8 +233,9 @@ KEY_INSPECT_DUMP = "!VK_NUMPAD9"
 KEY_INSPECT_DUMP_PLAYERS = "!VK_NUMPAD7"
 KEY_INSPECT_DUMP_CG = "!VK_NUMPAD8"
 KEY_INSPECT_MOVE_MOUSE = "!VK_NUMPAD5"
+KEY_INSPECT_AMMO = "!VK_NUMPAD6"
 
-KEY_INSPECT_WEAPON_NAME = "OFF"
+KEY_INSPECT_WEAPON_NAME = "VK_NUMPAD6"
 
 KEY_FPS_VIEWER = "+VK_F11"
 FPS_VIEWER_INTERVAL = 5        # number of ticks to measure the hack FPS
@@ -246,7 +247,7 @@ CALIBRATING = False
 DEBUG_PRINT_WEAPON_NAMES = False
 # ----------------------------------------------------------------------
 PROFILING = False        # only used for debug profiling
-DEBUG = False
+DEBUG = True
 FAKE = False            # run without the game active
 
 

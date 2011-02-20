@@ -1,11 +1,16 @@
 from Config import * #@UnusedWildImport
 from ctypes import * #@UnusedWildImport
-from structs import COD7_WeaponDesc, STR256, COD7_WeaponDesc_T
+from structs import COD7_WeaponDesc, STR256, COD7_WeaponDesc_T, AMMOMAX
 import re
+from directx.types import D3DRECT, D3DCLEAR
+from utils import draw_string_center
 
 WEAPON_PREFIX = "WEAPON_"
 WEAPON_LIMIT = 1750         # size of array to be read
 GRENADE_LAUNCHER_REGEXP = "(^gl_)|(^china_lake_)"
+
+FRAG_GRENADES = ("frag_grenade_mp", "sticky_grenade_mp", "hatchet_mp")
+TACT_GRENADES = ("willy_pete_mp", "concussion_grenade_mp", "flash_grenade_mp", "tabun_gas_mp", "nightingale_mp")
     
 class WeaponNames(object):
     
@@ -23,6 +28,12 @@ class WeaponNames(object):
             self.weapon_models = None
             return
         if self.weapon_models is not None:               # already populated
+            frame = self.env.frame
+            r = D3DRECT(read_game.resolution_x - 150, read_game.resolution_y - 160, read_game.resolution_x - 50, read_game.resolution_y - 140)
+            #frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, 0x7F000000, 1, 0)
+            ammo_str = "%i" % self.get_ammo(self.get_current_weapon())
+            draw_string_center(frame.rage_font, read_game.resolution_x - 200, read_game.resolution_y - 12, 0xE0000000, ammo_str)
+            draw_string_center(frame.rage_font, read_game.resolution_x - 202, read_game.resolution_y - 14, 0xE0CFCF7F, ammo_str)
             return
         
         weapons = COD7_WeaponDesc()
@@ -58,12 +69,13 @@ class WeaponNames(object):
                 for l in dump:
                     print l
                 del dump
+    def get_current_weapon(self):
+        return self.env.read_game.my_player.weapon_num
     
     def get_weapon_name(self, weaponnum):
-        if self.weapon_names is None:
-            return None
-        else:
+        if self.weapon_models is not None and weaponnum >= 0 and weaponnum < WEAPON_LIMIT:
             return self.weapon_names[weaponnum]
+        return None
     
     def get_weapon_model(self, weaponnum):
         if self.weapon_models is not None and weaponnum >= 0 and weaponnum < WEAPON_LIMIT:
@@ -80,3 +92,25 @@ class WeaponNames(object):
     
     def is_sniper_rifle(self, weaponnum):
         return False
+
+    def get_ammo(self, weaponnum):      # get the ammo left for this weapon, None if weapon is not owned
+        for i in range(AMMOMAX):
+            ammo = self.env.read_game.cg.ammos[i]
+            if weaponnum == ammo.weapon_id:
+                return ammo.ammo
+        return None
+    
+    def get_frag_grenade_model(self):
+        for i in range(AMMOMAX):
+            ammo_model = self.get_weapon_model(self.env.read_game.cg.ammos[i].weapon_id)
+            if ammo_model in FRAG_GRENADES:
+                return ammo_model;
+        return None
+        
+    def get_tact_grenade_model(self):
+        for i in range(AMMOMAX):
+            ammo_model = self.get_weapon_model(self.env.read_game.cg.ammos[i].weapon_id)
+            if ammo_model in TACT_GRENADES:
+                return ammo_model;
+        return None
+        

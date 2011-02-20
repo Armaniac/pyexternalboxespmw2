@@ -3,8 +3,6 @@ from Config import STATUS_COLOR_ACTIVE, STATUS_COLOR_INACTIVE, STATUS_COLOR_LINE
 from utils import draw_line, draw_string_left, draw_string_center
 from Keys import keys, keys_raw, KEY_TOGGLE
 import vk_codes
-from directx.types import D3DRECT, D3DCLEAR
-from ctypes import byref
 
 #
 # draw the status line
@@ -43,15 +41,6 @@ class Status(object):
             if weapon_model is not None:
                 draw_string_center(frame.rage_font, read_game.resolution_x - 250, read_game.resolution_y - 10, 0xA0FFFF00, weapon_model)
 
-        if read_game.is_in_game:
-            r = D3DRECT(read_game.resolution_x - 150, read_game.resolution_y - 160, read_game.resolution_x - 50, read_game.resolution_y - 140)
-            frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, 0x7F000000, 1, 0)
-            ammo = "%s=%i|%s=%i" % (read_game.cg.ammos[0].weapon_id,
-                                    read_game.cg.ammos[0].ammo,
-                                    read_game.cg.ammos[1].weapon_id,
-                                    read_game.cg.ammos[1].ammo,)
-            draw_string_center(frame.rage_font, read_game.resolution_x - 100, read_game.resolution_y - 150, 0xE0CFCF7F, ammo)
-        
         if keys["KEY_FPS_VIEWER"]:
             self.calc_fps()
             if self.fps > 0:
