@@ -95,7 +95,7 @@ class WeaponNames(object):
 
     def get_ammo(self, weaponnum):      # get the ammo left for this weapon, None if weapon is not owned
         if weaponnum is None:
-            return ""
+            return 0
         for i in range(AMMOMAX):
             ammo = self.env.read_game.cg.ammos[i]
             if weaponnum == ammo.weapon_id:
