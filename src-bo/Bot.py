@@ -20,6 +20,7 @@ class Bot(object):
         read_game = self.env.read_game
         frame = self.env.frame
         esp = self.env.esp
+        weapon_names = self.env.weapon_names
         self.mouse_move_x = 0
         self.mouse_move_y = 0
         if not read_game.is_in_game:
@@ -29,14 +30,18 @@ class Bot(object):
         hop = False             # is True when you are locked on a player but he was killed (by you or other)
         
         key_bot = keys["KEY_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
-#        if self.is_sniper():
-#            if (self.env.read_game.my_player.zoomed):
-#                key_bot |= keys["KEY_SNIPER_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
+        if self.is_sniper():
+            if (self.env.read_game.my_player.zoomed):
+                key_bot |= keys["KEY_SNIPER_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
+        # ammo left?
+        key_bot = key_bot and weapon_names.get_ammo(weapon_names.get_current_weapon()) > 0
         
         if self.is_tube_active() and key_bot:
             key_tubebot = keys["KEY_TUBEBOT"]
 
         key_knifebot = keys["KEY_KNIFEBOT"] and keys["KEY_KNIFEBOT_ACTIVE"]
+        # is there ammo left for knifebot?
+        key_knifebot = key_knifebot and weapon_names.get_ammo(weapon_names.get_frag_grenade()) > 0
         
         if self.player_locked and not (self.player_locked.alive & ALIVE_FLAG):
             self.player_locked = None           # if player dead, cancel locked tracking
@@ -200,7 +205,9 @@ class Bot(object):
         return x*x + y*y
                         
     def is_tube_active(self):
-        return self.env.weapon_names.is_grenade_launcher(self.env.read_game.my_player.weapon_num)
+        wn = self.env.weapon_names
+        return wn.is_grenade_launcher(wn.get_current_weapon())
     
     def is_sniper(self):
-        return self.env.weapon_names.is_sniper_rifle(self.env.read_game.my_player.weapon_num)
+        wn = self.env.weapon_names
+        return wn.is_sniper_rifle(wn.get_current_weapon())

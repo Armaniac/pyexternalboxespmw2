@@ -99,17 +99,17 @@ class WeaponNames(object):
                 return ammo.ammo
         return 0
     
-    def get_frag_grenade_model(self):
+    def get_frag_grenade(self):
         for i in range(AMMOMAX):
             ammo_model = self.get_weapon_model(self.env.read_game.cg.ammos[i].weapon_id)
             if ammo_model in FRAG_GRENADES:
-                return ammo_model;
-        return None
+                return self.env.read_game.cg.ammos[i].weapon_id
+        return 0
         
-    def get_tact_grenade_model(self):
+    def get_tact_grenade(self):
         for i in range(AMMOMAX):
             ammo_model = self.get_weapon_model(self.env.read_game.cg.ammos[i].weapon_id)
             if ammo_model in TACT_GRENADES:
-                return ammo_model;
-        return None
+                return self.env.read_game.cg.ammos[i].weapon_id
+        return 0
         
