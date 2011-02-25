@@ -44,6 +44,14 @@ class Esp(object):
                                   feet.x, feet.y, COLOR_BOX_LINE_WIDTH, p.color_esp)      # w/h ratio
                         if keys["KEY_BOXESP"]:
                             self.draw_distance_ESP(p.pos, feet.x, feet.y, COLOR_PLAYER_NAME)
+                        if keys["KEY_TRIGGERBOT"] and keys["KEY_TRIGGER_BOT_KEY"]:
+                            if p.alive & ALIVE_FLAG and p.enemy and p.pose != 0:
+                                if (read_game.screen_center_x > feet.x - size_x/4) and (read_game.screen_center_x < feet.x + size_x/4):
+                                    if (read_game.screen_center_y > feet.y - size_y) and (read_game.screen_center_y < feet.y ):
+                                        if self.env.ticks - self.last_trigger_tick > 5:
+                                            self.last_trigger_tick = self.env.ticks
+                                            windll.User32.keybd_event(ord(TRIGGER_BOT_FIRE_KEY), 0x12, 0, 0)
+                                            windll.User32.keybd_event(ord(TRIGGER_BOT_FIRE_KEY), 0x12, KEYEVENTF_KEYUP, 0)
                     else:
                         # check if we need to show enemy behind indicator
                         transform = read_game.world_to_screen_transform(p.pos)
@@ -55,14 +63,6 @@ class Esp(object):
                             else:
                                 enemy_right = True
 
-                        if keys["KEY_TRIGGERBOT"] and keys["KEY_TRIGGER_BOT_KEY"]:
-                            if p.alive & ALIVE_FLAG and p.enemy and p.pose != 0:
-                                if (read_game.screen_center_x > feet.x - size_x/4) and (read_game.screen_center_x < feet.x + size_x/4):
-                                    if (read_game.screen_center_y > feet.y - size_y) and (read_game.screen_center_y < feet.y ):
-                                        if self.env.ticks - self.last_trigger_tick > 5:
-                                            self.last_trigger_tick = self.env.ticks
-                                            windll.User32.keybd_event(ord(TRIGGER_BOT_FIRE_KEY), 0x12, 0, 0)
-                                            windll.User32.keybd_event(ord(TRIGGER_BOT_FIRE_KEY), 0x12, KEYEVENTF_KEYUP, 0)
 
                             
         if keys["KEY_ENEMY_BEHIND"] and (enemy_behind or enemy_left or enemy_right):
