@@ -5,6 +5,8 @@ import math
 PLAYERMAX = 32            # number of players to loop in
 ENTITIESMAX = 1024        # total number of entities present XXX
 AMMOMAX = 16              # number of ammo slots in CG_T
+RCXDMAX = 16
+DOGSMAX = 16
 
 ET_GENERAL          = 0
 ET_PLAYER           = 1
@@ -247,7 +249,7 @@ class COD7_RCXD_T(Structure):
                  ]                          # 0x1C
 
 class COD7_RCXD(Structure):
-    _fields_ = [ ("arr", COD7_RCXD_T * 16) ]
+    _fields_ = [ ("arr", COD7_RCXD_T * RCXDMAX) ]
 
 class COD7_DOG_T(Structure):
     _fields_ = [ ("client_num", c_int),     # 0x00
@@ -259,7 +261,7 @@ class COD7_DOG_T(Structure):
                  ]                          # 0x20
 
 class COD7_DOG(Structure):
-    _fields_ = [ ("arr", COD7_RCXD_T * 16) ]
+    _fields_ = [ ("arr", COD7_DOG_T * DOGSMAX) ]
     
 class STR256(Structure):
     _fields_ = [ ("str", c_byte * 256)]
@@ -336,10 +338,18 @@ class EntityTracker(object):
         self.model_name = ""                # model name
         self.planter = None                 # player who planted the explosive
         self.enemy = True                   # is entity enemy? 
+        
+        # following attributes mimick player attributes to make it aimbotable
         self.aimbot = False                 # not eligible for aimbot by dfault
+        self.valid = True
+        self.pose = 0                           # standard standing
+        self.newpos = VECTOR()
+        self.oldpos = VECTOR()
     
     def set_values(self, cod7_entity):
         self.pos = cod7_entity.pos
+        self.oldpos = cod7_entity.oldpos
+        self.newpos = cod7_entity.newpos
         self.yaw = cod7_entity.angley
         self.type = cod7_entity.type
         self.alive = cod7_entity.alive

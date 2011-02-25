@@ -4,6 +4,7 @@ from Keys import keys
 from utils import dump_obj, mouse_move
 from ctypes import Structure, c_char
 from structs import ET_EXPLOSIVE, ENTITIESMAX, PLAYERMAX, VECTOR, ALIVE_FLAG, AMMOMAX
+from binascii import hexlify
 # this module allows to inspect entities near the center crosshair
 
 class dumped(Structure):
@@ -122,3 +123,13 @@ class Inspector(object):
     @staticmethod
     def sq(x, y):
         return x*x + y*y
+    
+    def dump_entity(self, e_idx):
+        e = self.env.read_game.cod7_entity.arr[e_idx]
+        print "Entity[%i|0x%x)] typ=%i weap=%i(%s) alive=0x%x pos=%.2f %.2f %.2f poshex=%s" % (e_idx, e_idx,
+                                                                                    e.type, e.weapon,
+                                                                                    self.env.weapon_names.get_weapon_model(e.weapon),
+                                                                                    e.alive,
+                                                                                    e.pos.x, e.pos.y, e.pos.z,
+                                                                                    hexlify(e.pos))
+#        

@@ -1,10 +1,7 @@
-from ctypes import byref, c_float
 from Config import * #@UnusedWildImport
 from utils import draw_box, draw_line_abs, draw_string_center
 from structs import VECTOR, FLAGS_CROUCHED, FLAGS_PRONE, ET_PLAYER, ET_TURRET, ET_EXPLOSIVE, ET_HELICOPTER, ET_PLANE, PLAYERMAX, ENTITIESMAX, ALIVE_FLAG, ET_VEHICLE
-from structs import RECT
-from directx.d3d import D3DMATRIX, D3DRECT, D3DCLEAR
-from directx.d3dx import d3dxdll, D3DXVECTOR2
+from structs import RECT, DOGSMAX
 from Keys import keys
 from ctypes import windll
 
@@ -22,6 +19,9 @@ class Esp(object):
         frame = self.env.frame
         weapon_names = self.env.weapon_names
         if not read_game.is_in_game: return
+        
+        # enemy behind indicators
+        enemy_behind = enemy_left = enemy_right = False
 
         if keys["KEY_BOXESP"]:
             for idx in range(PLAYERMAX):
@@ -44,16 +44,39 @@ class Esp(object):
                                   feet.x, feet.y, COLOR_BOX_LINE_WIDTH, p.color_esp)      # w/h ratio
                         if keys["KEY_BOXESP"]:
                             self.draw_distance_ESP(p.pos, feet.x, feet.y, COLOR_PLAYER_NAME)
-#                        if keys["KEY_TRIGGERBOT"] and keys["KEY_TRIGGER_BOT_KEY"]:
-#                            if p.alive & ALIVE_FLAG and p.enemy and p.pose != 0:
-#                                if (read_game.screen_center_x > feet.x - size_x/2) and (read_game.screen_center_x < feet.x + size_x/2):
-#                                    if (read_game.screen_center_y > feet.y - size_y) and (read_game.screen_center_y < feet.y ):
-#                                        #print "try trigger bot"
-#                                        if self.env.ticks - self.last_trigger_tick > 5:
-#                                            #print "triggerbot fire"
-#                                            self.last_trigger_tick = self.env.ticks
-#                                            windll.User32.keybd_event(TRIGGER_BOT_FIRE_KEY, 0x12, 0, 0)
-#                                            windll.User32.keybd_event(TRIGGER_BOT_FIRE_KEY, 0x12, KEYEVENTF_KEYUP, 0)
+                    else:
+                        # check if we need to show enemy behind indicator
+                        transform = read_game.world_to_screen_transform(p.pos)
+                        if transform.z < 10 and p.enemy:
+                            if abs(transform.x / transform.z) < 1:
+                                enemy_behind = True
+                            elif transform.x > 0:
+                                enemy_left = True
+                            else:
+                                enemy_right = True
+
+                        if keys["KEY_TRIGGERBOT"] and keys["KEY_TRIGGER_BOT_KEY"]:
+                            if p.alive & ALIVE_FLAG and p.enemy and p.pose != 0:
+                                if (read_game.screen_center_x > feet.x - size_x/4) and (read_game.screen_center_x < feet.x + size_x/4):
+                                    if (read_game.screen_center_y > feet.y - size_y) and (read_game.screen_center_y < feet.y ):
+                                        if self.env.ticks - self.last_trigger_tick > 5:
+                                            self.last_trigger_tick = self.env.ticks
+                                            windll.User32.keybd_event(ord(TRIGGER_BOT_FIRE_KEY), 0x12, 0, 0)
+                                            windll.User32.keybd_event(ord(TRIGGER_BOT_FIRE_KEY), 0x12, KEYEVENTF_KEYUP, 0)
+
+                            
+        if keys["KEY_ENEMY_BEHIND"] and (enemy_behind or enemy_left or enemy_right):
+            sprites = self.env.sprites
+            if enemy_behind:
+                sprites.draw_sprite("down", read_game.screen_center_x, read_game.screen_center_y + ENEMY_BEHIND_Y,
+                                    0, ENEMY_BEHIND_COLOR_BLEND, ENEMY_BEHIND_SCALING)
+            if enemy_left:
+                sprites.draw_sprite("left-down", read_game.screen_center_x - ENEMY_BEHIND_X, read_game.screen_center_y + ENEMY_BEHIND_Y,
+                                    0, ENEMY_BEHIND_COLOR_BLEND, ENEMY_BEHIND_SCALING)
+            if enemy_right:
+                sprites.draw_sprite("right-down", read_game.screen_center_x + ENEMY_BEHIND_X, read_game.screen_center_y + ENEMY_BEHIND_Y,
+                                    0, ENEMY_BEHIND_COLOR_BLEND, ENEMY_BEHIND_SCALING)
+                    
 
         for idx in range(ENTITIESMAX):
             e = read_game.cod7_entity.arr[idx]
@@ -118,11 +141,23 @@ class Esp(object):
 #                            if keys["KEY_BOX_SNAPLINE"]:
 #                                draw_line_abs(frame.line, read_game.screen_center_x, read_game.resolution_y,
 #                                      feet.x, feet.y, COLOR_BOX_LINE_WIDTH, COLOR_PLANE)
-#                        
+#
+        if keys["KEY_DOGS_ESP"]:
+            for idx in range(DOGSMAX):
+                dog = read_game.cod7_dog.arr[idx]
+                client_num = dog.client_num             # the entity number holding the dog
+                if client_num > 0 and client_num < ENTITIESMAX:     # let's look the real entity
+                    e = read_game.cod7_entity.arr[client_num]
+                    if e.alive & ALIVE_FLAG:
+                        if DEBUG:
+                            print "Found living dog idx=%i, clientnum=%i, owner=%i, team=%i"
+                            self.env.inspector.dump_entity(client_num)
+                        self.env.tracker.track_dog(client_num)
+                                    
         self.loop_tracked_explo()
     
-    def calc_size_xy(self, p):
-        head_pos = VECTOR(p.pos.x, p.pos.y, p.pos.z + 60)       # eyepos of standing player
+    def calc_size_xy(self, p, height = 60):                     # eyepos of standing player
+        head_pos = VECTOR(p.pos.x, p.pos.y, p.pos.z + height)
         feet = self.env.read_game.world_to_screen(p.pos)
         head = self.env.read_game.world_to_screen(head_pos)
         size_x = 0
@@ -145,12 +180,22 @@ class Esp(object):
             return RECT(int(feet.x - size_x/2), int(feet.y - size_y), int(feet.x + size_x/2), int(feet.y))
         return None
     
+    def calc_tracked_rect(self, te, height = 20):
+        head_pos = VECTOR(te.pos.x, te.pos.y, te.pos.z + height)
+        feet = self.env.read_game.world_to_screen(te.pos)
+        head = self.env.read_game.world_to_screen(head_pos)
+        size_x = 0
+        size_y = 0
+        if feet and head:
+            size_y = feet.y - head.y
+            if size_y < 10:     size_y = 10
+            size_x = size_y                 # let's do it square
+            return RECT(int(feet.x - size_x/2), int(feet.y - size_y), int(feet.x + size_x/2), int(feet.y))
+    
     def track_explosive(self, idx):
         te = self.env.tracker.track_entity(idx)
         if te is not None and not self.env.sprites.get_sprite(te.model_name):
             if DEBUG:   print "Tracking explosive idx=%i, weapon=%i, name=%s" % (idx, te.weapon_num, te.model_name)
-#        if te and te.model_name.find("_AIRDROP_") > 0:
-#            te.endoflife = self.env.read_game.game_time + int(AIRDROP_PERSISTENCE*1000)
 
     def loop_tracked_explo(self):
         for te in self.env.tracker.get_tracked_entity_list():
@@ -159,7 +204,6 @@ class Esp(object):
 
     def draw_tracked_explo(self, te):
         read_game = self.env.read_game
-        frame = self.env.frame
 
         head_pos = VECTOR(te.pos.x, te.pos.y, te.pos.z + 10)
         feet = read_game.world_to_screen(te.pos)
@@ -167,37 +211,13 @@ class Esp(object):
         if feet and head:
             if te.model_name == "rc_car_weapon_mp" and te.enemy:
                 te.model_name = "rc_car_weapon_mp-enemy"
-            # claymore friend tracking
-#            if te.model_name == "WEAPON_CLAYMORE":
-#                if not te.planter.enemy: 
-#                    te.model_name = "WEAPON_CLAYMORE-friend"
+            if te.model_name == "claymore_mp" and te.enemy:
+                te.model_name = "claymore_mp-enemy"
             size_y = feet.y - head.y
             if size_y < 12:  size_y = 12.0
-            sprite = self.env.sprites.get_sprite(te.model_name)
-            if sprite:
-                frame.sprite.Begin(0)
-                scaling = size_y / float(_EXPLO_SPRITE_SIZE)
-                sprite_center = D3DXVECTOR2(0, 0)
-                trans = D3DXVECTOR2(feet.x - _EXPLO_SPRITE_SIZE*scaling/2, feet.y - _EXPLO_SPRITE_SIZE*scaling)
-                matrix = D3DMATRIX()
-                d3dxdll.D3DXMatrixAffineTransformation2D(byref(matrix), #@UndefinedVariable
-                                                         c_float(scaling),          # scaling
-                                                         byref(sprite_center),      # rotation center
-                                                         c_float(0),                # angle
-                                                         byref(trans)               # translation
-                                                         )
-                frame.sprite.SetTransform(matrix)
-                frame.sprite.Draw(sprite, None, None, None, COLOR_CLAYMORE_SPRITE)
-                frame.sprite.End()
+            
+            if self.env.sprites.draw_sprite(te.model_name, feet.x, feet.y, 0.0, COLOR_CLAYMORE_SPRITE, size_y / float(_EXPLO_SPRITE_SIZE)):
                 self.draw_distance_ESP(te.pos, feet.x, feet.y, COLOR_CLAYMORE_DISTANCE)
-            else:
-                r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
-                frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
-                s = "[weap=%i]" % (te.weapon_num)
-                draw_string_center(frame.font, feet.x, feet.y, 0xFFFFFFFF, s)
-                #print "unknown explosive model:%s (%i)" % (model_name, e.WeaponNum)
-                #r = D3DRECT(int(feet.x-8), int(feet.y-16), int(feet.x+8), int(feet.y))
-                #frame.device.Clear(1, byref(r), D3DCLEAR.TARGET, COLOR_CLAYMORE, 1, 0)
                 
     def get_faded_color(self, pos, color):
         if FADE_ENABLED:

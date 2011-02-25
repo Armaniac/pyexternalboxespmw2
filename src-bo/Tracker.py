@@ -22,6 +22,8 @@ class Tracker(object):
             if idx >= 0:                     # do not update if zombie object
                 te.set_values(read_game.cod7_entity.arr[te.idx])
                 if not(te.alive & ALIVE_FLAG):                # do not update if zombie object                  # go to zombie mode
+                    if DEBUG:
+                        print "Deleting tracked entity: idx=%i type=%i alive=0x%x" % (idx, te.type, te.alive)
                     del self._tracked_ent[idx]           # remove from regular list
                     if te.endoflife > 0 and te.endoflife > read_game.game_time:
                         te.idx = self.get_next_zombie_idx()   
@@ -38,6 +40,8 @@ class Tracker(object):
             te.set_values(e)
             te.enemy = enemy
             te.model_name = self.env.weapon_names.get_weapon_model(te.weapon_num)
+            if e.type == ET_EXPLOSIVE:
+                te.planter = self.find_nearest_player(te.pos)
             if e.type == ET_HELICOPTER or e.type == ET_PLANE:
                 if DEBUG: print "Track HELI entity #%i type %i weapon_id=%i, pos=%.1f|%.1f|%.1f" % (idx, e.type, te.weapon_num, e.pos.x, e.pos.y, e.pos.z)
                 #print dump_obj(e)
@@ -62,6 +66,9 @@ class Tracker(object):
                 break
         self.track_entity(idx, enemy)
         
+    def track_dog(self, idx, enemy=True):
+        self.track_entity(idx, enemy)
+        
     def find_nearest_player(self, pos):
         read_game = self.env.read_game
         dist = -1
@@ -84,3 +91,5 @@ class Tracker(object):
         Tracker._next_zombie -= 1
         return Tracker._next_zombie
     
+    def get_aimbot_tracked_entities(self):
+        return [te for te in self._tracked_ent.values() if te.aimbot]

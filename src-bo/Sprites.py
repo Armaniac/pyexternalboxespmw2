@@ -9,8 +9,8 @@ import math
 
 SPRITES_FOLDER = "sprites\\"
 
-SPRITES = { "claymore_mp":              "claymore.jpg",
-            "claymore_mp-friend":       "claymore_friend.jpg",
+SPRITES = { "claymore_mp-enemy":        "claymore.jpg",
+            "claymore_mp":              "claymore_friend.jpg",
             "satchel_charge_mp":        "c4.jpg",
             "flash_grenade_mp":         "flash.jpg",
             "frag_grenade_mp":          "grenade.jpg",
@@ -49,6 +49,11 @@ SPRITES = { "claymore_mp":              "claymore.jpg",
             "rcxd-friend":              "rcxd-friend.png",
             
             "GRENADE":                  "nade.jpg",
+            
+            # used by ESP to show enemies behind
+            "left-down":                "left-down-arrow.png",
+            "right-down":               "right-down-arrow.png",
+            "down":                     "down-arrow.png",
             }
 
 #HELIS = { 1181: "COMPASS_HARRIER",
@@ -108,6 +113,8 @@ class Sprites(object):
             frame.sprite.SetTransform(matrix)
             frame.sprite.Draw(sprite, None, None, None, color)
             frame.sprite.End()
+            return True
+        return False
 
     def draw_rcxd_map(self, x, y, yaw, enemy):
         sprite_name = "rcxd-friend"

@@ -26,11 +26,7 @@ class WeaponNames(object):
             self.weapon_names = None
             self.weapon_models = None
             return
-        if self.weapon_models is not None:               # already populated
-            frame = self.env.frame
-            ammo_str = "%i" % self.get_ammo(self.get_current_weapon())
-            draw_string_center(frame.rage_font, read_game.resolution_x - 200, read_game.resolution_y - 12, 0xE0000000, ammo_str)
-            draw_string_center(frame.rage_font, read_game.resolution_x - 202, read_game.resolution_y - 14, 0xE0CFCF7F, ammo_str)
+        if self.weapon_models is not None:
             return
         
         weapons = COD7_WeaponDesc()

@@ -56,6 +56,13 @@ PLAYER_NAME_FONT = "Arial"
 PLAYER_NAME_SIZE = 14
 PLAYER_NAME_WEIGHT = 400
 
+#
+KEY_ENEMY_BEHIND = "+VK_F12"                # same as snap line
+ENEMY_BEHIND_Y = 80                         # Y offset from center
+ENEMY_BEHIND_X = 60                         # X offset for left/right indicators
+ENEMY_BEHIND_COLOR_BLEND = 0xCFFFFFFF              # color blending of arrow sprites
+ENEMY_BEHIND_SCALING = 1.0
+
 # colors for mini-map
 MAP_COLOR_BACK = 0x00000000                 # radar back color
 MAP_COLOR_BORDER = 0x7F0000FF               # radar border color
@@ -115,6 +122,17 @@ STATUS_COLOR_LINE = 0xAF000000              # color of status line
 KEY_SPH4CK_DISPLAY = "ON"
 
 # ----------------------------------------------------------------------
+# ammo counter
+
+AMMO_COUNTER_MARGIN_RIGHT = 200
+AMMO_COUNTER_MARGIN_BOTTOM = 12
+AMMO_COUNTER_BACK_OFFSET = 2
+AMMO_COUNTER_BACK_COLOR = 0xE0000000
+AMMO_COUNTER_TEXT_COLOR = 0xE0CFCF7F
+AMMO_COUNTER_FONT_NAME = "Arial"
+AMMO_COUNTER_FONT_SIZE = 24
+AMMO_COUNTER_FONT_WEIGHT = 700
+# ----------------------------------------------------------------------
 # killstreak display
 
 KILLSTREAK_FONT = "Arial"
@@ -169,7 +187,7 @@ F5_LABEL = "aimbot"
 F6_LABEL = "weapon"
 F7_LABEL = "tomabot"
 F8_LABEL = "autostab"
-F9_LABEL = ""
+F9_LABEL = "trigbot"
 F10_LABEL = "radar"
 F11_LABEL = "boxesp"
 F12_LABEL = "snapline"
@@ -185,7 +203,7 @@ KEY_TUBEBOT_ACTIVE =       	"+VK_F5"                        # same as AIMBOT
 KEY_WEAPON_ESP =            "-VK_F6"
 KEY_KNIFEBOT_ACTIVE =      	"-VK_F7"
 KEY_AUTOSTAB =      		"+VK_F8"
-KEY_TRIGGERBOT =    		"OFF"
+KEY_TRIGGERBOT =    		"-VK_F9"
 KEY_RADAR =         		"+VK_F10"
 KEY_BOXESP =        		"+VK_F11"
 KEY_BOX_SNAPLINE =   		"+VK_F12"
@@ -200,7 +218,7 @@ KEY_KNIFEBOT = "G VK_MBUTTON"
 KEY_INDIRECT_BOT = "~VK_CAPITAL"        # CAPS LOCK
 #KEY_SNIPER_BOT = "OFF"
 
-#TRIGGER_BOT_FIRE_KEY = ord("H")         # key triggered when using triggerbot
+TRIGGER_BOT_FIRE_KEY = "H"         # key triggered when using triggerbot
 # ----------------------------------------------------------------------
 # autostab parameters
 AUTOSTAB_KEY = "V"
@@ -208,7 +226,20 @@ AUTOSTAB_DIST = 75              # distance in 1/10th of ft
 AUTOSTAB_DIST_Z = 50            # max vertical distance (otherwise you try to stab people above/under you)
 AUTOSTAB_DIST_RUN = 140         # distance for autostab while running
 KEY_AUTOSTAB_RUN = "VK_LSHIFT"  # key mapped to the running key
-
+# ----------------------------------------------------------------------
+# C4 Auto fire
+KEY_C4AUTOFIRE = "ON"
+C4AUTOFIRE_DOUBLETAP_KEY = "F"  # key to double tap to trigger C4 fire
+C4AUTOFIRE_DIST = 200           # distance in 1/10th of ft
+C4AUTOFIRE_DIST_Z = 50          # max vertical distance (otherwise you try to stab people above/under you)KILLSTREAK_FONT_NAME = "Arial"
+KEY_C4AUTOFIRE_DISPLAY = "ON"
+C4AUTOFIRE_FONT_NAME = "Arial"
+C4AUTOFIRE_FONT_SIZE = 24
+C4AUTOFIRE_FONT_WEIGHT = 700    # bold
+C4AUTOFIRE_FONT_COLOR = 0xE0DFBF00
+C4AUTOFIRE_CENTER_Y = 0
+C4AUTOFIRE_CENTER_RIGHT_X = 0
+C4AUTOFIRE_MESSAGE = "C4 Autofire"
 # ----------------------------------------------------------------------
 # killstreak counter
 KEY_KILLSTREAK = "ON"           # always on
@@ -216,14 +247,11 @@ KILLSTREAK_FONT_NAME = "Arial"
 KILLSTREAK_FONT_SIZE = 80
 KILLSTREAK_FONT_WEIGHT = 700    # bold
 KILLSTREAK_FONT_COLOR = 0x5FFFFFFF  # grey
-
+# ----------------------------------------------------------------------
+KEY_DOGS_ESP = "ON"                 # display dogs on ESP and Radar
 # ----------------------------------------------------------------------
 # Mouse inversion option: Mouse settings inverted = True; Mouse settings normal = False;
 MOUSE_INVERSION = False
-
-# ----------------------------------------------------------------------
-# airdrop marker persistence
-#AIRDROP_PERSISTENCE = 15             # number of seconds to keep airdrop marker
 
 # ----------------------------------------------------------------------
 # inspector class for debug
@@ -247,7 +275,7 @@ CALIBRATING = False
 DEBUG_PRINT_WEAPON_NAMES = False
 # ----------------------------------------------------------------------
 PROFILING = False        # only used for debug profiling
-DEBUG = True
+DEBUG = False
 FAKE = False            # run without the game active
 
 

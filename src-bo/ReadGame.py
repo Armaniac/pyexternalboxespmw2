@@ -296,15 +296,19 @@ class ReadGame(object):
     #        #print dump_obj(self.mw2_entity.arr[clientnum])
     #        return self.mw2_clientinfo.arr[owner].team
     #===========================================================================
-        
-    def world_to_screen(self, location):
+
+    def world_to_screen_transform(self, location):
         # return (x,y) or None if non visible
         pos = location - self.my_pos
         transform = VECTOR()
         transform.x = pos.dotProduct(self.view_axis[1])
         transform.y = pos.dotProduct(self.view_axis[2])
-        transform.z = pos.dotProduct(self.view_axis[0])
-        
+        transform.z = pos.dotProduct(self.view_axis[0])        
+        return transform
+            
+    def world_to_screen(self, location):
+        transform = self.world_to_screen_transform(location)
+
         if transform.z < 0.1:
             return None
         

@@ -148,6 +148,10 @@ class Frame(object):
         d3dxdll.D3DXCreateFontW(self.device, KILLSTREAK_FONT_SIZE, 0, KILLSTREAK_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(KILLSTREAK_FONT_NAME)), byref(self.killstreak_font)) #@UndefinedVariable
         self.rage_font = POINTER(ID3DXFont)()
         d3dxdll.D3DXCreateFontW(self.device, RAGE_FONT_SIZE, 0, RAGE_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(RAGE_FONT_NAME)), byref(self.rage_font)) #@UndefinedVariable
+        self.ammo_font = POINTER(ID3DXFont)()
+        d3dxdll.D3DXCreateFontW(self.device, AMMO_COUNTER_FONT_SIZE, 0, AMMO_COUNTER_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(AMMO_COUNTER_FONT_NAME)), byref(self.ammo_font)) #@UndefinedVariable
+        self.c4_font = POINTER(ID3DXFont)()
+        d3dxdll.D3DXCreateFontW(self.device, C4AUTOFIRE_FONT_SIZE, 0, C4AUTOFIRE_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(C4AUTOFIRE_FONT_NAME)), byref(self.c4_font)) #@UndefinedVariable
         
         
         self.line = POINTER(ID3DXLine)()
@@ -162,14 +166,15 @@ class Frame(object):
         d3dxdll.D3DXCreateSprite(self.device, byref(self.sprite)) #@UndefinedVariable
         
     def release_d3d(self):
-        if not self.line is None:           self.line.Release()
-        if not self.status_font is None:    self.status_font.Release()
+        if not self.line is None:               self.line.Release()
+        if not self.status_font is None:        self.status_font.Release()
         if not self.killstreak_font is None:    self.killstreak_font.Release()
-        if not self.rage_font is None:    self.rage_font.Release()
-        if not self.font is None:           self.font.Release()
-        if not self.device is None:         self.device.Release()
-        if not self.d3d is None:            self.d3d.Release()
-        if not self.sprite is None:         self.sprite.Release()
+        if not self.rage_font is None:          self.rage_font.Release()
+        if not self.ammo_font is None:          self.ammo_font.Release()
+        if not self.font is None:               self.font.Release()
+        if not self.device is None:             self.device.Release()
+        if not self.d3d is None:                self.d3d.Release()
+        if not self.sprite is None:             self.sprite.Release()
         
     def BeginPaint(self):
         read_game = self.env.read_game

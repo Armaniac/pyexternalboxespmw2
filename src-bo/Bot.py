@@ -40,6 +40,8 @@ class Bot(object):
             key_tubebot = keys["KEY_TUBEBOT"]
 
         key_knifebot = keys["KEY_KNIFEBOT"] and keys["KEY_KNIFEBOT_ACTIVE"]
+        # we limit knifebot to tomahawk right now
+        key_knifebot = key_knifebot and weapon_names.get_weapon_model(weapon_names.get_frag_grenade()) == "hatchet_mp"
         # is there ammo left for knifebot?
         key_knifebot = key_knifebot and weapon_names.get_ammo(weapon_names.get_frag_grenade()) > 0
         
@@ -50,7 +52,10 @@ class Bot(object):
         if self.player_locked and not key_bot and not key_knifebot and not key_tubebot:
             self.player_locked = None           # all tracking keys released
             
-        bot_range = read_game.player            # iterate through all players
+        bot_range = read_game.player[:]            # iterate through all players
+        # now add tracked entities
+        bot_range.extend(self.env.tracker.get_aimbot_tracked_entities())
+
         if self.player_locked:
             bot_range = [ self.player_locked ]  # only 1 item
         
@@ -62,21 +67,25 @@ class Bot(object):
         BOT_HOP_MAX_PIX_TO_CENTER = int(BOT_HOP_MIN_TO_CENTER * read_game.resolution_x)     # calculated from resolution
         #Aimbot
         for p in bot_range:                                
-            if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & ALIVE_FLAG and p.enemy:
+            if p.aimbot and p != read_game.my_player and p.valid and p.alive & ALIVE_FLAG and p.enemy:
                 aim_target = p.pos + (p.newpos - p.oldpos).scalar_mul(BOT_MOTION_COMPENSATE)
-                if key_tubebot:
-                    aim_target.z += BOT_TUBE_Z
-                elif key_knifebot:
-                    aim_target.z += BOT_KNIFE_Z
-                else:
-                    if p.pose & FLAGS_CROUCHED:
-                        aim_target.z += BOT_CROUCHED_Z
-                    elif p.pose & FLAGS_PRONE:
-                        aim_target.z += BOT_PRONE_Z
+                if p.type == ET_PLAYER:
+                    if key_tubebot:
+                        aim_target.z += BOT_TUBE_Z
+                    elif key_knifebot:
+                        aim_target.z += BOT_KNIFE_Z - 30    # 40: compensate for hand being lower than eye when throwing
                     else:
-                        aim_target.z += BOT_STAND_Z
-                
-                box = esp.calc_player_rect(p)                   # get the bounding box of player
+                        if p.pose & FLAGS_CROUCHED:
+                            aim_target.z += BOT_CROUCHED_Z
+                        elif p.pose & FLAGS_PRONE:
+                            aim_target.z += BOT_PRONE_Z
+                        else:
+                            aim_target.z += BOT_STAND_Z
+                    box = esp.calc_player_rect(p)                   # get the bounding box of player
+                else:
+                    aim_target.z += 20          # XXX for rcxd and dogs // to be refined
+                    box = esp.calc_tracked_rect(p)
+                    
                 spot = read_game.world_to_screen(aim_target)    # calculate the spot location on screen
                 player_dist = self.sq(read_game.my_pos.x - p.pos.x, read_game.my_pos.y - p.pos.y) + .1  # calculate player distance
                 if spot and box and box.left < read_game.screen_center_x and box.right > read_game.screen_center_x and box.top < read_game.screen_center_y and box.bottom > read_game.screen_center_y:

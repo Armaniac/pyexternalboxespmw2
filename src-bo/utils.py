@@ -75,6 +75,9 @@ def draw_string_left(font, x, y, w, h, color, text):
     r = RECT(int(x), int(y), int(x+w), int(y-h))
     font.DrawTextA(None, text, -1, byref(r), DT_LEFT | DT_NOCLIP | DT_SINGLELINE, color)
 
+def draw_string_right(font, x, y, w, h, color, text):
+    r = RECT(int(x-w), int(y-h), int(x), int(y))
+    font.DrawTextA(None, text, -1, byref(r), DT_RIGHT | DT_NOCLIP | DT_SINGLELINE, color)
 
 
 #
