@@ -56,7 +56,7 @@ class Esp(object):
                     else:
                         # check if we need to show enemy behind indicator
                         transform = read_game.world_to_screen_transform(p.pos)
-                        if transform.z < 10 and p.enemy:
+                        if transform.z < -10 and p.enemy:
                             distance = (p.pos - self.env.read_game.my_player.pos).length()
                             if abs(transform.x / transform.z) < 1:
                                 if distance < enemy_behind:     enemy_behind = distance
