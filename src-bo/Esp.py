@@ -7,6 +7,7 @@ from ctypes import windll
 
 KEYEVENTF_KEYUP = 0x0002
 _EXPLO_SPRITE_SIZE = 32
+INFINITY = 1e100000         # trick to backport float('inf') to python 2.5
 
 class Esp(object):
     
@@ -21,7 +22,7 @@ class Esp(object):
         if not read_game.is_in_game: return
         
         # enemy behind indicators
-        enemy_behind = enemy_left = enemy_right = False
+        enemy_behind = enemy_left = enemy_right = INFINITY
 
         if keys["KEY_BOXESP"]:
             for idx in range(PLAYERMAX):
@@ -56,26 +57,30 @@ class Esp(object):
                         # check if we need to show enemy behind indicator
                         transform = read_game.world_to_screen_transform(p.pos)
                         if transform.z < 10 and p.enemy:
+                            distance = (p.pos - self.env.read_game.my_player.pos).length()
                             if abs(transform.x / transform.z) < 1:
-                                enemy_behind = True
+                                if distance < enemy_behind:     enemy_behind = distance
                             elif transform.x > 0:
-                                enemy_left = True
+                                if distance < enemy_left:       enemy_left = distance
                             else:
-                                enemy_right = True
+                                if distance < enemy_right:      enemy_right = distance
 
 
                             
         if keys["KEY_ENEMY_BEHIND"] and (enemy_behind or enemy_left or enemy_right):
             sprites = self.env.sprites
-            if enemy_behind:
+            if enemy_behind < INFINITY:
+                color = self.get_faded_color_dist(ENEMY_BEHIND_COLOR_BLEND, enemy_behind)
                 sprites.draw_sprite("down", read_game.screen_center_x, read_game.screen_center_y + ENEMY_BEHIND_Y,
-                                    0, ENEMY_BEHIND_COLOR_BLEND, ENEMY_BEHIND_SCALING)
-            if enemy_left:
+                                    0, color, ENEMY_BEHIND_SCALING)
+            if enemy_left < INFINITY:
+                color = self.get_faded_color_dist(ENEMY_BEHIND_COLOR_BLEND, enemy_left)
                 sprites.draw_sprite("left-down", read_game.screen_center_x - ENEMY_BEHIND_X, read_game.screen_center_y + ENEMY_BEHIND_Y,
-                                    0, ENEMY_BEHIND_COLOR_BLEND, ENEMY_BEHIND_SCALING)
-            if enemy_right:
+                                    0, color, ENEMY_BEHIND_SCALING)
+            if enemy_right < INFINITY:
+                color = self.get_faded_color_dist(ENEMY_BEHIND_COLOR_BLEND, enemy_right)
                 sprites.draw_sprite("right-down", read_game.screen_center_x + ENEMY_BEHIND_X, read_game.screen_center_y + ENEMY_BEHIND_Y,
-                                    0, ENEMY_BEHIND_COLOR_BLEND, ENEMY_BEHIND_SCALING)
+                                    0, color, ENEMY_BEHIND_SCALING)
                     
 
         for idx in range(ENTITIESMAX):
@@ -219,9 +224,8 @@ class Esp(object):
             if self.env.sprites.draw_sprite(te.model_name, feet.x, feet.y, 0.0, COLOR_CLAYMORE_SPRITE, size_y / float(_EXPLO_SPRITE_SIZE)):
                 self.draw_distance_ESP(te.pos, feet.x, feet.y, COLOR_CLAYMORE_DISTANCE)
                 
-    def get_faded_color(self, pos, color):
+    def get_faded_color_dist(self, color, distance):
         if FADE_ENABLED:
-            distance = (pos - self.env.read_game.my_player.pos).length()
             # now adapt alpha level to distance
             if distance > FADE_MAX_DIST:
                 alpha = FADE_MAX_ALPHA
@@ -232,6 +236,10 @@ class Esp(object):
             return (color & 0x00FFFFFF) | (int(alpha) << 24)
         else:
             return color
+        
+    def get_faded_color(self, pos, color):
+        distance = (pos - self.env.read_game.my_player.pos).length()
+        return self.get_faded_color_dist(color, distance)
         
     
     def draw_distance_ESP(self, pos, x, y, color):
