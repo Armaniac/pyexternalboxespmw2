@@ -34,7 +34,8 @@ class Bot(object):
             if (self.env.read_game.my_player.zoomed):
                 key_bot |= keys["KEY_SNIPER_BOT"] and keys["KEY_AIMBOT_ACTIVE"]
         # ammo left?
-        key_bot = key_bot and weapon_names.get_ammo(weapon_names.get_current_weapon()) > 0
+        if weapon_names.get_current_weapon() < 1642:            # 1642 = C4 charge
+            key_bot = key_bot and weapon_names.get_ammo(weapon_names.get_current_weapon()) > 0
         
         if self.is_tube_active() and key_bot:
             key_tubebot = keys["KEY_TUBEBOT"]
