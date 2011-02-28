@@ -230,8 +230,8 @@ KEY_AUTOSTAB_RUN = "VK_LSHIFT"  # key mapped to the running key
 # C4 Auto fire
 KEY_C4AUTOFIRE = "ON"
 C4AUTOFIRE_DOUBLETAP_KEY = "F"  # key to double tap to trigger C4 fire
-C4AUTOFIRE_DIST = 200           # distance in 1/10th of ft
-C4AUTOFIRE_DIST_Z = 50          # max vertical distance (otherwise you try to stab people above/under you)KILLSTREAK_FONT_NAME = "Arial"
+C4AUTOFIRE_DIST = 150           # distance in 1/10th of ft
+C4AUTOFIRE_DIST_Z = 150          # max vertical distance (otherwise you try to stab people above/under you)KILLSTREAK_FONT_NAME = "Arial"
 KEY_C4AUTOFIRE_DISPLAY = "ON"
 C4AUTOFIRE_FONT_NAME = "Arial"
 C4AUTOFIRE_FONT_SIZE = 24
