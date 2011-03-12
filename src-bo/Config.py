@@ -248,7 +248,7 @@ GRENADECOOKING_FONT_SIZE = 24
 GRENADECOOKING_FONT_WEIGHT = 700    # bold
 GRENADECOOKING_FONT_COLOR = 0xE0DF3F00
 GRENADECOOKING_CENTER_Y = 20
-GRENADECOOKING_TIMER = 7.0
+GRENADECOOKING_TIMER = 4.7
 # ----------------------------------------------------------------------
 # killstreak counter
 KEY_KILLSTREAK = "ON"           # always on
