@@ -1,7 +1,7 @@
 import Scheduler
 import time
 import ReadGame, Frame, Radar2, Status, Keys, Inspector, Tracker, Crosshair, Esp, Bot, Rage, Killstreak, WeaponNames, Autostab, WebStats
-import Sprites, Textures, BigRadar, VisualMouse, PatternFinder, C4AutoFire, AmmoCounter
+import Sprites, Textures, BigRadar, VisualMouse, PatternFinder, C4AutoFire, AmmoCounter, GrenadeCooking
 from Config import PROFILING, MAIN_MAX_FPS
 import traceback
 from utils import ExitingException
@@ -45,6 +45,7 @@ class Main(object):
         self.autostab = Autostab.Autostab(self)
         self.killstreak = Killstreak.Killstreak(self)
         self.c4 = C4AutoFire.C4AutoFire(self)
+        self.cooking = GrenadeCooking.GrenadeCooking(self)
         self.ammo_counter = AmmoCounter.AmmoCounter(self)
         self.weapon_names = WeaponNames.WeaponNames(self)
         self.webstats = WebStats.WebStats(self)
@@ -96,6 +97,7 @@ class Main(object):
             self.ammo_counter.render()
             self.autostab.render()
             self.c4.render()
+            self.cooking.render()
             self.killstreak.render()
             self.visual_mouse.render()
             self.sprites.render()

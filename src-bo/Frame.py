@@ -152,6 +152,8 @@ class Frame(object):
         d3dxdll.D3DXCreateFontW(self.device, AMMO_COUNTER_FONT_SIZE, 0, AMMO_COUNTER_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(AMMO_COUNTER_FONT_NAME)), byref(self.ammo_font)) #@UndefinedVariable
         self.c4_font = POINTER(ID3DXFont)()
         d3dxdll.D3DXCreateFontW(self.device, C4AUTOFIRE_FONT_SIZE, 0, C4AUTOFIRE_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(C4AUTOFIRE_FONT_NAME)), byref(self.c4_font)) #@UndefinedVariable
+        self.cooking = POINTER(ID3DXFont)()
+        d3dxdll.D3DXCreateFontW(self.device, GRENADECOOKING_FONT_SIZE, 0, GRENADECOOKING_FONT_WEIGHT, 1, 0, 0, 0, 0, 0, LPCWSTR(unicode(GRENADECOOKING_FONT_NAME)), byref(self.cooking)) #@UndefinedVariable
         
         
         self.line = POINTER(ID3DXLine)()

@@ -241,6 +241,15 @@ C4AUTOFIRE_CENTER_Y = 0
 C4AUTOFIRE_CENTER_RIGHT_X = 0
 C4AUTOFIRE_MESSAGE = "C4 Autofire"
 # ----------------------------------------------------------------------
+KEY_GRENADECOOKING_ACTIVE = "ON"
+KEY_GRENADECOOKING = "!G !VK_MBUTTON"
+GRENADECOOKING_FONT_NAME = "Arial"
+GRENADECOOKING_FONT_SIZE = 24
+GRENADECOOKING_FONT_WEIGHT = 700    # bold
+GRENADECOOKING_FONT_COLOR = 0xE0DF3F00
+GRENADECOOKING_CENTER_Y = 20
+GRENADECOOKING_TIMER = 7.0
+# ----------------------------------------------------------------------
 # killstreak counter
 KEY_KILLSTREAK = "ON"           # always on
 KILLSTREAK_FONT_NAME = "Arial"
