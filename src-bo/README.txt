@@ -1,4 +1,4 @@
-ExternalHack v1.6.1 for Call of Duty BlackOps - by sph4ck
+ExternalHack v1.7 for Call of Duty BlackOps - by sph4ck
 
 Full video trailer here: http://www.youtube.com/watch?v=Wg78711iSpc
 Big big thanks to Miffy!
@@ -29,6 +29,14 @@ Features
 - Includes a pattern scanner, automatic offset updates when game updates
 - Works for any Python version : 2.5, 2.6, 2.7 -- from ActivePython or python.org
 
+Improvements over 1.7
+===========================
+- Enemy behind detector
+- Trigger bot like in MW2 version: shoots whenever the crosshair is inside an enemy boxesp - you need to map 'H' key to fire action
+- Ammo counter - useful in hardcore match
+- C4 autofire - automatically trigger C4 when an enemy is in a close radius, try not to put it behind walls that might protect the enemy
+- Grenade cooking counter
+- Corrected autostab
 
 Improvements over 1.6
 ===========================
