@@ -102,7 +102,7 @@ F5: Aimbot
 F6: Show weapon names
 F7: Tomahawk bot
 F8: Autostab - make sure the melee key is 'V' in your game
-F9: 
+F9: Triggerbot - bind the fire action to 'H' key in you game
 F10: Radar
 F11: Box Esp
 F12: Snapline
