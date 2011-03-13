@@ -162,11 +162,11 @@ BOT_HOP_MIN_TO_CENTER = 0.05        # number of pixel to hop next target, fracti
 BOT_FRAME_COLOR = 0x6FFF0000        # color of the spot / kind of laser red spot
 KEY_BOT_DRAW_SPOT = "ON"            # shall we draw the aimbot spot?
 
-BOT_SPEED_1 = 1.3
+BOT_SPEED_1 = 2.5
 BOT_SPEED_TICK_1 = 10
-BOT_SPEED_2 = 1.2
+BOT_SPEED_2 = 1.8
 BOT_SPEED_TICK_2 = 30
-BOT_SPEED_3 = 1.2
+BOT_SPEED_3 = 1.3
 
 KEY_BOT_VISUAL_MOUSE = "+VK_SUBTRACT"
 VISUAL_MOUSE_SIZE = 50            # size of the radar in pixels
@@ -194,7 +194,7 @@ F12_LABEL = "snapline"
 
 # virtual keys ON and OFF are also accepted if always on or off
 # all globs starting with IS_ are parsed and mapped to an F key or ON/OFF
-KEY_STATUS =                "-VK_F1"                        # is status display enabled
+KEY_STATUS =                "+VK_F1"                        # is status display enabled
 KEY_STATUS_UP =             "+VK_F2"                        # to select if you want the status up on the screen 
 KEY_CROSSHAIR =     		"+VK_F3"
 KEY_EXPLOSIVES =    		"+VK_F4"
