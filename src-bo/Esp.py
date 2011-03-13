@@ -49,7 +49,7 @@ class Esp(object):
                             if p.alive & ALIVE_FLAG and p.enemy and p.pose != 0:
                                 if (read_game.screen_center_x > feet.x - size_x/4) and (read_game.screen_center_x < feet.x + size_x/4):
                                     if (read_game.screen_center_y > feet.y - size_y) and (read_game.screen_center_y < feet.y ):
-                                        if self.env.ticks - self.last_trigger_tick > 5:
+                                        if self.env.ticks - self.last_trigger_tick >= TRIGGER_BOT_FIRE_TICK_DELAY:
                                             self.last_trigger_tick = self.env.ticks
                                             windll.User32.keybd_event(ord(TRIGGER_BOT_FIRE_KEY), 0x12, 0, 0)
                                             windll.User32.keybd_event(ord(TRIGGER_BOT_FIRE_KEY), 0x12, KEYEVENTF_KEYUP, 0)

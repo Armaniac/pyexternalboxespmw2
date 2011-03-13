@@ -219,6 +219,7 @@ KEY_INDIRECT_BOT = "~VK_CAPITAL"        # CAPS LOCK
 #KEY_SNIPER_BOT = "OFF"
 
 TRIGGER_BOT_FIRE_KEY = "H"         # key triggered when using triggerbot
+TRIGGER_BOT_FIRE_TICK_DELAY = 3     # number of ticks to wait between two fire actions
 # ----------------------------------------------------------------------
 # autostab parameters
 AUTOSTAB_KEY = "V"
