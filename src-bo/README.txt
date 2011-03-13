@@ -35,7 +35,7 @@ Improvements over 1.7
 - Trigger bot like in MW2 version: shoots whenever the crosshair is inside an enemy boxesp - you need to map 'H' key to fire action
 - Ammo counter - useful in hardcore match
 - C4 autofire - automatically trigger C4 when an enemy is in a close radius, try not to put it behind walls that might protect the enemy
-- Grenade cooking counter
+- Grenade cooking countdown
 - Corrected autostab
 
 Improvements over 1.6
