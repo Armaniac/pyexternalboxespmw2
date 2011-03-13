@@ -29,7 +29,7 @@ Features
 - Includes a pattern scanner, automatic offset updates when game updates
 - Works for any Python version : 2.5, 2.6, 2.7 -- from ActivePython or python.org
 
-Improvements over 1.7
+Improvements over 1.6.1
 ===========================
 - Enemy behind detector
 - Trigger bot like in MW2 version: shoots whenever the crosshair is inside an enemy boxesp - you need to map 'H' key to fire action
