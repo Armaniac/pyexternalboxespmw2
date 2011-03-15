@@ -23,7 +23,7 @@ class Autostab(object):
             for p in read_game.player:
                 if p != read_game.my_player and p.type == ET_PLAYER and p.valid and p.alive & ALIVE_FLAG and p.enemy:
                     dist = (p.pos - read_game.my_pos).length()
-                    vert_dist = abs(p.pos.z - read_game.my_pos.z - 60)
+                    vert_dist = abs(p.pos.z - read_game.my_pos.z + 60)
                     if dist < autostab_dist and vert_dist < AUTOSTAB_DIST_Z:
                         if self.env.ticks - self.last_melee_tick > 10:          # surge protector
                             self.last_melee_tick = self.env.ticks
