@@ -27,11 +27,11 @@ class AmmoCounter(object):
                 ammo_str = "%i/%i" % (wn.get_ammo(cur_wp), wn.get_ammo(cur_wp - 1))
             elif wn.get_weapon_model(cur_wp + 1) == lh_model:
                 ammo_str = "%i/%i" % (wn.get_ammo(cur_wp), wn.get_ammo(cur_wp + 1))
-        draw_string_center(frame.rage_font,
+        draw_string_center(frame.ammo_font,
                            read_game.resolution_x - AMMO_COUNTER_MARGIN_RIGHT,
                            read_game.resolution_y - AMMO_COUNTER_MARGIN_BOTTOM,
                            AMMO_COUNTER_BACK_COLOR, ammo_str)
-        draw_string_center(frame.rage_font,
+        draw_string_center(frame.ammo_font,
                            read_game.resolution_x - AMMO_COUNTER_MARGIN_RIGHT - AMMO_COUNTER_BACK_OFFSET,
                            read_game.resolution_y - AMMO_COUNTER_MARGIN_BOTTOM - AMMO_COUNTER_BACK_OFFSET,
                            AMMO_COUNTER_TEXT_COLOR, ammo_str)
