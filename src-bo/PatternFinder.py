@@ -34,12 +34,10 @@ HELI_T             = 0x00C76AB8
 # "sensitivity" string: => A1951B, string is at +1   0xA1951C
 
 FIND_PATTERNS = { 
-                  #'sensitivity':                 ("A100000000D9542404D94218D8C9D84018D80D",
-                  #                                "FF00000000FFFFFFFFFFFFFFFFFFFFFFFFFFFF"),
+                  'sensitivity':                 ("8B0D00000000D9542404D94018D8C9D84118",
+                                                  "FFFF00000000FFFFFFFFFFFFFFFFFFFFFFFF"),
                   'weapons':                     ("8B5424048B0D0000000033C08D6424003B1485000000007407403BC176F233C0C3",
                                                   "FFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFFFF"),
-                  #'cg_t':                        ("8B4424088B0D0000000089818C150700C3",
-                  #                                "FFFFFFFFFFFF00000000FFFFFFFFFFFFFF"),
                   'cg_t':                        ("8B4424088B0D000000008b5424045081",
                                                   "FFFFFFFFFFFF00000000FFFFFFFFFFFF"),
                   'cgs_t':                       ("8B4424088B0D0000000083EC24568BB481",
@@ -123,9 +121,8 @@ class PatternFinder(object):
                 time.sleep(2.0)
                 continue
             
-            self.SENSITIVITY_DVAR = 5.0
-#            self.SENSITIVITY_DVAR = self._get_int_in_raw(raw, self.addr["sensitivity"] + 1)
-#            print "Sensitivity DVAR found 0x%x, should be 0x%x" % (self.SENSITIVITY_DVAR, SENSITIVITY_DVAR)
+            self.SENSITIVITY_DVAR = self._get_int_in_raw(raw, self.addr["sensitivity"] + 2)
+            print "Sensitivity DVAR found 0x%x, should be 0x%x" % (self.SENSITIVITY_DVAR, SENSITIVITY_DVAR)
             
             self.WEAPON_PTR = self._get_int_in_raw(raw, self.addr["weapons"] + 19)
             print "Found Weapons 0x%x, should be 0x%x" % (self.WEAPON_PTR, WEAPON_PTR)
