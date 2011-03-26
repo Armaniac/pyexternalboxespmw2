@@ -31,6 +31,7 @@ Features
 
 New in 1.7.1
 ===========================
+- fixed autostab
 - Updated offsets for version of 25/03/2011
 - this is a quick fix, ammo counter and grenade countdown are broken
 
