@@ -186,10 +186,12 @@ class ReadGame(object):
             # sensitivity
             # It gives in-game mouse sensitivity.
             # It is a float from 1.0 (low sensitivity) to 30.0. Default is 5.0
-            sensitivity_ptr = self._RPM_int(offsets.SENSITIVITY_DVAR) + 24
-            self.sensitivity_raw = self._RPM_float(sensitivity_ptr)
-            #self.sensitivity_raw = self._RPM_float(SENSITIVITY_PTR)
-            self.sensitivity = self.sensitivity_raw
+            self.sensitivity = 5.0
+            if False:
+                sensitivity_ptr = self._RPM_int(offsets.SENSITIVITY_DVAR) + 24
+                self.sensitivity_raw = self._RPM_float(sensitivity_ptr)
+                #self.sensitivity_raw = self._RPM_float(SENSITIVITY_PTR)
+                self.sensitivity = self.sensitivity_raw
             if self.sensitivity < 1.0 or self.sensitivity > 30.0:
                 self.sensitivity = 5.0
                 self.sensitivity_raw = -1

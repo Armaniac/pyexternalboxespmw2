@@ -190,7 +190,7 @@ class COD7_ClientInfo_T(Structure):
                 ("iszoomed", c_int),    # 0x508
                 ("_p06", c_char * 44),  # 0x50C
                 ("weapon", c_int),      # 0x538
-                ("_p07", c_char * 140), # 0x53C
+                ("_p07", c_char * 148), # 0x53C
                ]                        # 0x5C8
 
 class COD7_Entity_T(Structure):

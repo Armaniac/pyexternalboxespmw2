@@ -14,8 +14,8 @@ WEAPON_PTR         = 0x00c5E218
 REFDEF             = 0x2B3DAFC0
 CLIENTINFO         = 0x2B3F70E8 
 ENTITY             = 0x2B4840DC 
-CG_T               = 0x2B398100 
-CGS_T              = 0x2B409700
+CG_T               = 0x2B398100 #- 2BB97D80 2B
+CGS_T              = 0x2B409700 #- 2BC09700
 SENSITIVITY_DVAR   = 0x00E3CC54
 
 DOG_T              = 0x00C76038
@@ -34,12 +34,14 @@ HELI_T             = 0x00C76AB8
 # "sensitivity" string: => A1951B, string is at +1   0xA1951C
 
 FIND_PATTERNS = { 
-                  'sensitivity':                 ("A100000000D9542404D94218D8C9D84018D80D",
-                                                  "FF00000000FFFFFFFFFFFFFFFFFFFFFFFFFFFF"),
+                  #'sensitivity':                 ("A100000000D9542404D94218D8C9D84018D80D",
+                  #                                "FF00000000FFFFFFFFFFFFFFFFFFFFFFFFFFFF"),
                   'weapons':                     ("8B5424048B0D0000000033C08D6424003B1485000000007407403BC176F233C0C3",
                                                   "FFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFFFF"),
-                  'cg_t':                        ("8B4424088B0D0000000089818C150700C3",
-                                                  "FFFFFFFFFFFF00000000FFFFFFFFFFFFFF"),
+                  #'cg_t':                        ("8B4424088B0D0000000089818C150700C3",
+                  #                                "FFFFFFFFFFFF00000000FFFFFFFFFFFFFF"),
+                  'cg_t':                        ("8B4424088B0D000000008b5424045081",
+                                                  "FFFFFFFFFFFF00000000FFFFFFFFFFFF"),
                   'cgs_t':                       ("8B4424088B0D0000000083EC24568BB481",
                                                   "FFFFFFFFFFFF00000000FFFFFFFFFFFFFF"),
                   'entities':                    ("8B4424083D000400008B4C24047C198B1500000000C1E10903C8",
@@ -102,7 +104,7 @@ class PatternFinder(object):
             cg_t_ptr = self._get_int_in_raw(raw, self.addr["cg_t"] + 6)
             self.CG_T = self._RPM_int(process_handle, cg_t_ptr)
             print "Found CG_T ptr 0x%x and 0x%x, should be 0x%x" % (cg_t_ptr, self.CG_T, CG_T)
-            self.REFDEF = self.CG_T + 0x42EC0
+            self.REFDEF = self.CG_T + 0x43100#+ 0x42EC0
             print "Calculated REFDEF 0x%x, should be 0x%x" % (self.REFDEF, REFDEF)
             
             cgs_t_ptr = self._get_int_in_raw(raw, self.addr["cgs_t"] + 6)
@@ -121,8 +123,9 @@ class PatternFinder(object):
                 time.sleep(2.0)
                 continue
             
-            self.SENSITIVITY_DVAR = self._get_int_in_raw(raw, self.addr["sensitivity"] + 1)
-            print "Sensitivity DVAR found 0x%x, should be 0x%x" % (self.SENSITIVITY_DVAR, SENSITIVITY_DVAR)
+            self.SENSITIVITY_DVAR = 5.0
+#            self.SENSITIVITY_DVAR = self._get_int_in_raw(raw, self.addr["sensitivity"] + 1)
+#            print "Sensitivity DVAR found 0x%x, should be 0x%x" % (self.SENSITIVITY_DVAR, SENSITIVITY_DVAR)
             
             self.WEAPON_PTR = self._get_int_in_raw(raw, self.addr["weapons"] + 19)
             print "Found Weapons 0x%x, should be 0x%x" % (self.WEAPON_PTR, WEAPON_PTR)
