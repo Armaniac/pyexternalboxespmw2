@@ -1,4 +1,4 @@
-ExternalHack v1.7 for Call of Duty BlackOps - by sph4ck
+ExternalHack v1.7.1 for Call of Duty BlackOps - by sph4ck
 
 Full video trailer here: http://www.youtube.com/watch?v=Wg78711iSpc
 Big big thanks to Miffy!
@@ -29,7 +29,12 @@ Features
 - Includes a pattern scanner, automatic offset updates when game updates
 - Works for any Python version : 2.5, 2.6, 2.7 -- from ActivePython or python.org
 
-Improvements over 1.6.1
+New in 1.7.1
+===========================
+- Updated offsets for version of 25/03/2011
+- this is a quick fix, ammo counter and grenade countdown are broken
+
+New in 1.7
 ===========================
 - Enemy behind detector
 - Trigger bot like in MW2 version: shoots whenever the crosshair is inside an enemy boxesp - you need to map 'H' key to fire action
@@ -38,11 +43,11 @@ Improvements over 1.6.1
 - Grenade cooking countdown
 - Corrected autostab
 
-Improvements over 1.6
+New in 1.6.1
 ===========================
 - Corrected pattern scanner for BlackOps update of Feb 8th 2011
 
-Improvements over 1.5
+New in 1.6
 ===========================
 - snaplines now really work
 - RCXD ESP including radar and friend/enemy detection
