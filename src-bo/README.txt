@@ -1,4 +1,4 @@
-ExternalHack v1.7.1 for Call of Duty BlackOps - by sph4ck
+ExternalHack v1.7.2 for Call of Duty BlackOps - by sph4ck
 
 Full video trailer here: http://www.youtube.com/watch?v=Wg78711iSpc
 Big big thanks to Miffy!
@@ -28,6 +28,10 @@ Features
   Note: tubebot allows indirect bell-curved rather than direct curve with CAPSLOCK key
 - Includes a pattern scanner, automatic offset updates when game updates
 - Works for any Python version : 2.5, 2.6, 2.7 -- from ActivePython or python.org
+
+New in 1.7.2
+===========================
+- included 4 new maps from DLC
 
 New in 1.7.1
 ===========================
