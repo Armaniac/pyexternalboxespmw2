@@ -104,7 +104,7 @@ class PatternFinder(object):
             cg_t_ptr = self._get_int_in_raw(raw, self.addr["cg_t"] + 6)
             self.CG_T = self._RPM_int(process_handle, cg_t_ptr)
             print "Found CG_T ptr 0x%x and 0x%x, should be 0x%x" % (cg_t_ptr, self.CG_T, CG_T)
-            self.REFDEF = self.CG_T + 0x43100#+ 0x42EC0
+            self.REFDEF = self.CG_T + 0x43100
             print "Calculated REFDEF 0x%x, should be 0x%x" % (self.REFDEF, REFDEF)
             
             cgs_t_ptr = self._get_int_in_raw(raw, self.addr["cgs_t"] + 6)
@@ -114,7 +114,7 @@ class PatternFinder(object):
             entities_ptr = self._get_int_in_raw(raw, self.addr["entities"] + 49)
             self.ENTITY = self._RPM_int(process_handle, entities_ptr)
             print "Found ENTITIES ptr 0x%x and 0x%x, should be 0x%x" % (entities_ptr, self.ENTITY, ENTITY)
-            self.CLIENTINFO = self.ENTITY - 0x8CFF4
+            self.CLIENTINFO = self.CG_T + 0x5F228
             print "Calculated CLIENTINFO 0x%x, should be 0x%x" % (self.CLIENTINFO, CLIENTINFO)
             
             if self.CG_T == 0 or self.CGS_T == 0 or self.ENTITY == 0:
