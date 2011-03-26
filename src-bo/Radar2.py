@@ -35,7 +35,8 @@ class Radar(object):
         pos = read_game.my_pos
         
         map_name = read_game.map_name               # name of the current map
-        p_matrix = textures.matrix[map_name]          # transformation matrix (scale + rotation)
+        p_matrix = textures.matrix.get(map_name)          # transformation matrix (scale + rotation)
+        if p_matrix is None:    return              # unsupported map
         transl = textures.translations[map_name]    # translation vector to correct with map origin
         map_pos = VECTOR()                          # contains the coord on the map (with applied scaling)
         map_pos.x = scaling * (transl[0] + p_matrix[0]*pos.x + p_matrix[1]*pos.y)
