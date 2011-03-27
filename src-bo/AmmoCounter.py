@@ -14,7 +14,6 @@ class AmmoCounter(object):
         wn = self.env.weapon_names
         frame = self.env.frame
         
-        return      # currently broken
         if not read_game.is_in_game:    return
         if wn.weapon_models is None:    return
 

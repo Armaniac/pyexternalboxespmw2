@@ -16,7 +16,6 @@ class GrenadeCooking(object):
         wn = self.env.weapon_names
         frame = self.env.frame
         
-        return      # broken
         if not read_game.is_in_game:
             self.reinit()
             return

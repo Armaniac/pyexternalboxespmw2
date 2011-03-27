@@ -131,7 +131,7 @@ class COD7_CG_T(Structure):
                  ("_p07", c_char * 20),         # 0x1FC
                  ("viewAngleY", c_float),       # 0x210
                  ("viewAngleX", c_float),       # 0x214
-                 ("_p09", c_char * 560),        # 0x218
+                 ("_p09", c_char * 620),        # 0x218
                  ("ammos", COD7_Ammo * AMMOMAX),# 0x448
                  ]                              # 0x490
 
