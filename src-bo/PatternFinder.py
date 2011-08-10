@@ -34,8 +34,8 @@ HELI_T             = 0x00C76AB8
 # "sensitivity" string: => A1951B, string is at +1   0xA1951C
 
 FIND_PATTERNS = { 
-                  'sensitivity':                 ("8B0D00000000D9542404D94018D8C9D84118",
-                                                  "FFFF00000000FFFFFFFFFFFFFFFFFFFFFFFF"),
+                  'sensitivity':                 ("8B0D00000000D91424D94018D8C9D84118",
+                                                  "FFFF00000000FFFFFFFFFFFFFFFFFFFFFF"),
                   'weapons':                     ("8B5424048B0D0000000033C08D6424003B1485000000007407403BC176F233C0C3",
                                                   "FFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFFFF"),
                   'cg_t':                        ("8B4424088B0D000000008b5424045081",
